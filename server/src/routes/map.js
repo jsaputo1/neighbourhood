@@ -15,11 +15,3 @@ module.exports = db => {
 
   return router;
 };
-
-
-
-// SELECT listings.*, favorites.*
-//   FROM favorites;
-// JOIN listings ON favorites.listing_id = listings.id;
-// JOIN buyers ON favorites.buyer_id = buyers.id;
-// WHERE buyers.email = $1;

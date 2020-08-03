@@ -52,8 +52,6 @@ module.exports = function application(
   app.use("/map", mapRoutes(db));
   app.use("/subscriptions", subscriptionRoutes(db));
 
-
-
   Promise.all([
     read(path.resolve(__dirname, `db/schema/create.sql`)),
     read(path.resolve(__dirname, `db/schema/${ENV}.sql`))
