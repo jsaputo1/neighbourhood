@@ -7,14 +7,8 @@ const cors = require("cors");
 const app = express();
 const db = require("./db");
 
-//Routes
-
-// const days = require("./routes/days");
-// app.use("/api", days(db));
+//Route path variables
 const indexRoutes = require("./routes/index");
-app.use("/", indexRoutes);
-
-//End of routes
 
 function read(file) {
   return new Promise((resolve, reject) => {
@@ -38,6 +32,10 @@ module.exports = function application(
   app.use(cors());
   app.use(helmet());
   app.use(bodyparser.json());
+
+  //Routes
+  // app.use("/api", days(db));
+  app.use("/", indexRoutes);
 
   Promise.all([
     read(path.resolve(__dirname, `db/schema/create.sql`)),
