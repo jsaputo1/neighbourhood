@@ -25,6 +25,8 @@ function read(file) {
 //Route path variables
 const indexRoutes = require("./routes/index");
 const neighbourhoodRoutes = require("./routes/neighbourhood");
+const userRoutes = require("./routes/users");
+
 
 module.exports = function application(
   ENV,
@@ -38,6 +40,8 @@ module.exports = function application(
   // app.use("/api", days(db));
   app.use("/", indexRoutes);
   app.use("/neighbourhood", neighbourhoodRoutes(db));
+  app.use("/users", userRoutes(db));
+
 
 
   Promise.all([
