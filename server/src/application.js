@@ -7,9 +7,6 @@ const cors = require("cors");
 const app = express();
 const db = require("./db");
 
-//Route path variables
-const indexRoutes = require("./routes/index");
-
 function read(file) {
   return new Promise((resolve, reject) => {
     fs.readFile(
@@ -25,6 +22,10 @@ function read(file) {
   });
 }
 
+//Route path variables
+const indexRoutes = require("./routes/index");
+const neighbourhoodRoutes = require("./routes/neighbourhood");
+
 module.exports = function application(
   ENV,
   // actions = { updateAppointment: () => { } }
@@ -36,6 +37,8 @@ module.exports = function application(
   //Routes
   // app.use("/api", days(db));
   app.use("/", indexRoutes);
+  app.use("/neighbourhood", neighbourhoodRoutes(db));
+
 
   Promise.all([
     read(path.resolve(__dirname, `db/schema/create.sql`)),
