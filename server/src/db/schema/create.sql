@@ -12,26 +12,32 @@ DROP TABLE IF EXISTS neighbourhoods CASCADE;
 
 CREATE TABLE neighbourhoods (
  id SERIAL PRIMARY KEY NOT NULL,
- name VARCHARR(55) NOT NULL,
- time_created TIMESTAMPZ NOT NULL,
+ name VARCHAR(55) NOT NULL,
+ time_created TIMESTAMPTZ NOT NULL,
  coordinates POINT NOT NULL,
- neighbourhood_photo VARCHARR(255)
+ neighbourhood_photo VARCHAR(255)
 );
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
   neighbourhood_id INTEGER REFERENCES neighbourhoods(id) ON DELETE CASCADE,
-  email VARCHARR(55) NOT NULL,
+  email VARCHAR(55) NOT NULL,
   password VARCHAR (55) NOT NULL,
-  time_created TIMESTAMPZ NOT NULL,
+  time_created TIMESTAMPTZ NOT NULL,
   coordinates POINT NOT NULL,
-  first_name VARCHARR(55) NOT NULL,
-  last_name VARCHARR(55) NOT NULL,
-  phone_number VARCHARR(11),
-  profile_photo VARCHARR(255),
-  last_logout TIMESTAMPZ,
+  first_name VARCHAR(55) NOT NULL,
+  last_name VARCHAR(55) NOT NULL,
+  phone_number VARCHAR(11),
+  profile_photo VARCHAR(255),
+  last_logout TIMESTAMPTZ,
   bio TEXT,
-  alert_types TEXT NOT NULL SET DEFAULT "none"
+  alert_types TEXT
+);
+
+CREATE TABLE categories (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(55) NOT NULL,
+  category_type TEXT NOT NULL
 );
 
 -- do all events require coordinates?? NOT NULL ???
@@ -39,13 +45,13 @@ CREATE TABLE events (
  id SERIAL PRIMARY KEY NOT NULL,
  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
- title VARCHARR(55) NOT NULL,
+ title VARCHAR(55) NOT NULL,
  coordinates POINT,
- time_created TIMESTAMPZ NOT NULL,
+ time_created TIMESTAMPTZ NOT NULL,
  description TEXT NOT NULL,
- event_start TIMESTAMPZ NOT NULL,
- event_end TIMESTAMPZ NOT NULL,
- event_photo VARCHARR(255)
+ event_start TIMESTAMPTZ NOT NULL,
+ event_end TIMESTAMPTZ NOT NULL,
+ event_photo VARCHAR(255)
 );
 
 -- do all alerts have locations/coordinates?
@@ -53,11 +59,11 @@ CREATE TABLE alerts (
  id SERIAL PRIMARY KEY NOT NULL,
  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
- title VARCHARR(55) NOT NULL,
+ title VARCHAR(55) NOT NULL,
  coordinates POINT,
- time_created TIMESTAMPZ NOT NULL,
+ time_created TIMESTAMPTZ NOT NULL,
  description TEXT NOT NULL,
- alert_photo VARCHARR(255)
+ alert_photo VARCHAR(255)
 );
 
 -- location??? all of them??
@@ -65,18 +71,12 @@ CREATE TABLE services (
  id SERIAL PRIMARY KEY NOT NULL,
  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
- service_offer? BOOLEAN NOT NULL,
- title VARCHARR(55) NOT NULL,
+ service_offer BOOLEAN NOT NULL,
+ title VARCHAR(55) NOT NULL,
  coordinates POINT,
- time_created TIMESTAMPZ NOT NULL,
+ time_created TIMESTAMPTZ NOT NULL,
  description TEXT NOT NULL,
- service_photo VARCHARR(255)
-);
-
-CREATE TABLE categories (
-  id SERIAL PRIMARY KEY NOT NULL,
-  name VARCHARR(55) NOT NULL,
-  category_type NOT NULL
+ service_photo VARCHAR(255)
 );
 
 CREATE TABLE subscriptions (
@@ -91,7 +91,7 @@ CREATE TABLE subscriptions (
 CREATE TABLE conversations (
 id SERIAL PRIMARY KEY NOT NULL,
 user_one INTEGER REFERENCES users(id) ON DELETE CASCADE,
-user_two INTEGER REFERENCES users(id) ON DELETE CASCADE,
+user_two INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
 
 
@@ -99,5 +99,5 @@ CREATE TABLE messages (
     id SERIAL PRIMARY KEY NOT NULL,
     sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     message_text TEXT NOT NULL,
-    time_sent TIMESTAMPZ NOT NULL
+    time_sent TIMESTAMPTZ NOT NULL
 );
