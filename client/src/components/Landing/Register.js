@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 
@@ -16,21 +16,39 @@ import Parallax from "./Material-kit-components/Parallax.js";
 //Our own style sheet
 import "../../styles.scss";
 
+
+
+
+
+
+
 const useStyles = makeStyles(styles);
+
 
 function Register(props) {
 
   const [neighbourhoodRedirect, setneighbourhoodRedirect] = useState(false);
+  const [coordinates, setCoordinates] = useState({ longitude: null, latitude: null });
+
   const classes = useStyles();
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(e => {
+      setCoordinates({
+        longitude: e.coords.longitude,
+        latitude: e.coords.latitude
+      });
+    });
+  }, []);
 
   const onSubmitHandler = function (event) {
     event.preventDefault();
-    console.log("Submit Button Clicked");
     registerUser({
       firstName: event.target.elements['formBasicFirstname'].value,
       lastName: event.target.elements['formBasicLastname'].value,
       email: event.target.elements['formBasicEmail'].value,
-      password: event.target.elements['formBasicPassword'].value
+      password: event.target.elements['formBasicPassword'].value,
+      coordinates
     });
   };
 
