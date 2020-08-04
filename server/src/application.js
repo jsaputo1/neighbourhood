@@ -7,9 +7,6 @@ const cors = require("cors");
 const app = express();
 const db = require("./db");
 
-//Route path variables
-const indexRoutes = require("./routes/index");
-
 function read(file) {
   return new Promise((resolve, reject) => {
     fs.readFile(
@@ -25,6 +22,17 @@ function read(file) {
   });
 }
 
+//Route path variables
+const indexRoutes = require("./routes/index");
+const neighbourhoodRoutes = require("./routes/neighbourhood");
+const userRoutes = require("./routes/users");
+const eventRoutes = require("./routes/events");
+const serviceRoutes = require("./routes/services");
+const alertRoutes = require("./routes/alerts");
+const messageRoutes = require("./routes/messages");
+const mapRoutes = require("./routes/map");
+const subscriptionRoutes = require("./routes/subscriptions");
+
 module.exports = function application(
   ENV,
   // actions = { updateAppointment: () => { } }
@@ -34,8 +42,15 @@ module.exports = function application(
   app.use(bodyparser.json());
 
   //Routes
-  // app.use("/api", days(db));
   app.use("/", indexRoutes);
+  app.use("/neighbourhood", neighbourhoodRoutes(db));
+  app.use("/users", userRoutes(db));
+  app.use("/events", eventRoutes(db));
+  app.use("/services", serviceRoutes(db));
+  app.use("/alerts", alertRoutes(db));
+  app.use("/messages", messageRoutes(db));
+  app.use("/map", mapRoutes(db));
+  app.use("/subscriptions", subscriptionRoutes(db));
 
   Promise.all([
     read(path.resolve(__dirname, `db/schema/create.sql`)),

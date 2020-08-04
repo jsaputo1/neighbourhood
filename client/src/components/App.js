@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/App.css";
+import "../styles.scss";
 import Nav from "./Nav/Nav";
 import Events from "./Events/Events";
 import Services from "./Services/Services";
