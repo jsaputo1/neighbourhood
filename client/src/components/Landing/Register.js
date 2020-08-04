@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
+import axios from "axios";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -17,13 +19,41 @@ import "../../styles.scss";
 const useStyles = makeStyles(styles);
 
 function Register(props) {
+
+  const [neighbourhoodRedirect, setneighbourhoodRedirect] = useState(false);
   const classes = useStyles();
+
+  const onSubmitHandler = function (event) {
+    event.preventDefault();
+    console.log("Submit Button Clicked");
+    registerUser({
+      firstName: event.target.elements['formBasicFirstname'].value,
+      lastName: event.target.elements['formBasicLastname'].value,
+      email: event.target.elements['formBasicEmail'].value,
+      password: event.target.elements['formBasicPassword'].value
+    });
+  };
+
+  const registerUser = function (registrationData) {
+    axios.post("/users/register", registrationData)
+      .then(() =>
+        setneighbourhoodRedirect(true)
+      )
+      .catch((err) => {
+        alert("E-Mail is already registered");
+      });
+  };
+
+  if (neighbourhoodRedirect) {
+    return (
+      <Redirect to="/login" />);
+  }
 
   return (
     <div>
       <Parallax filter image={require("../../assets/img/neighbours.jpg")}>
         <div className={classes.containerLogin}>
-          <Form>
+          <Form onSubmit={onSubmitHandler}>
             <Form.Group controlId="formBasicFirstname">
               <Form.Label>First Name</Form.Label>
               <Form.Control type="firstname" placeholder="First name" />
