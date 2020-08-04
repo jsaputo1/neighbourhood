@@ -20,8 +20,10 @@ module.exports = db => {
       request.body.firstName,
       request.body.email,
       request.body.lastName,
-      request.body.password
+      request.body.password,
+      `(${request.body.coordinates.latitude}, ${request.body.coordinates.longitude})`
     ];
+
     findUserByEmail(request.body.email)
       .then((user) => {
         if (user) {
@@ -29,8 +31,8 @@ module.exports = db => {
         } else {
           db.query(
             `
-        INSERT INTO users (first_name, email, last_name, password)
-        VALUES ($1, $2, $3, $4)
+        INSERT INTO users (first_name, email, last_name, password, coordinates)
+        VALUES ($1, $2, $3, $4, $5)
         RETURNING *;
           `, values
           )
