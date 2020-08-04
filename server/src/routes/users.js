@@ -35,7 +35,7 @@ module.exports = db => {
           `, values
           )
             .then((data) => {
-              response.status(200);
+              response.status(200).end();
               console.log("User registered successfully with the following values", data.rows);
             });
         }
