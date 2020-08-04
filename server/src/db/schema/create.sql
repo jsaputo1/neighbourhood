@@ -106,3 +106,4 @@ CREATE TABLE messages (
 );
 
 Commit;
+
