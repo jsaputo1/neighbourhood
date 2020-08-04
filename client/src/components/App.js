@@ -14,11 +14,7 @@ import Register from "./Landing/Register";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
-  const LandingPage = () => (
-    <div>
-      <Route path="/" exact component={Landing} />
-    </div>
-  );
+  //That is going to be our main app, once we log in or sign in
   const Website = () => (
     <div classname="App">
       <Nav />
@@ -36,9 +32,12 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact component={LandingPage} />
+        {/* These are the path were we don't want to see the navbar */}
+        <Route path="/" exact component={Landing} />
         <Route path="/login" exact component={Login} />
         <Route path="/register" exact component={Register} />
+
+        {/* These are the paths were we will see the navbar */}
         <Route component={Website} />
       </Switch>
     </Router>

@@ -1,3 +1,4 @@
+//This is the style sheet that overwritte the styles of the Material UI components
 import { createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({

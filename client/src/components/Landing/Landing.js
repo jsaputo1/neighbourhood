@@ -33,12 +33,7 @@ function Landing(props) {
               <br />
               <div className="button-container">
                 <div className="button">
-                  <Button
-                    className="button"
-                    variant="contained"
-                    color="primary"
-                    href="/login"
-                  >
+                  <Button variant="contained" color="primary" href="/login">
                     Login
                   </Button>
                 </div>
