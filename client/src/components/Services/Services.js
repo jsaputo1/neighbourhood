@@ -80,8 +80,15 @@ function Services() {
     });
   };
 
+  const requestOrOffer = function (bool) {
+    if (bool) return (<p><i>"This is an OFFER. We can change this to an icon or colour change during styling"</i></p>)
+    return (<p><i>"This is a REQUEST. We can change this to an icon or colour change during styling."</i></p>)
+  };
+
 
   const filterServices = function (services, filter) {
+
+    console.log('SERVICES', services)
     if (!filter) {
       return services;
     }
@@ -89,9 +96,6 @@ function Services() {
     return services.filter(service => service.category_id === selected[0].id)
   };
 
-
-
-  // const renderServices = 
 
   const classes = useStyles();
 
@@ -152,6 +156,9 @@ function Services() {
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p">
                           {service.description}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                          {requestOrOffer(service.service_offer)}
                         </Typography>
                       </CardContent>
 
