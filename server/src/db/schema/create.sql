@@ -106,3 +106,19 @@ CREATE TABLE messages (
 );
 
 Commit;
+
+
+
+--   SELECT services.*, users.first_name, users.last_name, users.profile_photo
+--       FROM services
+--       JOIN users
+--       ON services.user_id = users.id;
+
+
+
+-- select services.category_id, services.title, categories.name
+-- FROM services
+-- RIGHT JOIN categories
+-- ON services.category_id = categories.id
+-- WHERE categories.category_type = 'Services'
+-- ORDER BY categories.id;
