@@ -46,7 +46,7 @@ function Register(props) {
 
   if (neighbourhoodRedirect) {
     return (
-      <Redirect to="/login" />);
+      <Redirect to="/selectNeighbourhood" />);
   }
 
   return (
