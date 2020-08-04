@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { findUserEmail } = require("../helpers/findUserEmail");
 
 module.exports = db => {
 
@@ -21,17 +22,22 @@ module.exports = db => {
       request.body.email,
       request.body.password
     ];
-    console.log("Request Body", request.body);
-    db.query(
-      `
-      INSERT INTO users (first_name, email, last_name, password)
-      VALUES ($1, $2, $3, $4)
-      RETURNING *;
-      `, values
-    ).then((data) => {
-      console.log("User registered with the following values", data.rows);
-      // response.redirect("/selectNeighbourhood");
-    });
+    findUserEmail('jsaputo1@gmail.com')
+      .then(() => {
+        db.query(
+          `
+        INSERT INTO users (first_name, email, last_name, password)
+        VALUES ($1, $2, $3, $4)
+        RETURNING *;
+          `, values
+        )
+          .then((data) => {
+            console.log("User registered successfully with the following values", data.rows);
+          });
+      })
+      .catch((err) => {
+        response.status(406).json({ error: err.message });
+      });
   });
 
   router.post("/addNeighbourhood", (request, response) => {
@@ -43,7 +49,6 @@ module.exports = db => {
       `, neighbourhoodID
     ).then(({ rows: idAdded }) => {
       console.log("Neighbourhood ID added is:", idAdded);
-      response.redirect("/index");
     });
   });
 
