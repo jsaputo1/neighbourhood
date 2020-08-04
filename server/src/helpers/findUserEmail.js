@@ -1,6 +1,6 @@
 const db = require("../db");
 
-const findUserEmail = function (email) {
+const findUserByEmail = function (email) {
   return db.query(
     `
     SELECT *
@@ -8,13 +8,11 @@ const findUserEmail = function (email) {
     WHERE email = $1;
   `, [email]
   ).then((results) => {
-    if (results.rows.length >= 1) {
-      throw new Error("Email already registered");
-    }
+    return results.rows[0];
   });
 };
 
 module.exports = {
-  findUserEmail
+  findUserByEmail
 };
 

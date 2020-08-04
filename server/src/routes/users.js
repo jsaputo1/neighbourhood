@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { findUserEmail } = require("../helpers/findUserEmail");
+const { findUserByEmail } = require("../helpers/findUserEmail");
 
 module.exports = db => {
 
@@ -18,25 +18,27 @@ module.exports = db => {
   router.post("/register", (request, response) => {
     const values = [
       request.body.firstName,
-      request.body.lastName,
       request.body.email,
+      request.body.lastName,
       request.body.password
     ];
-    findUserEmail('jsaputo1@gmail.com')
-      .then(() => {
-        db.query(
-          `
+    findUserByEmail(request.body.email)
+      .then((user) => {
+        if (user) {
+          response.status(406).send("user already registered");
+        } else {
+          db.query(
+            `
         INSERT INTO users (first_name, email, last_name, password)
         VALUES ($1, $2, $3, $4)
         RETURNING *;
           `, values
-        )
-          .then((data) => {
-            console.log("User registered successfully with the following values", data.rows);
-          });
-      })
-      .catch((err) => {
-        response.status(406).json({ error: err.message });
+          )
+            .then((data) => {
+              response.status(200);
+              console.log("User registered successfully with the following values", data.rows);
+            });
+        }
       });
   });
 
