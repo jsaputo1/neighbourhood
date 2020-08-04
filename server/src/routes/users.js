@@ -15,15 +15,22 @@ module.exports = db => {
   });
 
   router.post("/register", (request, response) => {
-    const values = [];
+    const values = [
+      request.body.firstName,
+      request.body.lastName,
+      request.body.email,
+      request.body.password
+    ];
+    console.log("Request Body", request.body);
     db.query(
       `
-      INSERT INTO users(email, password, time_created, coordinates, first_name, last_name, phone_number, profile_photo, last_logout, bio, alert_types)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+      INSERT INTO users (first_name, email, last_name, password)
+      VALUES ($1, $2, $3, $4)
+      RETURNING *;
       `, values
-    ).then(({ rows: data }) => {
-      console.log("User registered with the following values", data);
-      response.redirect("/selectNeighbourhood");
+    ).then((data) => {
+      console.log("User registered with the following values", data.rows);
+      // response.redirect("/selectNeighbourhood");
     });
   });
 
@@ -39,11 +46,6 @@ module.exports = db => {
       response.redirect("/index");
     });
   });
-
-
-
-
-
 
   return router;
 };
