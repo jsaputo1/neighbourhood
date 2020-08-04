@@ -1,11 +1,13 @@
 CREATE EXTENSION pgcrypto;
--- this allows us to encrypt passwords in psql
+-- this allows us to encrypt passwords in psql using 
+-- crypt('password', gen_salt('bf'))
 
 DROP TABLE IF EXISTS messages CASCADE;
 DROP TABLE IF EXISTS conversations CASCADE;
 DROP TABLE IF EXISTS subscriptions CASCADE;
 DROP TABLE IF EXISTS categories CASCADE;
 DROP TABLE IF EXISTS alerts CASCADE;
+DROP TABLE IF EXISTS services CASCADE;
 DROP TABLE IF EXISTS events CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS neighbourhoods CASCADE;
@@ -22,7 +24,7 @@ CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
   neighbourhood_id INTEGER REFERENCES neighbourhoods(id) ON DELETE CASCADE,
   email VARCHAR(55) NOT NULL,
-  password VARCHAR (55) NOT NULL,
+  password TEXT NOT NULL,
   time_created TIMESTAMPTZ NOT NULL,
   coordinates POINT NOT NULL,
   first_name VARCHAR(55) NOT NULL,
@@ -80,9 +82,9 @@ CREATE TABLE services (
 );
 
 CREATE TABLE subscriptions (
-  id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE
+  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
+  PRIMARY KEY (user_id, category_id)
 );
 
 
@@ -97,6 +99,7 @@ user_two INTEGER REFERENCES users(id) ON DELETE CASCADE
 
 CREATE TABLE messages (
     id SERIAL PRIMARY KEY NOT NULL,
+    conversation_id INTEGER REFERENCES conversations(id) ON DELETE CASCADE,
     sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     message_text TEXT NOT NULL,
     time_sent TIMESTAMPTZ NOT NULL

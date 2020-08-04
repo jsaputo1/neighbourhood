@@ -6,9 +6,10 @@ VALUES
 
 INSERT INTO users(neighbourhood_id, email, password, time_created, coordinates, first_name, last_name, phone_number, profile_photo, last_logout, bio, alert_types)
 VALUES
-(2, 'graham.mothersill@gmail.com', 'password', '2020-07-02 19:10:34-07', '(45.5020, 73.5675)', 'Graham', 'Mothersill', '17802464666', 'https://i.imgur.com/3tVgsra.jpg', '2020-08-02 10:43:55-14', 'Graham is one of the people who made this web-app.', 'Both'),
-(1, 'jsaputo1@gmail.com', 'password', '2020-07-04 12:10:34-07', '(45.5021, 73.5676)', 'John', 'Saputo', '16472441907', 'https://i.imgur.com/FK8V841.jpg', '2020-08-02 10:43:55-14', 'John is one of the people who made this web-app.', 'Both'),
-(1, 'samantha.gadet@gmail.com', 'password', '2020-07-03 14:10:31-07', '(45.5019, 73.5674)', 'Sam', 'Gadet', '15146233583', 'https://i.imgur.com/3tVgsra.jpg', '2020-08-02 10:43:55-14', 'Sam is one of the people who made this web-app.', 'Both');
+(2, 'graham.mothersill@gmail.com', crypt('password', gen_salt('bf')), '2020-07-02 19:10:34-07', '(45.5020, 73.5675)', 'Graham', 'Mothersill', '17802464666', 'https://i.imgur.com/3tVgsra.jpg', '2020-08-02 10:43:55-14', 'Graham is one of the people who made this web-app.', 'Both'),
+(1, 'jsaputo1@gmail.com', crypt('password', gen_salt('bf')), '2020-07-04 12:10:34-07', '(45.5021, 73.5676)', 'John', 'Saputo', '16472441907', 'https://i.imgur.com/FK8V841.jpg', '2020-08-02 10:43:55-14', 'John is one of the people who made this web-app.', 'Both'),
+(1, 'samantha.gadet@gmail.com', crypt('password', gen_salt('bf')), '2020-07-03 14:10:31-07', '(45.5019, 73.5674)', 'Sam', 'Gadet', '15146233583', 'https://i.imgur.com/3tVgsra.jpg', '2020-08-02 10:43:55-14', 'Sam is one of the people who made this web-app.', 'Both');
+
 
 INSERT INTO categories(name, category_type)
 VALUES
@@ -40,6 +41,7 @@ VALUES
 (3, 12, 'Crafting Night at Sams!', '(45.5019, 73.5674)', '2020-08-03 14:40:34-07', 'Bring whatever crafting projects you are working on, or just bring random materials and make something up :D I will have snacks for everyone.', '2020-08-12 17:30:00-07', '2020-08-12 21:30:00-07', 'https://i.imgur.com/FK8V841.jpg'),
 (2, 9, 'Garage Sale, mostly furniture', '(45.5021, 73.5676)', '2020-08-03 16:40:34-07', 'I got a new couch and also some other stuff. Gotta make room. Everything is in good condition.', '2020-08-13 09:30:00-07', '2020-08-13 18:30:00-07', 'https://i.imgur.com/okB9WKC.jpg');
 
+
 INSERT INTO alerts(user_id, category_id, title, coordinates, time_created, description, alert_photo)
 VALUES
 (1, 1, 'I just saw a man trying to break into my car', '(45.5020, 73.5675)', '2020-08-03 15:40:34-07', 'Everyone keep an eye out and check your valuables in your cars tonight. He ran away when I opened my back door. He was tall, skinny, white, and he was wearing a navy sweater, jeans, and a black toque.', 'https://i.imgur.com/Nmx0Qxo.png'),
@@ -47,9 +49,38 @@ VALUES
 (3, 2, 'HUGE NEW POTHOLE', '(45.5020, 73.5674)', '2020-08-01 08:40:34-07', 'I drove into a nice big, new pothole here this morning. BE CAREFUL! IT IS REALLY BIG. I think it damaged my car...', 'https://i.imgur.com/3tVgsra.jpg');
 
 
-
 INSERT INTO services(user_id, category_id, service_offer, title, coordinates, time_created, description, service_photo)
 VALUES
 (1, 4, false, 'Need help weeding my lawn', '(45.5020, 73.5675)', '2020-08-03 15:46:34-07', 'Hey everyone! I need to weed my lawn, but my sciatica is really acting up an I need some help. It should take around 2-3 hours, and I will pay $50', 'https://i.imgur.com/iHq8K8Z.jpg'),
 (2, 7, true, 'Offering tutoring in HTML, CSS, and Javascript', '(45.5019, 73.5675)', '2020-08-01 18:46:34-07', 'I just completed an amazing Web Development Bootcamp with Lighthouse Labs. If any students are struggling with any coding curriculum, I am here to help! I charge $25/hour... for now.', 'https://i.imgur.com/okB9WKC.jpg'),
 (3, 5, false, 'Leaky Kitchen Faucet', '(45.5019, 73.5674)', '2020-08-01 15:46:34-07', 'Does anybody know how to fix a leaky faucet? I do not want to call a plumber just for this...', 'https://i.imgur.com/LpaY82x.png');
+
+
+INSERT INTO subscriptions(user_id, category_id)
+VALUES
+(1, 1),
+(1, 2),
+(1, 17),
+(2, 1),
+(2, 2),
+(2, 10),
+(3, 1),
+(3, 2),
+(3, 12);
+
+
+INSERT INTO conversations(user_one, user_two)
+VALUES
+(1, 2),
+(1, 3),
+(2, 3);
+
+
+INSERT INTO messages(conversation_id, sender_id, message_text, time_sent)
+VALUES
+(1, 1, 'Hey John, Can you hold on to that old couch for me at your garage sale? I need a new one.', '2020-08-03 17:41:34-07'),
+(1, 2, 'Sure thing.', '2020-08-03 17:45:21-07'),
+(2, 1, 'Hello, Sam! Are you coming to my party?', '2020-08-03 17:40:34-07'),
+(2, 3, 'Yes, of course!', '2020-08-03 17:42:06-07'),
+(3, 2, 'Thank you for the warning about the pothole. I avoided it!', '2020-08-02 12:12:34-07'),
+(3, 3, 'My pleasure!', '2020-08-02 18:42:06-07');
