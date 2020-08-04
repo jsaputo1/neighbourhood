@@ -17,9 +17,10 @@ const alertRoutes = require("./routes/alerts");
 const messageRoutes = require("./routes/messages");
 const mapRoutes = require("./routes/map");
 const subscriptionRoutes = require("./routes/subscriptions");
+const authenticationRoutes = require("./routes/authentication");
 
 module.exports = function application(
-  ENV,
+  ENV
   // actions = { updateAppointment: () => { } }
 ) {
   app.use(cors());
@@ -36,12 +37,13 @@ module.exports = function application(
   app.use("/messages", messageRoutes(db));
   app.use("/map", mapRoutes(db));
   app.use("/subscriptions", subscriptionRoutes(db));
+  app.use("/authentication", authenticationRoutes(db));
 
   //Database reset
   Promise.all([
     read(path.resolve(__dirname, `db/schema/create.sql`)),
     read(path.resolve(__dirname, `db/schema/development.sql`)),
-    read(path.resolve(__dirname, `db/schema/${ENV}.sql`))
+    read(path.resolve(__dirname, `db/schema/${ENV}.sql`)),
   ])
     .then(([create, seed]) => {
       app.get("/api/debug/reset", (request, response) => {
@@ -53,7 +55,7 @@ module.exports = function application(
           });
       });
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(`Error setting up the reset route: ${error}`);
     });
 

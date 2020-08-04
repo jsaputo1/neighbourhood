@@ -34,7 +34,9 @@ function App() {
       <Switch>
         {/* These are the path were we don't want to see the navbar */}
         <Route path="/" exact component={Landing} />
-        <Route path="/login" exact component={Login} />
+        <Route path="/login" exact>
+          <Login handler={(x) => console.log(x)}></Login>
+        </Route>
         <Route path="/register" exact component={Register} />
 
         {/* These are the paths were we will see the navbar */}
