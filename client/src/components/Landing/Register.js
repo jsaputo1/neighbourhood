@@ -16,14 +16,7 @@ import Parallax from "./Material-kit-components/Parallax.js";
 //Our own style sheet
 import "../../styles.scss";
 
-
-
-
-
-
-
 const useStyles = makeStyles(styles);
-
 
 function Register(props) {
 
