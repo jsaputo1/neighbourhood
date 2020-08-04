@@ -1,4 +1,3 @@
-const fs = require("fs");
 const path = require("path");
 const express = require("express");
 const bodyparser = require("body-parser");
@@ -6,21 +5,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 const app = express();
 const db = require("./db");
-
-function read(file) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(
-      file,
-      {
-        encoding: "utf-8"
-      },
-      (error, data) => {
-        if (error) return reject(error);
-        resolve(data);
-      }
-    );
-  });
-}
+const { read } = require("./helpers/read");
 
 //Route path variables
 const indexRoutes = require("./routes/index");
@@ -52,8 +37,10 @@ module.exports = function application(
   app.use("/map", mapRoutes(db));
   app.use("/subscriptions", subscriptionRoutes(db));
 
+  //Database reset
   Promise.all([
     read(path.resolve(__dirname, `db/schema/create.sql`)),
+    read(path.resolve(__dirname, `db/schema/development.sql`)),
     read(path.resolve(__dirname, `db/schema/${ENV}.sql`))
   ])
     .then(([create, seed]) => {
