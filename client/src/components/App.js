@@ -11,6 +11,7 @@ import Home from "./Home/Home";
 import Landing from "./Landing/Landing";
 import Login from "./Landing/Login";
 import Register from "./Landing/Register";
+import SelectNeighbourhood from "./Landing/SelectNeighbourhood";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
           <Login handler={(x) => console.log(x)}></Login>
         </Route>
         <Route path="/register" exact component={Register} />
+        <Route path="/selectNeighbourhood" exact component={SelectNeighbourhood} />
 
         {/* These are the paths were we will see the navbar */}
         <Route component={Website} />

@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS neighbourhoods CASCADE;
 CREATE TABLE neighbourhoods (
  id SERIAL PRIMARY KEY NOT NULL,
  name VARCHAR(55) NOT NULL,
- time_created TIMESTAMPTZ NOT NULL,
+ time_created TIMESTAMPTZ NOT NULL DEFAULT now(),
  coordinates POINT NOT NULL,
  neighbourhood_photo VARCHAR(255)
 );
@@ -27,8 +27,8 @@ CREATE TABLE users (
   neighbourhood_id INTEGER REFERENCES neighbourhoods(id) ON DELETE CASCADE,
   email VARCHAR(55) NOT NULL,
   password TEXT NOT NULL,
-  time_created TIMESTAMPTZ NOT NULL,
-  coordinates POINT NOT NULL,
+  time_created TIMESTAMPTZ NOT NULL DEFAULT now(),
+  coordinates POINT,
   first_name VARCHAR(55) NOT NULL,
   last_name VARCHAR(55) NOT NULL,
   phone_number VARCHAR(11),
@@ -51,7 +51,7 @@ CREATE TABLE events (
  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
  title VARCHAR(55) NOT NULL,
  coordinates POINT,
- time_created TIMESTAMPTZ NOT NULL,
+ time_created TIMESTAMPTZ NOT NULL DEFAULT now(),
  description TEXT NOT NULL,
  event_start TIMESTAMPTZ NOT NULL,
  event_end TIMESTAMPTZ NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE alerts (
  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
  title VARCHAR(55) NOT NULL,
  coordinates POINT,
- time_created TIMESTAMPTZ NOT NULL,
+ time_created TIMESTAMPTZ NOT NULL DEFAULT now(),
  description TEXT NOT NULL,
  alert_photo VARCHAR(255)
 );
@@ -78,7 +78,7 @@ CREATE TABLE services (
  service_offer BOOLEAN NOT NULL,
  title VARCHAR(55) NOT NULL,
  coordinates POINT,
- time_created TIMESTAMPTZ NOT NULL,
+ time_created TIMESTAMPTZ NOT NULL DEFAULT now(),
  description TEXT NOT NULL,
  service_photo VARCHAR(255)
 );
@@ -102,7 +102,7 @@ CREATE TABLE messages (
     conversation_id INTEGER REFERENCES conversations(id) ON DELETE CASCADE,
     sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     message_text TEXT NOT NULL,
-    time_sent TIMESTAMPTZ NOT NULL
+    time_sent TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 Commit;

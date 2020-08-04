@@ -11,7 +11,11 @@ module.exports = (db) => {
     )
       .then((data) => {
         if (data) {
-          return res.json(data.rows[0]);
+          const userObj = data.rows[0];
+          console.log("User found with the following values:", userObj);
+          //Sets the cookie when login in
+          req.session["user_id"] = userObj.id;
+          return res.json(userObj);
         }
       })
       .catch((err) => console.error("query error", err.stack));
