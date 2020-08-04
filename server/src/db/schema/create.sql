@@ -1,4 +1,6 @@
-CREATE EXTENSION pgcrypto;
+Begin;
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 -- this allows us to encrypt passwords in psql using 
 -- crypt('password', gen_salt('bf'))
 
@@ -87,7 +89,6 @@ CREATE TABLE subscriptions (
   PRIMARY KEY (user_id, category_id)
 );
 
-
 -- when creating conversations, we can determine who is user_one and who is user_two by assignning the user with the LOWER ID number to user_one.
 -- This should prevent accidentally creating two separate conversations for the same two users.
 CREATE TABLE conversations (
@@ -96,7 +97,6 @@ user_one INTEGER REFERENCES users(id) ON DELETE CASCADE,
 user_two INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
 
-
 CREATE TABLE messages (
     id SERIAL PRIMARY KEY NOT NULL,
     conversation_id INTEGER REFERENCES conversations(id) ON DELETE CASCADE,
@@ -104,3 +104,5 @@ CREATE TABLE messages (
     message_text TEXT NOT NULL,
     time_sent TIMESTAMPTZ NOT NULL
 );
+
+Commit;
