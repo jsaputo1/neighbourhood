@@ -17,6 +17,7 @@ const alertRoutes = require("./routes/alerts");
 const messageRoutes = require("./routes/messages");
 const mapRoutes = require("./routes/map");
 const subscriptionRoutes = require("./routes/subscriptions");
+const categoryRoutes = require("./routes/categories");
 
 module.exports = function application(
   ENV,
@@ -36,6 +37,7 @@ module.exports = function application(
   app.use("/messages", messageRoutes(db));
   app.use("/map", mapRoutes(db));
   app.use("/subscriptions", subscriptionRoutes(db));
+  app.use("/categories", categoryRoutes(db));
 
   //Database reset
   Promise.all([
