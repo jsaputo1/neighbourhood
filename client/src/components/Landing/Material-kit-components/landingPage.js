@@ -9,6 +9,14 @@ const landingPageStyle = {
     color: "#FFFFFF",
     ...container,
   },
+  containerLogin: {
+    zIndex: "12",
+    color: "#FFFFFF",
+    paddingRight: "15px",
+    paddingLeft: "15px",
+    marginRight: "auto",
+    marginLeft: "auto",
+  },
   title: {
     ...title,
     display: "inline-block",
