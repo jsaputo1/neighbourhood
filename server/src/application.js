@@ -38,24 +38,23 @@ module.exports = function application(
   app.use("/subscriptions", subscriptionRoutes(db));
 
   //Database reset
-  Promise.all([
-    read(path.resolve(__dirname, `db/schema/create.sql`)),
-    read(path.resolve(__dirname, `db/schema/development.sql`)),
-    read(path.resolve(__dirname, `db/schema/${ENV}.sql`))
-  ])
-    .then(([create, seed]) => {
-      app.get("/api/debug/reset", (request, response) => {
-        db.query(create)
-          .then(() => db.query(seed))
-          .then(() => {
-            console.log("Database Reset");
-            response.status(200).send("Database Reset");
-          });
-      });
-    })
-    .catch(error => {
-      console.log(`Error setting up the reset route: ${error}`);
-    });
+  app.get("/api/debug/reset", (request, response) => {
+    Promise.all([
+      read(path.resolve(__dirname, `db/schema/create.sql`)),
+      read(path.resolve(__dirname, `db/schema/development.sql`)),
+      read(path.resolve(__dirname, `db/schema/${ENV}.sql`))
+    ])
+      .then(([create, seed]) => {
+        return db.query(create)
+          .then(() => db.query(seed));
+      })
+      .then(() => {
+        console.log("Database Reset");
+        response.status(200).send("Database Reset");
+        return true;
+      })
+      .catch(error => { response.status(500).json(error); });
+  });
 
   app.close = function () {
     return db.end();
