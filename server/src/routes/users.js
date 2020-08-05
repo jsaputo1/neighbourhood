@@ -20,7 +20,6 @@ module.exports = (db) => {
       request.body.email,
       request.body.lastName,
       request.body.password,
-<<<<<<< HEAD
       `(${request.body.coordinates.latitude}, ${request.body.coordinates.longitude})`
     ];
 
@@ -33,29 +32,18 @@ module.exports = (db) => {
             `
         INSERT INTO users (first_name, email, last_name, password, coordinates)
         VALUES ($1, $2, $3, $4, $5)
-=======
-    ];
-    findUserByEmail(request.body.email).then((user) => {
-      if (user) {
-        response.status(406).send("user already registered");
-      } else {
-        db.query(
-          `
-        INSERT INTO users (first_name, email, last_name, password)
-        VALUES ($1, $2, $3, $4)
->>>>>>> master
         RETURNING *;
           `,
-          values
-        ).then((data) => {
-          response.status(200).end();
-          console.log(
-            "User registered successfully with the following values",
-            data.rows
-          );
-        });
-      }
-    });
+            values
+          ).then((data) => {
+            response.status(200).end();
+            console.log(
+              "User registered successfully with the following values",
+              data.rows
+            );
+          });
+        }
+      });
   });
 
   router.post("/login", (req, res) => {
