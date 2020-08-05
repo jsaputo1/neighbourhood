@@ -31,7 +31,7 @@ function Login(props) {
       .post("/users/login", userInfo)
       .then((response) => {
         sethomeRedirect(true);
-        props.onSubmit(response.data);
+        props.login(response.data);
       })
       .catch((err) => alert("Wrong credentials!"));
   };
