@@ -15,7 +15,7 @@ import SelectNeighbourhood from "./Landing/SelectNeighbourhood";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //Imports custom hook that manages the state
-import useApplicationData from "../Hooks/useApplicationData";
+import useApplicationData from "../hooks/useApplicationData";
 
 function App() {
   //Gets the state from useApplicationData.js
