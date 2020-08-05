@@ -47,8 +47,11 @@ function Register(props) {
 
   const registerUser = function (registrationData) {
     axios.post("/users/register", registrationData)
-      .then(() =>
-        setneighbourhoodRedirect(true)
+      .then((response) => {
+        setneighbourhoodRedirect(true);
+        props.register(response.data);
+      }
+
       )
       .catch((err) => {
         alert("E-Mail is already registered");
