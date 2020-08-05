@@ -1,14 +1,11 @@
 const router = require("express").Router();
 const { findUserCoordinates } = require("../helpers/findUserCoordinates");
-
-
 module.exports = db => {
   router.get("/", (request, response) => {
     db.query(
       `
       SELECT *
-      FROM neighbourhoods
-      RETURNING *;
+      FROM neighbourhoods;
     `
     ).then(({ rows: neighbourhoods }) => {
       response.json(neighbourhoods);
@@ -39,5 +36,3 @@ module.exports = db => {
 
   return router;
 };
-
-// sqrt((user.x - cor.x) ^ 2 + (user.y - cor.y) ^ 2);
