@@ -21,20 +21,23 @@ function SelectNeighbourhood(props) {
       );
   }, []);
 
-  console.log("neighbourhoods:", neighbourhoods);
+  // console.log("neighbourhoods:", neighbourhoods);
   // console.log("neighbourhoods 0 index:", Object.keys(neighbourhoods[0]));
+  // console.log("User props:", props.user);
 
   const addNeighbourhoodOne = function (event) {
     event.preventDefault();
     addNeighbourhood({
-      id: neighbourhoods[0].id
+      id: neighbourhoods[0].id,
+      email: props.user.email,
     });
   };
 
   const addNeighbourhoodTwo = function (event) {
     event.preventDefault();
     addNeighbourhood({
-      id: neighbourhoods[1].id
+      id: neighbourhoods[1].id,
+      email: props.user.email
     });
   };
 
@@ -52,7 +55,7 @@ function SelectNeighbourhood(props) {
 
   return (!neighbourhoods[0] ? null : (<div className="select-neighbourhood-container">
     <h2>
-      Hello {props.user.first_name} !
+      Hello {props.user.first_name} ! Your e-mail is {props.user.email}
     </h2>
     <h3>Based on your location, we suggest joining one of the following neighbourhoods </h3>
     <div className="neighbourhood-choices">
