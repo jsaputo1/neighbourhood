@@ -8,6 +8,7 @@ export default function useApplicationData() {
   //Function to update the state of the user
   const setUser = (user) => setState({ ...state, user });
 
+  //Gets the user information from localstorage each time there is a refresh and set the state at first load)
   useEffect(() => {
     const data = localStorage.getItem("userObj");
     if (data) {
@@ -15,9 +16,10 @@ export default function useApplicationData() {
       setState({ ...state, user });
     }
   }, []);
+  //Stores the user information in localStorage so that we can use it to set the state again if a refresh happens
   useEffect(() => {
     localStorage.setItem("userObj", JSON.stringify(state.user));
-  });
+  }, [state.user]);
 
   return {
     state,

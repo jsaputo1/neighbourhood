@@ -66,5 +66,10 @@ module.exports = (db) => {
       .catch((err) => console.error("query error", err.stack));
   });
 
+  router.post("/logout", (req, res) => {
+    req.session = null;
+    return res.json({});
+  });
+
   return router;
 };
