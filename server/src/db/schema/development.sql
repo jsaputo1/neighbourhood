@@ -1,13 +1,13 @@
 INSERT INTO neighbourhoods(name, time_created, coordinates, neighbourhood_photo)
 VALUES
-('Broken Stone Bluff', '2020-06-02 19:10:25-07', '(45.5015, 73.5676)', 'https://i.imgur.com/LpaY82x.png'),
-('Le Lac de Les Libellules', '2020-07-02 10:43:55-14', '(45.5017, 73.5673)', 'https://i.imgur.com/nPywAp1.jpg');
+('Little Italy', '2020-06-02 19:10:25-07', '(43.655291, -79.413851)', 'https://i.imgur.com/MOIl0x1.png'),
+('Queen West', '2020-07-02 10:43:55-14', '(43.645012, -79.414908)', 'https://i.imgur.com/1A54Bcl.png');
 
 
 INSERT INTO users(neighbourhood_id, email, password, time_created, coordinates, first_name, last_name, phone_number, profile_photo, last_logout, bio, alert_types)
 VALUES
 (2, 'graham.mothersill@gmail.com', crypt('password', gen_salt('bf')), '2020-07-02 19:10:34-07', '(45.5020, 73.5675)', 'Graham', 'Mothersill', '17802464666', 'https://i.imgur.com/3tVgsra.jpg', '2020-08-02 10:43:55-14', 'Graham is one of the people who made this web-app.', 'Both'),
-(1, 'jsaputo1@gmail.com', crypt('password', gen_salt('bf')), '2020-07-04 12:10:34-07', '(45.5021, 73.5676)', 'John', 'Saputo', '16472441907', 'https://i.imgur.com/FK8V841.jpg', '2020-08-02 10:43:55-14', 'John is one of the people who made this web-app.', 'Both'),
+(1, 'jsaputo1@gmail.com', crypt('password', gen_salt('bf')), '2020-07-04 12:10:34-07', '(43.651895, -79.411866)', 'John', 'Saputo', '16472441907', 'https://i.imgur.com/FK8V841.jpg', '2020-08-02 10:43:55-14', 'John is one of the people who made this web-app.', 'Both'),
 (1, 'samantha.gadet@gmail.com', crypt('password', gen_salt('bf')), '2020-07-03 14:10:31-07', '(45.5019, 73.5674)', 'Sam', 'Gadet', '15146233583', 'https://i.imgur.com/3tVgsra.jpg', '2020-08-02 10:43:55-14', 'Sam is one of the people who made this web-app.', 'Both');
 
 
