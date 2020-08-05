@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../styles.scss";
 import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import axios from "axios";
+import Button from "react-bootstrap/Button";
 
 function Nav(props) {
+  const [landingRedirect, setlandingRedirect] = useState(false);
+  const logout = () => {
+    axios.post("/users/logout").then((response) => {
+      setlandingRedirect(true);
+      props.logout({});
+    });
+  };
+
+  if (landingRedirect) {
+    return <Redirect to="/login" />;
+  }
   return (
     <nav>
       <h3>LOGO</h3>
@@ -25,20 +39,23 @@ function Nav(props) {
         <Link className="link-style" to="/Account">
           <li>Account</li>
         </Link>
-        {props.user ? (
+        {props.user === undefined ? (
+          <Link className="link-style" to="/Login">
+            <li>Login</li>
+          </Link>
+        ) : (
           <div>
             <li>
-              <h6>{props.user.first_name}</h6>
+              <h6>
+                {props.user.first_name}
+                {` ${props.user.last_name}`}
+              </h6>
               <img src={props.user.profile_photo} alt="" />
             </li>
-            <Link className="link-style" to="/Logout">
+            <Button variant="link" onClick={logout}>
               <li>Logout</li>
-            </Link>
+            </Button>
           </div>
-        ) : (
-          <Link className="link-style" to="/Login">
-            Login
-          </Link>
         )}
       </ul>
     </nav>
