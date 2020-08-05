@@ -31,7 +31,9 @@ function App() {
         <Route path="/services" exact component={Services} />
         <Route path="/alerts" exact component={Alerts} />
         <Route path="/map" exact component={Map} />
-        <Route path="/messages" exact component={Messages} />
+        <Route path="/messages" exact>
+          <Messages user={state.user}></Messages>
+        </Route>
         <Route path="/account" exact component={Account} />
       </Switch>
     </div>
