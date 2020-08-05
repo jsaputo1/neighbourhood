@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const { findUserCoordinates } = require("../helpers/findUserCoordinates");
+const { findUserByEmail } = require("../helpers/findUserEmail");
+
 module.exports = db => {
   router.get("/", (request, response) => {
     db.query(
@@ -31,6 +33,33 @@ module.exports = db => {
             return 0;
           }));
         });
+      });
+  });
+
+
+  router.post("/addNeighbourhood", (request, response) => {
+    const email = 'jsaputo1@gmail.com';
+    const values = [request.body.id];
+    console.log("values", values);
+
+    findUserByEmail(email)
+      .then((user) => {
+        db.query(
+          `
+          UPDATE users 
+          SET neighbourhood_id = $1
+          WHERE id = $2
+          RETURNING*;
+          `, [request.body.id, user.id]
+        ).then((data) => {
+          console.log("User ID:", user.id);
+          console.log("Request Body ID:", request.body.id);
+          response.status(200).end();
+          console.log(
+            "Neighbourhood ID added:", data.rows[0].neighbourhood_id
+          );
+        });
+
       });
   });
 
