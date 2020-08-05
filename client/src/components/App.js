@@ -14,11 +14,17 @@ import Register from "./Landing/Register";
 import SelectNeighbourhood from "./Landing/SelectNeighbourhood";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+//Imports custom hook that manages the state
+import useApplicationData from "../hooks/useApplicationData";
+
 function App() {
+  //Gets the state from useApplicationData.js
+  const { state, setUser } = useApplicationData();
+
   //That is going to be our main app, once we log in or sign in
   const Website = () => (
-    <div classname="App">
-      <Nav />
+    <div>
+      <Nav user={state.user} />
       <Switch>
         <Route path="/home" exact component={Home} />
         <Route path="/events" exact component={Events} />
@@ -36,10 +42,14 @@ function App() {
         {/* These are the path were we don't want to see the navbar */}
         <Route path="/" exact component={Landing} />
         <Route path="/login" exact>
-          <Login handler={(x) => console.log(x)}></Login>
+          <Login onSubmit={setUser}></Login>
         </Route>
         <Route path="/register" exact component={Register} />
-        <Route path="/selectNeighbourhood" exact component={SelectNeighbourhood} />
+        <Route
+          path="/selectNeighbourhood"
+          exact
+          component={SelectNeighbourhood}
+        />
 
         {/* These are the paths were we will see the navbar */}
         <Route component={Website} />

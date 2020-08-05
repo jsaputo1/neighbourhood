@@ -2,7 +2,7 @@ import React from "react";
 import "../../styles.scss";
 import { Link } from "react-router-dom";
 
-function Nav() {
+function Nav(props) {
   return (
     <nav>
       <h3>LOGO</h3>
@@ -25,6 +25,21 @@ function Nav() {
         <Link className="link-style" to="/Account">
           <li>Account</li>
         </Link>
+        {props.user ? (
+          <div>
+            <li>
+              <h6>{props.user.first_name}</h6>
+              <img src={props.user.profile_photo} alt="" />
+            </li>
+            <Link className="link-style" to="/Logout">
+              <li>Logout</li>
+            </Link>
+          </div>
+        ) : (
+          <Link className="link-style" to="/Login">
+            Login
+          </Link>
+        )}
       </ul>
     </nav>
   );

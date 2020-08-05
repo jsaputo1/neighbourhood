@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
@@ -19,6 +20,7 @@ import "../../styles.scss";
 const useStyles = makeStyles(styles);
 
 function Login(props) {
+  const [homeRedirect, sethomeRedirect] = useState(false);
   const classes = useStyles();
 
   //Hook from React-hook-form
@@ -26,13 +28,17 @@ function Login(props) {
 
   const onSubmit = (userInfo) => {
     axios
-      .post("/authentication", userInfo)
+      .post("/users/login", userInfo)
       .then((response) => {
-        props.handler(response.data);
+        sethomeRedirect(true);
+        props.onSubmit(response.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => alert("Wrong credentials!"));
   };
 
+  if (homeRedirect) {
+    return <Redirect to="/home" />;
+  }
   return (
     <div>
       <Parallax filter image={require("../../assets/img/neighbours.jpg")}>
