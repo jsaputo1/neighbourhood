@@ -38,9 +38,10 @@ module.exports = (db) => {
           )
             .then((data) => {
               const userObj = data.rows[0];
-              request.session["user_id"] = userObj;
-              response.status(200).end();
-              console.log("User registered successfully with the following values", userObj);
+              request.session["user_id"] = userObj.id;
+              console.log("user cookie is:", request.session["user_id"]);
+              response.status(200).json(userObj);
+              // console.log("User registered successfully with the following values", userObj);
             });
         }
       });
