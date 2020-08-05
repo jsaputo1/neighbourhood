@@ -44,13 +44,12 @@ function App() {
         <Route path="/login" exact>
           <Login login={setUser}></Login>
         </Route>
-        <Route path="/register" exact component={Register} />
-        <Route
-          path="/selectNeighbourhood"
-          exact
-          component={SelectNeighbourhood}
-        />
-
+        <Route path="/register" exact>
+          <Register register={setUser}></Register>
+        </Route>
+        <Route path="/selectNeighbourhood" exact>
+          <SelectNeighbourhood ser={state.user}></SelectNeighbourhood>
+        </Route>
         {/* These are the paths were we will see the navbar */}
         <Route component={Website} />
       </Switch>
