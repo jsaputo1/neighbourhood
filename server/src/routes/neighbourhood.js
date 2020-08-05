@@ -36,12 +36,8 @@ module.exports = db => {
       });
   });
 
-
   router.post("/addNeighbourhood", (request, response) => {
     const email = 'jsaputo1@gmail.com';
-    const values = [request.body.id];
-    console.log("values", values);
-
     findUserByEmail(email)
       .then((user) => {
         db.query(
@@ -55,9 +51,7 @@ module.exports = db => {
           console.log("User ID:", user.id);
           console.log("Request Body ID:", request.body.id);
           response.status(200).end();
-          console.log(
-            "Neighbourhood ID added:", data.rows[0].neighbourhood_id
-          );
+          console.log("Neighbourhood ID added:", data.rows[0].neighbourhood_id, "to user id:");
         });
 
       });
