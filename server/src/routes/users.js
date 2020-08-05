@@ -35,13 +35,13 @@ module.exports = (db) => {
         RETURNING *;
           `,
             values
-          ).then((data) => {
-            response.status(200).end();
-            console.log(
-              "User registered successfully with the following values",
-              data.rows
-            );
-          });
+          )
+            .then((data) => {
+              const userObj = data.rows[0];
+              request.session["user_id"] = userObj;
+              response.status(200).end();
+              console.log("User registered successfully with the following values", userObj);
+            });
         }
       });
   });
@@ -64,19 +64,6 @@ module.exports = (db) => {
         }
       })
       .catch((err) => console.error("query error", err.stack));
-  });
-
-  router.post("/addNeighbourhood", (request, response) => {
-    const neighbourhoodID = [];
-    db.query(
-      `
-      INSERT INTO users(neighbourhood_id) 
-      VALUES ($1)
-      `,
-      neighbourhoodID
-    ).then(({ rows: idAdded }) => {
-      console.log("Neighbourhood ID added is:", idAdded);
-    });
   });
 
   return router;
