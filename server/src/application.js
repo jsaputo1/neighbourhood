@@ -18,7 +18,6 @@ const alertRoutes = require("./routes/alerts");
 const messageRoutes = require("./routes/messages");
 const mapRoutes = require("./routes/map");
 const subscriptionRoutes = require("./routes/subscriptions");
-const authenticationRoutes = require("./routes/authentication");
 
 module.exports = function application(
   ENV
@@ -47,7 +46,6 @@ module.exports = function application(
   app.use("/messages", messageRoutes(db));
   app.use("/map", mapRoutes(db));
   app.use("/subscriptions", subscriptionRoutes(db));
-  app.use("/authentication", authenticationRoutes(db));
 
   //Database reset
   app.get("/api/debug/reset", (request, response) => {
