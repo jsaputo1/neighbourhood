@@ -6,7 +6,7 @@ import "../../styles.scss";
 // @material-ui/core components
 import { Button } from "@material-ui/core";
 
-function SelectNeighbourhood() {
+function SelectNeighbourhood(props) {
 
   const [homeRedirect, sethomeRedirect] = useState(false);
   const [neighbourhoods, setNeighbourhoods] = useState([]);
@@ -51,6 +51,9 @@ function SelectNeighbourhood() {
   }
 
   return (!neighbourhoods[0] ? null : (<div className="select-neighbourhood-container">
+    <h2>
+      Hello {props.user.first_name} !
+    </h2>
     <h3>Based on your location, we suggest joining one of the following neighbourhoods </h3>
     <div className="neighbourhood-choices">
       <figure>
