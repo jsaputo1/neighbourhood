@@ -6,8 +6,14 @@
   display: flex;
   justify-content: space-around;
 
+  figure {
+    display: flex;
+    flex-direction: column;
+  }
+
   img {
     width: 200px;
     height: 200px;
+    padding-bottom: 10px;
   }
 }
