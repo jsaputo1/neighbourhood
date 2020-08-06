@@ -101,6 +101,7 @@ CREATE TABLE messages (
     id SERIAL PRIMARY KEY NOT NULL,
     conversation_id INTEGER REFERENCES conversations(id) ON DELETE CASCADE,
     sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    receiver_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     message_text TEXT NOT NULL,
     time_sent TIMESTAMPTZ NOT NULL DEFAULT now()
 );
