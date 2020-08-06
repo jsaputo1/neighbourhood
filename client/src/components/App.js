@@ -27,9 +27,15 @@ function App() {
       <Nav user={state.user} logout={setUser} />
       <Switch>
         <Route path="/home" exact component={Home} />
-        <Route path="/events" exact component={Events} />
-        <Route path="/services" exact component={Services} />
-        <Route path="/alerts" exact component={Alerts} />
+        <Route path="/events" exact>
+          <Events user={state.user}></Events>
+        </Route>
+        <Route path="/services" exact>
+          <Services user={state.user}></Services>
+        </Route>
+        <Route path="/alerts" exact>
+          <Alerts user={state.user}></Alerts>
+        </Route>
         <Route path="/map" exact component={Map} />
         <Route path="/messages" exact component={Messages} />
         <Route path="/account" exact component={Account} />
