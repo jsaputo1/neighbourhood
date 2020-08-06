@@ -63,16 +63,16 @@ moment().format();
 function Events(props) {
   const classes = useStyles();
 
+
+
   const fetchEvents = async () => {
-    const data = await fetch('http://localhost:8001/events');
-    const events = await data.json();
-    setEvents(events)
+    const events = await axios.get('http://localhost:8001/events');
+    setEvents(events.data)
   };
 
   const fetchFilteredCategories = async (filter) => {
-    const data = await fetch('http://localhost:8001/categories');
-    const categories = await data.json();
-    const filtered = categories.filter(category => category.category_type === filter)
+    const data = await axios.get('http://localhost:8001/categories');
+    const filtered = data.data.filter(category => category.category_type === filter)
     setCategories(filtered)
   };
 
@@ -89,7 +89,7 @@ function Events(props) {
   useEffect(() => {
     fetchEvents()
     fetchFilteredCategories("Events")
-  }, [events]);
+  }, []);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -134,6 +134,9 @@ function Events(props) {
   const registerEvent = function (registrationData) {
     console.log('REEGISTAERW', registrationData)
     axios.post("/events", registrationData)
+      .then((response) => {
+        setEvents(response.data)
+      });
   };
 
 

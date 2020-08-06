@@ -25,12 +25,21 @@ module.exports = db => {
     db.query(
       `
         INSERT INTO alerts (user_id, category_id, title, description, alert_photo)
-        VALUES ($1, $2, $3, $4, $5)
-        RETURNING *;
+        VALUES ($1, $2, $3, $4, $5);
           `,
       values
-    ).then((data) => {
-      response.status(200).end();
+    ).then(() => {
+      return db.query(
+        `
+        SELECT alerts.*, users.first_name, users.last_name, users.profile_photo
+        FROM alerts
+        JOIN users
+        ON alerts.user_id = users.id;
+      `
+      )
+    }).then((data) => {
+      // response.status(200).end();
+      response.json(data.rows)
       console.log(
         "Alert registered successfully with the following values",
         data.rows

@@ -77,20 +77,6 @@ moment().format();
 function Services(props) {
   const classes = useStyles();
 
-  const fetchServices = async () => {
-    const data = await fetch("http://localhost:8001/services");
-    const services = await data.json();
-    setServices(services);
-  };
-
-  const fetchFilteredCategories = async (filter) => {
-    const data = await fetch("http://localhost:8001/categories");
-    const categories = await data.json();
-    const filtered = categories.filter(
-      (category) => category.category_type === filter
-    );
-    setCategories(filtered);
-  };
 
   const [services, setServices] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -101,10 +87,26 @@ function Services(props) {
     selectedCategory: "",
   });
 
+
+  const fetchServices = async () => {
+    const services = await axios.get('http://localhost:8001/services');
+    setServices(services.data)
+  };
+
+  const fetchFilteredCategories = async (filter) => {
+    const data = await axios.get('http://localhost:8001/categories');
+    const filtered = data.data.filter(category => category.category_type === filter)
+    setCategories(filtered)
+  };
+
+
+
   useEffect(() => {
     fetchServices();
     fetchFilteredCategories("Services");
-  }, [services]);
+  }, []);
+
+
 
   function radioChange(value) {
     setState({
@@ -171,7 +173,10 @@ function Services(props) {
 
   const registerService = function (registrationData) {
     console.log(registrationData);
-    axios.post("/services", registrationData);
+    axios.post("/services", registrationData)
+      .then((response) => {
+        setServices(response.data)
+      })
   };
 
   return (
@@ -296,8 +301,8 @@ function Services(props) {
                   </div>
                 </div>
               ) : (
-                <div></div>
-              )}
+                  <div></div>
+                )}
             </CardActionArea>
           </Card>
 

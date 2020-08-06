@@ -62,18 +62,7 @@ moment().format();
 function Alerts(props) {
   const classes = useStyles();
 
-  const fetchAlerts = async () => {
-    const data = await fetch('http://localhost:8001/alerts');
-    const alerts = await data.json();
-    setAlerts(alerts)
-  };
 
-  const fetchFilteredCategories = async (filter) => {
-    const data = await fetch('http://localhost:8001/categories');
-    const categories = await data.json();
-    const filtered = categories.filter(category => category.category_type === filter)
-    setCategories(filtered)
-  };
 
   const [alerts, setAlerts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -84,11 +73,22 @@ function Alerts(props) {
     selectedCategory: ''
   });
 
+  const fetchAlerts = async () => {
+    const alerts = await axios.get('http://localhost:8001/alerts');
+    setAlerts(alerts.data)
+  };
+
+  const fetchFilteredCategories = async (filter) => {
+    const data = await axios.get('http://localhost:8001/categories');
+    const filtered = data.data.filter(category => category.category_type === filter)
+    setCategories(filtered)
+  };
+
 
   useEffect(() => {
     fetchAlerts()
     fetchFilteredCategories("Alerts")
-  }, [alerts]);
+  }, []);
 
 
   const handleChange = (event) => {
@@ -129,6 +129,9 @@ function Alerts(props) {
   const registerAlert = function (registrationData) {
     console.log('REEGISTAERW', registrationData)
     axios.post("/alerts", registrationData)
+      .then((response) => {
+        setAlerts(response.data)
+      })
   };
 
 
