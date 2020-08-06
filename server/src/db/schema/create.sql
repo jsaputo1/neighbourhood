@@ -102,17 +102,18 @@ CREATE TABLE subscriptions (
 -- when creating conversations, we can determine who is user_one and who is user_two by assignning the user with the LOWER ID number to user_one.
 -- This should prevent accidentally creating two separate conversations for the same two users.
 CREATE TABLE conversations (
-id SERIAL PRIMARY KEY NOT NULL,
-user_one INTEGER REFERENCES users(id) ON DELETE CASCADE,
-user_two INTEGER REFERENCES users(id) ON DELETE CASCADE
+  id SERIAL PRIMARY KEY NOT NULL,
+  user_one INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  user_two INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE messages (
-    id SERIAL PRIMARY KEY NOT NULL,
-    conversation_id INTEGER REFERENCES conversations(id) ON DELETE CASCADE,
-    sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-    message_text TEXT NOT NULL,
-    time_sent TIMESTAMPTZ NOT NULL DEFAULT now()
+  id SERIAL PRIMARY KEY NOT NULL,
+  conversation_id INTEGER REFERENCES conversations(id) ON DELETE CASCADE,
+  sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  receiver_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  message_text TEXT NOT NULL,
+  time_sent TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 Commit;
