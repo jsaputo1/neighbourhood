@@ -14,5 +14,30 @@ module.exports = db => {
     });
   });
 
+  router.post("/", (request, response) => {
+    const values = [
+      request.body.user_id,
+      request.body.category_id,
+      request.body.service_offer,
+      request.body.title,
+      request.body.description,
+      request.body.service_photo
+    ];
+    db.query(
+      `
+        INSERT INTO services (user_id, category_id, service_offer, title, description, service_photo)
+        VALUES ($1, $2, $3, $4, $5, $6)
+        RETURNING *;
+          `,
+      values
+    ).then((data) => {
+      response.status(200).end();
+      console.log(
+        "Service registered successfully with the following values",
+        data.rows
+      );
+    });
+  });
+
   return router;
 };
