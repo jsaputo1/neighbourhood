@@ -1,39 +1,49 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
+import Conversation from "./Conversation";
 
 //Our own style sheet
 import "../../styles.scss";
 
 function Messages(props) {
-  const [messages, setMessages] = useState([]);
-
+  const [conversations, setConversations] = useState([]);
   useEffect(() => {
     axios.get("/messages/userMessages")
       .then(
         (response) => {
-          setMessages(response.data);
-          console.log(response.data);
+          setConversations(response.data);
+
         }
       );
   }, []);
 
-  return <div className="messages-container">
-    <h3>Hello {props.user.first_name}</h3>
-    <div className="individual-message">
-      {messages.map(i => (
-        <figure key={i.id}>
-          <h6>Conversation ID: {i.conversation_id}</h6>
-          <h6>Sent By: {i.sender_id}</h6>
-          <h6>Received By: {i.receiver_id}</h6>
-          <h6>Message: {i.message_text}</h6>
-          <h6>Time Sent: {i.time_sent}</h6>
-        </figure>
-      ))}
-    </div>
+  let conversation = [];
 
-  </div>;
+  for (let conversationID in conversations) {
+    let messagesJSX = [];
+    for (let message of conversations[conversationID]) {
+      console.log(conversations[conversationID]);
+      let messageContent = (
+        <div className="message-content">
+          <h6>Conversation ID: {message.id}</h6>
+          <h6>Sent By: {message.sender_id}</h6>
+          <h6>Received By: {message.receiver_id}</h6>
+          <h6>Message: {message.message_text}</h6>
+          <h6>Time Sent: {message.time_sent}</h6>
+        </div>
+      );
+      messagesJSX.push(messageContent);
+    }
+    conversation.push(<Conversation>{messagesJSX}</Conversation>);
+  }
+
+  return < div className="messages-container" >
+    <h3>Hello {props.user.first_name}</h3>
+    {conversation}
+  </div >;
 
 }
 
 export default Messages;
+;
