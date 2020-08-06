@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { groupBy } = require("../helpers/groupby");
 
 module.exports = db => {
+  //Shows all messages. Using this route for testing, can be removed when ready for production
   router.get("/", (request, response) => {
     db.query(
       `
@@ -23,36 +24,9 @@ module.exports = db => {
         `, [request.session["user_id"]])
       .then(({ rows: messages }) => {
         const result = groupBy(messages, 'id');
-
         return response.json(result);
       });
   });
 
   return router;
 };
-
-
-
-// router.get("/userMessages", (request, response) => {
-//   db.query(
-//     `
-//     SELECT *
-//     FROM messages
-//     WHERE (sender_id = $1 OR receiver_id = $1)
-//     ORDER BY conversation_id;
-
-//   `, [request.session["user_id"]])
-//     .then(({ rows: messages }) => {
-
-//       const messageIDs = messages.map(message => message.conversation_id);
-
-//       console.log(messages[0].conversation_id);
-
-//       console.log(messageIDs);
-
-//       //get all the conversation ids
-//       //separate the messages by conversation id
-//       //map over and filter 
-//       return response.json(messages);
-//     });
-// });
