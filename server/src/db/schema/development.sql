@@ -78,9 +78,9 @@ VALUES
 
 INSERT INTO messages(conversation_id, sender_id, receiver_id, message_text, time_sent)
 VALUES
-(1, 1, 2, 'Hey John, Can you hold on to that old couch for me at your garage sale? I need a new one.', '2020-08-03 17:41:34-07'),
-(1, 2, 1, 'Sure thing.', '2020-08-03 17:45:21-07'),
-(2, 1, 3, 'Hello, Sam! Are you coming to my party?', '2020-08-03 17:40:34-07'),
-(2, 3, 1, 'Yes, of course!', '2020-08-03 17:42:06-07'),
-(3, 2, 3, 'Thank you for the warning about the pothole. I avoided it!', '2020-08-02 12:12:34-07'),
-(3, 3, 2, 'My pleasure!', '2020-08-02 18:42:06-07');
+(1, 1, 2, 'Hey John, Can you hold on to that old couch for me at your garage sale? I need a new one.', '2020-08-06T03:52:25.931Z'),
+(1, 2, 1, 'Sure thing.', '2020-08-06T04:52:25.931Z'),
+(2, 1, 3, 'Hello, Sam! Are you coming to my party?', '2020-08-06T02:52:25.931Z'),
+(2, 3, 1, 'Yes, of course!', '2020-08-06T03:32:25.931Z'),
+(3, 2, 3, 'Thank you for the warning about the pothole. I avoided it!', '2020-08-06T04:52:25.931Z'),
+(3, 3, 2, 'My pleasure!', '2020-08-06T06:52:25.931Z7');
