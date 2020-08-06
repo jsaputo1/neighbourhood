@@ -24,7 +24,7 @@ module.exports = db => {
     ];
     db.query(
       `
-        INSERT INTO alerts (user_id, category_id, title, description, event_photo)
+        INSERT INTO alerts (user_id, category_id, title, description, alert_photo)
         VALUES ($1, $2, $3, $4, $5)
         RETURNING *;
           `,

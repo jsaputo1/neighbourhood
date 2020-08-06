@@ -18,6 +18,8 @@ import Parallax from "../Material-kit-components/Parallax.js";
 // import styles from "./Material-kit-components/landingPage.js";
 import "../../styles.scss";
 
+import filterByCategory from "../Helpers/filterByCategory"
+// ""../Hooks/useApplicationData"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,7 +81,6 @@ function Services(props) {
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState({
     search: '',
-    name: 'hai',
     selectedValue: '',
     selectedCategory: ''
   });
@@ -97,7 +98,6 @@ function Services(props) {
   }
 
   function categoryChange(e) {
-    console.log("e.target.value", e.target.value);
     setState({
       ...state,
       selectedCategory: e.target.value
@@ -113,21 +113,6 @@ function Services(props) {
   };
 
 
-  const requestOrOffer = function (bool) {
-    if (bool) return (<p><i>"This is an OFFER. We can change this to an icon or colour change during styling"</i></p>)
-    return (<p><i>"This is a REQUEST. We can change this to an icon or colour change during styling."</i></p>)
-  };
-
-
-  const filterServices = function (services, filter) {
-
-    console.log('SERVICES', services)
-    if (!filter) {
-      return services;
-    }
-    const selected = categories.filter(category => category.name === filter)
-    return services.filter(service => service.category_id === selected[0].id)
-  };
 
   const handleOpen = () => {
     setOpen(true);
@@ -136,6 +121,17 @@ function Services(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
+
+
+
+  const requestOrOffer = function (bool) {
+    if (bool) return (<span><i>"This is an OFFER. We can change this to an icon or colour change during styling"</i></span>)
+    return (<span><i>"This is a REQUEST. We can change this to an icon or colour change during styling."</i></span>)
+  };
+
+
+
 
   const onSubmitHandler = function (event) {
     event.preventDefault();
@@ -178,10 +174,12 @@ function Services(props) {
                 >
                   <option aria-label="None" value="" />
                   {categories.map(category => (
-                    <option value={category.name}>{category.name}</option>
+                    <option key={category.id} value={category.name}>{category.name}</option>
                   ))}
                 </Select>
               </FormControl>
+
+
 
               {props.user ? (
                 <div>
@@ -189,7 +187,7 @@ function Services(props) {
                   <div>
                     <button type="button" onClick={handleOpen}>
                       Post New Service Listing
-      </button>
+                    </button>
                     <Modal
                       aria-labelledby="transition-modal-title"
                       aria-describedby="transition-modal-description"
@@ -235,7 +233,7 @@ function Services(props) {
                               >
                                 <option></option>
                                 {categories.map(category => (
-                                  <option value={category.id}>{category.name}</option>
+                                  <option key={category.id} value={category.id}>{category.name}</option>
                                 ))}
                               </Form.Control>
                             </FormGroup>
@@ -264,11 +262,16 @@ function Services(props) {
 
             </CardActionArea>
           </Card>
+
+
+
+
+
           <h1>...</h1>
 
           <GridContainer>
 
-            {filterServices(services, state.search).map(service => (
+            {filterByCategory(services, state.search, categories).map(service => (
 
               <GridItem xs={12} sm={6} md={3}>
                 <Card className={classes.root}>
