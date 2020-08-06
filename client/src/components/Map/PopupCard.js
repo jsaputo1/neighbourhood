@@ -9,6 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import ChatTwoToneIcon from "@material-ui/icons/ChatTwoTone";
 import moment from "moment";
+import { requirePropFactory } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,34 +39,67 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PopupCard(props) {
+export default function PopupCardAlert(props) {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
-      <CardHeader
-        avatar={
-          <Avatar
-            aria-label="recipe"
-            alt={`${props.user_first_name} ${props.user_last_name}`}
-            src={props.user_photo}
-            className={classes.large}
-          />
-        }
-        action={
-          <IconButton>
-            <ChatTwoToneIcon className={classes.medium}></ChatTwoToneIcon>
-          </IconButton>
-        }
-        title={`${props.post_title}`}
-        subheader={`Posted ${moment(props.time_created).fromNow()}`}
-      />
-      <CardMedia
-        className={classes.media}
-        image={`${props.post_photo}`}
-        title="Photo"
-      />
+      {props.time_created && (
+        <CardHeader
+          avatar={
+            <Avatar
+              aria-label="recipe"
+              alt=""
+              src={props.user_photo}
+              className={classes.large}
+            />
+          }
+          action={
+            <IconButton>
+              <ChatTwoToneIcon className={classes.medium}></ChatTwoToneIcon>
+            </IconButton>
+          }
+          title={`${props.user_first_name} ${props.user_last_name}`}
+          subheader={`Posted ${moment(props.time_created).fromNow()}`}
+        />
+      )}
+      {props.member_since && (
+        <CardHeader
+          avatar={
+            <Avatar
+              aria-label="recipe"
+              alt=""
+              src={props.user_photo}
+              className={classes.large}
+            />
+          }
+          action={
+            <IconButton>
+              <ChatTwoToneIcon className={classes.medium}></ChatTwoToneIcon>
+            </IconButton>
+          }
+          title={`${props.user_first_name} ${props.user_last_name}`}
+          subheader={`Member since ${moment(props.member_since).format("LL")}`}
+        />
+      )}
+      {props.post_title && (
+        <Typography variant="body2" color="textSecondary" component="p">
+          {props.post_title}
+        </Typography>
+      )}
+      {props.post_photo && (
+        <CardMedia
+          className={classes.media}
+          image={`${props.post_photo}`}
+          title="Photo"
+        />
+      )}
       <CardContent>
+        {props.event_start && (
+          <Typography variant="body2" color="textSecondary" component="p">
+            {props.event_start}
+          </Typography>
+        )}
         <Typography variant="body2" color="textSecondary" component="p">
           {props.post_description}
         </Typography>
