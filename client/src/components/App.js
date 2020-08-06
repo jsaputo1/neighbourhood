@@ -4,7 +4,7 @@ import Nav from "./Nav/Nav";
 import Events from "./Events/Events";
 import Services from "./Services/Services";
 import Alerts from "./Alerts/Alerts";
-import Map from "./Map/Map";
+import MapPage from "./Map/MapPage";
 import Messages from "./Messages/Messages";
 import Account from "./Account/Account";
 import Home from "./Home/Home";
@@ -30,7 +30,9 @@ function App() {
         <Route path="/events" exact component={Events} />
         <Route path="/services" exact component={Services} />
         <Route path="/alerts" exact component={Alerts} />
-        <Route path="/map" exact component={Map} />
+        <Route path="/map" exact>
+          <MapPage user={state.user}></MapPage>
+        </Route>
         <Route path="/messages" exact component={Messages} />
         <Route path="/account" exact component={Account} />
       </Switch>

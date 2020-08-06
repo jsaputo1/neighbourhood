@@ -11,10 +11,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.scss";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <ThemeProvider theme={theme}>
+    <App />
+  </ThemeProvider>,
+  // </React.StrictMode>,
   document.getElementById("root")
 );
