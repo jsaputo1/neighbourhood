@@ -39,7 +39,9 @@ function App() {
         <Route path="/map" exact>
           <MapPage user={state.user}></MapPage>
         </Route>
-        <Route path="/messages" exact component={Messages} />
+        <Route path="/messages" exact>
+          <Messages user={state.user}></Messages>
+        </Route>
         <Route path="/account" exact component={Account} />
       </Switch>
     </div>

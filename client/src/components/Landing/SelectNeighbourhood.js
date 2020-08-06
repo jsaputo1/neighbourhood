@@ -15,29 +15,16 @@ function SelectNeighbourhood(props) {
     axios.get("/neighbourhood/choices")
       .then(
         (response) => {
-          // console.log("Data:", response.data);
           setNeighbourhoods(response.data);
         }
       );
   }, []);
 
-  // console.log("neighbourhoods:", neighbourhoods);
-  // console.log("neighbourhoods 0 index:", Object.keys(neighbourhoods[0]));
-  // console.log("User props:", props.user);
-
-  const addNeighbourhoodOne = function (event) {
+  const onAddNeighbourhood = function (event, id) {
     event.preventDefault();
     addNeighbourhood({
-      id: neighbourhoods[0].id,
+      id: id,
       email: props.user.email,
-    });
-  };
-
-  const addNeighbourhoodTwo = function (event) {
-    event.preventDefault();
-    addNeighbourhood({
-      id: neighbourhoods[1].id,
-      email: props.user.email
     });
   };
 
@@ -59,18 +46,14 @@ function SelectNeighbourhood(props) {
     </h2>
     <h3>Based on your location, we suggest joining one of the following neighbourhoods </h3>
     <div className="neighbourhood-choices">
-      <figure>
-        <img src={neighbourhoods[0].neighbourhood_photo}></img>
-        <Button variant="contained" color="primary" type="submit" onClick={addNeighbourhoodOne}>
-          {neighbourhoods[0].name}
-        </Button>
-      </figure>
-      <figure>
-        <img src={neighbourhoods[1].neighbourhood_photo}></img>
-        <Button variant="contained" color="primary" type="submit" onClick={addNeighbourhoodTwo}>
-          {neighbourhoods[1].name}
-        </Button>
-      </figure>
+      {neighbourhoods.slice(0, 2).map(i => (
+        <figure key={i.id}>
+          <img src={i.neighbourhood_photo}></img>
+          <Button variant="contained" color="primary" type="submit" onClick={(evt) => onAddNeighbourhood(evt, i.id)}>
+            {i.name}
+          </Button>
+        </figure>
+      ))}
     </div>
   </div>
   )
