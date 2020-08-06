@@ -63,6 +63,16 @@ function Alerts(props) {
   const classes = useStyles();
 
 
+
+  const [alerts, setAlerts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [state, setState] = React.useState({
+    search: '',
+    selectedValue: '',
+    selectedCategory: ''
+  });
+
   const fetchAlerts = async () => {
     const alerts = await axios.get('http://localhost:8001/alerts');
     setAlerts(alerts.data)
@@ -74,20 +84,11 @@ function Alerts(props) {
     setCategories(filtered)
   };
 
-  const [alerts, setAlerts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [open, setOpen] = React.useState(false);
-  const [state, setState] = React.useState({
-    search: '',
-    selectedValue: '',
-    selectedCategory: ''
-  });
-
 
   useEffect(() => {
     fetchAlerts()
     fetchFilteredCategories("Alerts")
-  }, [alerts]);
+  }, []);
 
 
   const handleChange = (event) => {
@@ -128,6 +129,9 @@ function Alerts(props) {
   const registerAlert = function (registrationData) {
     console.log('REEGISTAERW', registrationData)
     axios.post("/alerts", registrationData)
+      .then((response) => {
+        setAlerts(response.data)
+      })
   };
 
 

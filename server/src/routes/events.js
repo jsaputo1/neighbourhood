@@ -27,12 +27,21 @@ module.exports = db => {
     db.query(
       `
         INSERT INTO events (user_id, category_id, title, description, event_start, event_end, event_photo)
-        VALUES ($1, $2, $3, $4, $5, $6, $7)
-        RETURNING *;
+        VALUES ($1, $2, $3, $4, $5, $6, $7);
           `,
       values
-    ).then((data) => {
-      response.status(200).end();
+    ).then(() => {
+      return db.query(
+        `
+        SELECT events.*, users.first_name, users.last_name, users.profile_photo
+        FROM events
+        JOIN users
+        ON events.user_id = users.id;
+      `
+      )
+    }).then((data) => {
+      // response.status(200).end();
+      response.json(data.rows)
       console.log(
         "Event registered successfully with the following values",
         data.rows
