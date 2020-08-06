@@ -6,7 +6,6 @@ function Conversation(props) {
     <figure>
       {props.children}
     </figure>
-    <hr></hr>
   </div>;
 }
 
