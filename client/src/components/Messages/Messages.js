@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import Conversation from "./Conversation";
+import moment from 'moment';
+
 
 //Our own style sheet
 import "../../styles.scss";
@@ -25,9 +27,9 @@ function Messages(props) {
     for (let message of conversations[conversationID]) {
       let messageContent = (
         <div className={message.sender_id === props.user.id ? " sent" : " received"}>
-          <h2 className="message-content">Message: {message.message_text}</h2>
-          <h2 className="sender">User ID: {message.sender_id}</h2>
-          <h2 className="timestamp">Time Sent: {message.time_sent}</h2>
+          <h2 className="sender">User ID {message.sender_id}:</h2>
+          <h2 className="message-content">{message.message_text}</h2>
+          <h2 className="timestamp">{moment(message.time_sen, "").fromNow()}</h2>
         </div >
       );
       messagesJSX.push(messageContent);
