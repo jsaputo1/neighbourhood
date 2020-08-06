@@ -49,6 +49,7 @@ CREATE TABLE events (
  id SERIAL PRIMARY KEY NOT NULL,
  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
+ neighbourhood_id INTEGER REFERENCES neighbourhoods(id) ON DELETE CASCADE,
  title VARCHAR(55) NOT NULL,
  coordinates POINT,
  time_created TIMESTAMPTZ NOT NULL DEFAULT now(),
@@ -56,6 +57,7 @@ CREATE TABLE events (
  event_start TIMESTAMPTZ NOT NULL,
  event_end TIMESTAMPTZ NOT NULL,
  event_photo VARCHAR(255)
+
 );
 
 -- do all alerts have locations/coordinates?
@@ -63,6 +65,7 @@ CREATE TABLE alerts (
  id SERIAL PRIMARY KEY NOT NULL,
  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
+ neighbourhood_id INTEGER REFERENCES neighbourhoods(id) ON DELETE CASCADE,
  title VARCHAR(55) NOT NULL,
  coordinates POINT,
  time_created TIMESTAMPTZ NOT NULL DEFAULT now(),
@@ -75,12 +78,14 @@ CREATE TABLE services (
  id SERIAL PRIMARY KEY NOT NULL,
  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
+ neighbourhood_id INTEGER REFERENCES neighbourhoods(id) ON DELETE CASCADE,
  service_offer BOOLEAN NOT NULL,
  title VARCHAR(55) NOT NULL,
  coordinates POINT,
  time_created TIMESTAMPTZ NOT NULL DEFAULT now(),
  description TEXT NOT NULL,
  service_photo VARCHAR(255)
+  
 );
 
 CREATE TABLE subscriptions (

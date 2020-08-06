@@ -9,7 +9,7 @@ import {
   withGoogleMap,
 } from "react-google-maps";
 import PopupCard from "./PopupCard";
-import Switch from "./Switch";
+import Switchlabels from "./Switchlabels";
 import mapStyles from "./mapStyles";
 
 function Map(props) {
@@ -115,15 +115,74 @@ function Map(props) {
         fillColor="#FFFFFF"
         fillOpacity={0.35}
       />
-      {events.map((ev) => (
-        <Marker
-          key={ev.id}
-          position={{ lat: ev.coordinates.x, lng: ev.coordinates.y }}
-          onClick={() => {
-            setSelectedPin(ev);
-          }}
-        />
-      ))}
+      {props.ServicesSwitch &&
+        services.map((service) => (
+          <Marker
+            key={service.id}
+            position={{
+              lat: service.coordinates.x,
+              lng: service.coordinates.y,
+            }}
+            onClick={() => {
+              setSelectedPin(service);
+            }}
+            icon={{
+              url: "/service.svg",
+              scaledSize: new window.google.maps.Size(30, 30),
+            }}
+          />
+        ))}
+      {props.EventsSwitch &&
+        events.map((event) => (
+          <Marker
+            key={event.id}
+            position={{
+              lat: event.coordinates.x,
+              lng: event.coordinates.y,
+            }}
+            onClick={() => {
+              setSelectedPin(event);
+            }}
+            icon={{
+              url: "/event.svg",
+              scaledSize: new window.google.maps.Size(30, 30),
+            }}
+          />
+        ))}
+      {props.NeighboursSwitch &&
+        users.map((user) => (
+          <Marker
+            key={user.id}
+            position={{
+              lat: user.coordinates.x,
+              lng: user.coordinates.y,
+            }}
+            onClick={() => {
+              setSelectedPin(user);
+            }}
+            icon={{
+              url: "/neighbour.svg",
+              scaledSize: new window.google.maps.Size(30, 30),
+            }}
+          />
+        ))}
+      {props.AlertsSwitch &&
+        alerts.map((alert) => (
+          <Marker
+            key={alert.id}
+            position={{
+              lat: alert.coordinates.x,
+              lng: alert.coordinates.y,
+            }}
+            onClick={() => {
+              setSelectedPin(alert);
+            }}
+            icon={{
+              url: "/alert.svg",
+              scaledSize: new window.google.maps.Size(30, 30),
+            }}
+          />
+        ))}
       {selectedPin && (
         <InfoWindow
           onCloseClick={() => {
@@ -149,12 +208,30 @@ function Map(props) {
   );
 }
 
-const WrappedMap = withScriptjs(withGoogleMap(Map));
-
 function MapPage(props) {
+  //Manages the state of the switches
+  const [state, setState] = useState({
+    Neighbours: false,
+    Events: false,
+    Services: false,
+    Alerts: false,
+  });
+
+  //Set the value of the switches
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
+
+  const WrappedMap = withScriptjs(withGoogleMap(Map));
   return (
     <div>
-      <Switch />
+      <Switchlabels
+        handleChange={handleChange}
+        NeighboursSwitch={state.Neighbours}
+        EventsSwitch={state.Events}
+        ServicesSwitch={state.Services}
+        AlertsSwitch={state.Alerts}
+      />
       <div style={{ width: "100vw", height: "78vh" }}>
         <WrappedMap
           googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}
@@ -162,6 +239,10 @@ function MapPage(props) {
           containerElement={<div style={{ height: `100%` }} />}
           mapElement={<div style={{ height: `100%` }} />}
           user={props.user}
+          NeighboursSwitch={state.Neighbours}
+          EventsSwitch={state.Events}
+          ServicesSwitch={state.Services}
+          AlertsSwitch={state.Alerts}
         />
       </div>
     </div>

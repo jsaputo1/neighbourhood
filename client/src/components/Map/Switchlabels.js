@@ -3,36 +3,25 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 
-export default function SwitchLabels() {
-  const [state, setState] = React.useState({
-    Neighbours: true,
-    Events: true,
-    Services: true,
-    Alerts: true,
-  });
-
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
-
+export default function SwitchLabels(props) {
   return (
     <FormGroup row>
       <FormControlLabel
         control={
           <Switch
-            checked={state.checkedA}
-            onChange={handleChange}
+            checked={props.Neighbours}
+            onChange={props.handleChange}
             name="Neighbours"
             color="primary"
           />
         }
-        label="neighbours"
+        label="Neighbours"
       />
       <FormControlLabel
         control={
           <Switch
-            checked={state.checkedB}
-            onChange={handleChange}
+            checked={props.Events}
+            onChange={props.handleChange}
             name="Events"
             color="primary"
           />
@@ -42,8 +31,8 @@ export default function SwitchLabels() {
       <FormControlLabel
         control={
           <Switch
-            checked={state.checkedB}
-            onChange={handleChange}
+            checked={props.Services}
+            onChange={props.handleChange}
             name="Services"
             color="primary"
           />
@@ -53,8 +42,8 @@ export default function SwitchLabels() {
       <FormControlLabel
         control={
           <Switch
-            checked={state.checkedB}
-            onChange={handleChange}
+            checked={props.Alerts}
+            onChange={props.handleChange}
             name="Alerts"
             color="primary"
           />
