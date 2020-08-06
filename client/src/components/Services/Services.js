@@ -64,15 +64,13 @@ function Services(props) {
   const classes = useStyles();
 
   const fetchServices = async () => {
-    const data = await fetch('http://localhost:8001/services');
-    const services = await data.json();
-    setServices(services)
+    const services = await axios.get('http://localhost:8001/services');
+    setServices(services.data)
   };
 
   const fetchFilteredCategories = async (filter) => {
-    const data = await fetch('http://localhost:8001/categories');
-    const categories = await data.json();
-    const filtered = categories.filter(category => category.category_type === filter)
+    const data = await axios.get('http://localhost:8001/categories');
+    const filtered = data.data.filter(category => category.category_type === filter)
     setCategories(filtered)
   };
 
