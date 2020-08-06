@@ -13,6 +13,7 @@
     }
     .message-content {
       font-weight: 500;
+      padding: 0px 20px;
     }
     .timestamp {
       font-size: 13.5px;
@@ -33,4 +34,18 @@
   flex-direction: column;
   align-items: flex-start;
   color: red;
+}
+
+.message-input {
+  padding-right: 0px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  button {
+    margin-left: 20px;
+    height: 38px;
+  }
+  .form-control {
+    width: 60vw;
+  }
 }
