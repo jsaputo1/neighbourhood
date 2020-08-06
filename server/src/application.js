@@ -1,6 +1,10 @@
 const path = require("path");
 const express = require("express");
 const bodyparser = require("body-parser");
+const twilioClient = require('twilio')(
+  process.env.TWILIO_ACCOUNT_SID,
+  process.env.TWILIO_AUTH_TOKEN
+);
 const helmet = require("helmet");
 const cors = require("cors");
 const app = express();
@@ -19,6 +23,7 @@ const messageRoutes = require("./routes/messages");
 const mapRoutes = require("./routes/map");
 const subscriptionRoutes = require("./routes/subscriptions");
 const categoryRoutes = require("./routes/categories");
+const twilioRoutes = require("./routes/twilio");
 
 module.exports = function application(
   ENV
@@ -48,6 +53,7 @@ module.exports = function application(
   app.use("/map", mapRoutes(db));
   app.use("/subscriptions", subscriptionRoutes(db));
   app.use("/categories", categoryRoutes(db));
+  app.use("/twilio", twilioRoutes(db));
 
   //Database reset
   app.get("/api/debug/reset", (request, response) => {
