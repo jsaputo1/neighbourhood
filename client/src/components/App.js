@@ -15,7 +15,7 @@ import SelectNeighbourhood from "./Landing/SelectNeighbourhood";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //Imports custom hook that manages the state
-import useApplicationData from "../hooks/useApplicationData";
+import useApplicationData from "../Hooks/useApplicationData";
 
 function App() {
   //Gets the state from useApplicationData.js
@@ -28,7 +28,10 @@ function App() {
       <Switch>
         <Route path="/home" exact component={Home} />
         <Route path="/events" exact component={Events} />
-        <Route path="/services" exact component={Services} />
+        {/* <Route path="/services" exact component={Services} /> */}
+        <Route path="/services" exact>
+          <Services user={state.user}></Services>
+        </Route>
         <Route path="/alerts" exact component={Alerts} />
         <Route path="/map" exact component={Map} />
         <Route path="/messages" exact component={Messages} />
