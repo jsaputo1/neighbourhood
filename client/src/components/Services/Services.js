@@ -1,16 +1,30 @@
 import React, { useState, useEffect } from "react";
-import moment from 'moment';
+import moment from "moment";
 import axios from "axios";
-
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import { Button, Avatar, Card, CardActionArea, CardHeader, CardContent, CardMedia, Typography, FormControl, InputLabel, Select, Modal, Backdrop, Fade, FormGroup } from "@material-ui/core";
+import {
+  Button,
+  Avatar,
+  Card,
+  CardActionArea,
+  CardHeader,
+  CardContent,
+  CardMedia,
+  Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  Modal,
+  Backdrop,
+  Fade,
+  FormGroup,
+} from "@material-ui/core";
 import { Form } from "react-bootstrap";
-import { Radio, RadioGroup } from 'react-radio-group';
+import { Radio, RadioGroup } from "react-radio-group";
 
-
-// core components 
+// core components
 import GridContainer from "../Material-kit-components/GridContainer.js";
 import GridItem from "../Material-kit-components/GridItem.js";
 import Parallax from "../Material-kit-components/Parallax.js";
@@ -18,13 +32,13 @@ import Parallax from "../Material-kit-components/Parallax.js";
 // import styles from "./Material-kit-components/landingPage.js";
 import "../../styles.scss";
 
-import filterByCategory from "../Helpers/filterByCategory"
+import filterByCategory from "../Helpers/filterByCategory";
 // ""../Hooks/useApplicationData"
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    '& > *': {
+    display: "flex",
+    "& > *": {
       margin: theme.spacing(1),
     },
   },
@@ -46,13 +60,13 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
@@ -64,43 +78,45 @@ function Services(props) {
   const classes = useStyles();
 
   const fetchServices = async () => {
-    const data = await fetch('http://localhost:8001/services');
+    const data = await fetch("http://localhost:8001/services");
     const services = await data.json();
-    setServices(services)
+    setServices(services);
   };
 
   const fetchFilteredCategories = async (filter) => {
-    const data = await fetch('http://localhost:8001/categories');
+    const data = await fetch("http://localhost:8001/categories");
     const categories = await data.json();
-    const filtered = categories.filter(category => category.category_type === filter)
-    setCategories(filtered)
+    const filtered = categories.filter(
+      (category) => category.category_type === filter
+    );
+    setCategories(filtered);
   };
 
   const [services, setServices] = useState([]);
   const [categories, setCategories] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState({
-    search: '',
-    selectedValue: '',
-    selectedCategory: ''
+    search: "",
+    selectedValue: "",
+    selectedCategory: "",
   });
 
   useEffect(() => {
-    fetchServices()
-    fetchFilteredCategories("Services")
+    fetchServices();
+    fetchFilteredCategories("Services");
   }, [services]);
 
   function radioChange(value) {
     setState({
       ...state,
-      selectedValue: value
+      selectedValue: value,
     });
   }
 
   function categoryChange(e) {
     setState({
       ...state,
-      selectedCategory: e.target.value
+      selectedCategory: e.target.value,
     });
   }
 
@@ -112,8 +128,6 @@ function Services(props) {
     });
   };
 
-
-
   const handleOpen = () => {
     setOpen(true);
   };
@@ -122,36 +136,43 @@ function Services(props) {
     setOpen(false);
   };
 
-
-
-
   const requestOrOffer = function (bool) {
-    if (bool) return (<span><i>"This is an OFFER. We can change this to an icon or colour change during styling"</i></span>)
-    return (<span><i>"This is a REQUEST. We can change this to an icon or colour change during styling."</i></span>)
+    if (bool)
+      return (
+        <span>
+          <i>
+            "This is an OFFER. We can change this to an icon or colour change
+            during styling"
+          </i>
+        </span>
+      );
+    return (
+      <span>
+        <i>
+          "This is a REQUEST. We can change this to an icon or colour change
+          during styling."
+        </i>
+      </span>
+    );
   };
-
-
-
 
   const onSubmitHandler = function (event) {
     event.preventDefault();
     registerService({
-      title: event.target.elements['serviceTitle'].value,
+      title: event.target.elements["serviceTitle"].value,
       service_offer: state.selectedValue,
       category_id: state.selectedCategory,
-      description: event.target.elements['serviceDescription'].value,
+      description: event.target.elements["serviceDescription"].value,
       user_id: props.user.id,
-      service_photo: event.target.elements['servicePhoto'].value
+      service_photo: event.target.elements["servicePhoto"].value,
     });
     handleClose();
   };
 
-
   const registerService = function (registrationData) {
-    console.log(registrationData)
-    axios.post("/services", registrationData)
+    console.log(registrationData);
+    axios.post("/services", registrationData);
   };
-
 
   return (
     <div>
@@ -161,25 +182,27 @@ function Services(props) {
             <CardActionArea>
               <p>{state.search}</p>
               <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel htmlFor="outlined-age-native-simple">Filter By Category</InputLabel>
+                <InputLabel htmlFor="outlined-age-native-simple">
+                  Filter By Category
+                </InputLabel>
                 <Select
                   native
                   value={state.search}
                   onChange={handleChange}
                   label="search"
                   inputProps={{
-                    name: 'search',
-                    id: 'outlined-age-native-simple',
+                    name: "search",
+                    id: "outlined-age-native-simple",
                   }}
                 >
                   <option aria-label="None" value="" />
-                  {categories.map(category => (
-                    <option key={category.id} value={category.name}>{category.name}</option>
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.name}>
+                      {category.name}
+                    </option>
                   ))}
                 </Select>
               </FormControl>
-
-
 
               {props.user ? (
                 <div>
@@ -202,9 +225,10 @@ function Services(props) {
                     >
                       <Fade in={open}>
                         <div className={classes.paper}>
-                          <h2 id="transition-modal-title">Post New Service Listing</h2>
+                          <h2 id="transition-modal-title">
+                            Post New Service Listing
+                          </h2>
                           <Form onSubmit={onSubmitHandler}>
-
                             <Form.Group controlId="serviceTitle">
                               <Form.Label>Service Title</Form.Label>
                               <Form.Control type="title" placeholder="Title" />
@@ -214,12 +238,15 @@ function Services(props) {
                               <RadioGroup
                                 name="requestOrOffer"
                                 selectedValue={state.selectedValue}
-                                onChange={radioChange}>
+                                onChange={radioChange}
+                              >
                                 <label>
-                                  <Radio value={false} />Request
+                                  <Radio value={false} />
+                                  Request
                                 </label>
                                 <label>
-                                  <Radio value={true} />Offer
+                                  <Radio value={true} />
+                                  Offer
                                 </label>
                               </RadioGroup>
                             </Form.Group>
@@ -232,16 +259,22 @@ function Services(props) {
                                 onChange={categoryChange}
                               >
                                 <option></option>
-                                {categories.map(category => (
-                                  <option key={category.id} value={category.id}>{category.name}</option>
+                                {categories.map((category) => (
+                                  <option key={category.id} value={category.id}>
+                                    {category.name}
+                                  </option>
                                 ))}
                               </Form.Control>
                             </FormGroup>
 
-
                             <Form.Group controlId="serviceDescription">
                               <Form.Label>Description</Form.Label>
-                              <Form.Control type="description" placeholder="Description" as="textarea" rows="3" />
+                              <Form.Control
+                                type="description"
+                                placeholder="Description"
+                                as="textarea"
+                                rows="3"
+                              />
                             </Form.Group>
 
                             <Form.Group controlId="servicePhoto">
@@ -249,7 +282,11 @@ function Services(props) {
                               <Form.Control type="url" placeholder="URL" />
                             </Form.Group>
 
-                            <Button variant="contained" color="primary" type="submit">
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              type="submit"
+                            >
                               Post
                             </Button>
                           </Form>
@@ -258,57 +295,69 @@ function Services(props) {
                     </Modal>
                   </div>
                 </div>
-              ) : <div></div>}
-
+              ) : (
+                <div></div>
+              )}
             </CardActionArea>
           </Card>
-
-
-
-
 
           <h1>...</h1>
 
           <GridContainer>
+            {filterByCategory(services, state.search, categories).map(
+              (service) => (
+                <GridItem xs={12} sm={6} md={3}>
+                  <Card className={classes.root}>
+                    <CardActionArea>
+                      <div key={service.id}>
+                        <CardMedia
+                          className={classes.media}
+                          image={service.service_photo}
+                          title={service.title}
+                        />
 
-            {filterByCategory(services, state.search, categories).map(service => (
-
-              <GridItem xs={12} sm={6} md={3}>
-                <Card className={classes.root}>
-                  <CardActionArea>
-                    <div key={service.id}>
-
-                      <CardMedia
-                        className={classes.media}
-                        image={service.service_photo}
-                        title={service.title}
-                      />
-
-                      <CardHeader
-                        avatar={
-                          <Avatar alt={`${service.first_name} ${service.last_name}`} src={service.profile_photo} className={classes.large} />
-                        }
-                        title={`${service.first_name} ${service.last_name}`}
-                        subheader={`Posted ${moment(service.time_created).fromNow()}`}
-                      />
-                      <CardContent>
-                        <Typography variant="body2" color="textPrimary" component="h3">
-                          {service.title}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                          {service.description}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                          {requestOrOffer(service.service_offer)}
-                        </Typography>
-                      </CardContent>
-
-                    </div>
-                  </CardActionArea>
-                </Card>
-              </GridItem>
-            ))}
-
+                        <CardHeader
+                          avatar={
+                            <Avatar
+                              alt={`${service.first_name} ${service.last_name}`}
+                              src={service.profile_photo}
+                              className={classes.large}
+                            />
+                          }
+                          title={`${service.first_name} ${service.last_name}`}
+                          subheader={`Posted ${moment(
+                            service.time_created
+                          ).fromNow()}`}
+                        />
+                        <CardContent>
+                          <Typography
+                            variant="body2"
+                            color="textPrimary"
+                            component="h3"
+                          >
+                            {service.title}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            color="textSecondary"
+                            component="p"
+                          >
+                            {service.description}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            color="textSecondary"
+                            component="p"
+                          >
+                            {requestOrOffer(service.service_offer)}
+                          </Typography>
+                        </CardContent>
+                      </div>
+                    </CardActionArea>
+                  </Card>
+                </GridItem>
+              )
+            )}
           </GridContainer>
         </div>
       </Parallax>
