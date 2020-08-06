@@ -77,6 +77,17 @@ moment().format();
 function Services(props) {
   const classes = useStyles();
 
+
+  const [services, setServices] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [state, setState] = React.useState({
+    search: "",
+    selectedValue: "",
+    selectedCategory: "",
+  });
+
+
   const fetchServices = async () => {
     const services = await axios.get('http://localhost:8001/services');
     setServices(services.data)
@@ -88,19 +99,14 @@ function Services(props) {
     setCategories(filtered)
   };
 
-  const [services, setServices] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [open, setOpen] = React.useState(false);
-  const [state, setState] = React.useState({
-    search: "",
-    selectedValue: "",
-    selectedCategory: "",
-  });
+
 
   useEffect(() => {
     fetchServices();
     fetchFilteredCategories("Services");
-  }, [services]);
+  }, []);
+
+
 
   function radioChange(value) {
     setState({
@@ -167,7 +173,10 @@ function Services(props) {
 
   const registerService = function (registrationData) {
     console.log(registrationData);
-    axios.post("/services", registrationData);
+    axios.post("/services", registrationData)
+      .then((response) => {
+        setServices(response.data)
+      })
   };
 
   return (

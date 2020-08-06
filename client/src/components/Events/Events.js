@@ -89,7 +89,7 @@ function Events(props) {
   useEffect(() => {
     fetchEvents()
     fetchFilteredCategories("Events")
-  }, [events]);
+  }, []);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -134,6 +134,9 @@ function Events(props) {
   const registerEvent = function (registrationData) {
     console.log('REEGISTAERW', registrationData)
     axios.post("/events", registrationData)
+      .then((response) => {
+        setEvents(response.data)
+      });
   };
 
 
