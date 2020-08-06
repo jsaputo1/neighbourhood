@@ -23,15 +23,12 @@ function Messages(props) {
   for (let conversationID in conversations) {
     let messagesJSX = [];
     for (let message of conversations[conversationID]) {
-      console.log(conversations[conversationID]);
       let messageContent = (
-        <div className="message-content">
-          <h6>Conversation ID: {message.id}</h6>
-          <h6>Sent By: {message.sender_id}</h6>
-          <h6>Received By: {message.receiver_id}</h6>
-          <h6>Message: {message.message_text}</h6>
-          <h6>Time Sent: {message.time_sent}</h6>
-        </div>
+        <div className={message.sender_id === props.user.id ? " sent" : " received"}>
+          <h2 className="message-content">Message: {message.message_text}</h2>
+          <h2 className="sender">User ID: {message.sender_id}</h2>
+          <h2 className="timestamp">Time Sent: {message.time_sent}</h2>
+        </div >
       );
       messagesJSX.push(messageContent);
     }
@@ -39,7 +36,7 @@ function Messages(props) {
   }
 
   return < div className="messages-container" >
-    <h3>Hello {props.user.first_name}</h3>
+    <h3>Hello {props.user.first_name}, {props.user.id}</h3>
     {conversation}
   </div >;
 
@@ -47,3 +44,4 @@ function Messages(props) {
 
 export default Messages;
 ;
+
