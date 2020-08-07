@@ -1,7 +1,6 @@
 .item {
   display: flex;
   justify-content: center;
-  border: solid 4px green;
   width: 50%;
   margin: auto;
 }
@@ -10,7 +9,6 @@
   flex-direction: column;
   width: 100%;
   height: fit-content;
-  border: solid 4px red;
   margin-bottom: 2em;
 }
 
@@ -37,6 +35,6 @@
   max-width: 95%;
   position: relative;
   left: 2.5%;
-  border-bottom: 0.15em solid #545149;
+
   word-break: break-all;
 }

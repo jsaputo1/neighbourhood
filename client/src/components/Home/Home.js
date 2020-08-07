@@ -2,10 +2,10 @@ import React from "react";
 import AlertsCarousel from "./AlertsCarousel";
 import "../../styles.scss";
 
-function Home() {
+function Home(props) {
   return (
     <div className="carousel-container">
-      <AlertsCarousel />
+      <AlertsCarousel user={props.user} />
     </div>
   );
 }

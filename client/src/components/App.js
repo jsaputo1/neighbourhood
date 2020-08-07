@@ -26,7 +26,9 @@ function App() {
     <div>
       <Nav user={state.user} logout={setUser} />
       <Switch>
-        <Route path="/home" exact component={Home} />
+        <Route path="/home" exact>
+          <Home user={state.user}></Home>
+        </Route>
         <Route path="/events" exact>
           <Events user={state.user}></Events>
         </Route>
