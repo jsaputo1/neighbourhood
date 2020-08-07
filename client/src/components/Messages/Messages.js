@@ -29,7 +29,7 @@ function Messages(props) {
         <div className={message.sender_id === props.user.id ? " sent" : " received"}>
           <h2 className="sender">User ID {message.sender_id}:</h2>
           <h2 className="message-content">{message.message_text}</h2>
-          <h2 className="timestamp">{moment(message.time_sen, "").fromNow()}</h2>
+          <h2 className="timestamp">{moment(message.time_sent, "").fromNow()}</h2>
         </div >
       );
       messagesJSX.push(messageContent);

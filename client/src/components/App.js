@@ -60,7 +60,7 @@ function App() {
           <Register register={setUser}></Register>
         </Route>
         <Route path="/selectNeighbourhood" exact>
-          <SelectNeighbourhood user={state.user}></SelectNeighbourhood>
+          <SelectNeighbourhood user={state.user} register={setUser} ></SelectNeighbourhood>
         </Route>
         {/* These are the paths were we will see the navbar */}
         <Route component={Website} />

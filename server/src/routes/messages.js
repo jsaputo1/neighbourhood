@@ -28,5 +28,24 @@ module.exports = db => {
       });
   });
 
+  router.post("/userMessages", (request, response) => {
+    values = [
+
+      request.session.user_id
+
+    ];
+    db.query(
+      `
+      INSERT INTO messages(conversation_id, sender_id, receiver_id, message_text, time_sent)
+      VALUES
+      ($1, $2, $3, $4, $5),
+
+        `, values)
+      .then(({ rows: messages }) => {
+        const result = groupBy(messages, 'id');
+        return response.json(result);
+      });
+  });
+
   return router;
 };
