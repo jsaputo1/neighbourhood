@@ -9,7 +9,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import ChatTwoToneIcon from "@material-ui/icons/ChatTwoTone";
 import moment from "moment";
-import { requirePropFactory } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -1,0 +1,40 @@
+.item {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  margin: auto;
+}
+.alert-container article {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  margin-bottom: 2em;
+}
+
+.alert-container header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+}
+
+.alert-container header div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.alert-container img {
+  padding-right: 1em;
+}
+
+#alert-display {
+  display: flex;
+  max-width: 95%;
+  position: relative;
+  left: 2.5%;
+
+  word-break: break-all;
+}
