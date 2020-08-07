@@ -4,7 +4,6 @@ import axios from "axios";
 import Conversation from "./Conversation";
 import moment from 'moment';
 
-
 //Our own style sheet
 import "../../styles.scss";
 
@@ -34,7 +33,13 @@ function Messages(props) {
       );
       messagesJSX.push(messageContent);
     }
-    conversation.push(<Conversation>{messagesJSX}</Conversation>);
+    conversation.push(
+      <Conversation
+        conversation_id={conversationID}
+        receiver_id={conversations[conversationID][0].sender_id === props.user_id ? conversations[conversationID][0].receiver_id : conversations[conversationID][0].sender_id}
+      >
+        {messagesJSX}
+      </Conversation>);
   }
 
   return < div className="messages-container" >
