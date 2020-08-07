@@ -35,6 +35,8 @@ import "../../styles.scss";
 import filterByCategory from "../Helpers/filterByCategory";
 // ""../Hooks/useApplicationData"
 
+
+//for Material UI
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -83,7 +85,7 @@ function Services(props) {
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState({
     search: "",
-    selectedValue: "",
+    serviceOffer: "",
     selectedCategory: "",
   });
 
@@ -100,7 +102,6 @@ function Services(props) {
   };
 
 
-
   useEffect(() => {
     fetchServices();
     fetchFilteredCategories("Services");
@@ -108,17 +109,21 @@ function Services(props) {
 
 
 
+  //////////////////// REFACTOR THESE TOGETHER IF YOU CAN
   function radioChange(value) {
     setState({
       ...state,
-      selectedValue: value,
+      serviceOffer: value,
     });
   }
 
   function categoryChange(e) {
+    console.log(categories)
+    let n = e.target.value
+    console.log(n)
     setState({
       ...state,
-      selectedCategory: e.target.value,
+      selectedCategory: n,
     });
   }
 
@@ -129,11 +134,13 @@ function Services(props) {
       [name]: event.target.value,
     });
   };
+  ////////////////////////////
 
+
+  // these functions handle the Modal
   const handleOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
@@ -158,16 +165,39 @@ function Services(props) {
     );
   };
 
+
+  const fetchFilteredSubscriptions = async (postCategory_id) => {
+    const data = await axios.get('http://localhost:8001/subscriptions');
+    const filtered = data.data.filter(subscription => subscription.category_id === parseInt(postCategory_id))
+    const subscriber_ids = filtered.map(entry => entry = entry.user_id)
+    const phoneData = await axios.get('http://localhost:8001/users/phone-numbers');
+    const phoneFiltered = phoneData.data.filter(user => subscriber_ids.includes(user.id)).map(entry => `+${entry.phone_number}`)
+    return phoneFiltered;
+  };
+
+  const sendSubscriptionSMS = async function (postCategory_id) {
+    let categoryName = ''
+    for (const category of categories) {
+      if (category.id === parseInt(postCategory_id)) {
+        categoryName = category.name
+      }
+    }
+    const phoneNumbers = await fetchFilteredSubscriptions(postCategory_id)
+    axios.post("/twilio", { phoneNumbers, categoryName })
+  }
+
+
   const onSubmitHandler = function (event) {
     event.preventDefault();
     registerService({
       title: event.target.elements["serviceTitle"].value,
-      service_offer: state.selectedValue,
+      service_offer: state.serviceOffer,
       category_id: state.selectedCategory,
       description: event.target.elements["serviceDescription"].value,
       user_id: props.user.id,
       service_photo: event.target.elements["servicePhoto"].value,
     });
+    sendSubscriptionSMS(state.selectedCategory);
     handleClose();
   };
 
@@ -242,7 +272,7 @@ function Services(props) {
                             <Form.Group controlId="serviceRequestOrOffer">
                               <RadioGroup
                                 name="requestOrOffer"
-                                selectedValue={state.selectedValue}
+                                selectedValue={state.serviceOffer}
                                 onChange={radioChange}
                               >
                                 <label>
@@ -366,7 +396,7 @@ function Services(props) {
           </GridContainer>
         </div>
       </Parallax>
-    </div>
+    </div >
   );
 }
 

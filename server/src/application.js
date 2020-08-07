@@ -1,10 +1,6 @@
 const path = require("path");
 const express = require("express");
 const bodyparser = require("body-parser");
-const twilioClient = require('twilio')(
-  process.env.TWILIO_ACCOUNT_SID,
-  process.env.TWILIO_AUTH_TOKEN
-);
 const helmet = require("helmet");
 const cors = require("cors");
 const app = express();
