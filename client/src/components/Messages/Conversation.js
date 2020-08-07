@@ -9,7 +9,9 @@ function Conversation(props) {
     event.preventDefault();
     const message = event.target.elements['message'].value;
     sendReply({
-      message
+      message,
+      receiver_id: props.receiver_id,
+      conversation_id: props.conversation_id
     });
   };
 
