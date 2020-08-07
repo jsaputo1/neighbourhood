@@ -72,5 +72,17 @@ module.exports = (db) => {
     return res.json({});
   });
 
+  router.get("/phone-numbers", (request, response) => {
+    db.query(
+      `
+      SELECT id, phone_number
+      FROM users;
+    `
+      //WHERE email = userCookie
+    ).then(({ rows: userData }) => {
+      response.json(userData);
+    });
+  });
+
   return router;
 };
