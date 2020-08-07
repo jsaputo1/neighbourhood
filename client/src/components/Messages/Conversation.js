@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles.scss";
 import { Form } from "react-bootstrap";
 import axios from 'axios';
@@ -13,12 +13,14 @@ function Conversation(props) {
       receiver_id: props.receiver_id,
       conversation_id: props.conversation_id
     });
+    props.conversations(message);
   };
 
   const sendReply = function (messageData) {
     axios.post("/messages/reply", messageData)
       .then(response => {
-        return { message: response.target.elements['message'].value };
+        return { message: response.target.elements['message'].value },
+          props.conversations(response.data);
       });
   };
 
