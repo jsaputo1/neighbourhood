@@ -30,7 +30,8 @@ function SelectNeighbourhood(props) {
 
   const addNeighbourhood = function (neighbourID) {
     axios.post("/neighbourhood/addNeighbourhood", neighbourID)
-      .then(() =>
+      .then((response) =>
+        props.register(response.data),
         sethomeRedirect(true)
       );
   };
@@ -39,6 +40,7 @@ function SelectNeighbourhood(props) {
     return (
       <Redirect to="/home" />);
   }
+
 
   return (!neighbourhoods[0] ? null : (<div className="select-neighbourhood-container">
     <h2>
