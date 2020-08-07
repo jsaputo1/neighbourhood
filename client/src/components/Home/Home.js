@@ -1,7 +1,13 @@
 import React from "react";
+import AlertsCarousel from "./AlertsCarousel";
+import "../../styles.scss";
 
 function Home() {
-  return <h1>Home</h1>;
+  return (
+    <div className="carousel-container">
+      <AlertsCarousel />
+    </div>
+  );
 }
 
 export default Home;
