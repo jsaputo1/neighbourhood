@@ -1,3 +1,5 @@
+const db = require("../db");
+
 const findUserByID = function (userID) {
   return db.query(
     `
