@@ -28,24 +28,28 @@ module.exports = db => {
       });
   });
 
-  router.post("/userMessages", (request, response) => {
+  router.post("/reply", (request, response) => {
+    console.log('Request Body', request.body);
     values = [
-
-      request.session.user_id
-
+      request.body.conversation_id,
+      request.session.user_id,
+      request.body.receiver_id,
+      request.body.message,
+      '2020-08-06T04:52:25.931Z'
     ];
     db.query(
       `
       INSERT INTO messages(conversation_id, sender_id, receiver_id, message_text, time_sent)
-      VALUES
-      ($1, $2, $3, $4, $5),
+      VALUES ($1, $2, $3, $4, $5);
 
         `, values)
-      .then(({ rows: messages }) => {
-        const result = groupBy(messages, 'id');
-        return response.json(result);
+      .then(() => {
+        return response.status(200);
       });
   });
 
   return router;
 };
+
+// INSERT INTO messages (buyer_id, listing_id, seller_id, title, description)
+// VALUES ($1, $2, $3, $4, $5);
