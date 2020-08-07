@@ -48,8 +48,10 @@ module.exports = db => {
           RETURNING*;
           `, [request.body.id, user.id]
         ).then((data) => {
-          response.status(200).end();
-          console.log("Neighbourhood ID added:", data.rows[0].neighbourhood_id, "to user id:", user.id);
+          const userObj = data.rows[0];
+          response.status(200).json(userObj);
+          // console.log("User Object;", userObj);
+          // console.log("Neighbourhood ID added:", data.rows[0].neighbourhood_id, "to user id:", user.id);
         });
       });
   });
