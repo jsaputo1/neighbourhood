@@ -9,15 +9,19 @@ import "../../styles.scss";
 
 function Messages(props) {
   const [conversations, setConversations] = useState([]);
+  const [messages, setMessages] = useState([]);
+
   useEffect(() => {
+    let isMounted = true; // note this flag denote mount status
     axios.get("/messages/userMessages")
       .then(
         (response) => {
-          setConversations(response.data);
-
+          if (isMounted) setConversations(response.data);
         }
       );
-  }, []);
+    return () => { isMounted = false; };
+
+  }, [messages]);
 
   let conversation = [];
 
@@ -37,16 +41,15 @@ function Messages(props) {
       <Conversation
         conversation_id={conversationID}
         receiver_id={conversations[conversationID][0].sender_id === props.user_id ? conversations[conversationID][0].receiver_id : conversations[conversationID][0].sender_id}
+        conversations={setMessages}
       >
         {messagesJSX}
       </Conversation>);
   }
-
   return < div className="messages-container" >
     <h3>Hello {props.user.first_name}, {props.user.id}</h3>
     {conversation}
   </div >;
-
 }
 
 export default Messages;
