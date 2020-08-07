@@ -44,7 +44,9 @@ function App() {
         <Route path="/messages" exact>
           <Messages user={state.user}></Messages>
         </Route>
-        <Route path="/account" exact component={Account} />
+        <Route path="/account" exact>
+          <Account user={state.user}></Account>
+        </Route>
       </Switch>
     </div>
   );

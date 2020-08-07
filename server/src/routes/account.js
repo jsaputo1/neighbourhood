@@ -2,16 +2,13 @@ const router = require("express").Router();
 
 module.exports = db => {
     router.get("/", (request, response) => {
-        const values = [
-            1
-        ];
         db.query(
             `
-      SELECT *
-      FROM categories;
+      SELECT neighbourhoods.name, neighbourhoods.id
+      FROM neighbourhoods;
     `
-        ).then(({ rows: alerts }) => {
-            response.json(alerts);
+        ).then(({ rows: accountInfo }) => {
+            response.json(accountInfo);
         });
     });
 
