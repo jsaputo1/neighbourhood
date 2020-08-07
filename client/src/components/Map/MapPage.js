@@ -18,11 +18,13 @@ function Map(props) {
     lat: 4.538901,
     lng: -5,
   });
+  const [neighbourhoodBoundaries, setneighbourhoodBoundaries] = useState([]);
   const [users, setUsers] = useState([]);
   const [events, setEvents] = useState([]);
   const [services, setServices] = useState([]);
   const [alerts, setAlerts] = useState([]);
   const [selectedPin, setSelectedPin] = useState(null);
+  const [selectedPinUser, setSelectedPinUser] = useState(null);
 
   //Grab the neighbourhood id from the props
   const userNeighbourhoodId = props.user.neighbourhood_id;
@@ -37,15 +39,27 @@ function Map(props) {
       const lat = userNeighbourhood.coordinates.x;
       const lng = userNeighbourhood.coordinates.y;
       const neighbourhoodCoordinates = { lat, lng };
+      const SW = userNeighbourhood.sw;
+      const SE = userNeighbourhood.se;
+      const NE = userNeighbourhood.ne;
+      const NW = userNeighbourhood.nw;
+      let neighbourhoodBoundaries = [
+        { lat: SW.x, lng: SW.y },
+        { lat: SE.x, lng: SE.y },
+        { lat: NE.x, lng: NE.y },
+        { lat: NW.x, lng: NW.y },
+      ];
+      setneighbourhoodBoundaries(neighbourhoodBoundaries);
       setneighbourhoodCoordinates(neighbourhoodCoordinates);
     });
   };
-  //Gets all the member of the neighbourhood
+
+  //Gets all the members of the neighbourhood
   const getUsersForNeighbourhood = (id) => {
     axios.get("/users/profile-info").then((response) => {
       const users = response.data;
       const usersInNeighbourhood = users.filter(
-        (user) => user.neighbourhood_id === id
+        (user) => user.neighbourhood_id === id && user.id !== props.user.id
       );
       // console.log(usersInNeighbourhood);
       setUsers(usersInNeighbourhood);
@@ -80,8 +94,17 @@ function Map(props) {
       const alertsInNeighbourhood = alerts.filter(
         (alert) => alert.neighbourhood_id === id
       );
-      console.log(alertsInNeighbourhood);
+      // console.log(alertsInNeighbourhood);
       setAlerts(alertsInNeighbourhood);
+    });
+  };
+  //Gets user info for selectedPin
+  const getUserForSelectedPin = (id) => {
+    axios.get("/users/profile-info").then((response) => {
+      const users = response.data;
+      const userForSelectedPin = users.find((user) => user.id === id);
+      console.log(userForSelectedPin);
+      setSelectedPinUser(userForSelectedPin);
     });
   };
 
@@ -93,28 +116,48 @@ function Map(props) {
     getAlertsForNeighbourhood(userNeighbourhoodId);
   }, []);
 
+  useEffect(() => {
+    if (selectedPin) {
+      getUserForSelectedPin(selectedPin.user_id);
+    }
+  }, [selectedPin]);
+
   // Setting the coordinates of the polygon of the neighbourhood
-  const squareCoords = [
-    { lat: 45.535136, lng: -73.645706 },
-    { lat: 45.531201, lng: -73.621651 },
-    { lat: 45.539525, lng: -73.61369 },
-    { lat: 45.546319, lng: -73.637601 },
-  ];
+  // const squareCoords = [
+  //   { lat: 45.535136, lng: -73.645706 },
+  //   { lat: 45.531201, lng: -73.621651 },
+  //   { lat: 45.539525, lng: -73.61369 },
+  //   { lat: 45.546319, lng: -73.637601 },
+  // ];
 
   return (
     <GoogleMap
-      defaultZoom={15.5}
+      zoom={15.5}
       center={neighbourhoodCoordinates}
       defaultOptions={{ styles: mapStyles, disableDefaultUI: true }}
     >
       <Polygon
-        paths={squareCoords}
-        strokeColor="#FFD700"
-        strokeOpacity={0.8}
-        strokeWeight={2}
-        fillColor="#FFFFFF"
-        fillOpacity={0.35}
+        paths={neighbourhoodBoundaries}
+        defaultOptions={{
+          strokeColor: "#f7df63",
+          strokeOpacity: 0.8,
+          strokeWeight: 4,
+          fillColor: "#f7df63",
+          fillOpacity: 0.35,
+        }}
       />
+      <Marker
+        key={props.user.id}
+        position={{
+          lat: props.user.coordinates.x,
+          lng: props.user.coordinates.y,
+        }}
+        icon={{
+          url: "/you_are_here.png",
+          scaledSize: new window.google.maps.Size(40, 40),
+        }}
+      />
+
       {props.ServicesSwitch &&
         services.map((service) => (
           <Marker
@@ -183,7 +226,7 @@ function Map(props) {
             }}
           />
         ))}
-      {selectedPin && (
+      {selectedPin && selectedPinUser && (
         <InfoWindow
           onCloseClick={() => {
             setSelectedPin(null);
@@ -194,13 +237,38 @@ function Map(props) {
           }}
         >
           <PopupCard
-            // user_photo={}
-            // user_first_name
-            // user_last_name
+            user_photo={selectedPinUser.profile_photo}
+            user_first_name={selectedPinUser.first_name}
+            user_last_name={selectedPinUser.last_name}
             time_created={selectedPin.time_created}
-            post_photo={selectedPin.photo}
+            post_photo={
+              selectedPin.alert_photo ||
+              selectedPin.event_photo ||
+              selectedPin.service_photo
+            }
             post_description={selectedPin.description}
             post_title={selectedPin.title}
+            event_start={selectedPinUser.event_start}
+            event_end={selectedPinUser.event_end}
+          />
+        </InfoWindow>
+      )}
+      {selectedPin && !selectedPin.user_id && (
+        <InfoWindow
+          onCloseClick={() => {
+            setSelectedPin(null);
+          }}
+          position={{
+            lat: selectedPin.coordinates.x,
+            lng: selectedPin.coordinates.y,
+          }}
+        >
+          <PopupCard
+            user_photo={selectedPin.profile_photo}
+            user_first_name={selectedPin.first_name}
+            user_last_name={selectedPin.last_name}
+            post_description={selectedPin.bio}
+            member_since={selectedPin.time_created}
           />
         </InfoWindow>
       )}

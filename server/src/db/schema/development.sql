@@ -1,9 +1,9 @@
-INSERT INTO neighbourhoods(name, time_created, coordinates, neighbourhood_photo)
+INSERT INTO neighbourhoods(name, time_created, coordinates, SW, SE, NE, NW, neighbourhood_photo)
 VALUES
-('Little Italy', '2020-06-02 19:10:25-07', '(43.655291, -79.413851)', 'https://i.imgur.com/MOIl0x1.png'),
-('Queen West', '2020-07-02 10:43:55-14', '(43.645012, -79.414908)', 'https://i.imgur.com/1A54Bcl.png'),
-('Jarry', '2020-07-02 10:43:55-14', '(45.539496, -73.630033)', 'https://i.imgur.com/1A54Bcl.png'),
-('Villeray', '2020-07-02 10:43:55-14', '(45.546880, -73.621815)', 'https://i.imgur.com/1A54Bcl.png');
+('Little Italy', '2020-06-02 19:10:25-07', '(43.655573, -79.415224)', '(43.649323, -79.420770)', '(43.652313, -79.405946)', '(43.661476, -79.409784)', '(43.658525, -79.424236)', 'https://i.imgur.com/MOIl0x1.png'),
+('Queen West', '2020-07-02 10:43:55-14', '(43.655291, -79.413851)', '(45.535136, -73.645706)', '(45.531201, -73.621651)', '(45.539525, -73.61369)', '(45.546319, -73.637601)', 'https://i.imgur.com/1A54Bcl.png'),
+('Jarry', '2020-07-02 10:43:55-14', '(45.539390, -73.631162)', '(45.535136, -73.645706)', '(45.531201, -73.621651)', '(45.539525, -73.61369)', '(45.546319, -73.637601)','https://i.imgur.com/1A54Bcl.png'),
+('Villeray', '2020-07-02 10:43:55-14', '(45.547282, -73.620562)', '(45.539519, -73.613735)', '(45.547926, -73.607114)', '(45.554242, -73.621700)', '(45.546441, -73.637868)', 'https://i.imgur.com/1A54Bcl.png');
 
 INSERT INTO users(neighbourhood_id, email, password, time_created, coordinates, first_name, last_name, phone_number, profile_photo, last_logout, bio, alert_types)
 VALUES

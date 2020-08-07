@@ -19,7 +19,12 @@ CREATE TABLE neighbourhoods (
  name VARCHAR(55) NOT NULL,
  time_created TIMESTAMPTZ NOT NULL DEFAULT now(),
  coordinates POINT NOT NULL,
+ SW POINT NOT NULL,
+ SE POINT NOT NULL,
+ NE POINT NOT NULL,
+ NW POINT NOT NULL,
  neighbourhood_photo VARCHAR(255)
+ 
 );
 
 CREATE TABLE users (
