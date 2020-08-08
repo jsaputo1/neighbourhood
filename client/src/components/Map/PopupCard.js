@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -9,6 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import ChatTwoToneIcon from "@material-ui/icons/ChatTwoTone";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,8 +39,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 export default function PopupCardAlert(props) {
   const classes = useStyles();
+
+  const setReceiver = function (data) {
+    props.setReceiver(data);
+  };
+
+  console.log("Props on popup card:", props);
+
+  const receiverObject = {
+    first_name: props.user_first_name,
+    last_name: props.user_last_name,
+    user_id: '1'
+  };
 
   return (
     <Card className={classes.root}>
@@ -54,9 +69,9 @@ export default function PopupCardAlert(props) {
             />
           }
           action={
-            <IconButton>
-              <ChatTwoToneIcon className={classes.medium}></ChatTwoToneIcon>
-            </IconButton>
+            <button className={classes.medium} onClick={() => setReceiver(receiverObject)}>
+              <Link to={{ pathname: '/newmessage' }}>Send Message</Link>
+            </button>
           }
           title={`${props.user_first_name} ${props.user_last_name}`}
           subheader={`Posted ${moment(props.time_created).fromNow()}`}
