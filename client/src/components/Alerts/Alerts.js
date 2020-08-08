@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import moment from 'moment';
 import axios from "axios";
-import { Redirect, Link } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Avatar, Card, CardActionArea, CardHeader, CardContent, CardMedia, Typography, FormControl, InputLabel, Select, Modal, Backdrop, Fade, FormGroup } from "@material-ui/core";
 import { Form } from "react-bootstrap";
-
 
 // core components 
 import GridContainer from "../Material-kit-components/GridContainer.js";
@@ -62,18 +60,13 @@ moment().format();
 
 function Alerts(props) {
   const classes = useStyles();
-
-
-
   const [alerts, setAlerts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState({
     search: '',
-    selectedCategory: '',
-    receiver: ''
+    selectedCategory: ''
   });
-
 
   const fetchAlerts = async () => {
     const alerts = await axios.get('http://localhost:8001/alerts');
@@ -86,14 +79,10 @@ function Alerts(props) {
     setCategories(filtered);
   };
 
-
   useEffect(() => {
     fetchAlerts();
     fetchFilteredCategories("Alerts");
   }, []);
-
-
-
 
   //////////////////// REFACTOR THESE TOGETHER IF YOU CAN
   const handleChange = (event) => {
@@ -121,8 +110,6 @@ function Alerts(props) {
   const handleClose = () => {
     setOpen(false);
   };
-
-
 
   const fetchFilteredSubscriptions = async (postCategory_id) => {
     const data = await axios.get('http://localhost:8001/subscriptions');
@@ -170,7 +157,6 @@ function Alerts(props) {
   };
 
   return (
-
     <div>
       <Parallax image={require("../../assets/img/blizzard.jpg")}>
         <div className={classes.container}>
@@ -195,7 +181,6 @@ function Alerts(props) {
                   ))}
                 </Select>
               </FormControl>
-
 
               {props.user ? (
                 <div>
@@ -240,7 +225,6 @@ function Alerts(props) {
                               </Form.Control>
                             </FormGroup>
 
-
                             <Form.Group controlId="alertDescription">
                               <Form.Label>Description</Form.Label>
                               <Form.Control type="description" placeholder="Description" as="textarea" rows="3" />
@@ -262,14 +246,10 @@ function Alerts(props) {
                 </div>
               ) : <div></div>}
 
-
             </CardActionArea>
           </Card>
-
           <h1>...</h1>
-
           <GridContainer>
-
             {filterByCategory(alerts, state.search, categories).map(alert => (
 
               <GridItem xs={12} sm={6} md={3}>
@@ -302,19 +282,16 @@ function Alerts(props) {
 
                     </div>
                     <button onClick={() => setReceiver(alert)}>
-                      <Link to={{ pathname: '/newmessage', receiver: { alert } }}>Send Message</Link>
+                      <Link to={{ pathname: '/newmessage' }}>Send Message</Link>
                     </button>
                   </CardActionArea>
-
                 </Card>
               </GridItem>
             ))}
-
           </GridContainer>
         </div>
       </Parallax>
     </div >
-
   );
 };
 
