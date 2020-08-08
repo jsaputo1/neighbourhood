@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import moment from 'moment';
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 
 // @material-ui/core components
@@ -169,7 +170,7 @@ function Alerts(props) {
 
   if (messageRedirect) {
     return (
-      <Redirect to="/messages/newMessage" />);
+      <Redirect to="/newmessage" />);
   }
 
   return (
