@@ -123,6 +123,9 @@ export default function Calendar(props) {
                   post_title={selectedEvent.title}
                   event_time={selectedEvent.event_time}
                   event_date={selectedEvent.event_date}
+                  receiver={props.receiver}
+                  setReceiver={props.setReceiver}
+                  user_id={selectedEvent.user_id}
                 />
               )}
             </div>

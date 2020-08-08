@@ -64,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
 moment().format();
 
 function Events(props) {
+  console.log("Props on events page:", props);
   const classes = useStyles();
 
   const [events, setEvents] = useState([]);
@@ -256,6 +257,8 @@ function Events(props) {
           events={events}
           search={state.search}
           categories={categories}
+          receiver={props.receiver}
+          setReceiver={props.receiverData}
         />
       </div>
     </div>
