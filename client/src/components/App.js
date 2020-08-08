@@ -6,6 +6,7 @@ import Services from "./Services/Services";
 import Alerts from "./Alerts/Alerts";
 import MapPage from "./Map/MapPage";
 import Messages from "./Messages/Messages";
+import NewMessage from "./Messages/NewMessage";
 import Account from "./Account/Account";
 import Home from "./Home/Home";
 import Landing from "./Landing/Landing";
@@ -43,6 +44,9 @@ function App() {
         </Route>
         <Route path="/messages" exact>
           <Messages user={state.user}></Messages>
+        </Route>
+        <Route path="/newMessage" exact>
+          <NewMessage user={state.user}></NewMessage>
         </Route>
         <Route path="/account" exact component={Account} />
       </Switch>
