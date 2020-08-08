@@ -24,40 +24,14 @@ import "../../styles.scss";
 
 //for Material UI
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    width: "100%",
-    "& > *": {
-      margin: theme.spacing(1),
-    },
-  },
-  large: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
-  },
-  rootCard: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 140,
-  },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
+    minWidth: 100,
   },
   modal: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
   },
 }));
 
@@ -161,10 +135,9 @@ function Events(props) {
   };
 
   return (
-    <div>
-      <div>
-        <p>{state.search}</p>
-        <FormControl variant="outlined">
+    <div className="main">
+      <div className="menu">
+        <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel htmlFor="outlined-age-native-simple">
             Filter By Category
           </InputLabel>
@@ -186,76 +159,74 @@ function Events(props) {
             ))}
           </Select>
         </FormControl>
-        <div>
-          <div>
-            <button type="button" onClick={handleOpen}>
-              Post New Event
-            </button>
-            <Modal
-              aria-labelledby="transition-modal-title"
-              aria-describedby="transition-modal-description"
-              className={classes.modal}
-              open={open}
-              onClose={handleClose}
-              closeAfterTransition
-              BackdropComponent={Backdrop}
-              BackdropProps={{
-                timeout: 500,
-              }}
-            >
-              <Fade in={open}>
-                <div>
-                  <Form onSubmit={onSubmitHandler}>
-                    <h2 id="transition-modal-title">Post New Event</h2>
-                    <Form.Group controlId="eventTitle">
-                      <Form.Label>Event Title</Form.Label>
-                      <Form.Control type="title" placeholder="Title" />
-                    </Form.Group>
-                    <FormGroup controlId="serviceCategory">
-                      <Form.Label>Select Category</Form.Label>
-                      <Form.Control
-                        as="select"
-                        value={state.selectedCategory}
-                        onChange={categoryChange}
-                      >
-                        <option></option>
-                        {categories.map((category) => (
-                          <option key={category.id} value={category.id}>
-                            {category.name}
-                          </option>
-                        ))}
-                      </Form.Control>
-                    </FormGroup>
+      </div>
+      <div className="modal">
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <div>
+              <Form onSubmit={onSubmitHandler}>
+                <h2 id="transition-modal-title">Post New Event</h2>
+                <Form.Group controlId="eventTitle">
+                  <Form.Label>Event Title</Form.Label>
+                  <Form.Control type="title" placeholder="Title" />
+                </Form.Group>
+                <FormGroup controlId="serviceCategory">
+                  <Form.Label>Select Category</Form.Label>
+                  <Form.Control
+                    as="select"
+                    value={state.selectedCategory}
+                    onChange={categoryChange}
+                  >
+                    <option></option>
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </Form.Control>
+                </FormGroup>
 
-                    <Form.Group controlId="eventDescription">
-                      <Form.Label>Description</Form.Label>
-                      <Form.Control
-                        type="description"
-                        placeholder="Description"
-                        as="textarea"
-                        rows="3"
-                      />
-                    </Form.Group>
+                <Form.Group controlId="eventDescription">
+                  <Form.Label>Description</Form.Label>
+                  <Form.Control
+                    type="description"
+                    placeholder="Description"
+                    as="textarea"
+                    rows="3"
+                  />
+                </Form.Group>
 
-                    <Form.Group controlId="eventPhoto">
-                      <Form.Label>Photo URL</Form.Label>
-                      <Form.Control type="url" placeholder="URL" />
-                    </Form.Group>
+                <Form.Group controlId="eventPhoto">
+                  <Form.Label>Photo URL</Form.Label>
+                  <Form.Control type="url" placeholder="URL" />
+                </Form.Group>
 
-                    <Button variant="contained" color="primary" type="submit">
-                      Post
-                    </Button>
-                  </Form>
-                </div>
-              </Fade>
-            </Modal>
-          </div>
-        </div>
+                <Button variant="contained" color="primary" type="submit">
+                  Post
+                </Button>
+              </Form>
+            </div>
+          </Fade>
+        </Modal>
+      </div>
+      <div className="calender">
         <Calendar
           user={props.user}
           events={events}
           search={state.search}
           categories={categories}
+          handleOpen={handleOpen}
         />
       </div>
     </div>
