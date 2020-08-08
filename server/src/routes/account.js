@@ -15,22 +15,55 @@ module.exports = db => {
 
 
     router.post("/", (request, response) => {
-        const values = [
+        const IDFK = [
             request.body.user_id,
             request.body.alert_type,
             request.body.subscriptions
         ];
 
-        console.log(values);
+        const subscriptions = request.body.subscriptions
+        let createSubs = []
+        let deleteSubs = []
+
+        const sortSubscriptions = function () {
+            for (const entry in subscriptions) {
+                if (subscriptions[entry] === true) {
+                    createSubs.push(entry)
+                } else {
+                    deleteSubs.push(entry)
+                }
+            }
+        };
+        sortSubscriptions();
+
+        console.log(createSubs, deleteSubs);
+
+        const user_id = [
+            request.body.user_id
+        ];
+
+        const creation = [
+            request.body.user_id,
+            // createSubs,
+        ];
+
 
         db.query(
             `
-      SELECT neighbourhoods.name, neighbourhoods.id
-      FROM neighbourhoods;
-    `
-        ).then(({ rows: accountInfo }) => {
-            response.json(accountInfo);
-        });
+      DELETE from subscriptions
+      WHERE user_id = ($1)
+    `,
+            user_id
+        ),
+
+            db.query(
+                `
+                insert into subscriptions(user_id, category_id) 
+                select ($1), unnest(array[5, 6, 7, 8, 9]);
+                `,
+                creation
+            )
+
     });
 
 
@@ -39,3 +72,6 @@ module.exports = db => {
 
     return router;
 };
+
+
+
