@@ -14,7 +14,7 @@ import "../../styles.scss";
 
 function NewMessage(props) {
 
-  console.log("Props", props);
+  console.log("New Message Props", props);
 
   // const [redirect, setRedirect] = useState(false);
 
