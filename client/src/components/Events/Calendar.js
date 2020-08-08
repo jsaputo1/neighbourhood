@@ -41,7 +41,7 @@ export default function Calendar(props) {
         let formattedEvent = Object.assign({}, event);
         formattedEvent.start = `${event.event_date.slice(0, 10)}T${
           event.event_time
-        }`;
+          }`;
         return formattedEvent;
       });
 
