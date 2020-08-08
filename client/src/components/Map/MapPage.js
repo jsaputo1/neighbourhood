@@ -253,6 +253,7 @@ function Map(props) {
             event_date={selectedPin.event_date}
             receiver={props.receiver}
             setReceiver={props.setReceiver}
+            user_id={selectedPin.user_id}
           />
         </InfoWindow>
       )}
