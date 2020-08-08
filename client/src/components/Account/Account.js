@@ -123,26 +123,62 @@ function Account(props) {
     return (filtered)
   };
 
+  const sortSubscriptions = function (subscriptions) {
+    let createSubs = []
+    for (const entry in subscriptions) {
+      if (subscriptions[entry] === true) {
+        createSubs.push(entry)
+      }
+    }
+    return createSubs;
+  };
+
   const onSubmitHandler = (event) => {
     event.preventDefault();
     console.log("SUBMIT")
     updateSubscriptionPreferences({
       alert_type: state.selectedAlert_Type,
-      subscriptions: checked,
+      subscriptions: sortSubscriptions(checked),
       user_id: props.user.id
     });
     //some king of route posting to subscriptions and users (for the subscription methods)
 
   }
 
-  const updateSubscriptionPreferences = function (subscriptionData) {
+
+
+  /// 1. send an update function the createSubs array.
+  // 2. the function first deletes all subscriptions, and then creates a new subscription for each ID in the createSubs array. Each individual subscription
+  // makes its own singular, unique db query.
+  // this is HACKY AS FUCK but with limited time and mentor help, and because this is my FFT and and this doesn't have to scale, that is fine.
+
+  const updateSubscriptionPreferences = async function (subscriptionData) {
     console.log('THE THINGS', subscriptionData);
-    axios.post("/account", subscriptionData)
-    // .then((response) => {
-    //   setServices(response.data)
-    // })
+    const newSubscriptions = subscriptionData.subscriptions
+    console.log('NEWSIES', newSubscriptions)
+
+    const generateAxiosCalls = function () {
+      return Promise.all(newSubscriptions.map((categoryId) => {
+        return axios.post("/subscriptions", { user_id: subscriptionData.user_id, category_id: categoryId })
+      }
+      ));
+    };
+
+    await axios.post("/subscriptions/delete", subscriptionData)
+      .then(generateAxiosCalls())
+      .catch(errors => {
+        console.log("errors", errors);
+      })
   };
 
+
+
+
+  // (axios.all([
+  //   axios.post("/subscriptions", { user_id: subscriptionData.user_id, category_id: 13 }),
+  //   axios.post("/subscriptions", { user_id: subscriptionData.user_id, category_id: 14 }),
+  //   axios.post("/subscriptions", { user_id: subscriptionData.user_id, category_id: 15 }),
+  // ])
 
 
   return (
