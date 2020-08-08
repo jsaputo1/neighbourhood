@@ -19,17 +19,18 @@ export default function useApplicationData() {
       setState({ ...state, user });
     }
   }, []);
+
   //Stores the user information in localStorage so that we can use it to set the state again if a refresh happens
   useEffect(() => {
     localStorage.setItem("userObj", JSON.stringify(state.user));
   }, [state.user]);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const receiver = { test: 'test' };
-    setState({ ...state, receiver });
+  //   const receiver = { test: 'test' };
+  //   setState({ ...state, receiver });
 
-  }, []);
+  // }, []);
 
 
   return {
