@@ -15,12 +15,21 @@ import {
   Fade,
   FormGroup,
 } from "@material-ui/core";
+// React Bootstrap
 import { Form } from "react-bootstrap";
+//@material-ui-pickers for date and time
+import {
+  DatePicker,
+  TimePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 
 // core components
 
 // import styles from "./Material-kit-components/landingPage.js";
 import "../../styles.scss";
+import { formatDate } from "@fullcalendar/react";
 
 //for Material UI
 const useStyles = makeStyles((theme) => ({
@@ -32,6 +41,16 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+  },
+  container: {
+    display: "flex",
+    flexWrap: "wrap",
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+    marginTop: 2,
   },
 }));
 
@@ -45,8 +64,8 @@ function Events(props) {
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState({
     search: "",
-    selectedValue: "",
     selectedCategory: "",
+    selectedDate: new Date(),
   });
 
   const fetchFilteredCategories = async (filter) => {
@@ -61,7 +80,6 @@ function Events(props) {
     fetchFilteredCategories("Events");
   }, []);
 
-  //////////////////// REFACTOR THESE TOGETHER IF YOU CAN
   const handleChange = (event) => {
     const name = event.target.name;
     setState({
@@ -70,13 +88,12 @@ function Events(props) {
     });
   };
 
-  function categoryChange(e) {
+  const dateChange = (e) => {
     setState({
       ...state,
-      selectedCategory: e.target.value,
+      selectedDate: e,
     });
-  }
-  ////////////////////////
+  };
 
   // these functions handle the Modal
   const handleOpen = () => {
@@ -84,13 +101,6 @@ function Events(props) {
   };
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const registerEvent = function (registrationData) {
-    console.log("REEGISTAERW", registrationData);
-    axios.post("/events", registrationData).then((response) => {
-      setEvents(response.data);
-    });
   };
 
   const fetchFilteredSubscriptions = async (postCategory_id) => {
@@ -118,17 +128,36 @@ function Events(props) {
     const phoneNumbers = await fetchFilteredSubscriptions(postCategory_id);
     axios.post("/twilio", { phoneNumbers, categoryName });
   };
+  //Functions to format the date coming from the imput fields in the form
+  const formatDate = (x) => {
+    let [date, month, year] = x.toLocaleDateString().split("/");
+    return `${year}-${month}-${date}`;
+  };
+
+  const formatTime = (x) => {
+    let [hour, minute, second] = x.toLocaleTimeString().slice(0, 7).split(":");
+    return `${hour}:${minute}:${second}0`;
+  };
+
+  //Post request to save the event in the database
+  const registerEvent = function (registrationData) {
+    console.log("REEGISTAERW", registrationData);
+    axios.post("/events", registrationData).then((response) => {
+      setEvents(response.data);
+    });
+  };
 
   const onSubmitHandler = function (event) {
     event.preventDefault();
     registerEvent({
       user_id: props.user.id,
       category_id: state.selectedCategory,
+      neighbourhood_id: props.user.neighbourhood_id,
       title: event.target.elements["eventTitle"].value,
       description: event.target.elements["eventDescription"].value,
       event_photo: event.target.elements["eventPhoto"].value,
-      event_start: "2020-08-13 15:30:00-07",
-      event_end: "2020-08-13 19:45:00-07",
+      event_start: formatDate(state.selectedDate),
+      event_time: formatTime(state.selectedDate),
     });
     sendSubscriptionSMS(state.selectedCategory);
     handleClose();
@@ -186,7 +215,8 @@ function Events(props) {
                   <Form.Control
                     as="select"
                     value={state.selectedCategory}
-                    onChange={categoryChange}
+                    onChange={handleChange}
+                    name="selectedCategory"
                   >
                     <option></option>
                     {categories.map((category) => (
@@ -206,6 +236,19 @@ function Events(props) {
                     rows="3"
                   />
                 </Form.Group>
+                <FormGroup>
+                  <Form.Label>Date and time</Form.Label>
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <DatePicker
+                      value={state.selectedDate}
+                      onChange={dateChange}
+                    />
+                    <TimePicker
+                      value={state.selectedDate}
+                      onChange={dateChange}
+                    />
+                  </MuiPickersUtilsProvider>
+                </FormGroup>
 
                 <Form.Group controlId="eventPhoto">
                   <Form.Label>Photo URL</Form.Label>

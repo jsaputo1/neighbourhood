@@ -40,7 +40,7 @@ export default function Calendar(props) {
       );
       const formatedEvents = filtredEvents.map((event) => {
         let formattedEvent = Object.assign({}, event);
-        formattedEvent.start = `${event.event_date.slice(0, 10)}T${
+        formattedEvent.start = `${event.event_start.slice(0, 10)}T${
           event.event_time
         }`;
         if (formattedEvent.category_id === 15) {
@@ -65,7 +65,7 @@ export default function Calendar(props) {
 
   useEffect(() => {
     getFiltredEventsForNeighbourhood(userNeighbourhoodId);
-  }, [props.search]);
+  }, [props.search, props.events]);
 
   useEffect(() => {
     if (selectedEvent) {
@@ -74,7 +74,6 @@ export default function Calendar(props) {
   }, [selectedEvent]);
 
   const handleOpen = (info) => {
-    console.log(info);
     const title = info.event.title;
     const event_info = info.event.extendedProps;
     const event = {
@@ -148,7 +147,7 @@ export default function Calendar(props) {
                   post_description={selectedEvent.description}
                   post_title={selectedEvent.title}
                   event_time={selectedEvent.event_time}
-                  event_date={selectedEvent.event_date}
+                  event_date={selectedEvent.event_start}
                 />
               )}
             </div>

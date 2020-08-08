@@ -59,11 +59,9 @@ CREATE TABLE events (
  coordinates POINT,
  time_created TIMESTAMPTZ NOT NULL DEFAULT now(),
  description TEXT NOT NULL,
- event_date DATE NOT NULL,
- event_time TIME NOT NULL,
- event_end TIMESTAMPTZ NOT NULL,
+ event_start DATE,
+ event_time TIME,
  event_photo VARCHAR(255)
-
 );
 
 -- do all alerts have locations/coordinates?
