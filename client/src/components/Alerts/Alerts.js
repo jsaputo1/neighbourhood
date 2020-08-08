@@ -73,6 +73,7 @@ function Alerts(props) {
     selectedCategory: ''
   });
 
+
   const fetchAlerts = async () => {
     const alerts = await axios.get('http://localhost:8001/alerts');
     setAlerts(alerts.data);
@@ -165,13 +166,18 @@ function Alerts(props) {
 
   const [messageRedirect, setMessageRedirect] = useState(false);
   const messageClick = function () {
+    // props.receiverData({ test: 'new test' });
     setMessageRedirect(true);
+    // console.log(state.receiver);
   };
 
   if (messageRedirect) {
     return (
       <Redirect to="/newmessage" />);
   }
+
+  console.log("Alerts page props", props);
+
 
   return (
 
