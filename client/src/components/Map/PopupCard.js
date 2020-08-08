@@ -53,7 +53,7 @@ export default function PopupCardAlert(props) {
   const receiverObject = {
     first_name: props.user_first_name,
     last_name: props.user_last_name,
-    user_id: '1'
+    user_id: props.user_id
   };
 
   return (
