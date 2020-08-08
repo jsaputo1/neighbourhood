@@ -81,6 +81,11 @@ export default function PopupCardAlert(props) {
           subheader={`Member since ${moment(props.member_since).format("LL")}`}
         />
       )}
+      {props.event_time && props.event_date && (
+        <Typography variant="body2" color="textSecondary" component="p">
+          {props.event_date.slice(0, 10)} {props.event_time.slice(0, 2) + "h"}
+        </Typography>
+      )}
       {props.post_title && (
         <Typography variant="body2" color="textSecondary" component="p">
           {props.post_title}

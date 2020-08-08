@@ -248,8 +248,8 @@ function Map(props) {
             }
             post_description={selectedPin.description}
             post_title={selectedPin.title}
-            event_start={selectedPinUser.event_start}
-            event_end={selectedPinUser.event_end}
+            event_time={selectedPin.event_time}
+            event_date={selectedPin.event_date}
           />
         </InfoWindow>
       )}

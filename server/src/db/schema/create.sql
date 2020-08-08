@@ -59,7 +59,8 @@ CREATE TABLE events (
  coordinates POINT,
  time_created TIMESTAMPTZ NOT NULL DEFAULT now(),
  description TEXT NOT NULL,
- event_start TIMESTAMPTZ NOT NULL,
+ event_date DATE,
+ event_time TIME,
  event_end TIMESTAMPTZ NOT NULL,
  event_photo VARCHAR(255)
 
