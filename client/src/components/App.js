@@ -31,16 +31,16 @@ function App() {
           <Home user={state.user}></Home>
         </Route>
         <Route path="/events" exact>
-          <Events user={state.user}></Events>
+          <Events user={state.user} receiver={state.receiver} receiverData={setReceiver}></Events>
         </Route>
         <Route path="/services" exact>
-          <Services user={state.user}></Services>
+          <Services user={state.user} receiver={state.receiver} receiverData={setReceiver}></Services>
         </Route>
         <Route path="/alerts" exact>
           <Alerts user={state.user} receiver={state.receiver} receiverData={setReceiver}></Alerts>
         </Route>
         <Route path="/map" exact>
-          <MapPage user={state.user}></MapPage>
+          <MapPage user={state.user} receiver={state.receiver} receiverData={setReceiver}></MapPage>
         </Route>
         <Route path="/messages" exact>
           <Messages user={state.user}></Messages>
