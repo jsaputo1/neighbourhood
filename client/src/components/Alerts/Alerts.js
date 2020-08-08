@@ -77,16 +77,14 @@ function Alerts(props) {
     setAlerts(alerts.data)
   };
 
-  const fetchFilteredCategories = async (filter) => {
-    const data = await axios.get('http://localhost:8001/categories');
-    const filtered = data.data.filter(category => category.category_type === filter)
+  const filterAndSetCategories = (filter) => {
+    const filtered = props.categories.filter(category => category.category_type === filter)
     setCategories(filtered)
   };
 
-
   useEffect(() => {
     fetchAlerts()
-    fetchFilteredCategories("Alerts")
+    filterAndSetCategories("Alerts")
   }, []);
 
 
@@ -163,6 +161,7 @@ function Alerts(props) {
         setAlerts(response.data)
       })
   };
+
 
 
   return (

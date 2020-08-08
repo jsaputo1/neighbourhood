@@ -70,9 +70,8 @@ function Events(props) {
     setEvents(events.data)
   };
 
-  const fetchFilteredCategories = async (filter) => {
-    const data = await axios.get('http://localhost:8001/categories');
-    const filtered = data.data.filter(category => category.category_type === filter)
+  const filterAndSetCategories = (filter) => {
+    const filtered = props.categories.filter(category => category.category_type === filter)
     setCategories(filtered)
   };
 
@@ -87,7 +86,7 @@ function Events(props) {
 
   useEffect(() => {
     fetchEvents()
-    fetchFilteredCategories("Events")
+    filterAndSetCategories("Events")
   }, []);
 
 

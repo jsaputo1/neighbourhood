@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles.scss";
+import axios from "axios";
 import Nav from "./Nav/Nav";
 import Events from "./Events/Events";
 import Services from "./Services/Services";
@@ -20,9 +21,20 @@ import useApplicationData from "../hooks/useApplicationData";
 function App() {
   //Gets the state from useApplicationData.js
   const { state, setUser } = useApplicationData();
+  const [categories, setCategories] = useState([]);
+
+  const fetchCategories = async (filter) => {
+    const data = await axios.get('http://localhost:8001/categories');
+    setCategories(data.data)
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   //That is going to be our main app, once we log in or sign in
   const Website = () => (
+
     <div>
       <Nav user={state.user} logout={setUser} />
       <Switch>
@@ -30,13 +42,13 @@ function App() {
           <Home user={state.user}></Home>
         </Route>
         <Route path="/events" exact>
-          <Events user={state.user}></Events>
+          <Events categories={categories} user={state.user}></Events>
         </Route>
         <Route path="/services" exact>
-          <Services user={state.user}></Services>
+          <Services categories={categories} user={state.user}></Services>
         </Route>
         <Route path="/alerts" exact>
-          <Alerts user={state.user}></Alerts>
+          <Alerts categories={categories} user={state.user}></Alerts>
         </Route>
         <Route path="/map" exact>
           <MapPage user={state.user}></MapPage>
@@ -45,7 +57,7 @@ function App() {
           <Messages user={state.user}></Messages>
         </Route>
         <Route path="/account" exact>
-          <Account user={state.user}></Account>
+          <Account categories={categories} user={state.user}></Account>
         </Route>
       </Switch>
     </div>

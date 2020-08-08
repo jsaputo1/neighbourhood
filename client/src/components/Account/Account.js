@@ -63,6 +63,29 @@ function Account(props) {
 
   const [neighbourhood, setNeighbourhood] = useState([]);
   const [open, setOpen] = React.useState(false);
+  const [state, setState] = React.useState({
+    selectedAlert_Type: "Both",
+  });
+
+
+  const [checked, setChecked] = useState({
+    1: false, 2: false, 3: false, 4: false, 5: false,
+    6: false, 7: false, 8: false, 9: false, 10: false,
+    11: false, 12: false, 13: false, 14: false, 15: false,
+    16: false, 17: false, 18: false, 19: false, 20: false,
+    21: false,
+  });
+
+  const handleClick = (e) => {
+    const boxName = e.target.name
+    setChecked({
+      ...checked,
+      [boxName]: !checked[boxName]
+    });
+  }
+
+  console.log(checked);
+
 
   function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -78,13 +101,49 @@ function Account(props) {
     fetchAccountInfo();
   }, []);
 
-  // these functions handle the Modal
+  function changeAlert_Type(e) {
+    // console.log(e.target.value)
+    setState({
+      ...state,
+      selectedAlert_Type: e.target.value,
+    });
+  }
+
+
+  // these functions handle the Modal REFACTORASFASD ASDASDFASDLFUASFIUHASdfJASPODFJA:OIDFJ"APWOKDAWASDFASDASDDSA
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
+
+  const filterCategories = (filter) => {
+    const filtered = props.categories.filter(category => category.category_type === filter)
+    return (filtered)
+  };
+
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+    console.log("SUBMIT")
+    updateSubscriptionPreferences({
+      alert_type: state.selectedAlert_Type,
+      subscriptions: checked,
+      user_id: props.user.id
+    });
+    //some king of route posting to subscriptions and users (for the subscription methods)
+
+  }
+
+  const updateSubscriptionPreferences = function (subscriptionData) {
+    console.log('THE THINGS', subscriptionData);
+    axios.post("/account", subscriptionData)
+    // .then((response) => {
+    //   setServices(response.data)
+    // })
+  };
+
+
 
   return (
 
@@ -117,8 +176,75 @@ function Account(props) {
                 <Fade in={open}>
                   <div className={classes.paper}>
                     <h2 id="transition-modal-title">
-                      Post New Service Listing
+                      Manage Subscriptions
                           </h2>
+
+                    <Form onSubmit={onSubmitHandler}>
+                      <div>
+                        <h6><b>Alerts</b></h6>
+                        {filterCategories("Alerts").map((category) => (
+                          <Form.Check inline
+                            name={category.id}
+                            onClick={handleClick}
+                            key={category.id}
+                            value={category.id}
+                            label={category.name}
+                            type="checkbox"
+                            id={category.id} />
+                        ))}
+                      </div>
+                      <div>
+                        <h6><b>Events</b></h6>
+                        {filterCategories("Events").map((category) => (
+                          <Form.Check inline
+                            name={category.id}
+                            onClick={handleClick}
+                            key={category.id}
+                            value={category.id}
+                            label={category.name}
+                            type="checkbox"
+                            id={category.id} />
+                        ))}
+                      </div>
+                      <div>
+                        <h6><b>Services</b></h6>
+                        {filterCategories("Services").map((category) => (
+                          <Form.Check inline
+                            name={category.id}
+                            onClick={handleClick}
+                            key={category.id}
+                            value={category.id}
+                            label={category.name}
+                            type="checkbox"
+                            id={category.id} />
+                        ))}
+                      </div>
+
+                      <p>Change Alert Type</p>
+
+                      <FormGroup controlId="serviceCategory">
+                        <Form.Label>Select Alert Type</Form.Label>
+                        <Form.Control
+                          as="select"
+                          value={state.selectedAlert_Type}
+                          onChange={changeAlert_Type}
+                        >
+                          <option>Both</option>
+                          <option>SMS</option>
+                          <option>Email</option>
+                          <option>None</option>
+                          ))
+                        </Form.Control>
+                      </FormGroup>
+
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                      >
+                        Post
+                            </Button>
+                    </Form>
 
                   </div>
                 </Fade>
