@@ -20,7 +20,7 @@ import useApplicationData from "../hooks/useApplicationData";
 
 function App() {
   //Gets the state from useApplicationData.js
-  const { state, setUser } = useApplicationData();
+  const { state, setUser, setReceiver } = useApplicationData();
 
   //That is going to be our main app, once we log in or sign in
   const Website = () => (
@@ -37,7 +37,7 @@ function App() {
           <Services user={state.user}></Services>
         </Route>
         <Route path="/alerts" exact>
-          <Alerts user={state.user}></Alerts>
+          <Alerts user={state.user} receiver={state.receiver} receiverData={setReceiver}></Alerts>
         </Route>
         <Route path="/map" exact>
           <MapPage user={state.user}></MapPage>
@@ -46,7 +46,7 @@ function App() {
           <Messages user={state.user}></Messages>
         </Route>
         <Route path="/newMessage" exact>
-          <NewMessage user={state.user}></NewMessage>
+          <NewMessage user={state.user} receiver={state.receiver}></NewMessage>
         </Route>
         <Route path="/account" exact component={Account} />
       </Switch>

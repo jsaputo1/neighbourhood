@@ -4,9 +4,12 @@ export default function useApplicationData() {
   //Hook to store the state and update it
   const [state, setState] = useState({
     user: {},
+    receiver: {},
   });
   //Function to update the state of the user
   const setUser = (user) => setState({ ...state, user });
+  const setReceiver = (receiver) => setState({ ...state, receiver });
+
 
   //Gets the user information from localstorage each time there is a refresh and set the state at first load)
   useEffect(() => {
@@ -21,8 +24,17 @@ export default function useApplicationData() {
     localStorage.setItem("userObj", JSON.stringify(state.user));
   }, [state.user]);
 
+  useEffect(() => {
+
+    const receiver = { test: 'test' };
+    setState({ ...state, receiver });
+
+  }, []);
+
+
   return {
     state,
     setUser,
+    setReceiver,
   };
 }
