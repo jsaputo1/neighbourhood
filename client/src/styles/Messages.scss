@@ -2,9 +2,11 @@
   figure {
     display: flex;
     flex-direction: column;
-    margin: 10px 30px;
+    margin: 20px auto;
     padding: 20px 40px;
-    border: 1px solid black;
+    border: 2px solid black;
+    border-radius: 25px;
+    width: 60%;
     h2 {
       font-size: 16px;
     }
@@ -13,7 +15,10 @@
     }
     .message-content {
       font-weight: 500;
-      padding: 0px 20px;
+      padding: 25px;
+      padding: 25px;
+      border-radius: 20px;
+      max-width: 40%;
     }
     .timestamp {
       font-size: 13.5px;
@@ -26,26 +31,48 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  color: black;
+  color: white;
+  .sender {
+    color: black;
+  }
+  .message-content {
+    background-color: $chatBlue;
+  }
+  .timestamp {
+    color: black;
+  }
 }
 
 .received {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  color: red;
+  color: black;
+  .message-content {
+    background-color: $chatGrey;
+  }
 }
 
 .message-input {
+  position: relative;
   padding-right: 0px;
+  padding-bottom: 0px;
   width: 100%;
   display: flex;
   justify-content: flex-end;
   button {
-    margin-left: 20px;
-    height: 38px;
+    position: absolute;
+    right: 6px;
+    bottom: 20px;
+    height: 30px;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
   }
+
   .form-control {
-    width: 60vw;
+    width: 40vw;
+    padding-right: 65px;
+    border-radius: 20px;
   }
 }
