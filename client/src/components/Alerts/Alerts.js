@@ -19,7 +19,7 @@ import "../../styles.scss";
 
 import filterByCategory from "../Helpers/filterByCategory"
 
-
+//for Material UI
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -69,7 +69,6 @@ function Alerts(props) {
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState({
     search: '',
-    selectedValue: '',
     selectedCategory: ''
   });
 
@@ -91,6 +90,9 @@ function Alerts(props) {
   }, []);
 
 
+
+
+  //////////////////// REFACTOR THESE TOGETHER IF YOU CAN
   const handleChange = (event) => {
     const name = event.target.name;
     setState({
@@ -106,13 +108,40 @@ function Alerts(props) {
     });
   }
 
+  /////////////////////////
+
+
+  //these functions handle the Modal
   const handleOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
+
+
+
+  const fetchFilteredSubscriptions = async (postCategory_id) => {
+    const data = await axios.get('http://localhost:8001/subscriptions');
+    const filtered = data.data.filter(subscription => subscription.category_id === parseInt(postCategory_id))
+    const subscriber_ids = filtered.map(entry => entry = entry.user_id)
+    const phoneData = await axios.get('http://localhost:8001/users/phone-numbers');
+    const phoneFiltered = phoneData.data.filter(user => subscriber_ids.includes(user.id)).map(entry => `+${entry.phone_number}`)
+    return phoneFiltered;
+  };
+
+  const sendSubscriptionSMS = async function (postCategory_id) {
+    let categoryName = ''
+    for (const category of categories) {
+      if (category.id === parseInt(postCategory_id)) {
+        categoryName = category.name
+      }
+    }
+    const phoneNumbers = await fetchFilteredSubscriptions(postCategory_id)
+    axios.post("/twilio", { phoneNumbers, categoryName })
+  }
+
+
 
   const onSubmitHandler = function (event) {
     event.preventDefault();
@@ -123,6 +152,7 @@ function Alerts(props) {
       description: event.target.elements['alertDescription'].value,
       alert_photo: event.target.elements['alertPhoto'].value
     });
+    sendSubscriptionSMS(state.selectedCategory);
     handleClose();
   };
 

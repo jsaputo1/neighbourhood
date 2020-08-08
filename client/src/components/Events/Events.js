@@ -22,6 +22,7 @@ import { Form } from "react-bootstrap";
 // import styles from "./Material-kit-components/landingPage.js";
 import "../../styles.scss";
 
+//for Material UI
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -86,6 +87,7 @@ function Events(props) {
     fetchFilteredCategories("Events");
   }, []);
 
+  //////////////////// REFACTOR THESE TOGETHER IF YOU CAN
   const handleChange = (event) => {
     const name = event.target.name;
     setState({
@@ -100,11 +102,12 @@ function Events(props) {
       selectedCategory: e.target.value,
     });
   }
+  ////////////////////////
 
+  // these functions handle the Modal
   const handleOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
@@ -114,6 +117,32 @@ function Events(props) {
     axios.post("/events", registrationData).then((response) => {
       setEvents(response.data);
     });
+  };
+
+  const fetchFilteredSubscriptions = async (postCategory_id) => {
+    const data = await axios.get("http://localhost:8001/subscriptions");
+    const filtered = data.data.filter(
+      (subscription) => subscription.category_id === parseInt(postCategory_id)
+    );
+    const subscriber_ids = filtered.map((entry) => (entry = entry.user_id));
+    const phoneData = await axios.get(
+      "http://localhost:8001/users/phone-numbers"
+    );
+    const phoneFiltered = phoneData.data
+      .filter((user) => subscriber_ids.includes(user.id))
+      .map((entry) => `+${entry.phone_number}`);
+    return phoneFiltered;
+  };
+
+  const sendSubscriptionSMS = async function (postCategory_id) {
+    let categoryName = "";
+    for (const category of categories) {
+      if (category.id === parseInt(postCategory_id)) {
+        categoryName = category.name;
+      }
+    }
+    const phoneNumbers = await fetchFilteredSubscriptions(postCategory_id);
+    axios.post("/twilio", { phoneNumbers, categoryName });
   };
 
   const onSubmitHandler = function (event) {
@@ -127,6 +156,7 @@ function Events(props) {
       event_start: "2020-08-13 15:30:00-07",
       event_end: "2020-08-13 19:45:00-07",
     });
+    sendSubscriptionSMS(state.selectedCategory);
     handleClose();
   };
 

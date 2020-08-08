@@ -9,8 +9,8 @@ INSERT INTO users(neighbourhood_id, email, password, time_created, coordinates, 
 VALUES
 (2, 'graham.mothersill@gmail.com', crypt('password', gen_salt('bf')), '2020-07-02 19:10:34-07', '(45.542915, -73.634951)', 'Graham', 'Mothersill', '17802464666', 'https://i.imgur.com/3tVgsra.jpg', '2020-08-02 10:43:55-14', 'Graham is one of the people who made this web-app.', 'Both'),
 (1, 'jsaputo1@gmail.com', crypt('password', gen_salt('bf')), '2020-07-04 12:10:34-07', '(43.657603, -79.411882)', 'John', 'Saputo', '16472441907', 'https://i.imgur.com/FK8V841.jpg', '2020-08-02 10:43:55-14', 'John is one of the people who made this web-app.', 'Both'),
-(3, 'samantha.gadet@gmail.com', crypt('password', gen_salt('bf')), '2020-07-03 14:10:31-07', '(45.539652, -73.629813)', 'Sam', 'Gadet', '15146233583', 'https://i.imgur.com/3tVgsra.jpg', '2020-08-02 10:43:55-14', 'Sam is one of the people who made this web-app.', 'Both');
-
+(3, 'samantha.gadet@gmail.com', crypt('password', gen_salt('bf')), '2020-07-03 14:10:31-07', '(45.539652, -73.629813)', 'Sam', 'Gadet', '15146233583', 'https://i.imgur.com/3tVgsra.jpg', '2020-08-02 10:43:55-14', 'Sam is one of the people who made this web-app.', 'Both'),
+(2, 'corben.kushneryk@hotmail.com', crypt('password', gen_salt('bf')), '2020-07-03 14:10:31-07', '(45.542915, -73.634951)', 'Corben', 'Kushneryk', '17809189819', 'https://i.imgur.com/FK8V841.jpg', '2020-08-02 10:43:55-14', 'Corben did not make this app, but his phone was hijacked for testing-purposes', 'Both');
 
 INSERT INTO categories(name, category_type)
 VALUES
@@ -63,14 +63,25 @@ VALUES
 INSERT INTO subscriptions(user_id, category_id)
 VALUES
 (1, 1),
-(1, 2),
-(1, 17),
 (2, 1),
-(2, 2),
-(2, 10),
 (3, 1),
-(3, 2),
-(3, 12);
+
+(1, 4),
+(2, 4),
+(3, 4),
+
+(1, 12),
+(2, 12),
+(3, 12),
+
+(1, 2),
+(4, 2),
+
+(1, 5),
+(4, 5),
+
+(1, 13),
+(4, 13);
 
 
 INSERT INTO conversations(user_one, user_two)

@@ -21,7 +21,7 @@ export default function Calendar(props) {
   const userNeighbourhoodId = props.user.neighbourhood_id;
   //Manages the state of the events
   const [events, setEvents] = useState([]);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [selectedEventUser, setSelectedEventUser] = useState(null);
 
@@ -54,7 +54,6 @@ export default function Calendar(props) {
     axios.get("/users/profile-info").then((response) => {
       const users = response.data;
       const userForSelectedEvent = users.find((user) => user.id === id);
-      console.log(userForSelectedEvent);
       setSelectedEventUser(userForSelectedEvent);
     });
   };
@@ -68,7 +67,6 @@ export default function Calendar(props) {
       getUserForSelectedEvent(selectedEvent.user_id);
     }
   }, [selectedEvent]);
-  console.log(selectedEvent);
 
   const handleOpen = (info) => {
     const title = info.event.title;

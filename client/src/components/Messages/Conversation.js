@@ -1,20 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles.scss";
 import { Form } from "react-bootstrap";
-import { Button } from "@material-ui/core";
+import axios from 'axios';
 
 function Conversation(props) {
+
+  const onSubmitHandler = function (event) {
+    event.preventDefault();
+    const message = event.target.elements['message'].value;
+    sendReply({
+      message,
+      receiver_id: props.receiver_id,
+      conversation_id: props.conversation_id
+    });
+    props.conversations(message);
+  };
+
+  const sendReply = function (messageData) {
+    axios.post("/messages/reply", messageData)
+      .then(response => {
+        return { message: response.target.elements['message'].value },
+          props.conversations(response.data);
+      });
+  };
+
   return <div className="conversation">
     <figure>
       {props.children}
-      <Form className="message-input">
+      <Form className="message-input" onSubmit={onSubmitHandler}>
         <Form.Group controlId="message">
-          <Form.Control type="firstname" placeholder="Enter message" />
+          <Form.Control type="message" placeholder="Enter message" />
         </Form.Group>
         <button>Send</button>
       </Form>
     </figure>
-
 
   </div>;
 }

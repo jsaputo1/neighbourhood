@@ -43,10 +43,10 @@ module.exports = db => {
       .then((data) => {
         // response.status(200).end();
         response.json(data.rows)
-        console.log(
-          "Service registered successfully with the following values",
-          data.rows
-        );
+        // console.log(
+        //   "Service registered successfully with the following values",
+        //   data.rows
+        // );
       });
   });
 
