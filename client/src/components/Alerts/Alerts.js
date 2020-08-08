@@ -17,6 +17,7 @@ import Parallax from "../Material-kit-components/Parallax.js";
 import "../../styles.scss";
 
 import filterByCategory from "../Helpers/filterByCategory";
+import NewMessage from "../Messages/NewMessage.js";
 
 //for Material UI
 const useStyles = makeStyles((theme) => ({
@@ -63,6 +64,8 @@ function Alerts(props) {
   const [alerts, setAlerts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [open, setOpen] = React.useState(false);
+  const [openMessage, setOpenMessages] = React.useState(false);
+
   const [state, setState] = React.useState({
     search: '',
     selectedCategory: ''
@@ -111,6 +114,13 @@ function Alerts(props) {
     setOpen(false);
   };
 
+  const handleOpenMessages = () => {
+    setOpenMessages(true);
+  };
+  const handleCloseMessages = () => {
+    setOpenMessages(false);
+  };
+
   const fetchFilteredSubscriptions = async (postCategory_id) => {
     const data = await axios.get('http://localhost:8001/subscriptions');
     const filtered = data.data.filter(subscription => subscription.category_id === parseInt(postCategory_id));
@@ -150,10 +160,6 @@ function Alerts(props) {
       .then((response) => {
         setAlerts(response.data);
       });
-  };
-
-  const setReceiver = function (data) {
-    props.receiverData(data);
   };
 
   return (
@@ -279,11 +285,17 @@ function Alerts(props) {
                           {alert.description}
                         </Typography>
                       </CardContent>
-
                     </div>
-                    <button onClick={() => setReceiver(alert)}>
-                      <Link to={{ pathname: '/newmessage' }}>Send Message</Link>
-                    </button>
+                    <button onClick={handleOpenMessages}>Send Message</button>
+                    <Modal
+                      open={openMessage}
+                      onClose={handleCloseMessages}
+                      className="new-message-modal"
+                      aria-labelledby="new-message-modal"
+                      aria-describedby="modal to send a new message"
+                    >
+                      <NewMessage receiver={alert} ></NewMessage>
+                    </Modal>
                   </CardActionArea>
                 </Card>
               </GridItem>
