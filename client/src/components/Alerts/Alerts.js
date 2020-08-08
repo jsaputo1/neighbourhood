@@ -164,17 +164,48 @@ function Alerts(props) {
       });
   };
 
+
+
   const [messageRedirect, setMessageRedirect] = useState(false);
-  const messageClick = function () {
-    // props.receiverData({ test: 'new test' });
-    setMessageRedirect(true);
-    // console.log(state.receiver);
-  };
+
+  // useEffect(() => {
+  //   setMessageRedirect();
+
+  // }, []);
+
 
   if (messageRedirect) {
+    console.log("message redirect");
     return (
       <Redirect to="/newmessage" />);
   }
+
+
+
+
+
+  const addReceiverInfo = function (data) {
+    props.receiverData(data);
+    setMessageRedirect(true);
+  };
+
+  // const messageClick = function (data) {
+  //   addReceiverInfo({
+  //     receiverID: data
+  //   });
+
+  //   setMessageRedirect(true);
+
+
+  // };
+
+  // const addReceiverInfo = function (data) {
+  //   props.receiverData(data);
+  //   // setMessageRedirect(true);
+
+  // };
+
+
 
   console.log("Alerts page props", props);
 
@@ -300,6 +331,8 @@ function Alerts(props) {
                         title={`${alert.first_name} ${alert.last_name}`}
                         subheader={`Posted ${moment(alert.time_created).fromNow()}`}
                       />
+
+
                       <CardContent>
                         <Typography variant="body2" color="textPrimary" component="h3">
                           {alert.title}
@@ -310,7 +343,14 @@ function Alerts(props) {
                       </CardContent>
 
                     </div>
-                    <button onClick={messageClick}>Send Message</button>
+                    <button onClick={() => addReceiverInfo(alert)}>Send Message</button>
+
+
+                    {/* {(evt) => onAddNeighbourhood(evt, i.id)} */}
+
+                    {/* <button onClick={messageClick} receiverData={addReceiverInfo('test')}>Send Message</button> */}
+
+
                   </CardActionArea>
 
                 </Card>
