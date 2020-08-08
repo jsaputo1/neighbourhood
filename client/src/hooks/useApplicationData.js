@@ -10,7 +10,6 @@ export default function useApplicationData() {
   const setUser = (user) => setState({ ...state, user });
   const setReceiver = (receiver) => setState({ ...state, receiver });
 
-
   //Gets the user information from localstorage each time there is a refresh and set the state at first load)
   useEffect(() => {
     const data = localStorage.getItem("userObj");
@@ -20,18 +19,16 @@ export default function useApplicationData() {
     }
   }, []);
 
+  //Default state for receiver
+  // useEffect(() => {
+  //   const receiver = { test: 'test' };
+  //   setState({ ...state, receiver });
+  // }, []);
+
   //Stores the user information in localStorage so that we can use it to set the state again if a refresh happens
   useEffect(() => {
     localStorage.setItem("userObj", JSON.stringify(state.user));
   }, [state.user]);
-
-  // useEffect(() => {
-
-  //   const receiver = { test: 'test' };
-  //   setState({ ...state, receiver });
-
-  // }, []);
-
 
   return {
     state,
