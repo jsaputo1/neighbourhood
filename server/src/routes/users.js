@@ -31,7 +31,7 @@ module.exports = (db) => {
           db.query(
             `
         INSERT INTO users (first_name, email, last_name, password, coordinates)
-        VALUES ($1, $2, $3, $4, $5)
+        VALUES ($1, $2, $3, crypt($4, gen_salt('bf')), $5)
         RETURNING *;
           `,
             values
