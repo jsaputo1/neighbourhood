@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import moment from 'moment';
 import axios from "axios";
+import { Redirect, Link } from "react-router-dom";
 
 
 // @material-ui/core components
@@ -17,7 +18,7 @@ import Parallax from "../Material-kit-components/Parallax.js";
 // import styles from "./Material-kit-components/landingPage.js";
 import "../../styles.scss";
 
-import filterByCategory from "../Helpers/filterByCategory"
+import filterByCategory from "../Helpers/filterByCategory";
 
 //for Material UI
 const useStyles = makeStyles((theme) => ({
@@ -69,24 +70,26 @@ function Alerts(props) {
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState({
     search: '',
-    selectedCategory: ''
+    selectedCategory: '',
+    receiver: ''
   });
+
 
   const fetchAlerts = async () => {
     const alerts = await axios.get('http://localhost:8001/alerts');
-    setAlerts(alerts.data)
+    setAlerts(alerts.data);
   };
 
   const fetchFilteredCategories = async (filter) => {
     const data = await axios.get('http://localhost:8001/categories');
-    const filtered = data.data.filter(category => category.category_type === filter)
-    setCategories(filtered)
+    const filtered = data.data.filter(category => category.category_type === filter);
+    setCategories(filtered);
   };
 
 
   useEffect(() => {
-    fetchAlerts()
-    fetchFilteredCategories("Alerts")
+    fetchAlerts();
+    fetchFilteredCategories("Alerts");
   }, []);
 
 
@@ -123,25 +126,23 @@ function Alerts(props) {
 
   const fetchFilteredSubscriptions = async (postCategory_id) => {
     const data = await axios.get('http://localhost:8001/subscriptions');
-    const filtered = data.data.filter(subscription => subscription.category_id === parseInt(postCategory_id))
-    const subscriber_ids = filtered.map(entry => entry = entry.user_id)
+    const filtered = data.data.filter(subscription => subscription.category_id === parseInt(postCategory_id));
+    const subscriber_ids = filtered.map(entry => entry = entry.user_id);
     const phoneData = await axios.get('http://localhost:8001/users/phone-numbers');
-    const phoneFiltered = phoneData.data.filter(user => subscriber_ids.includes(user.id)).map(entry => `+${entry.phone_number}`)
+    const phoneFiltered = phoneData.data.filter(user => subscriber_ids.includes(user.id)).map(entry => `+${entry.phone_number}`);
     return phoneFiltered;
   };
 
   const sendSubscriptionSMS = async function (postCategory_id) {
-    let categoryName = ''
+    let categoryName = '';
     for (const category of categories) {
       if (category.id === parseInt(postCategory_id)) {
-        categoryName = category.name
+        categoryName = category.name;
       }
     }
-    const phoneNumbers = await fetchFilteredSubscriptions(postCategory_id)
-    axios.post("/twilio", { phoneNumbers, categoryName })
-  }
-
-
+    const phoneNumbers = await fetchFilteredSubscriptions(postCategory_id);
+    axios.post("/twilio", { phoneNumbers, categoryName });
+  };
 
   const onSubmitHandler = function (event) {
     event.preventDefault();
@@ -157,13 +158,16 @@ function Alerts(props) {
   };
 
   const registerAlert = function (registrationData) {
-    console.log('REEGISTAERW', registrationData)
+    console.log('REEGISTAERW', registrationData);
     axios.post("/alerts", registrationData)
       .then((response) => {
-        setAlerts(response.data)
-      })
+        setAlerts(response.data);
+      });
   };
 
+  const setReceiver = function (data) {
+    props.receiverData(data);
+  };
 
   return (
 
@@ -286,6 +290,7 @@ function Alerts(props) {
                         title={`${alert.first_name} ${alert.last_name}`}
                         subheader={`Posted ${moment(alert.time_created).fromNow()}`}
                       />
+
                       <CardContent>
                         <Typography variant="body2" color="textPrimary" component="h3">
                           {alert.title}
@@ -296,7 +301,11 @@ function Alerts(props) {
                       </CardContent>
 
                     </div>
+                    <button onClick={() => setReceiver(alert)}>
+                      <Link to={{ pathname: '/newmessage', receiver: { alert } }}>Send Message</Link>
+                    </button>
                   </CardActionArea>
+
                 </Card>
               </GridItem>
             ))}
@@ -306,7 +315,7 @@ function Alerts(props) {
       </Parallax>
     </div >
 
-  )
-}
+  );
+};
 
 export default Alerts;

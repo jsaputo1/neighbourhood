@@ -57,20 +57,20 @@ module.exports = db => {
 
         `, values)
       .then(() => {
-        return response.status(200);
+        return response.status(200).end;
       });
   });
 
-  const testNumber = 3;
   router.post("/newMessage", (request, response) => {
-    createConversationID(request.session.user_id, testNumber)
+    console.log("Request Body New Message:", request.body);
+    createConversationID(request.session.user_id, request.body.receiver_id)
       .then((conversationID) => {
         console.log("ConversationID inserted to values:", conversationID);
         values = [
           conversationID,
-          '2',
-          '3',
-          "message route working",
+          request.session.user_id,
+          request.body.receiver_id,
+          request.body.message,
           '2020-08-06T04:52:25.931Z',
         ];
         db.query(
@@ -79,58 +79,9 @@ module.exports = db => {
           VALUES ($1, $2, $3, $4, $5);
         `, values)
           .then((data) => {
-            return response.status(200);
+            return response.status(200).json(data).end;
           });
       });
   });
-
-  // router.post("/newConversation", (request, response) => {
-  //   // console.log('Request Body', request.body);
-  //   values = [
-  //   ];
-  //   db.query(
-  //     `
-  //     INSERT INTO conversations(id, user_one, user_two)
-  //     VALUES (6, 3, 2);
-
-  //       `, values)
-  //     .then(() => {
-  //       return response.status(200).json(data.rows);
-  //     });
-  // });
-
-
-  // router.get("/newMessage", (request, response) => {
-  //   conversationValues = ['2', '3'];
-  //   messageValues = [];
-  //   getConversationID = `
-  //   SELECT id
-  //   FROM conversations
-  //   WHERE (user_one = 2 OR user_one = 3 )
-  //   AND (user_two = 2 OR user_two = 3)
-  //   `;
-  //   db.query(getConversationID)
-  //     .then((data) => {
-  //       return response.status(200).json(data.rows);
-  //       // const addMessage = `
-  //       // INSERT INTO messages (buyer_id, listing_id, seller_id, title, description)
-  //       // VALUES ($1, $2, $3, $4, $5);
-  //       // `;
-  //       // db.query(addMessage, messageValues)
-  //       //   .then((response) => {
-  //       //     return response.status(200);
-  //       //   });
-  //     });
-  // });
-
-
-
-
-
-
-
   return router;
 };
-
-// INSERT INTO messages (buyer_id, listing_id, seller_id, title, description)
-// VALUES ($1, $2, $3, $4, $5);
