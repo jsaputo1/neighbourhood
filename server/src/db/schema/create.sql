@@ -39,7 +39,7 @@ CREATE TABLE users (
   phone_number VARCHAR(11),
   profile_photo VARCHAR(255),
   last_logout TIMESTAMPTZ,
-  bio TEXT,
+  bio TEXT
 );
 
 CREATE TABLE categories (
