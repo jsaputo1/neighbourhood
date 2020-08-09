@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import axios from "axios";
-import NewMessage from "../Messages/NewMessage.js";
+import { Link } from "react-router-dom";
+
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -84,7 +85,6 @@ function Services(props) {
   const [services, setServices] = useState([]);
   const [categories, setCategories] = useState([]);
   const [open, setOpen] = React.useState(false);
-  const [openMessage, setOpenMessages] = React.useState(false);
   const [state, setState] = React.useState({
     search: "",
     serviceOffer: "",
@@ -145,13 +145,6 @@ function Services(props) {
   };
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const handleOpenMessages = () => {
-    setOpenMessages(true);
-  };
-  const handleCloseMessages = () => {
-    setOpenMessages(false);
   };
 
   const requestOrOffer = function (bool) {
@@ -401,16 +394,9 @@ function Services(props) {
                           </Typography>
                         </CardContent>
                       </div>
-                      <button onClick={handleOpenMessages}>Send Message</button>
-                      <Modal
-                        open={openMessage}
-                        onClose={handleCloseMessages}
-                        className="new-message-modal"
-                        aria-labelledby="new-message-modal"
-                        aria-describedby="modal to send a new message"
-                      >
-                        <NewMessage receiver={service} ></NewMessage>
-                      </Modal>
+                      <button onClick={() => setReceiver(service)}>
+                        <Link to={{ pathname: '/newmessage' }}>Send Message</Link>
+                      </button>
                     </CardActionArea>
                   </Card>
                 </GridItem>
