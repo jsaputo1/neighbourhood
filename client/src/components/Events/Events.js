@@ -57,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
 moment().format();
 
 function Events(props) {
-  console.log("Props on events page:", props);
   const classes = useStyles();
 
   const fetchEvents = async () => {
@@ -169,14 +168,13 @@ function Events(props) {
     const title = event.target.elements["eventTitle"].value;
     const description = event.target.elements["eventDescription"].value;
     const event_photo = event.target.elements["eventPhoto"].value;
-    //Gets the coordinates for the address
+    //Gets the coordinates for the address entered by the user and save info to database
     axios
       .get(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${streetNumber}+${streetName}+${city}+CA&key=AIzaSyDECr816teeC0XpjqJ4yukGJJSe-Zv0Jk4`
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${streetNumber}+${streetName}+${city}+CA&key=${process.env.REACT_APP_GEOCODING_KEY}`
       )
       .then((response) => {
         const coordinates = response.data.results[0].geometry.location;
-        console.log(coordinates);
         const formattedCoordinates = `(${coordinates.lat}, ${coordinates.lng})`;
         registerEvent({
           user_id: props.user.id,

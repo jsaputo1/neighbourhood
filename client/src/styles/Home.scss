@@ -1,4 +1,10 @@
-.carousel-container {
+main {
+  border: solid 3px red;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+}
+
+.carousel-container {
+  margin: auto;
+  border: solid 3px green;
 }

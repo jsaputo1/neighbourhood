@@ -38,37 +38,33 @@ export default function AlertCard(props) {
   }, []);
 
   return (
-    <div className="item">
+    <div>
       {userForAlert && (
         <Alert severity="error">
           <AlertTitle>{props.title}</AlertTitle>
           <section className="alert-container">
-            <article>
-              <header>
-                <div>
-                  <img src={userForAlert.profile_photo} alt="" />
-                  <h6>
-                    {userForAlert.first_name} {userForAlert.last_name}
-                  </h6>
-                </div>
-                <div>
-                  <IconButton>
-                    <ChatTwoToneIcon
-                      className={classes.medium}
-                    ></ChatTwoToneIcon>
-                  </IconButton>
-                </div>
-              </header>
+            <header className="header">
               <div>
-                <p>Posted {moment(props.time_created).fromNow()}</p>
+                <img src={userForAlert.profile_photo} alt="" />
+                <h6>
+                  {userForAlert.first_name} {userForAlert.last_name}
+                </h6>
               </div>
               <div>
-                <img src={props.photo} alt="" />
+                <IconButton>
+                  <ChatTwoToneIcon className={classes.medium}></ChatTwoToneIcon>
+                </IconButton>
               </div>
-              <div id="alert-display">
-                <p>{props.description}</p>
-              </div>
-            </article>
+            </header>
+            <div className="time-created">
+              <p>Posted {moment(props.time_created).fromNow()}</p>
+            </div>
+            <div className="alert-photo">
+              <img src={props.photo} alt="" />
+            </div>
+            <div id="alert-description">
+              <p>{props.description}</p>
+            </div>
           </section>
         </Alert>
       )}

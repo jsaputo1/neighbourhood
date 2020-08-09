@@ -1,12 +1,18 @@
 import React from "react";
 import AlertsCarousel from "./AlertsCarousel";
+import Events from "./AlertsCarousel";
 import "../../styles.scss";
 
 function Home(props) {
   return (
-    <div className="carousel-container">
-      <AlertsCarousel user={props.user} />
-    </div>
+    <main>
+      <div className="carousel-container">
+        <AlertsCarousel user={props.user} />
+      </div>
+      <div>
+        <Events />
+      </div>
+    </main>
   );
 }
 
