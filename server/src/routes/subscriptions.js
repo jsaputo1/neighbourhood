@@ -23,10 +23,11 @@ module.exports = db => {
   WHERE user_id = ($1);
 `,
       user_id
-    )
+    ).then(({ rows: settings }) => {
+      response.json(settings);
+    })
       .catch((err) => console.error("query error", err.stack));
   })
-
 
   router.post("/", (request, response) => {
     const creation = [
