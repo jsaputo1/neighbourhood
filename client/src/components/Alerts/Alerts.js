@@ -76,6 +76,7 @@ function Alerts(props) {
     setAlerts(alerts.data);
   };
 
+<<<<<<< HEAD
   const fetchFilteredCategories = async (filter) => {
     const data = await axios.get('http://localhost:8001/categories');
     const filtered = data.data.filter(category => category.category_type === filter);
@@ -85,6 +86,16 @@ function Alerts(props) {
   useEffect(() => {
     fetchAlerts();
     fetchFilteredCategories("Alerts");
+=======
+  const filterAndSetCategories = (filter) => {
+    const filtered = props.categories.filter(category => category.category_type === filter)
+    setCategories(filtered)
+  };
+
+  useEffect(() => {
+    fetchAlerts()
+    filterAndSetCategories("Alerts")
+>>>>>>> account
   }, []);
 
   //////////////////// REFACTOR THESE TOGETHER IF YOU CAN
@@ -162,6 +173,11 @@ function Alerts(props) {
       });
   };
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> account
   return (
     <div>
       <Parallax image={require("../../assets/img/blizzard.jpg")}>
