@@ -22,14 +22,24 @@ function App() {
   //Gets the state from useApplicationData.js
   const { state, setUser } = useApplicationData();
   const [categories, setCategories] = useState([]);
+  const [subscriptions, setSubscriptions] = useState([]);
 
-  const fetchCategories = async (filter) => {
+  const fetchCategoriesAndSubscriptions = async () => {
+    console.log("call");
     const data = await axios.get('http://localhost:8001/categories');
     setCategories(data.data)
+    const mata = await axios.get('http://localhost:8001/subscriptions');
+    setSubscriptions(mata.data)
   };
 
+  // const fetchSubscriptions = async () => {
+  //   const data = await axios.get('http://localhost:8001/subscriptions');
+  //   setSubscriptions(data.data)
+  // };
+
   useEffect(() => {
-    fetchCategories();
+    fetchCategoriesAndSubscriptions();
+    // fetchSubscriptions();
   }, []);
 
   //That is going to be our main app, once we log in or sign in
@@ -42,13 +52,13 @@ function App() {
           <Home user={state.user}></Home>
         </Route>
         <Route path="/events" exact>
-          <Events categories={categories} user={state.user}></Events>
+          <Events subscriptions={subscriptions} categories={categories} user={state.user}></Events>
         </Route>
         <Route path="/services" exact>
-          <Services categories={categories} user={state.user}></Services>
+          <Services subscriptions={subscriptions} categories={categories} user={state.user}></Services>
         </Route>
         <Route path="/alerts" exact>
-          <Alerts categories={categories} user={state.user}></Alerts>
+          <Alerts subscriptions={subscriptions} categories={categories} user={state.user}></Alerts>
         </Route>
         <Route path="/map" exact>
           <MapPage user={state.user}></MapPage>
@@ -57,7 +67,7 @@ function App() {
           <Messages user={state.user}></Messages>
         </Route>
         <Route path="/account" exact>
-          <Account categories={categories} user={state.user}></Account>
+          <Account updateSubscriptions={fetchCategoriesAndSubscriptions} subscriptions={subscriptions} categories={categories} user={state.user}></Account>
         </Route>
       </Switch>
     </div>

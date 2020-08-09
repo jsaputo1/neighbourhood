@@ -2,15 +2,13 @@ const router = require("express").Router();
 
 module.exports = db => {
   router.get("/", (request, response) => {
-    console.log("BANADANDADA")
     db.query(
       `
       SELECT *
       FROM subscriptions;
     `,
-      // values
-    ).then(({ rows: services }) => {
-      response.json(services);
+    ).then(({ rows: subscriptions }) => {
+      response.json(subscriptions);
     });
   });
 
@@ -19,8 +17,6 @@ module.exports = db => {
       request.body.user_id
     ];
 
-    console.log("OOGA BOOGA", request.body.user_id)
-
     db.query(
       `
   DELETE from subscriptions
@@ -28,10 +24,7 @@ module.exports = db => {
 `,
       user_id
     )
-      .catch(err => {
-        console.log(err);
-        res.send(JSON.stringify({ success: false }));
-      });
+      .catch((err) => console.error("query error", err.stack));
   })
 
 
@@ -41,7 +34,6 @@ module.exports = db => {
       request.body.category_id
     ];
 
-    console.log("MOMOMASMDOASMDAMSODMASODMAOSD cats", creation)
     db.query(
       `
        insert into subscriptions(user_id, category_id) 
@@ -50,8 +42,9 @@ module.exports = db => {
        `,
       creation
     ).then(({ rows: accountInfo }) => {
-      response.json(accountInfo);
-    });
+      response.json(accountInfo)
+    }
+    ).catch((err) => console.error("query error", err.stack));
   });
 
   return router;

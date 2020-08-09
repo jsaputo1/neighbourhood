@@ -64,7 +64,7 @@ function Account(props) {
   const [neighbourhood, setNeighbourhood] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState({
-    selectedAlert_Type: "Both",
+    selectedAlert_Type: props.user.alert_types,
   });
 
 
@@ -76,6 +76,20 @@ function Account(props) {
     21: false,
   });
 
+  const populateChecked = function () {
+    const buttonsToCheck = props.subscriptions.filter((sub) => sub.user_id === props.user.id).map((sub) => sub.category_id)
+
+    const generateCheckedState = function () {
+      const obj = { ...checked }
+      for (const sub of buttonsToCheck) {
+
+        obj[sub] = true
+      }
+      return obj;
+    }
+    setChecked(generateCheckedState())
+  }
+
   const handleClick = (e) => {
     const boxName = e.target.name
     setChecked({
@@ -83,9 +97,6 @@ function Account(props) {
       [boxName]: !checked[boxName]
     });
   }
-
-  console.log(checked);
-
 
   function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -101,8 +112,11 @@ function Account(props) {
     fetchAccountInfo();
   }, []);
 
+  useEffect(() => {
+    populateChecked();
+  }, [props.subscriptions]);
+
   function changeAlert_Type(e) {
-    // console.log(e.target.value)
     setState({
       ...state,
       selectedAlert_Type: e.target.value,
@@ -137,49 +151,31 @@ function Account(props) {
     event.preventDefault();
     console.log("SUBMIT")
     updateSubscriptionPreferences({
-      alert_type: state.selectedAlert_Type,
+      alert_types: state.selectedAlert_Type,
       subscriptions: sortSubscriptions(checked),
       user_id: props.user.id
     });
-    //some king of route posting to subscriptions and users (for the subscription methods)
-
   }
 
-
-
-  /// 1. send an update function the createSubs array.
-  // 2. the function first deletes all subscriptions, and then creates a new subscription for each ID in the createSubs array. Each individual subscription
-  // makes its own singular, unique db query.
-  // this is HACKY AS FUCK but with limited time and mentor help, and because this is my FFT and and this doesn't have to scale, that is fine.
-
   const updateSubscriptionPreferences = async function (subscriptionData) {
-    console.log('THE THINGS', subscriptionData);
     const newSubscriptions = subscriptionData.subscriptions
-    console.log('NEWSIES', newSubscriptions)
-
     const generateAxiosCalls = function () {
       return Promise.all(newSubscriptions.map((categoryId) => {
+        console.log(subscriptionData.user_id, categoryId)
         return axios.post("/subscriptions", { user_id: subscriptionData.user_id, category_id: categoryId })
       }
       ));
     };
-
-    await axios.post("/subscriptions/delete", subscriptionData)
+    await axios.post("/subscriptions/delete", { user_id: subscriptionData.user_id })
       .then(generateAxiosCalls())
-      .catch(errors => {
-        console.log("errors", errors);
-      })
+      .catch((err) => console.error("query error", err.stack))
+      .then(axios.post("/users/notifcation-settings", { alert_types: subscriptionData.alert_types, user_id: subscriptionData.user_id }))
+      .then(props.updateSubscriptions())
+      .then(handleClose())
+    // CAUSING PROXY ERRORS which either results in multiple subscriptions for the current user disappearing, or just ID 1 (Emergencies) being unsubscribed-from.
   };
 
-
-
-
-  // (axios.all([
-  //   axios.post("/subscriptions", { user_id: subscriptionData.user_id, category_id: 13 }),
-  //   axios.post("/subscriptions", { user_id: subscriptionData.user_id, category_id: 14 }),
-  //   axios.post("/subscriptions", { user_id: subscriptionData.user_id, category_id: 15 }),
-  // ])
-
+  console.log("SUBBIES", props.subscriptions)
 
   return (
 
@@ -225,6 +221,7 @@ function Account(props) {
                             key={category.id}
                             value={category.id}
                             label={category.name}
+                            checked={checked[category.id]}
                             type="checkbox"
                             id={category.id} />
                         ))}
@@ -238,6 +235,7 @@ function Account(props) {
                             key={category.id}
                             value={category.id}
                             label={category.name}
+                            checked={checked[category.id]}
                             type="checkbox"
                             id={category.id} />
                         ))}
@@ -251,6 +249,7 @@ function Account(props) {
                             key={category.id}
                             value={category.id}
                             label={category.name}
+                            checked={checked[category.id]}
                             type="checkbox"
                             id={category.id} />
                         ))}

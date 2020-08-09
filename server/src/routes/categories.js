@@ -2,9 +2,6 @@ const router = require("express").Router();
 
 module.exports = db => {
     router.get("/", (request, response) => {
-        const values = [
-            1
-        ];
         db.query(
             `
       SELECT *
