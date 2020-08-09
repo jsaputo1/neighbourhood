@@ -75,7 +75,7 @@ module.exports = (db) => {
   router.get("/phone-numbers", (request, response) => {
     db.query(
       `
-      SELECT id, phone_number
+      SELECT id, phone_number, neighbourhood_id
       FROM users;
     `
       //WHERE email = userCookie
@@ -85,24 +85,24 @@ module.exports = (db) => {
   });
 
 
-  router.post("/notifcation-settings", (request, response) => {
-    const values = [
-      request.body.alert_types,
-      request.body.user_id
-    ];
-    db.query(
-      `
-      UPDATE users
-      SET alert_types = ($1)
-      WHERE id = ($2);
-`,
-      values
-    ).then(({ rows: settings }) => {
-      response.json(settings);
-    })
-      .catch((err) => console.error("query error", err.stack));
+  //   router.post("/notifcation-settings", (request, response) => {
+  //     const values = [
+  //       request.body.alert_types,
+  //       request.body.user_id
+  //     ];
+  //     db.query(
+  //       `
+  //       UPDATE users
+  //       SET alert_types = ($1)
+  //       WHERE id = ($2);
+  // `,
+  //       values
+  //     ).then(({ rows: settings }) => {
+  //       response.json(settings);
+  //     })
+  //       .catch((err) => console.error("query error", err.stack));
 
-  })
+  //   })
 
   return router;
 };

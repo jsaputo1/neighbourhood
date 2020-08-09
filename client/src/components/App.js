@@ -71,7 +71,7 @@ function App() {
           <NewMessage user={state.user} receiver={state.receiver}></NewMessage>
         </Route>
         <Route path="/account" exact>
-          <Account updateSubscriptions={fetchCategoriesAndSubscriptions} subscriptions={subscriptions} categories={categories} user={state.user}></Account>
+          <Account updateSubscriptions={fetchCategoriesAndSubscriptions} updateUser={setUser} subscriptions={subscriptions} categories={categories} user={state.user}></Account>
         </Route>
       </Switch>
     </div>

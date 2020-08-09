@@ -17,6 +17,7 @@ import Parallax from "../Material-kit-components/Parallax.js";
 import "../../styles.scss";
 
 import filterByCategory from "../Helpers/filterByCategory";
+import filterByNeighbourhood from "../Helpers/filterByNeighbourhood";
 
 //for Material UI
 const useStyles = makeStyles((theme) => ({
@@ -68,10 +69,13 @@ function Alerts(props) {
     selectedCategory: ''
   });
 
+
   const fetchAlerts = async () => {
     const alerts = await axios.get('http://localhost:8001/alerts');
-    setAlerts(alerts.data);
+    setAlerts(filterByNeighbourhood(alerts.data, props.user.neighbourhood_id));
   };
+
+
 
   const filterAndSetCategories = (filter) => {
     const filtered = props.categories.filter(category => category.category_type === filter);
@@ -115,7 +119,7 @@ function Alerts(props) {
     const filtered = data.data.filter(subscription => subscription.category_id === parseInt(postCategory_id));
     const subscriber_ids = filtered.map(entry => entry = entry.user_id);
     const phoneData = await axios.get('http://localhost:8001/users/phone-numbers');
-    const phoneFiltered = phoneData.data.filter(user => subscriber_ids.includes(user.id)).map(entry => `+${entry.phone_number}`);
+    const phoneFiltered = phoneData.data.filter(user => subscriber_ids.includes(user.id) && user.neighbourhood_id === props.user.neighbourhood_id).map(entry => `+${entry.phone_number}`);
     return phoneFiltered;
   };
 
@@ -134,10 +138,11 @@ function Alerts(props) {
     event.preventDefault();
     registerAlert({
       user_id: props.user.id,
+      neighbourhood_id: props.user.neighbourhood_id,
       category_id: state.selectedCategory,
       title: event.target.elements['alertTitle'].value,
       description: event.target.elements['alertDescription'].value,
-      alert_photo: event.target.elements['alertPhoto'].value
+      alert_photo: event.target.elements['alertPhoto'].value,
     });
     sendSubscriptionSMS(state.selectedCategory);
     handleClose();
@@ -147,7 +152,7 @@ function Alerts(props) {
     console.log('REEGISTAERW', registrationData);
     axios.post("/alerts", registrationData)
       .then((response) => {
-        setAlerts(response.data);
+        setAlerts(filterByNeighbourhood(response.data, props.user.neighbourhood_id));
       });
   };
 
@@ -250,6 +255,7 @@ function Alerts(props) {
           <h1>...</h1>
           <GridContainer>
             {filterByCategory(alerts, state.search, categories).map(alert => (
+
 
               <GridItem xs={12} sm={6} md={3}>
                 <Card className={classes.root}>

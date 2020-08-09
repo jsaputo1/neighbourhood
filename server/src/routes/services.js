@@ -17,6 +17,7 @@ module.exports = db => {
   router.post("/", (request, response) => {
     const values = [
       request.body.user_id,
+      request.body.neighbourhood_id,
       request.body.category_id,
       request.body.service_offer,
       request.body.title,
@@ -25,8 +26,8 @@ module.exports = db => {
     ];
     db.query(
       `
-        INSERT INTO services (user_id, category_id, service_offer, title, description, service_photo)
-        VALUES ($1, $2, $3, $4, $5, $6);
+        INSERT INTO services (user_id, neighbourhood_id, category_id, service_offer, title, description, service_photo)
+        VALUES ($1, $2, $3, $4, $5, $6, $7);
           `,
       values
     )
