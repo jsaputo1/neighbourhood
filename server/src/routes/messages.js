@@ -71,12 +71,11 @@ module.exports = db => {
           request.session.user_id,
           request.body.receiver_id,
           request.body.message,
-          '2020-08-06T04:52:25.931Z',
         ];
         db.query(
           `
-          INSERT INTO messages(conversation_id, sender_id, receiver_id, message_text, time_sent)
-          VALUES ($1, $2, $3, $4, $5);
+          INSERT INTO messages(conversation_id, sender_id, receiver_id, message_text)
+          VALUES ($1, $2, $3, $4);
         `, values)
           .then((data) => {
             return response.status(200).json(data).end;
@@ -84,20 +83,54 @@ module.exports = db => {
       });
   });
 
-  // router.get("/conversation", (request, response) => {
-  //   console.log("Request Body", request.body);
-  //   db.query(
-  //     `
-  //       SELECT conversations.*, messages.sender_id, messages.receiver_id, messages.message_text, messages.time_sent
-  //       FROM conversations
-  //       JOIN messages ON conversations.id = messages.conversation_id
-  //       WHERE (messages.sender_id = $1 OR messages.receiver_id = $1);
-  //       `, [request.session["user_id"]])
-  //     .then(({ rows: messages }) => {
-  //       const result = groupBy(messages, 'id');
-  //       return response.json(result);
-  //     });
-  // });
+  router.get("/conversation", (request, response) => {
+    console.log("Request Query:", request.query);
+    console.log("Request Body", request.body);
+    db.query(
+      `
+        SELECT conversations.*, messages.sender_id, messages.receiver_id, messages.message_text, messages.time_sent
+        FROM conversations
+        JOIN messages ON conversations.id = messages.conversation_id
+        WHERE (conversations.user_one = $1 OR conversations.user_one = $2)
+        AND(conversations.user_two = $1 OR conversations.user_two = $2);
+  
+        `, [request.session.user_id, request.query.receiver_id])
+      .then(({ rows: messages }) => {
+        console.log("Results from first query:", messages);
+        if (messages.length >= 1) {
+          const result = groupBy(messages, 'id');
+          return response.json(result);
+        } else {
+          createConversationID(request.session.user_id, request.query.receiver_id)
+            .then((conversationID) => {
+              console.log("ConversationID inserted to values:", conversationID);
+              values = [
+                conversationID,
+                request.session.user_id,
+                request.query.receiver_id,
+              ];
+              db.query(
+                `
+              INSERT INTO messages(conversation_id, sender_id, receiver_id)
+              VALUES ($1, $2, $3);
+            `, values);
+              db.query(
+                `
+                SELECT conversations.*, messages.sender_id, messages.receiver_id, messages.message_text, messages.time_sent
+                FROM conversations
+                JOIN messages ON conversations.id = messages.conversation_id
+                WHERE (conversations.user_one = $1 OR conversations.user_one = $2)
+                AND(conversations.user_two = $1 OR conversations.user_two = $2);
+          
+                `, [request.session.user_id, request.query.receiver_id])
+                .then(({ rows: messages }) => {
+                  const result = groupBy(messages, 'id');
+                  return response.json(result);
+                });
+            });
+        }
+      });
+  });
 
 
   return router;
