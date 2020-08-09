@@ -149,18 +149,35 @@ function Events(props) {
 
   const onSubmitHandler = function (event) {
     event.preventDefault();
-    registerEvent({
-      user_id: props.user.id,
-      category_id: state.selectedCategory,
-      neighbourhood_id: props.user.neighbourhood_id,
-      title: event.target.elements["eventTitle"].value,
-      description: event.target.elements["eventDescription"].value,
-      event_photo: event.target.elements["eventPhoto"].value,
-      event_start: formatDate(state.selectedDate),
-      event_time: formatTime(state.selectedDate),
-    });
-    sendSubscriptionSMS(state.selectedCategory);
-    handleClose();
+    const streetNumber = event.target.elements["streetNumber"].value;
+    const streetName = event.target.elements["streetName"].value;
+    const city = event.target.elements["city"].value;
+    const title = event.target.elements["eventTitle"].value;
+    const description = event.target.elements["eventDescription"].value;
+    const event_photo = event.target.elements["eventPhoto"].value;
+    //Gets the coordinates for the address
+    axios
+      .get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${streetNumber}+${streetName}+${city}+CA&key=AIzaSyDECr816teeC0XpjqJ4yukGJJSe-Zv0Jk4`
+      )
+      .then((response) => {
+        const coordinates = response.data.results[0].geometry.location;
+        console.log(coordinates);
+        const formattedCoordinates = `(${coordinates.lat}, ${coordinates.lng})`;
+        registerEvent({
+          user_id: props.user.id,
+          category_id: state.selectedCategory,
+          neighbourhood_id: props.user.neighbourhood_id,
+          title: title,
+          coordinates: formattedCoordinates,
+          description: description,
+          event_photo: event_photo,
+          event_start: formatDate(state.selectedDate),
+          event_time: formatTime(state.selectedDate),
+        });
+        sendSubscriptionSMS(state.selectedCategory);
+        handleClose();
+      });
   };
 
   return (
@@ -236,7 +253,7 @@ function Events(props) {
                     rows="3"
                   />
                 </Form.Group>
-                <FormGroup>
+                <FormGroup controlId="dateAndTime">
                   <Form.Label>Date and time</Form.Label>
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <DatePicker
@@ -253,6 +270,22 @@ function Events(props) {
                 <Form.Group controlId="eventPhoto">
                   <Form.Label>Photo URL</Form.Label>
                   <Form.Control type="url" placeholder="URL" />
+                </Form.Group>
+
+                <Form.Group controlId="streetNumber">
+                  <Form.Label>Address</Form.Label>
+                  <Form.Control
+                    type="streetNumber"
+                    placeholder="Street number"
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="streetName">
+                  <Form.Control type="streetName" placeholder="Street name" />
+                </Form.Group>
+
+                <Form.Group controlId="city">
+                  <Form.Control type="city" placeholder="City" />
                 </Form.Group>
 
                 <Button variant="contained" color="primary" type="submit">
