@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -9,7 +10,8 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import ChatTwoToneIcon from "@material-ui/icons/ChatTwoTone";
 import moment from "moment";
-import { Link } from "react-router-dom";
+import NewMessage from "../Messages/NewMessage.js";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,11 +46,14 @@ const useStyles = makeStyles((theme) => ({
 export default function PopupCardAlert(props) {
   const classes = useStyles();
 
-  const setReceiver = function (data) {
-    props.setReceiver(data);
-  };
+  const [openMessage, setOpenMessages] = React.useState(false);
 
-  console.log("Props on popup card:", props);
+  const handleOpenMessages = () => {
+    setOpenMessages(true);
+  };
+  const handleCloseMessages = () => {
+    setOpenMessages(false);
+  };
 
   const receiverObject = {
     first_name: props.user_first_name,
@@ -69,14 +74,23 @@ export default function PopupCardAlert(props) {
             />
           }
           action={
-            <button className={classes.medium} onClick={() => setReceiver(receiverObject)}>
-              <Link to={{ pathname: '/newmessage' }}>Send Message</Link>
-            </button>
+            <button onClick={handleOpenMessages}>Send Message</button>
           }
+
           title={`${props.user_first_name} ${props.user_last_name}`}
           subheader={`Posted ${moment(props.time_created).fromNow()}`}
         />
+
       )}
+      <Modal
+        open={openMessage}
+        onClose={handleCloseMessages}
+        className="new-message-modal"
+        aria-labelledby="new-message-modal"
+        aria-describedby="modal to send a new message"
+      >
+        <NewMessage receiver={receiverObject} ></NewMessage>
+      </Modal>
       {props.member_since && (
         <CardHeader
           avatar={
