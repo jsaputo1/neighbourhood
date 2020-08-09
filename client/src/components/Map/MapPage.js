@@ -73,7 +73,7 @@ function Map(props) {
       const eventsInNeighbourhood = events.filter(
         (event) => event.neighbourhood_id === id
       );
-      // console.log(eventsInNeighbourhood);
+      console.log(eventsInNeighbourhood);
       setEvents(eventsInNeighbourhood);
     });
   };

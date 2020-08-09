@@ -6,6 +6,7 @@ import PopupCard from "../Map/PopupCard";
 import filterByCategory from "../Helpers/filterByCategory";
 import { Modal, Backdrop, Fade } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import "../../styles.scss";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -39,9 +40,13 @@ export default function Calendar(props) {
       );
       const formatedEvents = filtredEvents.map((event) => {
         let formattedEvent = Object.assign({}, event);
-        formattedEvent.start = `${event.event_date.slice(0, 10)}T${
+        formattedEvent.start = `${event.event_start.slice(0, 10)}T${
           event.event_time
-          }`;
+        }`;
+        if (formattedEvent.category_id === 15) {
+          formattedEvent.color = "#d139d4";
+        }
+
         return formattedEvent;
       });
 
@@ -60,7 +65,7 @@ export default function Calendar(props) {
 
   useEffect(() => {
     getFiltredEventsForNeighbourhood(userNeighbourhoodId);
-  }, [props.search]);
+  }, [props.search, props.events]);
 
   useEffect(() => {
     if (selectedEvent) {
@@ -71,7 +76,10 @@ export default function Calendar(props) {
   const handleOpen = (info) => {
     const title = info.event.title;
     const event_info = info.event.extendedProps;
-    const event = { ...event_info, title: title };
+    const event = {
+      ...event_info,
+      title: title,
+    };
     setSelectedEvent(event);
     setOpen(true);
   };
@@ -85,6 +93,23 @@ export default function Calendar(props) {
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
+        height="70vh"
+        themeSystem="standard"
+        customButtons={{
+          myCustomButton: {
+            text: "Add Event",
+            click: function () {
+              {
+                props.handleOpen();
+              }
+            },
+          },
+        }}
+        headerToolbar={{
+          left: "myCustomButton",
+          center: "title",
+          right: "today prev,next",
+        }}
         events={events}
         eventTimeFormat={{
           hour: "numeric",
@@ -93,9 +118,9 @@ export default function Calendar(props) {
         }}
         eventDisplay="block"
         eventClick={handleOpen}
-        backgroundColor="#fccf03"
-        borderColor="#fccf03"
-        eventColor="#fccf03"
+        // backgroundColor="#fccf03"
+        // borderColor="#fccf03"
+        // eventColor="#fccf03"
       />
       <div>
         <Modal

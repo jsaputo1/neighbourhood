@@ -1,0 +1,27 @@
+.fc-event-main {
+  cursor: pointer;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 4vh;
+}
+
+.menu {
+  position: absolute;
+  top: -2vh;
+  left: 20vw;
+}
+.calender {
+  width: 90vw;
+  height: 70vh;
+  margin: auto;
+}
+
+.fc-col-header-cell-cushion {
+  color: black;
+}
+.fc-daygrid-day-number {
+  color: black;
+}

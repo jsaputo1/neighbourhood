@@ -39,8 +39,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
 export default function PopupCardAlert(props) {
   const classes = useStyles();
 
@@ -53,7 +51,7 @@ export default function PopupCardAlert(props) {
   const receiverObject = {
     first_name: props.user_first_name,
     last_name: props.user_last_name,
-    user_id: props.user_id
+    user_id: props.user_id,
   };
 
   return (
@@ -69,8 +67,11 @@ export default function PopupCardAlert(props) {
             />
           }
           action={
-            <button className={classes.medium} onClick={() => setReceiver(receiverObject)}>
-              <Link to={{ pathname: '/newmessage' }}>Send Message</Link>
+            <button
+              className={classes.medium}
+              onClick={() => setReceiver(receiverObject)}
+            >
+              <Link to={{ pathname: "/newmessage" }}>Send Message</Link>
             </button>
           }
           title={`${props.user_first_name} ${props.user_last_name}`}

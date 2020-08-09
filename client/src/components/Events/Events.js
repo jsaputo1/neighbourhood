@@ -15,49 +15,42 @@ import {
   Fade,
   FormGroup,
 } from "@material-ui/core";
+// React Bootstrap
 import { Form } from "react-bootstrap";
+//@material-ui-pickers for date and time
+import {
+  DatePicker,
+  TimePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 
 // core components
 
 // import styles from "./Material-kit-components/landingPage.js";
 import "../../styles.scss";
+import { formatDate } from "@fullcalendar/react";
 
 //for Material UI
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    width: "100%",
-    "& > *": {
-      margin: theme.spacing(1),
-    },
-  },
-  large: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
-  },
-  rootCard: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 140,
-  },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
+    minWidth: 100,
   },
   modal: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
   },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+  container: {
+    display: "flex",
+    flexWrap: "wrap",
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+    marginTop: 2,
   },
 }));
 
@@ -67,16 +60,16 @@ function Events(props) {
   console.log("Props on events page:", props);
   const classes = useStyles();
 
-
-
   const fetchEvents = async () => {
-    const events = await axios.get('http://localhost:8001/events');
-    setEvents(events.data)
+    const events = await axios.get("http://localhost:8001/events");
+    setEvents(events.data);
   };
 
   const filterAndSetCategories = (filter) => {
-    const filtered = props.categories.filter(category => category.category_type === filter)
-    setCategories(filtered)
+    const filtered = props.categories.filter(
+      (category) => category.category_type === filter
+    );
+    setCategories(filtered);
   };
 
   const [events, setEvents] = useState([]);
@@ -84,8 +77,8 @@ function Events(props) {
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState({
     search: "",
-    selectedValue: "",
     selectedCategory: "",
+    selectedDate: new Date(),
   });
 
   const fetchFilteredCategories = async (filter) => {
@@ -97,11 +90,10 @@ function Events(props) {
   };
 
   useEffect(() => {
-    fetchEvents()
-    filterAndSetCategories("Events")
+    fetchEvents();
+    filterAndSetCategories("Events");
   }, []);
 
-  //////////////////// REFACTOR THESE TOGETHER IF YOU CAN
   const handleChange = (event) => {
     const name = event.target.name;
     setState({
@@ -110,13 +102,12 @@ function Events(props) {
     });
   };
 
-  function categoryChange(e) {
+  const dateChange = (e) => {
     setState({
       ...state,
-      selectedCategory: e.target.value,
+      selectedDate: e,
     });
-  }
-  ////////////////////////
+  };
 
   // these functions handle the Modal
   const handleOpen = () => {
@@ -124,13 +115,6 @@ function Events(props) {
   };
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const registerEvent = function (registrationData) {
-    console.log("REEGISTAERW", registrationData);
-    axios.post("/events", registrationData).then((response) => {
-      setEvents(response.data);
-    });
   };
 
   const fetchFilteredSubscriptions = async (postCategory_id) => {
@@ -158,27 +142,62 @@ function Events(props) {
     const phoneNumbers = await fetchFilteredSubscriptions(postCategory_id);
     axios.post("/twilio", { phoneNumbers, categoryName });
   };
+  //Functions to format the date coming from the imput fields in the form
+  const formatDate = (x) => {
+    let [date, month, year] = x.toLocaleDateString().split("/");
+    return `${year}-${month}-${date}`;
+  };
+
+  const formatTime = (x) => {
+    let [hour, minute, second] = x.toLocaleTimeString().slice(0, 7).split(":");
+    return `${hour}:${minute}:${second}0`;
+  };
+
+  //Post request to save the event in the database
+  const registerEvent = function (registrationData) {
+    console.log("REEGISTAERW", registrationData);
+    axios.post("/events", registrationData).then((response) => {
+      setEvents(response.data);
+    });
+  };
 
   const onSubmitHandler = function (event) {
     event.preventDefault();
-    registerEvent({
-      user_id: props.user.id,
-      category_id: state.selectedCategory,
-      title: event.target.elements["eventTitle"].value,
-      description: event.target.elements["eventDescription"].value,
-      event_photo: event.target.elements["eventPhoto"].value,
-      event_start: "2020-08-13 15:30:00-07",
-      event_end: "2020-08-13 19:45:00-07",
-    });
-    sendSubscriptionSMS(state.selectedCategory);
-    handleClose();
+    const streetNumber = event.target.elements["streetNumber"].value;
+    const streetName = event.target.elements["streetName"].value;
+    const city = event.target.elements["city"].value;
+    const title = event.target.elements["eventTitle"].value;
+    const description = event.target.elements["eventDescription"].value;
+    const event_photo = event.target.elements["eventPhoto"].value;
+    //Gets the coordinates for the address
+    axios
+      .get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${streetNumber}+${streetName}+${city}+CA&key=AIzaSyDECr816teeC0XpjqJ4yukGJJSe-Zv0Jk4`
+      )
+      .then((response) => {
+        const coordinates = response.data.results[0].geometry.location;
+        console.log(coordinates);
+        const formattedCoordinates = `(${coordinates.lat}, ${coordinates.lng})`;
+        registerEvent({
+          user_id: props.user.id,
+          category_id: state.selectedCategory,
+          neighbourhood_id: props.user.neighbourhood_id,
+          title: title,
+          coordinates: formattedCoordinates,
+          description: description,
+          event_photo: event_photo,
+          event_start: formatDate(state.selectedDate),
+          event_time: formatTime(state.selectedDate),
+        });
+        sendSubscriptionSMS(state.selectedCategory);
+        handleClose();
+      });
   };
 
   return (
-    <div>
-      <div>
-        <p>{state.search}</p>
-        <FormControl variant="outlined">
+    <div className="main">
+      <div className="menu">
+        <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel htmlFor="outlined-age-native-simple">
             Filter By Category
           </InputLabel>
@@ -200,76 +219,104 @@ function Events(props) {
             ))}
           </Select>
         </FormControl>
-        <div>
-          <div>
-            <button type="button" onClick={handleOpen}>
-              Post New Event
-            </button>
-            <Modal
-              aria-labelledby="transition-modal-title"
-              aria-describedby="transition-modal-description"
-              className={classes.modal}
-              open={open}
-              onClose={handleClose}
-              closeAfterTransition
-              BackdropComponent={Backdrop}
-              BackdropProps={{
-                timeout: 500,
-              }}
-            >
-              <Fade in={open}>
-                <div>
-                  <Form onSubmit={onSubmitHandler}>
-                    <h2 id="transition-modal-title">Post New Event</h2>
-                    <Form.Group controlId="eventTitle">
-                      <Form.Label>Event Title</Form.Label>
-                      <Form.Control type="title" placeholder="Title" />
-                    </Form.Group>
-                    <FormGroup controlId="serviceCategory">
-                      <Form.Label>Select Category</Form.Label>
-                      <Form.Control
-                        as="select"
-                        value={state.selectedCategory}
-                        onChange={categoryChange}
-                      >
-                        <option></option>
-                        {categories.map((category) => (
-                          <option key={category.id} value={category.id}>
-                            {category.name}
-                          </option>
-                        ))}
-                      </Form.Control>
-                    </FormGroup>
+      </div>
+      <div className="modal">
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <div>
+              <Form onSubmit={onSubmitHandler}>
+                <h2 id="transition-modal-title">Post New Event</h2>
+                <Form.Group controlId="eventTitle">
+                  <Form.Label>Event Title</Form.Label>
+                  <Form.Control type="title" placeholder="Title" />
+                </Form.Group>
+                <FormGroup controlId="serviceCategory">
+                  <Form.Label>Select Category</Form.Label>
+                  <Form.Control
+                    as="select"
+                    value={state.selectedCategory}
+                    onChange={handleChange}
+                    name="selectedCategory"
+                  >
+                    <option></option>
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </Form.Control>
+                </FormGroup>
 
-                    <Form.Group controlId="eventDescription">
-                      <Form.Label>Description</Form.Label>
-                      <Form.Control
-                        type="description"
-                        placeholder="Description"
-                        as="textarea"
-                        rows="3"
-                      />
-                    </Form.Group>
+                <Form.Group controlId="eventDescription">
+                  <Form.Label>Description</Form.Label>
+                  <Form.Control
+                    type="description"
+                    placeholder="Description"
+                    as="textarea"
+                    rows="3"
+                  />
+                </Form.Group>
+                <FormGroup controlId="dateAndTime">
+                  <Form.Label>Date and time</Form.Label>
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <DatePicker
+                      value={state.selectedDate}
+                      onChange={dateChange}
+                    />
+                    <TimePicker
+                      value={state.selectedDate}
+                      onChange={dateChange}
+                    />
+                  </MuiPickersUtilsProvider>
+                </FormGroup>
 
-                    <Form.Group controlId="eventPhoto">
-                      <Form.Label>Photo URL</Form.Label>
-                      <Form.Control type="url" placeholder="URL" />
-                    </Form.Group>
+                <Form.Group controlId="eventPhoto">
+                  <Form.Label>Photo URL</Form.Label>
+                  <Form.Control type="url" placeholder="URL" />
+                </Form.Group>
 
-                    <Button variant="contained" color="primary" type="submit">
-                      Post
-                    </Button>
-                  </Form>
-                </div>
-              </Fade>
-            </Modal>
-          </div>
-        </div>
+                <Form.Group controlId="streetNumber">
+                  <Form.Label>Address</Form.Label>
+                  <Form.Control
+                    type="streetNumber"
+                    placeholder="Street number"
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="streetName">
+                  <Form.Control type="streetName" placeholder="Street name" />
+                </Form.Group>
+
+                <Form.Group controlId="city">
+                  <Form.Control type="city" placeholder="City" />
+                </Form.Group>
+
+                <Button variant="contained" color="primary" type="submit">
+                  Post
+                </Button>
+              </Form>
+            </div>
+          </Fade>
+        </Modal>
+      </div>
+      <div className="calender">
         <Calendar
           user={props.user}
           events={events}
           search={state.search}
           categories={categories}
+          handleOpen={handleOpen}
           receiver={props.receiver}
           setReceiver={props.receiverData}
         />
