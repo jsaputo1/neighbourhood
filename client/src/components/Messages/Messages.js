@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
 import axios from "axios";
 import Conversation from "./Conversation";
 import moment from 'moment';
@@ -12,7 +11,7 @@ function Messages(props) {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    let isMounted = true; // note this flag denote mount status
+    let isMounted = true;
     axios.get("/messages/userMessages")
       .then(
         (response) => {
@@ -31,7 +30,6 @@ function Messages(props) {
       let messageContent = (
         <div className={message.message_text === "New conversation started" ? "new-conversation" : " not-hidden"}>
           <div className={message.sender_id === props.user.id ? " sent" : " received"}>
-            <h2 className="sender">User ID {message.sender_id}:</h2>
             <h2 className={message.message_text.length < 1 ? " hidden" : " message-content"}>{message.message_text}</h2>
             <h2 className="timestamp">{moment(message.time_sent, "").fromNow()}</h2>
           </div>
@@ -39,10 +37,21 @@ function Messages(props) {
       );
       messagesJSX.push(messageContent);
     }
+
+    const determineReceiver = function (user_one, user_two) {
+      let receiverID = [];
+      if (user_one === props.user.id) {
+        receiverID = user_two;
+      } else if (user_two === props.user.id) {
+        receiverID = user_one;
+      } return receiverID;
+    };
+
     conversation.push(
       <Conversation
         conversation_id={conversationID}
-        receiver_id={conversations[conversationID][0].sender_id === props.user_id ? conversations[conversationID][0].receiver_id : conversations[conversationID][0].sender_id}
+        receiver_id={determineReceiver(conversations[conversationID][0].user_one, conversations[conversationID][0].user_two)}
+        setReceiver={props.receiverData}
         conversations={setMessages}
       >
         {messagesJSX}
@@ -55,5 +64,3 @@ function Messages(props) {
 }
 
 export default Messages;
-;
-
