@@ -20,6 +20,7 @@ const mapRoutes = require("./routes/map");
 const subscriptionRoutes = require("./routes/subscriptions");
 const categoryRoutes = require("./routes/categories");
 const twilioRoutes = require("./routes/twilio");
+const accountRoutes = require("./routes/account");
 
 module.exports = function application(
   ENV
@@ -50,6 +51,7 @@ module.exports = function application(
   app.use("/subscriptions", subscriptionRoutes(db));
   app.use("/categories", categoryRoutes(db));
   app.use("/twilio", twilioRoutes(db));
+  app.use("/account", accountRoutes(db));
 
   //Database reset
   app.get("/api/debug/reset", (request, response) => {

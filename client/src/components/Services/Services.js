@@ -101,12 +101,17 @@ function Services(props) {
     const data = await axios.get('http://localhost:8001/categories');
     const filtered = data.data.filter(category => category.category_type === filter);
     setCategories(filtered);
+
+  }
+  const filterAndSetCategories = (filter) => {
+    const filtered = props.categories.filter(category => category.category_type === filter)
+    setCategories(filtered)
   };
 
 
   useEffect(() => {
     fetchServices();
-    fetchFilteredCategories("Services");
+    filterAndSetCategories("Services");
   }, []);
 
 
@@ -120,12 +125,10 @@ function Services(props) {
   }
 
   function categoryChange(e) {
-    console.log(categories);
-    let n = e.target.value;
-    console.log(n);
+    console.log(e.target.value)
     setState({
       ...state,
-      selectedCategory: n,
+      selectedCategory: e.target.value,
     });
   }
 
@@ -409,4 +412,4 @@ function Services(props) {
   );
 }
 
-export default Services;
+export default Services; 
