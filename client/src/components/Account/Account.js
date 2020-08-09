@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import moment from 'moment';
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 
 // @material-ui/core components
@@ -63,9 +64,9 @@ function Account(props) {
 
   const [neighbourhood, setNeighbourhood] = useState([]);
   const [open, setOpen] = React.useState(false);
-  const [state, setState] = React.useState({
-    selectedAlert_Type: props.user.alert_types,
-  });
+  // const [state, setState] = React.useState({
+  //   selectedAlert_Type: props.user.alert_types,
+  // });
 
 
   const [checked, setChecked] = useState({
@@ -116,12 +117,12 @@ function Account(props) {
     populateChecked();
   }, [props.subscriptions]);
 
-  function changeAlert_Type(e) {
-    setState({
-      ...state,
-      selectedAlert_Type: e.target.value,
-    });
-  }
+  // function changeAlert_Type(e) {
+  //   setState({
+  //     ...state,
+  //     selectedAlert_Type: e.target.value,
+  //   });
+  // }
 
 
   // these functions handle the Modal REFACTORASFASD ASDASDFASDLFUASFIUHASdfJASPODFJA:OIDFJ"APWOKDAWASDFASDASDDSA
@@ -151,7 +152,7 @@ function Account(props) {
     event.preventDefault();
     console.log("SUBMIT")
     updateSubscriptionPreferences({
-      alert_types: state.selectedAlert_Type,
+      // alert_types: state.selectedAlert_Type,
       subscriptions: sortSubscriptions(checked),
       user_id: props.user.id
     });
@@ -160,6 +161,7 @@ function Account(props) {
   const updateSubscriptionPreferences = async function (subscriptionData) {
     const newSubscriptions = subscriptionData.subscriptions
     const generateAxiosCalls = function () {
+      console.log("NEWSIES", newSubscriptions)
       return Promise.all(newSubscriptions.map((categoryId) => {
         console.log(subscriptionData.user_id, categoryId)
         return axios.post("/subscriptions", { user_id: subscriptionData.user_id, category_id: categoryId })
@@ -169,10 +171,16 @@ function Account(props) {
     await axios.post("/subscriptions/delete", { user_id: subscriptionData.user_id })
       .then(generateAxiosCalls())
       .catch((err) => console.error("query error", err.stack))
-      .then(axios.post("/users/notifcation-settings", { alert_types: subscriptionData.alert_types, user_id: subscriptionData.user_id }))
+      // .then(axios.post("/users/notifcation-settings", { alert_types: subscriptionData.alert_types, user_id: subscriptionData.user_id }))
+      .then((response) => {
+        console.log("REPOND", response)
+      })
       .then(props.updateSubscriptions())
       .then(handleClose())
     // CAUSING PROXY ERRORS which either results in multiple subscriptions for the current user disappearing, or just ID 1 (Emergencies) being unsubscribed-from.
+    // RETURNING REDIRECT BELOW MAKES THIS WORK AS INTENDED, AT THE COST OF CAUSING A RERENDER.
+    return (
+      <Redirect to="/account" />)
   };
 
   console.log("SUBBIES", props.subscriptions)
@@ -255,9 +263,9 @@ function Account(props) {
                         ))}
                       </div>
 
-                      <p>Change Alert Type</p>
+                      {/* <p>Change Alert Type</p> */}
 
-                      <FormGroup controlId="serviceCategory">
+                      {/* <FormGroup controlId="serviceCategory">
                         <Form.Label>Select Alert Type</Form.Label>
                         <Form.Control
                           as="select"
@@ -270,7 +278,7 @@ function Account(props) {
                           <option>None</option>
                           ))
                         </Form.Control>
-                      </FormGroup>
+                      </FormGroup> */}
 
                       <Button
                         variant="contained"

@@ -39,8 +39,7 @@ CREATE TABLE users (
   phone_number VARCHAR(11),
   profile_photo VARCHAR(255),
   last_logout TIMESTAMPTZ,
-  bio TEXT,
-  alert_types TEXT
+  bio TEXT
 );
 
 CREATE TABLE categories (
@@ -54,7 +53,7 @@ CREATE TABLE events (
  id SERIAL PRIMARY KEY NOT NULL,
  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
- neighbourhood_id INTEGER REFERENCES neighbourhoods(id) ON DELETE CASCADE,
+ neighbourhood_id INTEGER REFERENCES neighbourhoods(id) ON DELETE CASCADE NOT NULL,
  title VARCHAR(55) NOT NULL,
  coordinates POINT,
  time_created TIMESTAMPTZ NOT NULL DEFAULT now(),
@@ -69,7 +68,7 @@ CREATE TABLE alerts (
  id SERIAL PRIMARY KEY NOT NULL,
  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
- neighbourhood_id INTEGER REFERENCES neighbourhoods(id) ON DELETE CASCADE,
+ neighbourhood_id INTEGER REFERENCES neighbourhoods(id) ON DELETE CASCADE NOT NULL,
  title VARCHAR(55) NOT NULL,
  coordinates POINT,
  time_created TIMESTAMPTZ NOT NULL DEFAULT now(),
@@ -82,7 +81,7 @@ CREATE TABLE services (
  id SERIAL PRIMARY KEY NOT NULL,
  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
- neighbourhood_id INTEGER REFERENCES neighbourhoods(id) ON DELETE CASCADE,
+ neighbourhood_id INTEGER REFERENCES neighbourhoods(id) ON DELETE CASCADE NOT NULL,
  service_offer BOOLEAN NOT NULL,
  title VARCHAR(55) NOT NULL,
  coordinates POINT,

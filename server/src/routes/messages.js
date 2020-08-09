@@ -62,10 +62,8 @@ module.exports = db => {
   });
 
   router.post("/newMessage", (request, response) => {
-    console.log("Request Body New Message:", request.body);
     createConversationID(request.session.user_id, request.body.receiver_id)
       .then((conversationID) => {
-        console.log("ConversationID inserted to values:", conversationID);
         values = [
           conversationID,
           request.session.user_id,
@@ -84,26 +82,24 @@ module.exports = db => {
   });
 
   router.get("/conversation", (request, response) => {
-    console.log("Request Query:", request.query);
-    console.log("Request Body", request.body);
+    // console.log("Request Query:", request.query);
+    // console.log("Request Session ID", request.session.user_id);
+    // console.log("Request Body", request.body);
     db.query(
       `
         SELECT conversations.*, messages.sender_id, messages.receiver_id, messages.message_text, messages.time_sent
         FROM conversations
         JOIN messages ON conversations.id = messages.conversation_id
-        WHERE (conversations.user_one = $1 OR conversations.user_one = $2)
-        AND(conversations.user_two = $1 OR conversations.user_two = $2);
-  
+        WHERE (conversations.user_one = $1 AND conversations.user_two = $2)
+        OR (conversations.user_one = $2 AND conversations.user_two = $1);
         `, [request.session.user_id, request.query.receiver_id])
       .then(({ rows: messages }) => {
-        console.log("Results from first query:", messages);
         if (messages.length >= 1) {
           const result = groupBy(messages, 'id');
           return response.json(result);
         } else {
           createConversationID(request.session.user_id, request.query.receiver_id)
             .then((conversationID) => {
-              console.log("ConversationID inserted to values:", conversationID);
               values = [
                 conversationID,
                 request.session.user_id,
@@ -120,8 +116,8 @@ module.exports = db => {
                 SELECT conversations.*, messages.sender_id, messages.receiver_id, messages.message_text, messages.time_sent
                 FROM conversations
                 JOIN messages ON conversations.id = messages.conversation_id
-                WHERE (conversations.user_one = $1 OR conversations.user_one = $2)
-                AND(conversations.user_two = $1 OR conversations.user_two = $2);
+                WHERE (conversations.user_one = $1 AND conversations.user_two = $2)
+                OR (conversations.user_one = $2 AND conversations.user_two = $1);
           
                 `, [request.session.user_id, request.query.receiver_id])
                 .then(({ rows: messages }) => {

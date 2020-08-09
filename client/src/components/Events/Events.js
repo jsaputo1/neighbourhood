@@ -31,6 +31,8 @@ import DateFnsUtils from "@date-io/date-fns";
 import "../../styles.scss";
 import { formatDate } from "@fullcalendar/react";
 
+import filterByNeighbourhood from "../Helpers/filterByNeighbourhood";
+
 //for Material UI
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -61,7 +63,7 @@ function Events(props) {
 
   const fetchEvents = async () => {
     const events = await axios.get("http://localhost:8001/events");
-    setEvents(events.data);
+    setEvents(filterByNeighbourhood(events.data, props.user.neighbourhood_id));
   };
 
   const filterAndSetCategories = (filter) => {
@@ -126,7 +128,7 @@ function Events(props) {
       "http://localhost:8001/users/phone-numbers"
     );
     const phoneFiltered = phoneData.data
-      .filter((user) => subscriber_ids.includes(user.id))
+      .filter((user) => subscriber_ids.includes(user.id) && user.neighbourhood_id === props.user.neighbourhood_id)
       .map((entry) => `+${entry.phone_number}`);
     return phoneFiltered;
   };
@@ -156,7 +158,7 @@ function Events(props) {
   const registerEvent = function (registrationData) {
     console.log("REEGISTAERW", registrationData);
     axios.post("/events", registrationData).then((response) => {
-      setEvents(response.data);
+      setEvents(filterByNeighbourhood(response.data, props.user.neighbourhood_id));
     });
   };
 
