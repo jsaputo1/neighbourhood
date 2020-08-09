@@ -108,11 +108,12 @@ module.exports = db => {
                 conversationID,
                 request.session.user_id,
                 request.query.receiver_id,
+                ""
               ];
               db.query(
                 `
-              INSERT INTO messages(conversation_id, sender_id, receiver_id)
-              VALUES ($1, $2, $3);
+              INSERT INTO messages(conversation_id, sender_id, receiver_id, message_text)
+              VALUES ($1, $2, $3, $4);
             `, values);
               db.query(
                 `
