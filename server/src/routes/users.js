@@ -31,7 +31,7 @@ module.exports = (db) => {
           db.query(
             `
         INSERT INTO users (first_name, email, last_name, password, coordinates)
-        VALUES ($1, $2, $3, $4, $5)
+        VALUES ($1, $2, $3, crypt($4, gen_salt('bf')), $5)
         RETURNING *;
           `,
             values
@@ -83,6 +83,26 @@ module.exports = (db) => {
       response.json(userData);
     });
   });
+
+
+  router.post("/notifcation-settings", (request, response) => {
+    const values = [
+      request.body.alert_types,
+      request.body.user_id
+    ];
+    db.query(
+      `
+      UPDATE users
+      SET alert_types = ($1)
+      WHERE id = ($2);
+`,
+      values
+    ).then(({ rows: settings }) => {
+      response.json(settings);
+    })
+      .catch((err) => console.error("query error", err.stack));
+
+  })
 
   return router;
 };

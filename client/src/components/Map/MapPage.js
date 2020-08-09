@@ -26,6 +26,7 @@ function Map(props) {
   const [selectedPin, setSelectedPin] = useState(null);
   const [selectedPinUser, setSelectedPinUser] = useState(null);
 
+  // console.log("Props on Map Page:", props);
   //Grab the neighbourhood id from the props
   const userNeighbourhoodId = props.user.neighbourhood_id;
 
@@ -250,6 +251,9 @@ function Map(props) {
             post_title={selectedPin.title}
             event_time={selectedPin.event_time}
             event_date={selectedPin.event_date}
+            receiver={props.receiver}
+            setReceiver={props.setReceiver}
+            user_id={selectedPin.user_id}
           />
         </InfoWindow>
       )}
@@ -269,12 +273,15 @@ function Map(props) {
             user_last_name={selectedPin.last_name}
             post_description={selectedPin.bio}
             member_since={selectedPin.time_created}
+            receiver={props.receiver}
+            receiverData={props.setReceiver}
           />
         </InfoWindow>
       )}
     </GoogleMap>
   );
 }
+
 
 function MapPage(props) {
   //Manages the state of the switches
@@ -291,6 +298,7 @@ function MapPage(props) {
   };
 
   const WrappedMap = withScriptjs(withGoogleMap(Map));
+  // console.log("Props before wrapped map:", props);
   return (
     <div>
       <Switchlabels
@@ -311,10 +319,30 @@ function MapPage(props) {
           EventsSwitch={state.Events}
           ServicesSwitch={state.Services}
           AlertsSwitch={state.Alerts}
+          receiver={props.receiver}
+          setReceiver={props.receiverData}
         />
       </div>
     </div>
   );
 }
 
+
 export default MapPage;
+
+
+// import React, { useState, useEffect } from "react";
+
+// function Map(props) {
+
+//   console.log(props);
+
+
+//   return (
+//     <div>
+//       Hello
+//     </div>
+//   );
+// }
+
+// export default Map;

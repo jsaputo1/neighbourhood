@@ -26,6 +26,7 @@ function Conversation(props) {
 
   return <div className="conversation">
     <figure>
+      <h2 className="conversation-header">Converastion with {props.receiver_id}</h2>
       {props.children}
       <Form className="message-input" onSubmit={onSubmitHandler}>
         <Form.Group controlId="message">

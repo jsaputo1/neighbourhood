@@ -57,7 +57,20 @@ const useStyles = makeStyles((theme) => ({
 moment().format();
 
 function Events(props) {
+  console.log("Props on events page:", props);
   const classes = useStyles();
+
+  const fetchEvents = async () => {
+    const events = await axios.get("http://localhost:8001/events");
+    setEvents(events.data);
+  };
+
+  const filterAndSetCategories = (filter) => {
+    const filtered = props.categories.filter(
+      (category) => category.category_type === filter
+    );
+    setCategories(filtered);
+  };
 
   const [events, setEvents] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -77,7 +90,8 @@ function Events(props) {
   };
 
   useEffect(() => {
-    fetchFilteredCategories("Events");
+    fetchEvents();
+    filterAndSetCategories("Events");
   }, []);
 
   const handleChange = (event) => {
@@ -303,6 +317,8 @@ function Events(props) {
           search={state.search}
           categories={categories}
           handleOpen={handleOpen}
+          receiver={props.receiver}
+          setReceiver={props.receiverData}
         />
       </div>
     </div>

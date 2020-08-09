@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles.scss";
+import axios from "axios";
 import Nav from "./Nav/Nav";
 import Events from "./Events/Events";
 import Services from "./Services/Services";
 import Alerts from "./Alerts/Alerts";
 import MapPage from "./Map/MapPage";
 import Messages from "./Messages/Messages";
+import NewMessage from "./Messages/NewMessage";
 import Account from "./Account/Account";
 import Home from "./Home/Home";
 import Landing from "./Landing/Landing";
@@ -19,10 +21,31 @@ import useApplicationData from "../hooks/useApplicationData";
 
 function App() {
   //Gets the state from useApplicationData.js
-  const { state, setUser } = useApplicationData();
+  const { state, setUser, setReceiver } = useApplicationData();
+  const [categories, setCategories] = useState([]);
+  const [subscriptions, setSubscriptions] = useState([]);
+
+  const fetchCategoriesAndSubscriptions = async () => {
+    console.log("call");
+    const data = await axios.get('http://localhost:8001/categories');
+    setCategories(data.data)
+    const mata = await axios.get('http://localhost:8001/subscriptions');
+    setSubscriptions(mata.data)
+  };
+
+  // const fetchSubscriptions = async () => {
+  //   const data = await axios.get('http://localhost:8001/subscriptions');
+  //   setSubscriptions(data.data)
+  // };
+
+  useEffect(() => {
+    fetchCategoriesAndSubscriptions();
+    // fetchSubscriptions();
+  }, []);
 
   //That is going to be our main app, once we log in or sign in
   const Website = () => (
+
     <div>
       <Nav user={state.user} logout={setUser} />
       <Switch>
@@ -30,21 +53,26 @@ function App() {
           <Home user={state.user}></Home>
         </Route>
         <Route path="/events" exact>
-          <Events user={state.user}></Events>
+          <Events user={state.user} receiver={state.receiver} receiverData={setReceiver} subscriptions={subscriptions} categories={categories} ></Events>
         </Route>
         <Route path="/services" exact>
-          <Services user={state.user}></Services>
+          <Services user={state.user} receiver={state.receiver} receiverData={setReceiver} subscriptions={subscriptions} categories={categories}></Services>
         </Route>
         <Route path="/alerts" exact>
-          <Alerts user={state.user}></Alerts>
+          <Alerts user={state.user} receiver={state.receiver} receiverData={setReceiver} subscriptions={subscriptions} categories={categories}></Alerts>
         </Route>
         <Route path="/map" exact>
-          <MapPage user={state.user}></MapPage>
+          <MapPage user={state.user} receiver={state.receiver} receiverData={setReceiver}></MapPage>
         </Route>
         <Route path="/messages" exact>
           <Messages user={state.user}></Messages>
         </Route>
-        <Route path="/account" exact component={Account} />
+        <Route path="/newMessage" exact>
+          <NewMessage user={state.user} receiver={state.receiver}></NewMessage>
+        </Route>
+        <Route path="/account" exact>
+          <Account updateSubscriptions={fetchCategoriesAndSubscriptions} subscriptions={subscriptions} categories={categories} user={state.user}></Account>
+        </Route>
       </Switch>
     </div>
   );

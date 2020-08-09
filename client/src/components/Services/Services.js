@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -92,19 +94,24 @@ function Services(props) {
 
   const fetchServices = async () => {
     const services = await axios.get('http://localhost:8001/services');
-    setServices(services.data)
+    setServices(services.data);
   };
 
   const fetchFilteredCategories = async (filter) => {
     const data = await axios.get('http://localhost:8001/categories');
-    const filtered = data.data.filter(category => category.category_type === filter)
+    const filtered = data.data.filter(category => category.category_type === filter);
+    setCategories(filtered);
+
+  }
+  const filterAndSetCategories = (filter) => {
+    const filtered = props.categories.filter(category => category.category_type === filter)
     setCategories(filtered)
   };
 
 
   useEffect(() => {
     fetchServices();
-    fetchFilteredCategories("Services");
+    filterAndSetCategories("Services");
   }, []);
 
 
@@ -118,12 +125,10 @@ function Services(props) {
   }
 
   function categoryChange(e) {
-    console.log(categories)
-    let n = e.target.value
-    console.log(n)
+    console.log(e.target.value)
     setState({
       ...state,
-      selectedCategory: n,
+      selectedCategory: e.target.value,
     });
   }
 
@@ -168,23 +173,23 @@ function Services(props) {
 
   const fetchFilteredSubscriptions = async (postCategory_id) => {
     const data = await axios.get('http://localhost:8001/subscriptions');
-    const filtered = data.data.filter(subscription => subscription.category_id === parseInt(postCategory_id))
-    const subscriber_ids = filtered.map(entry => entry = entry.user_id)
+    const filtered = data.data.filter(subscription => subscription.category_id === parseInt(postCategory_id));
+    const subscriber_ids = filtered.map(entry => entry = entry.user_id);
     const phoneData = await axios.get('http://localhost:8001/users/phone-numbers');
-    const phoneFiltered = phoneData.data.filter(user => subscriber_ids.includes(user.id)).map(entry => `+${entry.phone_number}`)
+    const phoneFiltered = phoneData.data.filter(user => subscriber_ids.includes(user.id)).map(entry => `+${entry.phone_number}`);
     return phoneFiltered;
   };
 
   const sendSubscriptionSMS = async function (postCategory_id) {
-    let categoryName = ''
+    let categoryName = '';
     for (const category of categories) {
       if (category.id === parseInt(postCategory_id)) {
-        categoryName = category.name
+        categoryName = category.name;
       }
     }
-    const phoneNumbers = await fetchFilteredSubscriptions(postCategory_id)
-    axios.post("/twilio", { phoneNumbers, categoryName })
-  }
+    const phoneNumbers = await fetchFilteredSubscriptions(postCategory_id);
+    axios.post("/twilio", { phoneNumbers, categoryName });
+  };
 
 
   const onSubmitHandler = function (event) {
@@ -205,8 +210,12 @@ function Services(props) {
     console.log(registrationData);
     axios.post("/services", registrationData)
       .then((response) => {
-        setServices(response.data)
-      })
+        setServices(response.data);
+      });
+  };
+
+  const setReceiver = function (data) {
+    props.receiverData(data);
   };
 
   return (
@@ -388,6 +397,9 @@ function Services(props) {
                           </Typography>
                         </CardContent>
                       </div>
+                      <button onClick={() => setReceiver(service)}>
+                        <Link to={{ pathname: '/newmessage' }}>Send Message</Link>
+                      </button>
                     </CardActionArea>
                   </Card>
                 </GridItem>
@@ -400,4 +412,4 @@ function Services(props) {
   );
 }
 
-export default Services;
+export default Services; 

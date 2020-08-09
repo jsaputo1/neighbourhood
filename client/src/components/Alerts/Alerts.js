@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import moment from 'moment';
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Avatar, Card, CardActionArea, CardHeader, CardContent, CardMedia, Typography, FormControl, InputLabel, Select, Modal, Backdrop, Fade, FormGroup } from "@material-ui/core";
 import { Form } from "react-bootstrap";
-
 
 // core components 
 import GridContainer from "../Material-kit-components/GridContainer.js";
@@ -17,7 +16,7 @@ import Parallax from "../Material-kit-components/Parallax.js";
 // import styles from "./Material-kit-components/landingPage.js";
 import "../../styles.scss";
 
-import filterByCategory from "../Helpers/filterByCategory"
+import filterByCategory from "../Helpers/filterByCategory";
 
 //for Material UI
 const useStyles = makeStyles((theme) => ({
@@ -61,9 +60,6 @@ moment().format();
 
 function Alerts(props) {
   const classes = useStyles();
-
-
-
   const [alerts, setAlerts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [open, setOpen] = React.useState(false);
@@ -74,23 +70,18 @@ function Alerts(props) {
 
   const fetchAlerts = async () => {
     const alerts = await axios.get('http://localhost:8001/alerts');
-    setAlerts(alerts.data)
+    setAlerts(alerts.data);
   };
 
-  const fetchFilteredCategories = async (filter) => {
-    const data = await axios.get('http://localhost:8001/categories');
-    const filtered = data.data.filter(category => category.category_type === filter)
-    setCategories(filtered)
+  const filterAndSetCategories = (filter) => {
+    const filtered = props.categories.filter(category => category.category_type === filter);
+    setCategories(filtered);
   };
-
 
   useEffect(() => {
-    fetchAlerts()
-    fetchFilteredCategories("Alerts")
+    fetchAlerts();
+    filterAndSetCategories("Alerts");
   }, []);
-
-
-
 
   //////////////////// REFACTOR THESE TOGETHER IF YOU CAN
   const handleChange = (event) => {
@@ -119,29 +110,25 @@ function Alerts(props) {
     setOpen(false);
   };
 
-
-
   const fetchFilteredSubscriptions = async (postCategory_id) => {
     const data = await axios.get('http://localhost:8001/subscriptions');
-    const filtered = data.data.filter(subscription => subscription.category_id === parseInt(postCategory_id))
-    const subscriber_ids = filtered.map(entry => entry = entry.user_id)
+    const filtered = data.data.filter(subscription => subscription.category_id === parseInt(postCategory_id));
+    const subscriber_ids = filtered.map(entry => entry = entry.user_id);
     const phoneData = await axios.get('http://localhost:8001/users/phone-numbers');
-    const phoneFiltered = phoneData.data.filter(user => subscriber_ids.includes(user.id)).map(entry => `+${entry.phone_number}`)
+    const phoneFiltered = phoneData.data.filter(user => subscriber_ids.includes(user.id)).map(entry => `+${entry.phone_number}`);
     return phoneFiltered;
   };
 
   const sendSubscriptionSMS = async function (postCategory_id) {
-    let categoryName = ''
+    let categoryName = '';
     for (const category of categories) {
       if (category.id === parseInt(postCategory_id)) {
-        categoryName = category.name
+        categoryName = category.name;
       }
     }
-    const phoneNumbers = await fetchFilteredSubscriptions(postCategory_id)
-    axios.post("/twilio", { phoneNumbers, categoryName })
-  }
-
-
+    const phoneNumbers = await fetchFilteredSubscriptions(postCategory_id);
+    axios.post("/twilio", { phoneNumbers, categoryName });
+  };
 
   const onSubmitHandler = function (event) {
     event.preventDefault();
@@ -157,16 +144,18 @@ function Alerts(props) {
   };
 
   const registerAlert = function (registrationData) {
-    console.log('REEGISTAERW', registrationData)
+    console.log('REEGISTAERW', registrationData);
     axios.post("/alerts", registrationData)
       .then((response) => {
-        setAlerts(response.data)
-      })
+        setAlerts(response.data);
+      });
   };
 
+  const setReceiver = function (data) {
+    props.receiverData(data);
+  };
 
   return (
-
     <div>
       <Parallax image={require("../../assets/img/blizzard.jpg")}>
         <div className={classes.container}>
@@ -191,7 +180,6 @@ function Alerts(props) {
                   ))}
                 </Select>
               </FormControl>
-
 
               {props.user ? (
                 <div>
@@ -236,7 +224,6 @@ function Alerts(props) {
                               </Form.Control>
                             </FormGroup>
 
-
                             <Form.Group controlId="alertDescription">
                               <Form.Label>Description</Form.Label>
                               <Form.Control type="description" placeholder="Description" as="textarea" rows="3" />
@@ -258,14 +245,10 @@ function Alerts(props) {
                 </div>
               ) : <div></div>}
 
-
             </CardActionArea>
           </Card>
-
           <h1>...</h1>
-
           <GridContainer>
-
             {filterByCategory(alerts, state.search, categories).map(alert => (
 
               <GridItem xs={12} sm={6} md={3}>
@@ -286,6 +269,7 @@ function Alerts(props) {
                         title={`${alert.first_name} ${alert.last_name}`}
                         subheader={`Posted ${moment(alert.time_created).fromNow()}`}
                       />
+
                       <CardContent>
                         <Typography variant="body2" color="textPrimary" component="h3">
                           {alert.title}
@@ -296,17 +280,18 @@ function Alerts(props) {
                       </CardContent>
 
                     </div>
+                    <button onClick={() => setReceiver(alert)}>
+                      <Link to={{ pathname: '/newmessage' }}>Send Message</Link>
+                    </button>
                   </CardActionArea>
                 </Card>
               </GridItem>
             ))}
-
           </GridContainer>
         </div>
       </Parallax>
     </div >
-
-  )
-}
+  );
+};
 
 export default Alerts;
