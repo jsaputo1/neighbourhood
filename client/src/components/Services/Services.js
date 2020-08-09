@@ -35,6 +35,7 @@ import Parallax from "../Material-kit-components/Parallax.js";
 import "../../styles.scss";
 
 import filterByCategory from "../Helpers/filterByCategory";
+import filterByNeighbourhood from "../Helpers/filterByNeighbourhood";
 // ""../Hooks/useApplicationData"
 
 
@@ -94,7 +95,7 @@ function Services(props) {
 
   const fetchServices = async () => {
     const services = await axios.get('http://localhost:8001/services');
-    setServices(services.data);
+    setServices(filterByNeighbourhood(services.data, props.user.neighbourhood_id));
   };
 
   const fetchFilteredCategories = async (filter) => {
@@ -176,7 +177,7 @@ function Services(props) {
     const filtered = data.data.filter(subscription => subscription.category_id === parseInt(postCategory_id));
     const subscriber_ids = filtered.map(entry => entry = entry.user_id);
     const phoneData = await axios.get('http://localhost:8001/users/phone-numbers');
-    const phoneFiltered = phoneData.data.filter(user => subscriber_ids.includes(user.id)).map(entry => `+${entry.phone_number}`);
+    const phoneFiltered = phoneData.data.filter(user => subscriber_ids.includes(user.id) && user.neighbourhood_id === props.user.neighbourhood_id).map(entry => `+${entry.phone_number}`);
     return phoneFiltered;
   };
 
@@ -195,11 +196,12 @@ function Services(props) {
   const onSubmitHandler = function (event) {
     event.preventDefault();
     registerService({
-      title: event.target.elements["serviceTitle"].value,
-      service_offer: state.serviceOffer,
-      category_id: state.selectedCategory,
-      description: event.target.elements["serviceDescription"].value,
       user_id: props.user.id,
+      neighbourhood_id: props.user.neighbourhood_id,
+      title: event.target.elements["serviceTitle"].value,
+      category_id: state.selectedCategory,
+      service_offer: state.serviceOffer,
+      description: event.target.elements["serviceDescription"].value,
       service_photo: event.target.elements["servicePhoto"].value,
     });
     sendSubscriptionSMS(state.selectedCategory);
@@ -210,7 +212,7 @@ function Services(props) {
     console.log(registrationData);
     axios.post("/services", registrationData)
       .then((response) => {
-        setServices(response.data);
+        setServices(filterByNeighbourhood(response.data, props.user.neighbourhood_id));
       });
   };
 

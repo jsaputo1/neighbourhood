@@ -68,7 +68,7 @@ CREATE TABLE alerts (
  id SERIAL PRIMARY KEY NOT NULL,
  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
- neighbourhood_id INTEGER REFERENCES neighbourhoods(id) ON DELETE CASCADE,
+ neighbourhood_id INTEGER REFERENCES neighbourhoods(id) ON DELETE CASCADE NOT NULL,
  title VARCHAR(55) NOT NULL,
  coordinates POINT,
  time_created TIMESTAMPTZ NOT NULL DEFAULT now(),

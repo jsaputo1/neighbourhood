@@ -17,6 +17,7 @@ module.exports = db => {
   router.post("/", (request, response) => {
     const values = [
       request.body.user_id,
+      request.body.neighbourhood_id,
       request.body.category_id,
       request.body.title,
       request.body.description,
@@ -24,8 +25,8 @@ module.exports = db => {
     ];
     db.query(
       `
-        INSERT INTO alerts (user_id, category_id, title, description, alert_photo)
-        VALUES ($1, $2, $3, $4, $5);
+        INSERT INTO alerts (user_id, neighbourhood_id, category_id, title, description, alert_photo)
+        VALUES ($1, $2, $3, $4, $5, $6);
           `,
       values
     ).then(() => {

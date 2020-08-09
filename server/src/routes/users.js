@@ -75,7 +75,7 @@ module.exports = (db) => {
   router.get("/phone-numbers", (request, response) => {
     db.query(
       `
-      SELECT id, phone_number
+      SELECT id, phone_number, neighbourhood_id
       FROM users;
     `
       //WHERE email = userCookie
