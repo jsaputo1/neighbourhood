@@ -10,7 +10,6 @@ const createConversationID = function (senderID, receiverID) {
   `, [senderID, receiverID]
   ).then((results) => {
     if (results.length >= 1) {
-      console.log("Results from Helper:", results.rows[0].id);
       return results.rows[0].id;
     } else {
       db.query(
@@ -27,7 +26,6 @@ const createConversationID = function (senderID, receiverID) {
         AND (user_two = $1 OR user_two = $2);
       `, [senderID, receiverID]
       ).then((results) => {
-        console.log("Results from Helper:", results.rows[0].id);
         return results.rows[0].id;
       }
       );

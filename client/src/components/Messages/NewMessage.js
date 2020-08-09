@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+
 import axios from "axios";
 import Conversation from "./Conversation";
 import moment from "moment";
 
-// @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-import { Button, Modal, Fade } from "@material-ui/core";
-
-// react-bootstrap
-import { Form } from "react-bootstrap";
-
-//Our own style sheet
-import "../../styles.scss";
 
 function NewMessage(props) {
+
+  console.log("New Message Props", props);
 
   const [conversations, setConversations] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -34,7 +27,7 @@ function NewMessage(props) {
     let messagesJSX = [];
     for (let message of conversations[conversationID]) {
       let messageContent = (
-        <div className={message.message_text.length < 1 ? " hidden" : " not-hidden"}>
+        <div className={message.message_text === "New conversation started" ? "new-conversation" : " not-hidden"}>
           <div className={message.sender_id === props.user.id ? " sent" : " received"}>
             <h2 className="sender">User ID {message.sender_id}:</h2>
             <h2 className="message-content">{message.message_text}</h2>
@@ -47,7 +40,7 @@ function NewMessage(props) {
     conversation.push(
       <Conversation
         conversation_id={conversationID}
-        receiver_id={conversations[conversationID][0].sender_id === props.user_id ? conversations[conversationID][0].receiver_id : conversations[conversationID][0].sender_id}
+        receiver_id={props.receiver.user_id}
         conversations={setMessages}
       >
         {messagesJSX}

@@ -13,18 +13,20 @@
     .sender {
       font-weight: 700;
     }
-    .message-content {
-      font-weight: 500;
-      padding: 25px;
-      padding: 25px;
-      border-radius: 20px;
-      max-width: 40%;
-    }
+
     .timestamp {
       font-size: 13.5px;
       opacity: 0.5;
     }
   }
+}
+
+.message-content {
+  font-weight: 500;
+  padding: 25px;
+  padding: 25px;
+  border-radius: 20px;
+  max-width: 40%;
 }
 
 .sent {
@@ -95,4 +97,16 @@
 
 .hidden {
   display: none;
+}
+
+.new-conversation {
+  .sender {
+    display: none;
+  }
+  .message-content {
+    padding: 1px;
+    background-color: white;
+    color: black;
+    font-weight: 700;
+  }
 }
