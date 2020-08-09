@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { groupBy } = require("../helpers/groupby");
 const { createConversationID } = require("../helpers/createConversationID");
-const { findUserByID, findUserNameByID } = require("../helpers/findUserByID");
+const { findUserByID } = require("../helpers/findUserByID");
 
 module.exports = db => {
   //Shows all messages. Using this route for testing, can be removed when ready for production
@@ -131,10 +131,9 @@ module.exports = db => {
   });
 
   router.get("/userinfo", (request, response) => {
-    console.log("request query", request.query.id);
     findUserByID(request.query.id)
       .then((userInfo) => {
-        response.json(userInfo);
+        return response.json(userInfo).end;
       });
   });
 
