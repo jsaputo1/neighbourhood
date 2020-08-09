@@ -35,11 +35,10 @@ function AlertsCarousel(props) {
   }, []);
 
   return (
-    <Carousel className="carrousel">
+    <Carousel className="items-container">
       {alerts.map((alert) => (
-        <Carousel.Item key={alert.id} className="carrousel-item">
+        <Carousel.Item key={alert.id}>
           <AlertCard
-            className="alert"
             user_id={alert.user_id}
             title={alert.title}
             time_created={alert.time_created}

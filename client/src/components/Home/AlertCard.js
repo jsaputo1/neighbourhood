@@ -7,8 +7,6 @@ import moment from "moment";
 import IconButton from "@material-ui/core/IconButton";
 import ChatTwoToneIcon from "@material-ui/icons/ChatTwoTone";
 
-//I am goint to try something
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -40,33 +38,37 @@ export default function AlertCard(props) {
   }, []);
 
   return (
-    <div>
+    <div className="item">
       {userForAlert && (
         <Alert severity="error">
           <AlertTitle>{props.title}</AlertTitle>
           <section className="alert-container">
-            <header className="header">
+            <article>
+              <header>
+                <div>
+                  <img src={userForAlert.profile_photo} alt="" />
+                  <h6>
+                    {userForAlert.first_name} {userForAlert.last_name}
+                  </h6>
+                </div>
+                <div>
+                  <IconButton>
+                    <ChatTwoToneIcon
+                      className={classes.medium}
+                    ></ChatTwoToneIcon>
+                  </IconButton>
+                </div>
+              </header>
               <div>
-                <img src={userForAlert.profile_photo} alt="" />
-                <h6>
-                  {userForAlert.first_name} {userForAlert.last_name}
-                </h6>
+                <p>Posted {moment(props.time_created).fromNow()}</p>
               </div>
               <div>
-                <IconButton>
-                  <ChatTwoToneIcon className={classes.medium}></ChatTwoToneIcon>
-                </IconButton>
+                <img src={props.photo} alt="" />
               </div>
-            </header>
-            <div className="time-created">
-              <p>Posted {moment(props.time_created).fromNow()}</p>
-            </div>
-            <div className="alert-photo">
-              <img src={props.photo} alt="" />
-            </div>
-            <div id="alert-description">
-              <p>{props.description}</p>
-            </div>
+              <div id="alert-display">
+                <p>{props.description}</p>
+              </div>
+            </article>
           </section>
         </Alert>
       )}
