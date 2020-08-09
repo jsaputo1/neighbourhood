@@ -78,8 +78,17 @@
 }
 
 .new-message-modal {
-  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.successful-message {
+  padding: 30px;
+  color: $chatBlue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $chatGrey;
+  flex-direction: column;
 }
