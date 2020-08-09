@@ -4,7 +4,6 @@ import { Form } from "react-bootstrap";
 import axios from 'axios';
 
 function Conversation(props) {
-
   const onSubmitHandler = function (event) {
     event.preventDefault();
     const message = event.target.elements['message'].value;
@@ -24,9 +23,20 @@ function Conversation(props) {
       });
   };
 
+  const [userFirstName, setUserFirstName] = useState([]);
+  const getUserInfo = function (userID) {
+    axios.get(`/messages/userinfo?id=${userID}`)
+      .then(
+        (response) => {
+          setUserFirstName(response.data.first_name + " " + response.data.last_name);
+        }
+      );
+  };
+
   return <div className="conversation">
     <figure>
-      <h2 className="conversation-header">Converastion with {props.receiver_id}</h2>
+      <h2>{() => test}</h2>
+      <h2 className="conversation-header">Converastion with {getUserInfo(props.receiver_id)} {userFirstName} </h2>
       {props.children}
       <Form className="message-input" onSubmit={onSubmitHandler}>
         <Form.Group controlId="message">
