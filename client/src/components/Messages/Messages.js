@@ -29,11 +29,13 @@ function Messages(props) {
     let messagesJSX = [];
     for (let message of conversations[conversationID]) {
       let messageContent = (
-        <div className={message.sender_id === props.user.id ? " sent" : " received"}>
-          <h2 className="sender">User ID {message.sender_id}:</h2>
-          <h2 className="message-content">{message.message_text}</h2>
-          <h2 className="timestamp">{moment(message.time_sent, "").fromNow()}</h2>
-        </div >
+        <div className={message.message_text.length < 1 ? " hidden" : " not-hidden"}>
+          <div className={message.sender_id === props.user.id ? " sent" : " received"}>
+            <h2 className="sender">User ID {message.sender_id}:</h2>
+            <h2 className={message.message_text.length < 1 ? " hidden" : " message-content"}>{message.message_text}</h2>
+            <h2 className="timestamp">{moment(message.time_sent, "").fromNow()}</h2>
+          </div>
+        </div>
       );
       messagesJSX.push(messageContent);
     }
