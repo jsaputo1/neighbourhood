@@ -40,7 +40,6 @@ CREATE TABLE users (
   profile_photo VARCHAR(255),
   last_logout TIMESTAMPTZ,
   bio TEXT,
-  alert_types TEXT
 );
 
 CREATE TABLE categories (
