@@ -63,7 +63,8 @@ function Account(props) {
   const classes = useStyles();
 
   const [neighbourhood, setNeighbourhood] = useState([]);
-  const [open, setOpen] = React.useState(false);
+  const [editRedirect, setEditRedirect] = useState((false));
+  const [open, setOpen] = useState(false);
   // const [state, setState] = React.useState({
   //   selectedAlert_Type: props.user.alert_types,
   // });
@@ -99,9 +100,9 @@ function Account(props) {
     });
   }
 
-  function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+  // function getRandomInt(min, max) {
+  //   return Math.floor(Math.random() * (max - min + 1)) + min;
+  // }
 
   const fetchAccountInfo = async () => {
     const accountInfo = await axios.get('http://localhost:8001/account');
@@ -183,12 +184,15 @@ function Account(props) {
       <Redirect to="/account" />)
   };
 
-  console.log("SUBBIES", props.subscriptions)
+  if (editRedirect) {
+    return (
+      <Redirect to="/editUserInformation" />);
+  }
 
   return (
 
     <div>
-      <Parallax image={require(`../../assets/img/apartment${getRandomInt(1, 3)}.jpg`)}>
+      <Parallax image={require(`../../assets/img/apartment1.jpg`)}>
         <div className={classes.container}>
           <Card className={classes.root}>
             <CardActionArea>
@@ -198,9 +202,13 @@ function Account(props) {
               <p>{props.user.phone_number}</p>
               <p>{props.user.email}</p>
               <p>{neighbourhood.name}</p>
-              <button type="button" onClick={handleOpen}>
+              <Button type="button" variant="contained" color="primary" onClick={handleOpen}>
                 Manage Alerts and Subsciptions
-                    </button>
+                    </Button>
+
+              <Button onClick={() => setEditRedirect(true)} variant="contained" color="primary" type="button">
+                Edit User Information
+                        </Button>
               <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"

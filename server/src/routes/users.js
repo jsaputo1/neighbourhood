@@ -85,6 +85,51 @@ module.exports = (db) => {
   });
 
 
+  router.post("/edit", (request, response) => {
+    const values = [
+      request.body.firstName,
+      request.body.email,
+      request.body.lastName,
+      request.body.phone_number,
+      request.body.profile_photo,
+      request.body.bio,
+      request.body.id
+    ];
+
+    findUserByEmail(request.body.email)
+      .then((user) => {
+
+        if (user && user.id !== request.body.id) {
+          response.status(406).send("user already registered");
+        } else {
+          db.query(
+            `
+        UPDATE users 
+        SET first_name = $1,
+          email = $2,
+          last_name = $3,
+          phone_number = $4,
+          profile_photo = $5,
+          bio = $6
+        WHERE id = $7
+        RETURNING *;
+          `,
+            values
+          )
+            .then((data) => {
+              const userObj = data.rows[0];
+              console.log(userObj);
+              request.session["user_id"] = userObj.id;
+              console.log("user cookie is:", request.session["user_id"]);
+              response.status(200).json(userObj);
+              // console.log("User registered successfully with the following values", userObj);
+            });
+        }
+      });
+  });
+
+
+
   //   router.post("/notifcation-settings", (request, response) => {
   //     const values = [
   //       request.body.alert_types,
