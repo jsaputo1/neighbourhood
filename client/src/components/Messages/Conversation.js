@@ -35,7 +35,6 @@ function Conversation(props) {
 
   return <div className="conversation">
     <figure>
-      <h2>{() => test}</h2>
       <h2 className="conversation-header">Converastion with {getUserInfo(props.receiver_id)} {userFirstName} </h2>
       {props.children}
       <Form className="message-input" onSubmit={onSubmitHandler}>
