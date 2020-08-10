@@ -48,17 +48,26 @@ module.exports = db => {
       request.body.conversation_id,
       request.session.user_id,
       request.body.receiver_id,
-      request.body.message,
-      '2020-08-06T04:52:25.931Z'
+      request.body.message
     ];
     db.query(
       `
-      INSERT INTO messages(conversation_id, sender_id, receiver_id, message_text, time_sent)
-      VALUES ($1, $2, $3, $4, $5);
+      INSERT INTO messages(conversation_id, sender_id, receiver_id, message_text)
+      VALUES ($1, $2, $3, $4);
 
         `, values)
       .then(() => {
-        return response.status(200).end;
+        db.query(
+          `
+            SELECT conversations.*, messages.sender_id, messages.receiver_id, messages.message_text, messages.time_sent
+            FROM conversations
+            JOIN messages ON conversations.id = messages.conversation_id
+            WHERE (messages.sender_id = $1 OR messages.receiver_id = $1);
+            `, [request.session["user_id"]])
+          .then(({ rows: messages }) => {
+            const result = groupBy(messages, 'id');
+            return response.json(result);
+          });
       });
   });
 
