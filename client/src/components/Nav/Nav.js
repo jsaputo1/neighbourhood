@@ -68,8 +68,8 @@ function Nav(props) {
           </Link>
         ) : (
             <div class="right-side-nav">
-              <Link className="link-style" to="/Messages">
-                <i class="fa fa-comment-o fa-2x" aria-hidden="true"></i>
+              <Link className="link-style" to="/Map">
+                <i class="fa fa-map"></i>
               </Link>
               <div className="user-info-nav">
                 <img src={props.user.profile_photo} alt="profile-picture" />
