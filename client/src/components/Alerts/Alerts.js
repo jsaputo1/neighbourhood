@@ -63,8 +63,9 @@ function Alerts(props) {
   const classes = useStyles();
   const [alerts, setAlerts] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [open, setOpen] = React.useState(false);
-  const [state, setState] = React.useState({
+  const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [state, setState] = useState({
     search: '',
     selectedCategory: ''
   });
@@ -114,6 +115,14 @@ function Alerts(props) {
     setOpen(false);
   };
 
+  const handleOpenDelete = () => {
+    setOpenDelete(true)
+  }
+
+  const handleCloseDelete = () => {
+    setOpenDelete(false)
+  }
+
   const fetchFilteredSubscriptions = async (postCategory_id) => {
     const data = await axios.get('http://localhost:8001/subscriptions');
     const filtered = data.data.filter(subscription => subscription.category_id === parseInt(postCategory_id));
@@ -156,6 +165,32 @@ function Alerts(props) {
       });
   };
 
+
+
+
+
+
+  const deleteSubmitHandler = function (event) {
+    event.preventDefault();
+    console.log("EVENT", event.target)
+    deleteAlert({
+      user_id: props.user.id,
+    });
+    handleClose();
+  };
+
+  const deleteAlert = function (registrationData) {
+    console.log('REEGISTAERW', registrationData);
+    // axios.post("/alerts", registrationData)
+    //   .then((response) => {
+    //     setAlerts(filterByNeighbourhood(response.data, props.user.neighbourhood_id));
+    //   });
+  };
+
+
+
+
+
   const setReceiver = function (data) {
     props.receiverData(data);
   };
@@ -190,9 +225,9 @@ function Alerts(props) {
                 <div>
                   <h6>{props.user.first_name}</h6>
                   <div>
-                    <button type="button" onClick={handleOpen}>
+                    <Button type="button" onClick={handleOpen}>
                       Post New Alert
-                    </button>
+                    </Button>
                     <Modal
                       aria-labelledby="transition-modal-title"
                       aria-describedby="transition-modal-description"
@@ -286,9 +321,49 @@ function Alerts(props) {
                       </CardContent>
 
                     </div>
-                    <button onClick={() => setReceiver(alert)}>
-                      <Link to={{ pathname: '/newmessage' }}>Send Message</Link>
-                    </button>
+
+
+                    {props.user.id === alert.user_id ?
+
+                      <div>
+                        <Button onClick={handleOpenDelete}>
+                          DELETE ALERT
+                        </Button>
+                        <Modal
+                          aria-labelledby="Moo"
+                          aria-describedby="Moo"
+                          className={classes.modal}
+                          open={openDelete}
+                          onClose={handleCloseDelete}
+                          closeAfterTransition
+                          BackdropComponent={Backdrop}
+                          BackdropProps={{
+                            timeout: 500,
+                          }}
+                        >
+                          <Fade in={openDelete}>
+                            <div className={classes.paper}>
+                              <h2 id="transition-modal-title">Are you sure you would like to delete this Alert?</h2>
+                              <Form onSubmit={deleteSubmitHandler}>
+
+                                <Button variant="contained" color="secondary" type="submit">
+                                  Confirm
+                            </Button>
+                                <Button onClick={handleCloseDelete} variant="contained" color="primary" type="button">
+                                  Cancel
+                            </Button>
+                              </Form>
+                            </div>
+                          </Fade>
+                        </Modal>
+                      </div>
+                      :
+
+                      <Button onClick={() => setReceiver(alert)}>
+                        <Link to={{ pathname: '/newmessage' }}>Send Message</Link>
+                      </Button>
+
+                    }
                   </CardActionArea>
                 </Card>
               </GridItem>

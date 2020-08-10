@@ -48,5 +48,22 @@ module.exports = db => {
     });
   });
 
+
+  router.delete("/delete", (request, response) => {
+    console.log(request)
+    db.query(
+      `
+      SELECT alerts.*, users.first_name, users.last_name, users.profile_photo
+      FROM alerts
+      JOIN users
+      ON alerts.user_id = users.id;
+    `
+    ).then(({ rows: alerts }) => {
+      response.json(alerts);
+    });
+  });
+
+
+
   return router;
 };
