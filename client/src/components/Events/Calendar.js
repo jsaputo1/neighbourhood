@@ -143,6 +143,7 @@ export default function Calendar(props) {
                 selectedEventUser &&
                 (props.user.id !== selectedEvent.user_id ? (
                   <PopupCard
+                    user={props.user}
                     user_photo={selectedEventUser.profile_photo}
                     user_first_name={selectedEventUser.first_name}
                     user_last_name={selectedEventUser.last_name}

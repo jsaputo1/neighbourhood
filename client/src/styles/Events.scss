@@ -25,3 +25,39 @@
 .fc-daygrid-day-number {
   color: black;
 }
+
+.form-contenant {
+  width: 40vw;
+  .event-form {
+    display: flex;
+    flex-direction: row;
+
+    .first-section {
+      padding-right: 30px;
+      width: 50%;
+    }
+    .second-section {
+      width: 50%;
+      .date {
+        padding-bottom: 20px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .form-contenant {
+    width: 60vw;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .form-contenant {
+    width: 70vw;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .form-contenant {
+    width: 90vw;
+  }
+}

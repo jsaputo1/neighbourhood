@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import axios from "axios";
 import Calendar from "./Calendar";
+import "../../styles.scss";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -254,79 +255,82 @@ function Events(props) {
           }}
         >
           <Fade in={open}>
-            <div>
-              <Form onSubmit={onSubmitHandler}>
-                <h2 id="transition-modal-title">Post New Event</h2>
-                <Form.Group controlId="eventTitle">
-                  <Form.Label>Event Title</Form.Label>
-                  <Form.Control type="title" placeholder="Title" />
-                </Form.Group>
-                <FormGroup controlId="serviceCategory">
-                  <Form.Label>Select Category</Form.Label>
-                  <Form.Control
-                    as="select"
-                    value={state.selectedCategory}
-                    onChange={handleChange}
-                    name="selectedCategory"
-                  >
-                    <option></option>
-                    {categories.map((category) => (
-                      <option key={category.id} value={category.id}>
-                        {category.name}
-                      </option>
-                    ))}
-                  </Form.Control>
-                </FormGroup>
+            <Form onSubmit={onSubmitHandler} className="form-contenant">
+              <h2 id="transition-modal-title">Post New Event</h2>
+              <div className="event-form">
+                <div className="first-section">
+                  <Form.Group controlId="eventTitle">
+                    <Form.Label>Event Title</Form.Label>
+                    <Form.Control type="title" placeholder="Title" />
+                  </Form.Group>
+                  <FormGroup controlId="serviceCategory">
+                    <Form.Label>Select Category</Form.Label>
+                    <Form.Control
+                      as="select"
+                      value={state.selectedCategory}
+                      onChange={handleChange}
+                      name="selectedCategory"
+                    >
+                      <option></option>
+                      {categories.map((category) => (
+                        <option key={category.id} value={category.id}>
+                          {category.name}
+                        </option>
+                      ))}
+                    </Form.Control>
+                  </FormGroup>
 
-                <Form.Group controlId="eventDescription">
-                  <Form.Label>Description</Form.Label>
-                  <Form.Control
-                    type="description"
-                    placeholder="Description"
-                    as="textarea"
-                    rows="3"
-                  />
-                </Form.Group>
-                <FormGroup controlId="dateAndTime">
-                  <Form.Label>Date and time</Form.Label>
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <DatePicker
-                      value={state.selectedDate}
-                      onChange={dateChange}
+                  <Form.Group controlId="eventDescription">
+                    <Form.Label>Description</Form.Label>
+                    <Form.Control
+                      type="description"
+                      placeholder="Description"
+                      as="textarea"
+                      rows="3"
                     />
-                    <TimePicker
-                      value={state.selectedDate}
-                      onChange={dateChange}
+                  </Form.Group>
+
+                  <Form.Group controlId="eventPhoto">
+                    <Form.Label>Photo URL</Form.Label>
+                    <Form.Control type="url" placeholder="URL" />
+                  </Form.Group>
+                </div>
+                <div className="second-section">
+                  <FormGroup controlId="dateAndTime" className="date">
+                    <Form.Label>Date and time</Form.Label>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <DatePicker
+                        value={state.selectedDate}
+                        onChange={dateChange}
+                      />
+                      <TimePicker
+                        value={state.selectedDate}
+                        onChange={dateChange}
+                      />
+                    </MuiPickersUtilsProvider>
+                  </FormGroup>
+
+                  <Form.Group controlId="streetNumber">
+                    <Form.Label>Address</Form.Label>
+                    <Form.Control
+                      type="streetNumber"
+                      placeholder="Street number"
                     />
-                  </MuiPickersUtilsProvider>
-                </FormGroup>
+                  </Form.Group>
 
-                <Form.Group controlId="eventPhoto">
-                  <Form.Label>Photo URL</Form.Label>
-                  <Form.Control type="url" placeholder="URL" />
-                </Form.Group>
+                  <Form.Group controlId="streetName">
+                    <Form.Control type="streetName" placeholder="Street name" />
+                  </Form.Group>
 
-                <Form.Group controlId="streetNumber">
-                  <Form.Label>Address</Form.Label>
-                  <Form.Control
-                    type="streetNumber"
-                    placeholder="Street number"
-                  />
-                </Form.Group>
-
-                <Form.Group controlId="streetName">
-                  <Form.Control type="streetName" placeholder="Street name" />
-                </Form.Group>
-
-                <Form.Group controlId="city">
-                  <Form.Control type="city" placeholder="City" />
-                </Form.Group>
-
-                <Button variant="contained" color="primary" type="submit">
-                  Post
-                </Button>
-              </Form>
-            </div>
+                  <Form.Group controlId="city">
+                    <Form.Control type="city" placeholder="City" />
+                  </Form.Group>
+                </div>
+              </div>
+              <Button variant="contained" color="primary" type="submit">
+                Post
+              </Button>
+            </Form>
           </Fade>
         </Modal>
       </div>

@@ -41,6 +41,7 @@ export default function AlertCard(props) {
                   </div>
                 </div>
               </div>
+
               {props.user.id !== props.user_id && (
                 <Link className="message-icon" to={{ pathname: "/newmessage" }}>
                   <i

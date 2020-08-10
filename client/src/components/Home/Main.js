@@ -7,8 +7,8 @@ function Main(props) {
   //Grabs the neighbourhood id from the props
   const userNeighbourhoodId = props.user.neighbourhood_id;
 
-  console.log("HELOA SOJUFHADSOFASNFA", props)
-  console.log("HELLO MOM", props.receiver, props.setReceiver)
+  console.log("HELOA SOJUFHADSOFASNFA", props);
+  console.log("HELLO MOM", props.receiver, props.setReceiver);
 
   const [events, setEvents] = useState([]);
 
@@ -22,10 +22,6 @@ function Main(props) {
       setEvents(eventsInNeighbourhood.slice(0, 6));
     });
   };
-
-
-
-
 
   useEffect(() => {
     getEventsForNeighbourhood(userNeighbourhoodId);
@@ -58,7 +54,7 @@ function Main(props) {
                 event_start={event.event_start}
                 event_date={`${event.event_start.slice(0, 10)}T${
                   event.event_time
-                  }.000Z`}
+                }.000Z`}
                 receiver={props.receiver}
                 setReceiver={props.setReceiver}
                 user_id={event.user_id}
