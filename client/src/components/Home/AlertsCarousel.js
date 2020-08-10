@@ -39,11 +39,15 @@ function AlertsCarousel(props) {
       {alerts.map((alert) => (
         <Carousel.Item key={alert.id}>
           <AlertCard
-            user_id={alert.user_id}
+            user_photo={alert.profile_photo}
+            user_first_name={alert.first_name}
+            user_last_name={alert.last_name}
             title={alert.title}
             time_created={alert.time_created}
             description={alert.description}
             photo={alert.alert_photo}
+            receiver={props.receiver}
+            setReceiver={props.setReceiver}
           />
         </Carousel.Item>
       ))}

@@ -1,77 +1,68 @@
 import React, { useState, useEffect } from "react";
 import "../../styles.scss";
-import { makeStyles } from "@material-ui/core/styles";
-import { Alert, AlertTitle } from "@material-ui/lab";
-import axios from "axios";
 import moment from "moment";
-import IconButton from "@material-ui/core/IconButton";
-import ChatTwoToneIcon from "@material-ui/icons/ChatTwoTone";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    "& > * + *": {
-      marginTop: theme.spacing(2),
-    },
-  },
-  medium: {
-    width: theme.spacing(5),
-    height: theme.spacing(5),
-  },
-}));
+import { Link } from "react-router-dom";
 
 export default function AlertCard(props) {
-  const classes = useStyles();
-  // Manages the state of the user
-  const [userForAlert, setUserForAlert] = useState(null);
-
-  //Gets user info for the alert
-  const getUserForAlert = (id) => {
-    axios.get("/users/profile-info").then((response) => {
-      const users = response.data;
-      const userForAlert = users.find((user) => user.id === id);
-      setUserForAlert(userForAlert);
-    });
+  const setReceiver = function (data) {
+    props.setReceiver(data);
   };
-  useEffect(() => {
-    getUserForAlert(props.user_id);
-  }, []);
 
+  const receiverObject = {
+    first_name: props.user_first_name,
+    last_name: props.user_last_name,
+    user_id: props.user_id,
+  };
   return (
-    <div className="item">
-      {userForAlert && (
-        <Alert severity="error">
-          <AlertTitle>{props.title}</AlertTitle>
-          <section className="alert-container">
-            <article>
-              <header>
-                <div>
-                  <img src={userForAlert.profile_photo} alt="" />
-                  <h6>
-                    {userForAlert.first_name} {userForAlert.last_name}
-                  </h6>
+    <div className="alert">
+      <div className="card gedf-card">
+        <div className="alert-title">
+          <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i>
+          <h4>{props.title}</h4>
+        </div>
+        <div className="alert-card">
+          <div className="alert-header">
+            <div className="d-flex justify-content-between align-items-center">
+              <div className="d-flex justify-content-between align-items-center">
+                <div className="mr-2">
+                  <img
+                    className="rounded-circle"
+                    width="45"
+                    src={props.user_photo}
+                    alt=""
+                  ></img>
                 </div>
-                <div>
-                  <IconButton>
-                    <ChatTwoToneIcon
-                      className={classes.medium}
-                    ></ChatTwoToneIcon>
-                  </IconButton>
+                <div className="ml-2">
+                  <div className="h5 m-0">
+                    {props.user_first_name} {props.user_last_name}
+                  </div>
+                  <div className="h7 text-muted">
+                    {" " + moment(props.time_created).fromNow()}
+                  </div>
                 </div>
-              </header>
-              <div>
-                <p>Posted {moment(props.time_created).fromNow()}</p>
               </div>
-              <div>
-                <img src={props.photo} alt="" />
-              </div>
-              <div id="alert-display">
-                <p>{props.description}</p>
-              </div>
-            </article>
-          </section>
-        </Alert>
-      )}
+
+              <Link className="message-icon" to={{ pathname: "/newmessage" }}>
+                <i
+                  class="fa fa-comment-o fa-2x"
+                  aria-hidden="true"
+                  onClick={() => setReceiver(receiverObject)}
+                ></i>
+              </Link>
+            </div>
+          </div>
+          <div className="card-body">
+            <ul className="list-group list-group-flush">
+              <li className="list-group-item">
+                <img className="post-photo" src={props.photo} alt=""></img>
+              </li>
+              <li className="list-group-item">
+                <p className="card-text">{props.description}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

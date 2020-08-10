@@ -1,19 +1,16 @@
 import React from "react";
-import AlertsCarousel from "./AlertsCarousel";
-import UpcomingEvents from "./UpcomingEvents";
+
+import Main from "./main";
 import "../../styles.scss";
 import Box from "./Box";
 
 function Home(props) {
   return (
     <div>
-      <div className="carousel-container">
-        <AlertsCarousel user={props.user} />
-      </div>
       <div className="container-fluid gedf-wrapper">
         <div className="row">
           <Box user={props.user} />
-          <UpcomingEvents
+          <Main
             user={props.user}
             receiver={props.receiver}
             setReceiver={props.receiverData}

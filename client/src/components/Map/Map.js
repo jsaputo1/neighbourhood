@@ -75,7 +75,7 @@ function Map(props) {
       const servicesInNeighbourhood = services.filter(
         (service) => service.neighbourhood_id === id
       );
-      // console.log(servicesInNeighbourhood);
+      console.log(servicesInNeighbourhood);
       setServices(servicesInNeighbourhood);
     });
   };
