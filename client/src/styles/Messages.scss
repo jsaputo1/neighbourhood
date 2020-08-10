@@ -1,5 +1,5 @@
 .messages-container {
-  background-color: #f9f9fa;
+  background-color: $offWhiteBackground;
   height: 100%;
 }
 
@@ -20,13 +20,10 @@
     border: 2px solid $chatBorder;
     width: 50%;
     max-width: 600px;
-
     &:hover {
       box-shadow: 2px 10px 15px rgba(0, 0, 0, 0.3);
       transition-duration: 0.4s;
     }
-
-
     h2 {
       font-size: 15px;
     }
@@ -117,9 +114,8 @@
     border-radius: 20px;
     font-size: 14px;
     &:hover {
-     color: $chatBlue
+      color: $chatBlue;
     }
-    
   }
 
   .form-control {
@@ -130,7 +126,6 @@
     &:hover {
       box-shadow: 0px 0px 8px $chatBlue;
     }
-
   }
 }
 
