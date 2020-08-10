@@ -28,10 +28,10 @@ function App() {
 
   const fetchCategoriesAndSubscriptions = async () => {
     console.log("call");
-    const data = await axios.get('http://localhost:8001/categories');
-    setCategories(data.data)
-    const mata = await axios.get('http://localhost:8001/subscriptions');
-    setSubscriptions(mata.data)
+    const data = await axios.get("http://localhost:8001/categories");
+    setCategories(data.data);
+    const mata = await axios.get("http://localhost:8001/subscriptions");
+    setSubscriptions(mata.data);
   };
 
   // const fetchSubscriptions = async () => {
@@ -46,24 +46,49 @@ function App() {
 
   //That is going to be our main app, once we log in or sign in
   const Website = () => (
-
     <div>
       <Nav user={state.user} logout={setUser} />
       <Switch>
         <Route path="/home" exact>
-          <Home user={state.user}></Home>
+          <Home
+            user={state.user}
+            receiver={state.receiver}
+            receiverData={setReceiver}
+          ></Home>
         </Route>
         <Route path="/events" exact>
-          <Events user={state.user} receiver={state.receiver} receiverData={setReceiver} subscriptions={subscriptions} categories={categories} ></Events>
+          <Events
+            user={state.user}
+            receiver={state.receiver}
+            receiverData={setReceiver}
+            subscriptions={subscriptions}
+            categories={categories}
+          ></Events>
         </Route>
         <Route path="/services" exact>
-          <Services user={state.user} receiver={state.receiver} receiverData={setReceiver} subscriptions={subscriptions} categories={categories}></Services>
+          <Services
+            user={state.user}
+            receiver={state.receiver}
+            receiverData={setReceiver}
+            subscriptions={subscriptions}
+            categories={categories}
+          ></Services>
         </Route>
         <Route path="/alerts" exact>
-          <Alerts user={state.user} receiver={state.receiver} receiverData={setReceiver} subscriptions={subscriptions} categories={categories}></Alerts>
+          <Alerts
+            user={state.user}
+            receiver={state.receiver}
+            receiverData={setReceiver}
+            subscriptions={subscriptions}
+            categories={categories}
+          ></Alerts>
         </Route>
         <Route path="/map" exact>
-          <MapPage user={state.user} receiver={state.receiver} receiverData={setReceiver}></MapPage>
+          <MapPage
+            user={state.user}
+            receiver={state.receiver}
+            receiverData={setReceiver}
+          ></MapPage>
         </Route>
         <Route path="/messages" exact>
           <Messages user={state.user}></Messages>
@@ -72,7 +97,13 @@ function App() {
           <NewMessage user={state.user} receiver={state.receiver}></NewMessage>
         </Route>
         <Route path="/account" exact>
-          <Account updateSubscriptions={fetchCategoriesAndSubscriptions} updateUser={setUser} subscriptions={subscriptions} categories={categories} user={state.user}></Account>
+          <Account
+            updateSubscriptions={fetchCategoriesAndSubscriptions}
+            updateUser={setUser}
+            subscriptions={subscriptions}
+            categories={categories}
+            user={state.user}
+          ></Account>
         </Route>
       </Switch>
     </div>
@@ -89,7 +120,10 @@ function App() {
           <Register register={setUser}></Register>
         </Route>
         <Route path="/selectNeighbourhood" exact>
-          <SelectNeighbourhood user={state.user} register={setUser} ></SelectNeighbourhood>
+          <SelectNeighbourhood
+            user={state.user}
+            register={setUser}
+          ></SelectNeighbourhood>
         </Route>
         <Route path="/editUserInformation" exact>
           <EditUserInformation user={state.user} editUser={setUser}></EditUserInformation>

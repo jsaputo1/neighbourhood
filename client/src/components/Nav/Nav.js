@@ -21,6 +21,9 @@ function Nav(props) {
     <nav>
       <h3>LOGO</h3>
       <ul className="nav-links">
+        <Link className="link-style" to="/home">
+          <li>Home</li>
+        </Link>
         <Link className="link-style" to="/events">
           <li>Events</li>
         </Link>

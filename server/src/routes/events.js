@@ -7,7 +7,8 @@ module.exports = (db) => {
       SELECT events.*, users.first_name, users.last_name, users.profile_photo
       FROM events
       JOIN users
-      ON events.user_id = users.id;
+      ON events.user_id = users.id
+      ORDER BY event_start ASC;
     `
     ).then(({ rows: events }) => {
       response.json(events);
