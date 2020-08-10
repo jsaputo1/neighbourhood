@@ -18,6 +18,7 @@ import "../../styles.scss";
 
 import filterByCategory from "../Helpers/filterByCategory";
 import filterByNeighbourhood from "../Helpers/filterByNeighbourhood";
+import AlertsCarousel from "../Home/AlertsCarousel.js";
 
 //for Material UI
 const useStyles = makeStyles((theme) => ({
@@ -172,21 +173,20 @@ function Alerts(props) {
 
   const deleteSubmitHandler = function (event) {
     event.preventDefault();
-    console.log("EVENT", event.target)
+    const alertID = parseInt(event.target.dataset.message)
     deleteAlert({
       user_id: props.user.id,
+      alert_id: alertID
     });
-    handleClose();
+    handleCloseDelete();
   };
 
   const deleteAlert = function (registrationData) {
-    console.log('REEGISTAERW', registrationData);
-    // axios.post("/alerts", registrationData)
-    //   .then((response) => {
-    //     setAlerts(filterByNeighbourhood(response.data, props.user.neighbourhood_id));
-    //   });
+    axios.delete("/alerts/delete", { data: registrationData })
+      .then(() => {
+        fetchAlerts()
+      })
   };
-
 
 
 
@@ -344,7 +344,7 @@ function Alerts(props) {
                           <Fade in={openDelete}>
                             <div className={classes.paper}>
                               <h2 id="transition-modal-title">Are you sure you would like to delete this Alert?</h2>
-                              <Form onSubmit={deleteSubmitHandler}>
+                              <Form data-message={alert.id} onSubmit={deleteSubmitHandler}>
 
                                 <Button variant="contained" color="secondary" type="submit">
                                   Confirm

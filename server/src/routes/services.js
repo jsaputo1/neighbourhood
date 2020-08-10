@@ -51,5 +51,27 @@ module.exports = db => {
       });
   });
 
+
+  router.delete("/delete", (request, response) => {
+    console.log("REQUEST", request.body.user_id, request.body.service_id)
+    values = [
+      request.body.user_id,
+      request.body.service_id
+    ]
+    db.query(
+      `
+      DELETE FROM services
+      WHERE user_id = $1
+      AND id = $2;
+    `,
+      values
+    ).then(({ rows: services }) => {
+      response.json(services);
+    });
+  });
+
+
+
+
   return router;
 };

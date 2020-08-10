@@ -50,14 +50,18 @@ module.exports = db => {
 
 
   router.delete("/delete", (request, response) => {
-    console.log(request)
+    console.log("REQUEST", request.body.user_id, request.body.alert_id)
+    values = [
+      request.body.user_id,
+      request.body.alert_id
+    ]
     db.query(
       `
-      SELECT alerts.*, users.first_name, users.last_name, users.profile_photo
-      FROM alerts
-      JOIN users
-      ON alerts.user_id = users.id;
-    `
+      DELETE FROM alerts
+      WHERE user_id = $1
+      AND id = $2;
+    `,
+      values
     ).then(({ rows: alerts }) => {
       response.json(alerts);
     });
