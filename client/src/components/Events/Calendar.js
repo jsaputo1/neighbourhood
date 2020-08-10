@@ -44,9 +44,9 @@ export default function Calendar(props) {
         formattedEvent.start = `${event.event_start.slice(0, 10)}T${
           event.event_time
         }`;
-        if (formattedEvent.category_id === 15) {
-          formattedEvent.color = "#d139d4";
-        }
+        // if (formattedEvent.category_id === 15) {
+        //   formattedEvent.color = "#d139d4";
+        // }
 
         return formattedEvent;
       });
@@ -151,7 +151,7 @@ export default function Calendar(props) {
                     post_description={selectedEvent.description}
                     post_title={selectedEvent.title}
                     event_time={selectedEvent.event_time}
-                    event_date={selectedEvent.event_date}
+                    event_start={selectedEvent.event_start}
                     receiver={props.receiver}
                     setReceiver={props.setReceiver}
                     user_id={selectedEvent.user_id}
@@ -166,7 +166,7 @@ export default function Calendar(props) {
                     post_description={selectedEvent.description}
                     post_title={selectedEvent.title}
                     event_time={selectedEvent.event_time}
-                    event_date={selectedEvent.event_date}
+                    event_start={selectedEvent.event_start}
                     receiver={props.receiver}
                     setReceiver={props.setReceiver}
                     user_id={selectedEvent.user_id}

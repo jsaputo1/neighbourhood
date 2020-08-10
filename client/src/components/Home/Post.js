@@ -13,6 +13,7 @@ function Post(props) {
     last_name: props.user_last_name,
     user_id: props.user_id,
   };
+  console.log(props.user.id);
   return (
     <div className="box">
       <div className="card gedf-card">
@@ -36,14 +37,15 @@ function Post(props) {
                 </div>
               </div>
             </div>
-
-            <Link className="message-icon" to={{ pathname: "/newmessage" }}>
-              <i
-                class="fa fa-comment-o fa-2x"
-                aria-hidden="true"
-                onClick={() => setReceiver(receiverObject)}
-              ></i>
-            </Link>
+            {props.user.id !== props.user_id && (
+              <Link className="message-icon" to={{ pathname: "/newmessage" }}>
+                <i
+                  class="fa fa-comment-o fa-2x"
+                  aria-hidden="true"
+                  onClick={() => setReceiver(receiverObject)}
+                ></i>
+              </Link>
+            )}
           </div>
         </div>
         <div className="card-body">

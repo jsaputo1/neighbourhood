@@ -5,15 +5,16 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import ChatTwoToneIcon from "@material-ui/icons/ChatTwoTone";
 import moment from "moment";
 import { Link } from "react-router-dom";
+
+import "../../styles.scss";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
+    padding: 10,
   },
   large: {
     width: theme.spacing(7),
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PopupCardAlert(props) {
+export default function PopupCard(props) {
   const classes = useStyles();
 
   const setReceiver = function (data) {
@@ -56,7 +57,7 @@ export default function PopupCardAlert(props) {
 
   return (
     <Card className={classes.root}>
-      {props.time_created && (
+      {props.time_created && props.user.id !== props.user_id && (
         <CardHeader
           avatar={
             <Avatar
@@ -67,12 +68,27 @@ export default function PopupCardAlert(props) {
             />
           }
           action={
-            <button
-              className={classes.medium}
-              onClick={() => setReceiver(receiverObject)}
-            >
-              <Link to={{ pathname: "/newmessage" }}>Send Message</Link>
-            </button>
+            <Link className="message-icon" to={{ pathname: "/newmessage" }}>
+              <i
+                class="fa fa-comment-o fa-2x"
+                aria-hidden="true"
+                onClick={() => setReceiver(receiverObject)}
+              ></i>
+            </Link>
+          }
+          title={`${props.user_first_name} ${props.user_last_name}`}
+          subheader={`Posted ${moment(props.time_created).fromNow()}`}
+        />
+      )}
+      {props.time_created && props.user.id === props.user_id && (
+        <CardHeader
+          avatar={
+            <Avatar
+              aria-label="recipe"
+              alt=""
+              src={props.user_photo}
+              className={classes.large}
+            />
           }
           title={`${props.user_first_name} ${props.user_last_name}`}
           subheader={`Posted ${moment(props.time_created).fromNow()}`}
@@ -89,23 +105,32 @@ export default function PopupCardAlert(props) {
             />
           }
           action={
-            <IconButton>
-              <ChatTwoToneIcon className={classes.medium}></ChatTwoToneIcon>
-            </IconButton>
+            <Link className="message-icon" to={{ pathname: "/newmessage" }}>
+              <i
+                class="fa fa-comment-o fa-2x"
+                aria-hidden="true"
+                onClick={() => setReceiver(receiverObject)}
+              ></i>
+            </Link>
           }
           title={`${props.user_first_name} ${props.user_last_name}`}
           subheader={`Member since ${moment(props.member_since).format("LL")}`}
         />
-      )}
-      {props.event_time && props.event_date && (
-        <Typography variant="body2" color="textSecondary" component="p">
-          {props.event_date.slice(0, 10)} {props.event_time.slice(0, 2) + "h"}
-        </Typography>
-      )}
+      )}{" "}
       {props.post_title && (
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography variant="body1" color="textPrimary" component="p">
           {props.post_title}
         </Typography>
+      )}
+      {props.event_start && props.event_time && (
+        <div className="text-muted h7 mb-2">
+          {" "}
+          <i className="fa fa-clock-o"> </i>
+          {"  " +
+            moment(
+              `${props.event_start.slice(0, 10)}T${props.event_time}.000Z`
+            ).calendar()}
+        </div>
       )}
       {props.post_photo && (
         <CardMedia
@@ -115,12 +140,7 @@ export default function PopupCardAlert(props) {
         />
       )}
       <CardContent>
-        {props.event_start && (
-          <Typography variant="body2" color="textSecondary" component="p">
-            {props.event_start}
-          </Typography>
-        )}
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography variant="body2" color="textPrimary" component="p">
           {props.post_description}
         </Typography>
       </CardContent>

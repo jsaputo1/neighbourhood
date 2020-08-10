@@ -213,6 +213,7 @@ function Map(props) {
           }}
         >
           <PopupCard
+            user={props.user}
             user_photo={selectedPinUser.profile_photo}
             user_first_name={selectedPinUser.first_name}
             user_last_name={selectedPinUser.last_name}
@@ -225,7 +226,7 @@ function Map(props) {
             post_description={selectedPin.description}
             post_title={selectedPin.title}
             event_time={selectedPin.event_time}
-            event_date={selectedPin.event_date}
+            event_start={selectedPin.event_start}
             receiver={props.receiver}
             setReceiver={props.setReceiver}
             user_id={selectedPin.user_id}
@@ -250,6 +251,7 @@ function Map(props) {
             member_since={selectedPin.time_created}
             receiver={props.receiver}
             receiverData={props.setReceiver}
+            user={props.user}
           />
         </InfoWindow>
       )}

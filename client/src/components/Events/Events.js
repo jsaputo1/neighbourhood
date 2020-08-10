@@ -23,6 +23,8 @@ import {
   TimePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
+
+//Utility needed to get the date out of the form fields
 import DateFnsUtils from "@date-io/date-fns";
 
 // core components

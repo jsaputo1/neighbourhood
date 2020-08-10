@@ -48,6 +48,8 @@ function AlertsCarousel(props) {
             photo={alert.alert_photo}
             receiver={props.receiver}
             setReceiver={props.setReceiver}
+            user_id={alert.user_id}
+            user={props.user}
           />
         </Carousel.Item>
       ))}

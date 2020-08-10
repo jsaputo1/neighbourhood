@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "../../styles.scss";
 import moment from "moment";
 import { Link } from "react-router-dom";
@@ -7,7 +7,7 @@ export default function AlertCard(props) {
   const setReceiver = function (data) {
     props.setReceiver(data);
   };
-
+  console.log(props);
   const receiverObject = {
     first_name: props.user_first_name,
     last_name: props.user_last_name,
@@ -41,14 +41,15 @@ export default function AlertCard(props) {
                   </div>
                 </div>
               </div>
-
-              <Link className="message-icon" to={{ pathname: "/newmessage" }}>
-                <i
-                  class="fa fa-comment-o fa-2x"
-                  aria-hidden="true"
-                  onClick={() => setReceiver(receiverObject)}
-                ></i>
-              </Link>
+              {props.user.id !== props.user_id && (
+                <Link className="message-icon" to={{ pathname: "/newmessage" }}>
+                  <i
+                    class="fa fa-comment-o fa-2x"
+                    aria-hidden="true"
+                    onClick={() => setReceiver(receiverObject)}
+                  ></i>
+                </Link>
+              )}
             </div>
           </div>
           <div className="card-body">

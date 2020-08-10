@@ -9,7 +9,6 @@ function Box(props) {
   const userNeighbourhoodId = props.user.neighbourhood_id;
   //get the neighbourhood object
   const findNeighbourhood = (id) => {
-    const cancelToken = axios.CancelToken.source();
     axios.get("/neighbourhood").then((response) => {
       const neighbourhoods = response.data;
       const userNeighbourhood = neighbourhoods.find(

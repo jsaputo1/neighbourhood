@@ -39,6 +39,7 @@ function Main(props) {
             new Date(event.event_start) >= new Date() && (
               <Post
                 key={event.id}
+                user={props.user}
                 user_photo={event.profile_photo}
                 user_first_name={event.first_name}
                 user_last_name={event.last_name}
