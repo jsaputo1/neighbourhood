@@ -23,23 +23,31 @@ function UpcomingEvents(props) {
     getEventsForNeighbourhood(userNeighbourhoodId);
   }, []);
   return (
-    <div>
-      {events.map((event) => (
-        <Post
-          user_photo={event.profile_photo}
-          user_first_name={event.first_name}
-          user_last_name={event.last_name}
-          time_created={event.time_created}
-          post_photo={event.event_photo}
-          post_description={event.description}
-          post_title={event.title}
-          event_time={event.event_time}
-          event_date={event.event_date}
-          receiver={props.receiver}
-          setReceiver={props.setReceiver}
-          user_id={event.user_id}
-        />
-      ))}
+    <div className="col-md-6 gedf-main">
+      <h2>Upcoming Events in your neighbourhood</h2>
+      {events.map(
+        (event) =>
+          new Date(event.event_start) >= new Date() && (
+            <Post
+              key={event.id}
+              user_photo={event.profile_photo}
+              user_first_name={event.first_name}
+              user_last_name={event.last_name}
+              time_created={event.time_created}
+              post_photo={event.event_photo}
+              post_description={event.description}
+              post_title={event.title}
+              event_time={event.event_time}
+              event_start={event.event_start}
+              event_date={`${event.event_start.slice(0, 10)}T${
+                event.event_time
+              }.000Z`}
+              receiver={props.receiver}
+              setReceiver={props.setReceiver}
+              user_id={event.user_id}
+            />
+          )
+      )}
     </div>
   );
 }
