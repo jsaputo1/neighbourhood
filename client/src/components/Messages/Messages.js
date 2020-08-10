@@ -58,7 +58,6 @@ function Messages(props) {
       </Conversation>);
   }
   return < div className="messages-container" >
-    <h3>Hello {props.user.first_name}, {props.user.id}</h3>
     {conversation}
   </div >;
 }

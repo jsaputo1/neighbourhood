@@ -29,7 +29,6 @@ function NewMessage(props) {
       let messageContent = (
         <div className={message.message_text === "New conversation started" ? "new-conversation" : " not-hidden"}>
           <div className={message.sender_id === props.user.id ? " sent" : " received"}>
-            <h2 className="sender">User ID {message.sender_id}:</h2>
             <h2 className="message-content">{message.message_text}</h2>
             <h2 className="timestamp">{moment(message.time_sent, "").fromNow()}</h2>
           </div>
