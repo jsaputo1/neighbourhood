@@ -10,7 +10,10 @@ function Nav(props) {
 
   const [landingRedirect, setlandingRedirect] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen(prevState => !prevState);
+  const toggleUserDropdown = () => setUserDropdownOpen(prevState => !prevState);
+
   const logout = () => {
     axios.post("/users/logout").then((response) => {
       setlandingRedirect(true);
@@ -25,12 +28,14 @@ function Nav(props) {
   return (
     <div className="nav-bar">
       <div className="left-side-nav">
-        <img src="logo" alt="logo" />
-        <div className="dropdown">
+        <NavLink to="/home">
+          <img src="https://i.imgur.com/j6IJGS2.png" alt="logo" />
+        </NavLink>
+        <div className="menu-dropdown">
           <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-            <DropdownToggle caret>
-              Dropdown
-        </DropdownToggle>
+            <DropdownToggle>
+              Menu <i class="fa fa-chevron-down"></i>
+            </DropdownToggle>
             <DropdownMenu>
               <NavLink to="/home">
                 <DropdownItem>Home</DropdownItem>
@@ -51,29 +56,45 @@ function Nav(props) {
           </Dropdown>
         </div>
       </div>
+      <div className="middle-nav">
+        <NavLink to="/home">
+          <img src="https://i.imgur.com/EGdzKq0.png" alt="banner-logo" />
+        </NavLink>
+      </div>
       <div class="right-side-nav">
         {props.user === undefined ? (
           <Link className="link-style" to="/Login">
-            <li>Login</li>
+            Login
           </Link>
         ) : (
-            <div>
-              <li>
-                <h6>
-                  {props.user.first_name}
-                  {` ${props.user.last_name}`}
-                </h6>
-                <img src={props.user.profile_photo} alt="" />
-              </li>
-              <Button variant="link" onClick={logout}>
-                <li>Logout</li>
-              </Button>
-              <Link className="link-style" to="/Account">
-                <li>Account</li>
-              </Link>
+            <div class="right-side-nav">
               <Link className="link-style" to="/Messages">
-                <li>Messages</li>
+                <i class="fa fa-comment-o fa-2x" aria-hidden="true"></i>
               </Link>
+              <div className="user-info-nav">
+                <img src={props.user.profile_photo} alt="profile-picture" />
+                <h3>{props.user.first_name} {props.user.last_name}</h3>
+              </div>
+              <div className="user-dropdown">
+                <Dropdown isOpen={userDropdownOpen} toggle={toggleUserDropdown} className="user-dropdown-toggle-show">
+                  <DropdownToggle>
+                    <i class="fa fa-chevron-down"></i>
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem header>
+                      <figure className="user-dropdown-figure">
+                        <img src={props.user.profile_photo} alt="profile-picture" />
+                        {props.user.first_name} {props.user.last_name}
+                      </figure>
+                      <DropdownItem divider />
+                    </DropdownItem>
+                    <NavLink to="/account">
+                      <DropdownItem>Your Profile</DropdownItem>
+                    </NavLink>
+                    <DropdownItem><span onClick={logout}>Logout</span></DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </div>
             </div>
           )}
       </div>
