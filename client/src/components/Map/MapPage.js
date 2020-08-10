@@ -29,7 +29,7 @@ function MapPage(props) {
         ServicesSwitch={state.Services}
         AlertsSwitch={state.Alerts}
       />
-      <div style={{ width: "100vw", height: "78vh" }}>
+      <div style={{ width: "100vw", height: "83vh" }}>
         <WrappedMap
           googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}
           loadingElement={<div style={{ height: `100%` }} />}
