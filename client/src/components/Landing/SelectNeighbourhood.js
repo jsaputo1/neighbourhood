@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import "../../styles.scss";
-
-// @material-ui/core components
 import { Button } from "@material-ui/core";
 
 function SelectNeighbourhood(props) {
@@ -41,21 +39,24 @@ function SelectNeighbourhood(props) {
       <Redirect to="/home" />);
   }
 
-
   return (!neighbourhoods[0] ? null : (<div className="select-neighbourhood-container">
-    <h2>
-      Hello {props.user.first_name} ! Your e-mail is {props.user.email}
-    </h2>
-    <h3>Based on your location, we suggest joining one of the following neighbourhoods </h3>
-    <div className="neighbourhood-choices">
-      {neighbourhoods.slice(0, 2).map(i => (
-        <figure key={i.id}>
-          <img src={i.neighbourhood_photo}></img>
-          <Button variant="contained" color="primary" type="submit" onClick={(evt) => onAddNeighbourhood(evt, i.id)}>
-            {i.name}
-          </Button>
-        </figure>
-      ))}
+    <div class="select-neighbourhood-content-wrapper">
+      <div className="select-neighbourhood-header">
+        <h2>
+          Welcome to CupOSugah {props.user.first_name} !
+      </h2>
+        <h3>Based on your location, we suggest joining one of the following neighbourhoods </h3>
+      </div>
+      <div className="neighbourhood-choices">
+        {neighbourhoods.slice(0, 2).map(i => (
+          <figure key={i.id}>
+            <img src={i.neighbourhood_photo}></img>
+            <Button variant="contained" color="primary" type="submit" onClick={(evt) => onAddNeighbourhood(evt, i.id)}>
+              {i.name}
+            </Button>
+          </figure>
+        ))}
+      </div>
     </div>
   </div>
   )
