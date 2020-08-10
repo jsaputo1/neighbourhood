@@ -18,8 +18,7 @@ function Conversation(props) {
   const sendReply = function (messageData) {
     axios.post("/messages/reply", messageData)
       .then(response => {
-        return { message: response.target.elements['message'].value },
-          props.conversations(response.data);
+        props.conversations(response.data);
       });
   };
 
@@ -38,7 +37,6 @@ function Conversation(props) {
     axios.get(`/messages/userinfo?id=${userID}`)
       .then(
         (response) => {
-          console.log("Response Data", response.data.profile_photo);
           setUserPhoto(response.data.profile_photo);
         }
       );
@@ -53,7 +51,7 @@ function Conversation(props) {
       {props.children}
       <Form className="message-input" onSubmit={onSubmitHandler}>
         <Form.Group controlId="message">
-          <Form.Control type="message" placeholder="Enter message" className="autosize"/>
+          <Form.Control type="message" placeholder="Enter message" className="autosize" />
         </Form.Group>
         <button>Send</button>
       </Form>
@@ -63,5 +61,3 @@ function Conversation(props) {
 }
 
 export default Conversation;
-
-
