@@ -79,8 +79,9 @@ function Account(props) {
   });
 
   const populateChecked = function () {
+    console.log("SUBSCRIPTIONS", props.subscriptions)
     const buttonsToCheck = props.subscriptions.filter((sub) => sub.user_id === props.user.id).map((sub) => sub.category_id)
-
+    console.log("BUTTONS TO CHECK", buttonsToCheck)
     const generateCheckedState = function () {
       const obj = { ...checked }
       for (const sub of buttonsToCheck) {
@@ -164,24 +165,26 @@ function Account(props) {
     const generateAxiosCalls = function () {
       console.log("NEWSIES", newSubscriptions)
       return Promise.all(newSubscriptions.map((categoryId) => {
-        console.log(subscriptionData.user_id, categoryId)
+        console.log("IN PROMISE", subscriptionData.user_id, categoryId)
         return axios.post("/subscriptions", { user_id: subscriptionData.user_id, category_id: categoryId })
       }
       ));
     };
+    // SET TIMEOUT MIGHT FIX?! LIKE TWILIO!?
     await axios.post("/subscriptions/delete", { user_id: subscriptionData.user_id })
       .then(generateAxiosCalls())
-      .catch((err) => console.error("query error", err.stack))
-      // .then(axios.post("/users/notifcation-settings", { alert_types: subscriptionData.alert_types, user_id: subscriptionData.user_id }))
-      .then((response) => {
-        console.log("REPOND", response)
-      })
-      .then(props.updateSubscriptions())
+      .then(setTimeout(() => props.updateSubscriptions()), 2000)
       .then(handleClose())
+      .catch((err) => console.error("query error", err.stack))
+    // .then(axios.post("/users/notifcation-settings", { alert_types: subscriptionData.alert_types, user_id: subscriptionData.user_id }))
+    // .then((response) => {
+    //   console.log("REPOND", response)
+    // })
     // CAUSING PROXY ERRORS which either results in multiple subscriptions for the current user disappearing, or just ID 1 (Emergencies) being unsubscribed-from.
     // RETURNING REDIRECT BELOW MAKES THIS WORK AS INTENDED, AT THE COST OF CAUSING A RERENDER.
-    return (
-      <Redirect to="/account" />)
+    // return (
+    //   <Redirect to="/account" />
+    // )
   };
 
   if (editRedirect) {

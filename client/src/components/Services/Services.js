@@ -390,12 +390,48 @@ function Services(props) {
           <h1>...</h1>
 
           <GridContainer>
+
+
+
+
+
+
+
+
             {filterByCategory(services, state.search, categories).map(
               (service) => (
+
+
+
+
+
+
+
                 <GridItem xs={12} sm={6} md={3}>
                   <Card className={classes.root}>
                     <CardActionArea>
-                      <div key={service.id}>
+
+                      {/* <Post
+                        key={event.id}
+                        user_photo={event.profile_photo}
+                        user_first_name={event.first_name}
+                        user_last_name={event.last_name}
+                        time_created={event.time_created}
+                        post_photo={event.event_photo}
+                        post_description={event.description}
+                        post_title={event.title}
+                        event_time={event.event_time}
+                        event_start={event.event_start}
+                        event_date={`${event.event_start.slice(0, 10)}T${
+                          event.event_time
+                          }.000Z`}
+                        receiver={props.receiver}
+                        setReceiver={props.setReceiver}
+                        user_id={event.user_id}
+                      /> */}
+
+
+                      {/* <div key={service.id}>
                         <CardMedia
                           className={classes.media}
                           image={service.service_photo}
@@ -438,7 +474,15 @@ function Services(props) {
                             {requestOrOffer(service.service_offer)}
                           </Typography>
                         </CardContent>
-                      </div>
+                      </div> */}
+
+
+
+
+
+
+
+
 
 
                       {props.user.id === service.user_id ?
