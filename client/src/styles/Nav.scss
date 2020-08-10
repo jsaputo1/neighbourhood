@@ -3,7 +3,6 @@
   // width: 100%;
   // z-index: 1;
   // top: 0;
-  
 
   color: #ffffff;
   display: flex;
@@ -86,6 +85,26 @@
   color: white;
 
   &:hover {
-    color: $gold;
+    color: $chatGrey;
   }
+}
+
+.message-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.message-icon-text {
+  position: absolute;
+  top: -3px;
+  right: 0px;
+  color: white;
+  background-color: #e2574c;
+  width: 16px;
+  height: 16px;
+  font-size: 11px;
+  border-radius: 50%;
 }

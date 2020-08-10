@@ -49,9 +49,6 @@ function Nav(props) {
               <NavLink to="/alerts">
                 <DropdownItem>Alerts</DropdownItem>
               </NavLink>
-              <NavLink to="/map">
-                <DropdownItem>Map</DropdownItem>
-              </NavLink>
             </DropdownMenu>
           </Dropdown>
         </div>
@@ -71,9 +68,14 @@ function Nav(props) {
               <Link className="link-style" to="/Map">
                 <i class="fa fa-map"></i>
               </Link>
-              <Link className="link-style" to="/Messages">
-                <i class="fa fa-comment-o fa-2x" aria-hidden="true"></i>
-              </Link>
+              <div className="message-icon">
+                <div class="message-icon-text">
+                  <i class="fa fa-exclamation"></i>
+                </div>
+                <Link className="link-style" to="/Messages">
+                  <i class="fa fa-comment-o fa-2x" aria-hidden="true"></i>
+                </Link>
+              </div>
               <div className="user-info-nav">
                 <img src={props.user.profile_photo} alt="profile-picture" />
                 <h3>{props.user.first_name} {props.user.last_name}</h3>
