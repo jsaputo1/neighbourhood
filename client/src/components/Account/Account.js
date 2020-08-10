@@ -10,10 +10,12 @@ import { Button, Avatar, Card, CardActionArea, CardHeader, CardContent, CardMedi
 import { Form } from "react-bootstrap";
 
 
+
 // core components 
 import GridContainer from "../Material-kit-components/GridContainer.js";
 import GridItem from "../Material-kit-components/GridItem.js";
 import Parallax from "../Material-kit-components/Parallax.js";
+import Box from "../Home/Box";
 
 // import styles from "./Material-kit-components/landingPage.js";
 import "../../styles.scss";
@@ -197,6 +199,7 @@ function Account(props) {
     <div>
       <Parallax image={require(`../../assets/img/apartment1.jpg`)}>
         <div className={classes.container}>
+          <Box user={props.user} />
           <Card className={classes.root}>
             <CardActionArea>
               <Avatar alt={`${props.user.first_name} ${props.user.last_name}`} src={props.user.profile_photo} className={classes.large} />

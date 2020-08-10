@@ -199,131 +199,139 @@ function Alerts(props) {
 
   return (
     <div>
-      {/* <Parallax image={require("../../assets/img/blizzard.jpg")}> */}
-      <div className={classes.container}>
-        <Card className={classes.root}>
-          <CardActionArea>
-            <p>{state.search}</p>
-            <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel htmlFor="outlined-age-native-simple">Filter By Category</InputLabel>
-              <Select
-                native
-                value={state.search}
-                onChange={handleChange}
-                label="search"
-                inputProps={{
-                  name: 'search',
-                  id: 'outlined-age-native-simple',
-                }}
-              >
-                <option aria-label="None" value="" />
-                {categories.map(category => (
-                  <option key={category.id} value={category.name}>{category.name}</option>
-                ))}
-              </Select>
-            </FormControl>
+      <div className="container-fluid gedf-wrapper">
+        <div className="row">
+          <div className="col-md-6 gedf-main">
+            <div className="upcoming-events">
+              {/* <Parallax image={require("../../assets/img/blizzard.jpg")}> */}
+              <div className={classes.container}>
+                <Card className={classes.root}>
+                  <CardActionArea>
+                    <p>{state.search}</p>
+                    <FormControl variant="outlined" className={classes.formControl}>
+                      <InputLabel htmlFor="outlined-age-native-simple">Filter By Category</InputLabel>
+                      <Select
+                        native
+                        value={state.search}
+                        onChange={handleChange}
+                        label="search"
+                        inputProps={{
+                          name: 'search',
+                          id: 'outlined-age-native-simple',
+                        }}
+                      >
+                        <option aria-label="None" value="" />
+                        {categories.map(category => (
+                          <option key={category.id} value={category.name}>{category.name}</option>
+                        ))}
+                      </Select>
+                    </FormControl>
 
-            {props.user ? (
-              <div>
-                <h6>{props.user.first_name}</h6>
-                <div>
-                  <Button type="button" onClick={handleOpen}>
-                    Post New Alert
+                    {props.user ? (
+                      <div>
+                        <h6>{props.user.first_name}</h6>
+                        <div>
+                          <Button type="button" onClick={handleOpen}>
+                            Post New Alert
                     </Button>
-                  <Modal
-                    aria-labelledby="transition-modal-title"
-                    aria-describedby="transition-modal-description"
-                    className={classes.modal}
-                    open={open}
-                    onClose={handleClose}
-                    closeAfterTransition
-                    BackdropComponent={Backdrop}
-                    BackdropProps={{
-                      timeout: 500,
-                    }}
-                  >
-                    <Fade in={open}>
-                      <div className={classes.paper}>
-                        <h2 id="transition-modal-title">Post New Alert</h2>
-                        <Form onSubmit={onSubmitHandler}>
+                          <Modal
+                            aria-labelledby="transition-modal-title"
+                            aria-describedby="transition-modal-description"
+                            className={classes.modal}
+                            open={open}
+                            onClose={handleClose}
+                            closeAfterTransition
+                            BackdropComponent={Backdrop}
+                            BackdropProps={{
+                              timeout: 500,
+                            }}
+                          >
+                            <Fade in={open}>
+                              <div className={classes.paper}>
+                                <h2 id="transition-modal-title">Post New Alert</h2>
+                                <Form onSubmit={onSubmitHandler}>
 
-                          <Form.Group controlId="alertTitle">
-                            <Form.Label>Service Title</Form.Label>
-                            <Form.Control type="title" placeholder="Title" />
-                          </Form.Group>
+                                  <Form.Group controlId="alertTitle">
+                                    <Form.Label>Service Title</Form.Label>
+                                    <Form.Control type="title" placeholder="Title" />
+                                  </Form.Group>
 
-                          <FormGroup controlId="serviceCategory">
-                            <Form.Label>Select Category</Form.Label>
-                            <Form.Control
-                              as="select"
-                              value={state.selectedCategory}
-                              onChange={categoryChange}
-                            >
-                              <option></option>
-                              {categories.map(category => (
-                                <option key={category.id} value={category.id}>{category.name}</option>
-                              ))}
-                            </Form.Control>
-                          </FormGroup>
+                                  <FormGroup controlId="serviceCategory">
+                                    <Form.Label>Select Category</Form.Label>
+                                    <Form.Control
+                                      as="select"
+                                      value={state.selectedCategory}
+                                      onChange={categoryChange}
+                                    >
+                                      <option></option>
+                                      {categories.map(category => (
+                                        <option key={category.id} value={category.id}>{category.name}</option>
+                                      ))}
+                                    </Form.Control>
+                                  </FormGroup>
 
-                          <Form.Group controlId="alertDescription">
-                            <Form.Label>Description</Form.Label>
-                            <Form.Control type="description" placeholder="Description" as="textarea" rows="3" />
-                          </Form.Group>
+                                  <Form.Group controlId="alertDescription">
+                                    <Form.Label>Description</Form.Label>
+                                    <Form.Control type="description" placeholder="Description" as="textarea" rows="3" />
+                                  </Form.Group>
 
-                          <Form.Group controlId="alertPhoto">
-                            <Form.Label>Photo URL</Form.Label>
-                            <Form.Control type="url" placeholder="URL" />
-                          </Form.Group>
+                                  <Form.Group controlId="alertPhoto">
+                                    <Form.Label>Photo URL</Form.Label>
+                                    <Form.Control type="url" placeholder="URL" />
+                                  </Form.Group>
 
-                          <Button variant="contained" color="primary" type="submit">
-                            Post
+                                  <Button variant="contained" color="primary" type="submit">
+                                    Post
                             </Button>
-                        </Form>
+                                </Form>
+                              </div>
+                            </Fade>
+                          </Modal>
+                        </div>
                       </div>
-                    </Fade>
-                  </Modal>
-                </div>
+                    ) : <div></div>}
+
+                  </CardActionArea>
+                </Card>
+
+                <h1>...</h1>
+
+                {filterByCategory(alerts, state.search, categories).map(alert => (
+
+                  <AlertPost
+                    key={alert.id}
+                    id={alert.id}
+                    user_photo={alert.profile_photo}
+                    user_first_name={alert.first_name}
+                    user_last_name={alert.last_name}
+                    time_created={alert.time_created}
+                    post_photo={alert.alert_photo}
+                    post_description={alert.description}
+                    post_title={alert.title}
+                    user_id={alert.user_id}
+                    current_user_id={props.user.id}
+
+                    handleOpenDelete={handleOpenDelete}
+                    handleCloseDelete={handleCloseDelete}
+                    openDelete={openDelete}
+                    deleteSubmitHandler={deleteSubmitHandler}
+
+                    modalClass={classes.modal}
+                    paperClass={classes.paper}
+
+                    receiver={props.receiver}
+                    setReceiver={props.receiverData}
+                  />
+
+                ))}
+
               </div>
-            ) : <div></div>}
-
-          </CardActionArea>
-        </Card>
-
-        <h1>...</h1>
-
-        {filterByCategory(alerts, state.search, categories).map(alert => (
-
-          <AlertPost
-            key={alert.id}
-            id={alert.id}
-            user_photo={alert.profile_photo}
-            user_first_name={alert.first_name}
-            user_last_name={alert.last_name}
-            time_created={alert.time_created}
-            post_photo={alert.alert_photo}
-            post_description={alert.description}
-            post_title={alert.title}
-            user_id={alert.user_id}
-            current_user_id={props.user.id}
-
-            handleOpenDelete={handleOpenDelete}
-            handleCloseDelete={handleCloseDelete}
-            openDelete={openDelete}
-            deleteSubmitHandler={deleteSubmitHandler}
-
-            modalClass={classes.modal}
-            paperClass={classes.paper}
-
-            receiver={props.receiver}
-            setReceiver={props.receiverData}
-          />
-
-        ))}
-
+              {/* </Parallax> */}
+            </div>
+          </div>
+        </div>
       </div>
-      {/* </Parallax> */}
-    </div >
+    </div>
   );
 };
 
