@@ -119,7 +119,6 @@ function Events(props) {
     setOpen(false);
   };
 
-
   // const handleOpenDelete = () => {
   //   setOpenDelete(true)
   // };
@@ -138,7 +137,11 @@ function Events(props) {
       "http://localhost:8001/users/phone-numbers"
     );
     const phoneFiltered = phoneData.data
-      .filter((user) => subscriber_ids.includes(user.id) && user.neighbourhood_id === props.user.neighbourhood_id)
+      .filter(
+        (user) =>
+          subscriber_ids.includes(user.id) &&
+          user.neighbourhood_id === props.user.neighbourhood_id
+      )
       .map((entry) => `+${entry.phone_number}`);
     return phoneFiltered;
   };
@@ -155,10 +158,13 @@ function Events(props) {
   };
   //Functions to format the date coming from the imput fields in the form
   const formatDate = (x) => {
-    let [date, month, year] = x.toLocaleDateString().split("/");
-    return `${year}-${month}-${date}`;
+    let Y = new Date(x);
+    let date = JSON.stringify(Y);
+    date = date.slice(1, 11);
+    // let [date, month, year] = x.toLocaleDateString().split("/");
+    // return `${year}-${month}-${date}`;
+    return date;
   };
-
   const formatTime = (x) => {
     let [hour, minute, second] = x.toLocaleTimeString().slice(0, 7).split(":");
     return `${hour}:${minute}:${second}0`;
@@ -168,7 +174,9 @@ function Events(props) {
   const registerEvent = function (registrationData) {
     console.log("REEGISTAERW", registrationData);
     axios.post("/events", registrationData).then((response) => {
-      setEvents(filterByNeighbourhood(response.data, props.user.neighbourhood_id));
+      setEvents(
+        filterByNeighbourhood(response.data, props.user.neighbourhood_id)
+      );
     });
   };
 

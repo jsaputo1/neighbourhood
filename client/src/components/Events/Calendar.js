@@ -43,7 +43,7 @@ export default function Calendar(props) {
         let formattedEvent = Object.assign({}, event);
         formattedEvent.start = `${event.event_start.slice(0, 10)}T${
           event.event_time
-          }`;
+        }`;
         if (formattedEvent.category_id === 15) {
           formattedEvent.color = "#d139d4";
         }
@@ -55,13 +55,11 @@ export default function Calendar(props) {
     });
   };
 
-
   //Gets user info for selectedEvent
   const getUserForSelectedEvent = (id) => {
     axios.get("/users/profile-info").then((response) => {
       const users = response.data;
       const userForSelectedEvent = users.find((user) => user.id === id);
-      console.log("LOOK AT MEEEEEEE", userForSelectedEvent)
       setSelectedEventUser(userForSelectedEvent);
     });
   };
@@ -77,7 +75,7 @@ export default function Calendar(props) {
   }, [selectedEvent]);
 
   const handleOpen = (info) => {
-    console.log("HANDLE OPEN INFO", info.event.extendedProps)
+    console.log("HANDLE OPEN INFO", info.event.extendedProps);
     const title = info.event.title;
     const event_info = info.event.extendedProps;
     const event = {
@@ -91,9 +89,6 @@ export default function Calendar(props) {
   const handleClose = () => {
     setOpen(false);
   };
-
-  console.log("SELECTED Aaaaaaaaaaaa", selectedEventUser);
-
 
   return (
     <div>
@@ -125,9 +120,9 @@ export default function Calendar(props) {
         }}
         eventDisplay="block"
         eventClick={handleOpen}
-      // backgroundColor="#fccf03"
-      // borderColor="#fccf03"
-      // eventColor="#fccf03"
+        // backgroundColor="#fccf03"
+        // borderColor="#fccf03"
+        // eventColor="#fccf03"
       />
       <div>
         <Modal
@@ -144,48 +139,42 @@ export default function Calendar(props) {
         >
           <Fade in={open}>
             <div>
-              {selectedEvent && selectedEventUser &&
-
-                (
-                  props.user.id !== selectedEvent.user_id ?
-
-                    <PopupCard
-                      user_photo={selectedEventUser.profile_photo}
-                      user_first_name={selectedEventUser.first_name}
-                      user_last_name={selectedEventUser.last_name}
-                      time_created={selectedEvent.time_created}
-                      post_photo={selectedEvent.event_photo}
-                      post_description={selectedEvent.description}
-                      post_title={selectedEvent.title}
-                      event_time={selectedEvent.event_time}
-                      event_date={selectedEvent.event_date}
-                      receiver={props.receiver}
-                      setReceiver={props.setReceiver}
-                      user_id={selectedEvent.user_id}
-                    />
-
-
-                    :
-
-                    <PopupCardUserEvent
-                      user_photo={selectedEventUser.profile_photo}
-                      user_first_name={selectedEventUser.first_name}
-                      user_last_name={selectedEventUser.last_name}
-                      time_created={selectedEvent.time_created}
-                      post_photo={selectedEvent.event_photo}
-                      post_description={selectedEvent.description}
-                      post_title={selectedEvent.title}
-                      event_time={selectedEvent.event_time}
-                      event_date={selectedEvent.event_date}
-                      receiver={props.receiver}
-                      setReceiver={props.setReceiver}
-                      user_id={selectedEvent.user_id}
-                      event_id={selectedEvent.id}
-                      handleClose={handleClose}
-                      reloadEvents={getFiltredEventsForNeighbourhood}
-                    />
-
-                )}
+              {selectedEvent &&
+                selectedEventUser &&
+                (props.user.id !== selectedEvent.user_id ? (
+                  <PopupCard
+                    user_photo={selectedEventUser.profile_photo}
+                    user_first_name={selectedEventUser.first_name}
+                    user_last_name={selectedEventUser.last_name}
+                    time_created={selectedEvent.time_created}
+                    post_photo={selectedEvent.event_photo}
+                    post_description={selectedEvent.description}
+                    post_title={selectedEvent.title}
+                    event_time={selectedEvent.event_time}
+                    event_date={selectedEvent.event_date}
+                    receiver={props.receiver}
+                    setReceiver={props.setReceiver}
+                    user_id={selectedEvent.user_id}
+                  />
+                ) : (
+                  <PopupCardUserEvent
+                    user_photo={selectedEventUser.profile_photo}
+                    user_first_name={selectedEventUser.first_name}
+                    user_last_name={selectedEventUser.last_name}
+                    time_created={selectedEvent.time_created}
+                    post_photo={selectedEvent.event_photo}
+                    post_description={selectedEvent.description}
+                    post_title={selectedEvent.title}
+                    event_time={selectedEvent.event_time}
+                    event_date={selectedEvent.event_date}
+                    receiver={props.receiver}
+                    setReceiver={props.setReceiver}
+                    user_id={selectedEvent.user_id}
+                    event_id={selectedEvent.id}
+                    handleClose={handleClose}
+                    reloadEvents={getFiltredEventsForNeighbourhood}
+                  />
+                ))}
             </div>
           </Fade>
         </Modal>
