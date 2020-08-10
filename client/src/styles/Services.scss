@@ -1,3 +1,15 @@
+// #wrapper {
+//     background-image: url(../assets/img/carpentry.jpeg);
+//     background-repeat: no-repeat;
+//   background-attachment: fixed;
+//   background-size: cover;
+// }
+
+.postingRow {
+    display: flex;
+    justify-content: center;
+}
+
 .all-postings {
     margin-top: -30px;
     h2 {
