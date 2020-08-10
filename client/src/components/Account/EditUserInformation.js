@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-
 import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 import { Form } from "react-bootstrap";
 import styles from "../Material-kit-components/landingPage.js";
 import Parallax from "../Material-kit-components/Parallax.js";
+import { Link } from "react-router-dom";
 import "../../styles.scss";
 
 const useStyles = makeStyles(styles);
@@ -77,6 +77,10 @@ function EditUserInformation(props) {
                             <Form.Label>Write a Bio</Form.Label>
                             <Form.Control defaultValue={props.user.bio} as="textarea" rows="3" type="textarea" placeholder="Write something about yourself" />
                         </Form.Group>
+
+                        <Link className="change-neighbourhood-link" to="/selectNeighbourhood">
+                                <h2>Change Neighbourhood</h2>
+                        </Link>
 
                         <div className="edit-form-buttons">
                             <Button variant="contained" color="primary" type="submit">
