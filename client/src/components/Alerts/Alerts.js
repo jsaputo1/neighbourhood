@@ -13,6 +13,8 @@ import GridContainer from "../Material-kit-components/GridContainer.js";
 import GridItem from "../Material-kit-components/GridItem.js";
 import Parallax from "../Material-kit-components/Parallax.js";
 
+import AlertPost from "./AlertPost";
+
 // import styles from "./Material-kit-components/landingPage.js";
 import "../../styles.scss";
 
@@ -197,182 +199,210 @@ function Alerts(props) {
 
   return (
     <div>
-      <Parallax image={require("../../assets/img/blizzard.jpg")}>
-        <div className={classes.container}>
-          <Card className={classes.root}>
-            <CardActionArea>
-              <p>{state.search}</p>
-              <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel htmlFor="outlined-age-native-simple">Filter By Category</InputLabel>
-                <Select
-                  native
-                  value={state.search}
-                  onChange={handleChange}
-                  label="search"
-                  inputProps={{
-                    name: 'search',
-                    id: 'outlined-age-native-simple',
-                  }}
-                >
-                  <option aria-label="None" value="" />
-                  {categories.map(category => (
-                    <option key={category.id} value={category.name}>{category.name}</option>
-                  ))}
-                </Select>
-              </FormControl>
+      {/* <Parallax image={require("../../assets/img/blizzard.jpg")}> */}
+      <div className={classes.container}>
+        <Card className={classes.root}>
+          <CardActionArea>
+            <p>{state.search}</p>
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel htmlFor="outlined-age-native-simple">Filter By Category</InputLabel>
+              <Select
+                native
+                value={state.search}
+                onChange={handleChange}
+                label="search"
+                inputProps={{
+                  name: 'search',
+                  id: 'outlined-age-native-simple',
+                }}
+              >
+                <option aria-label="None" value="" />
+                {categories.map(category => (
+                  <option key={category.id} value={category.name}>{category.name}</option>
+                ))}
+              </Select>
+            </FormControl>
 
-              {props.user ? (
+            {props.user ? (
+              <div>
+                <h6>{props.user.first_name}</h6>
                 <div>
-                  <h6>{props.user.first_name}</h6>
-                  <div>
-                    <Button type="button" onClick={handleOpen}>
-                      Post New Alert
+                  <Button type="button" onClick={handleOpen}>
+                    Post New Alert
                     </Button>
-                    <Modal
-                      aria-labelledby="transition-modal-title"
-                      aria-describedby="transition-modal-description"
-                      className={classes.modal}
-                      open={open}
-                      onClose={handleClose}
-                      closeAfterTransition
-                      BackdropComponent={Backdrop}
-                      BackdropProps={{
-                        timeout: 500,
-                      }}
-                    >
-                      <Fade in={open}>
-                        <div className={classes.paper}>
-                          <h2 id="transition-modal-title">Post New Alert</h2>
-                          <Form onSubmit={onSubmitHandler}>
+                  <Modal
+                    aria-labelledby="transition-modal-title"
+                    aria-describedby="transition-modal-description"
+                    className={classes.modal}
+                    open={open}
+                    onClose={handleClose}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                      timeout: 500,
+                    }}
+                  >
+                    <Fade in={open}>
+                      <div className={classes.paper}>
+                        <h2 id="transition-modal-title">Post New Alert</h2>
+                        <Form onSubmit={onSubmitHandler}>
 
-                            <Form.Group controlId="alertTitle">
-                              <Form.Label>Service Title</Form.Label>
-                              <Form.Control type="title" placeholder="Title" />
-                            </Form.Group>
+                          <Form.Group controlId="alertTitle">
+                            <Form.Label>Service Title</Form.Label>
+                            <Form.Control type="title" placeholder="Title" />
+                          </Form.Group>
 
-                            <FormGroup controlId="serviceCategory">
-                              <Form.Label>Select Category</Form.Label>
-                              <Form.Control
-                                as="select"
-                                value={state.selectedCategory}
-                                onChange={categoryChange}
-                              >
-                                <option></option>
-                                {categories.map(category => (
-                                  <option key={category.id} value={category.id}>{category.name}</option>
-                                ))}
-                              </Form.Control>
-                            </FormGroup>
+                          <FormGroup controlId="serviceCategory">
+                            <Form.Label>Select Category</Form.Label>
+                            <Form.Control
+                              as="select"
+                              value={state.selectedCategory}
+                              onChange={categoryChange}
+                            >
+                              <option></option>
+                              {categories.map(category => (
+                                <option key={category.id} value={category.id}>{category.name}</option>
+                              ))}
+                            </Form.Control>
+                          </FormGroup>
 
-                            <Form.Group controlId="alertDescription">
-                              <Form.Label>Description</Form.Label>
-                              <Form.Control type="description" placeholder="Description" as="textarea" rows="3" />
-                            </Form.Group>
+                          <Form.Group controlId="alertDescription">
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control type="description" placeholder="Description" as="textarea" rows="3" />
+                          </Form.Group>
 
-                            <Form.Group controlId="alertPhoto">
-                              <Form.Label>Photo URL</Form.Label>
-                              <Form.Control type="url" placeholder="URL" />
-                            </Form.Group>
+                          <Form.Group controlId="alertPhoto">
+                            <Form.Label>Photo URL</Form.Label>
+                            <Form.Control type="url" placeholder="URL" />
+                          </Form.Group>
 
-                            <Button variant="contained" color="primary" type="submit">
-                              Post
+                          <Button variant="contained" color="primary" type="submit">
+                            Post
                             </Button>
-                          </Form>
-                        </div>
-                      </Fade>
-                    </Modal>
-                  </div>
-                </div>
-              ) : <div></div>}
-
-            </CardActionArea>
-          </Card>
-          <h1>...</h1>
-          <GridContainer>
-            {filterByCategory(alerts, state.search, categories).map(alert => (
-
-
-              <GridItem xs={12} sm={6} md={3}>
-                <Card className={classes.root}>
-                  <CardActionArea>
-                    <div key={alert.id}>
-
-                      <CardMedia
-                        className={classes.media}
-                        image={alert.alert_photo}
-                        title={alert.title}
-                      />
-
-                      <CardHeader
-                        avatar={
-                          <Avatar alt={`${alert.first_name} ${alert.last_name}`} src={alert.profile_photo} className={classes.large} />
-                        }
-                        title={`${alert.first_name} ${alert.last_name}`}
-                        subheader={`Posted ${moment(alert.time_created).fromNow()}`}
-                      />
-
-                      <CardContent>
-                        <Typography variant="body2" color="textPrimary" component="h3">
-                          {alert.title}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                          {alert.description}
-                        </Typography>
-                      </CardContent>
-
-                    </div>
-
-
-                    {props.user.id === alert.user_id ?
-
-                      <div>
-                        <Button onClick={handleOpenDelete}>
-                          DELETE ALERT
-                        </Button>
-                        <Modal
-                          aria-labelledby="Moo"
-                          aria-describedby="Moo"
-                          className={classes.modal}
-                          open={openDelete}
-                          onClose={handleCloseDelete}
-                          closeAfterTransition
-                          BackdropComponent={Backdrop}
-                          BackdropProps={{
-                            timeout: 500,
-                          }}
-                        >
-                          <Fade in={openDelete}>
-                            <div className={classes.paper}>
-                              <h2 id="transition-modal-title">Are you sure you would like to delete this Alert?</h2>
-                              <Form data-message={alert.id} onSubmit={deleteSubmitHandler}>
-
-                                <Button variant="contained" color="secondary" type="submit">
-                                  Confirm
-                            </Button>
-                                <Button onClick={handleCloseDelete} variant="contained" color="primary" type="button">
-                                  Cancel
-                            </Button>
-                              </Form>
-                            </div>
-                          </Fade>
-                        </Modal>
+                        </Form>
                       </div>
-                      :
+                    </Fade>
+                  </Modal>
+                </div>
+              </div>
+            ) : <div></div>}
 
-                      <Button onClick={() => setReceiver(alert)}>
-                        <Link to={{ pathname: '/newmessage' }}>Send Message</Link>
-                      </Button>
+          </CardActionArea>
+        </Card>
 
-                    }
-                  </CardActionArea>
-                </Card>
-              </GridItem>
-            ))}
-          </GridContainer>
-        </div>
-      </Parallax>
+        <h1>...</h1>
+
+        {filterByCategory(alerts, state.search, categories).map(alert => (
+
+          <AlertPost
+            key={alert.id}
+            id={alert.id}
+            user_photo={alert.profile_photo}
+            user_first_name={alert.first_name}
+            user_last_name={alert.last_name}
+            time_created={alert.time_created}
+            post_photo={alert.alert_photo}
+            post_description={alert.description}
+            post_title={alert.title}
+            user_id={alert.user_id}
+            current_user_id={props.user.id}
+
+            handleOpenDelete={handleOpenDelete}
+            handleCloseDelete={handleCloseDelete}
+            openDelete={openDelete}
+            deleteSubmitHandler={deleteSubmitHandler}
+
+            modalClass={classes.modal}
+            paperClass={classes.paper}
+
+            receiver={props.receiver}
+            setReceiver={props.receiverData}
+          />
+
+        ))}
+
+      </div>
+      {/* </Parallax> */}
     </div >
   );
 };
 
 export default Alerts;
+
+
+
+{/* <GridItem xs={12} sm={6} md={3}>
+              <Card className={classes.root}>
+                <CardActionArea>
+                  <div key={alert.id}>
+
+                    <CardMedia
+                      className={classes.media}
+                      image={alert.alert_photo}
+                      title={alert.title}
+                    />
+
+                    <CardHeader
+                      avatar={
+                        <Avatar alt={`${alert.first_name} ${alert.last_name}`} src={alert.profile_photo} className={classes.large} />
+                      }
+                      title={`${alert.first_name} ${alert.last_name}`}
+                      subheader={`Posted ${moment(alert.time_created).fromNow()}`}
+                    />
+
+                    <CardContent>
+                      <Typography variant="body2" color="textPrimary" component="h3">
+                        {alert.title}
+                      </Typography>
+                      <Typography variant="body2" color="textSecondary" component="p">
+                        {alert.description}
+                      </Typography>
+                    </CardContent>
+
+                  </div>
+
+
+                  {props.user.id === alert.user_id ?
+
+                    <div>
+                      <Button onClick={handleOpenDelete}>
+                        DELETE ALERT
+                        </Button>
+                      <Modal
+                        aria-labelledby="Moo"
+                        aria-describedby="Moo"
+                        className={classes.modal}
+                        open={openDelete}
+                        onClose={handleCloseDelete}
+                        closeAfterTransition
+                        BackdropComponent={Backdrop}
+                        BackdropProps={{
+                          timeout: 500,
+                        }}
+                      >
+                        <Fade in={openDelete}>
+                          <div className={classes.paper}>
+                            <h2 id="transition-modal-title">Are you sure you would like to delete this Alert?</h2>
+                            <Form data-message={alert.id} onSubmit={deleteSubmitHandler}>
+
+                              <Button variant="contained" color="secondary" type="submit">
+                                Confirm
+                            </Button>
+                              <Button onClick={handleCloseDelete} variant="contained" color="primary" type="button">
+                                Cancel
+                            </Button>
+                            </Form>
+                          </div>
+                        </Fade>
+                      </Modal>
+                    </div>
+                    :
+
+                    <Button onClick={() => setReceiver(alert)}>
+                      <Link to={{ pathname: '/newmessage' }}>Send Message</Link>
+                    </Button>
+
+                  }
+                </CardActionArea>
+              </Card>
+            </GridItem> */}
