@@ -42,14 +42,14 @@ VALUES
 INSERT INTO events(user_id, category_id, neighbourhood_id, title, coordinates, time_created, description, event_start, event_time, event_photo)
 VALUES
 (1, 18, 2, 'Party for no reason!!!', '(43.658017, -79.414930)', '2020-08-03 15:40:34-07', 'We are going to party because we are neighbours and we like each other!!! byob', '2020-08-15', '17:00:00', 'https://i.imgur.com/T2WwVfS.png'),
-(3, 15, 3, 'Crafting Night at Sams!', '(45.54098, -73.625174)', '2020-08-03 14:40:34-07', 'Bring whatever crafting projects you are working on, or just bring random materials and make something up :D I will have snacks for everyone.', '2020-08-15',  '17:00:00', 'https://i.imgur.com/FK8V841.jpg'),
+(3, 15, 2, 'Crafting Night at Sams!', '(45.54098, -73.625174)', '2020-08-03 14:40:34-07', 'Bring whatever crafting projects you are working on, or just bring random materials and make something up :D I will have snacks for everyone.', '2020-08-15',  '17:00:00', 'https://i.imgur.com/FK8V841.jpg'),
 (2, 12, 3, 'Garage Sale, mostly furniture', '(45.537536, -73.619220)', '2020-08-03 16:40:34-07', 'I got a new couch and also some other stuff. Gotta make room. Everything is in good condition.', '2020-08-16', '13:00:00', 'https://i.imgur.com/okB9WKC.jpg'),
 (2, 21, 3, 'Cinema en plein air: Back to the future!', '(45.538950, -73.626219)', '2020-08-03 16:40:34-07', 'Nous installons un ecran géant dans notre cour arrière, et allons visionner le film Retour vers le futur, vintage!. Places limitées à 30, écrivez-moi pour réserver la votre!', '2020-08-22', '19:00:00', 'https://i.imgur.com/okB9WKC.jpg');
 
 INSERT INTO alerts(user_id, category_id,  neighbourhood_id, title, coordinates, time_created, description, alert_photo)
 VALUES
 (1, 1, 2, 'I just saw a man trying to break into my car', '(43.652495, -79.412900)', '2020-08-03 15:40:34-07', 'Everyone keep an eye out and check your valuables in your cars tonight. He ran away when I opened my back door. He was tall, skinny, white, and he was wearing a navy sweater, jeans, and a black toque.', 'https://i.imgur.com/Nmx0Qxo.png'),
-(2, 1, 2, 'LOST DOG - Chocolate Lab named Paul', '(45.542615, -73.636909)', '2020-08-01 19:40:34-07', 'My dog, Paul, whom many of you may know, escaped this morning and we still cannot find him. Please message me on here if you see or find him!', 'https://i.imgur.com/iHq8K8Z.jpg'),
+(2, 1, 3, 'LOST DOG - Chocolate Lab named Paul', '(45.542615, -73.636909)', '2020-08-01 19:40:34-07', 'My dog, Paul, whom many of you may know, escaped this morning and we still cannot find him. Please message me on here if you see or find him!', 'https://i.imgur.com/iHq8K8Z.jpg'),
 (3, 2, 3, 'HUGE NEW POTHOLE', '(45.538166, -73.635435)', '2020-08-01 08:40:34-07', 'I drove into a nice big, new pothole here this morning. BE CAREFUL! IT IS REALLY BIG. I think it damaged my car...', 'https://i.imgur.com/3tVgsra.jpg');
 
 

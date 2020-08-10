@@ -58,13 +58,15 @@ module.exports = (db) => {
     console.log("REQUEST", request.body.user_id, request.body.event_id)
     values = [
       request.body.user_id,
-      request.body.event_id
+      request.body.title,
+      request.body.time_created
     ]
     db.query(
       `
       DELETE FROM events
       WHERE user_id = $1
-      AND id = $2;
+      AND title = $2
+      AND time_created = $3;
     `,
       values
     ).then(({ rows: events }) => {
