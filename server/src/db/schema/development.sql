@@ -11,6 +11,8 @@ VALUES
 (1, 'jsaputo1@gmail.com', crypt('password', gen_salt('bf')), '2020-07-04 12:10:34-07', '(43.657603, -79.411882)', 'John', 'Saputo', '16472441907', 'https://i.imgur.com/FK8V841.jpg', '2020-08-02 10:43:55-14', 'John is one of the people who made this web-app.'),
 (3, 'samantha.gadet@gmail.com', crypt('password', gen_salt('bf')), '2020-07-03 14:10:31-07', '(45.539652, -73.629813)', 'Sam', 'Gadet', '15146233583', 'https://i.imgur.com/3tVgsra.jpg', '2020-08-02 10:43:55-14', 'Sam is one of the people who made this web-app.'),
 (3, 'p.lacroix@gmail.com', crypt('password', gen_salt('bf')), '2020-05-03 14:10:31-07', '(45.541441, -73.635646)', 'Pauline', 'Lacroix', '15146233583', 'https://i.imgur.com/3tVgsra.jpg', '2020-08-02 10:43:55-14', 'Bonjour tout le monde! heureuse de faire partie de ce quartier! tellement de belles personnes y vivent!');
+(2, 'corben.kushneryk@hotmail.com', crypt('password', gen_salt('bf')), '2020-07-03 14:10:31-07', '(45.542915, -73.634951)', 'Corben', 'Kushneryk', '17809189819', 'https://i.imgur.com/FK8V841.jpg', '2020-08-02 10:43:55-14', 'Corben did not make this app, but his phone was hijacked for testing-purposes', 'Both');
+
 
 ('Notices', 'Alerts'),
 ('Lost animals', 'Alerts'),
