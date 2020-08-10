@@ -76,8 +76,9 @@ function Events(props) {
 
   const [events, setEvents] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [open, setOpen] = React.useState(false);
-  const [state, setState] = React.useState({
+  const [open, setOpen] = useState(false);
+  // const [openDelete, setOpenDelete] = useState(false);
+  const [state, setState] = useState({
     search: "",
     selectedCategory: "",
     selectedDate: new Date(),
@@ -118,6 +119,15 @@ function Events(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
+
+  // const handleOpenDelete = () => {
+  //   setOpenDelete(true)
+  // };
+
+  // const handleCloseDelete = () => {
+  //   setOpenDelete(false)
+  // };
 
   const fetchFilteredSubscriptions = async (postCategory_id) => {
     const data = await axios.get("http://localhost:8001/subscriptions");

@@ -85,8 +85,9 @@ function Services(props) {
 
   const [services, setServices] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [open, setOpen] = React.useState(false);
-  const [state, setState] = React.useState({
+  const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [state, setState] = useState({
     search: "",
     serviceOffer: "",
     selectedCategory: "",
@@ -149,6 +150,15 @@ function Services(props) {
   };
   const handleClose = () => {
     setOpen(false);
+  };
+
+
+  const handleOpenDelete = () => {
+    setOpenDelete(true)
+  };
+
+  const handleCloseDelete = () => {
+    setOpenDelete(false)
   };
 
   const requestOrOffer = function (bool) {
@@ -215,6 +225,36 @@ function Services(props) {
         setServices(filterByNeighbourhood(response.data, props.user.neighbourhood_id));
       });
   };
+
+
+
+
+
+
+  const deleteSubmitHandler = function (event) {
+    event.preventDefault();
+    const serviceID = parseInt(event.target.dataset.message)
+    deleteService({
+      user_id: props.user.id,
+      service_id: serviceID
+    });
+    handleCloseDelete();
+  };
+
+  const deleteService = function (registrationData) {
+    axios.delete("/services/delete", { data: registrationData })
+      .then(() => {
+        fetchServices()
+      })
+  };
+
+
+
+
+
+
+
+
 
   const setReceiver = function (data) {
     props.receiverData(data);
@@ -399,9 +439,53 @@ function Services(props) {
                           </Typography>
                         </CardContent>
                       </div>
-                      <button onClick={() => setReceiver(service)}>
-                        <Link to={{ pathname: '/newmessage' }}>Send Message</Link>
-                      </button>
+
+
+                      {props.user.id === service.user_id ?
+
+                        <div>
+                          <Button onClick={handleOpenDelete}>
+                            DELETE Service
+  </Button>
+                          <Modal
+                            aria-labelledby="Moo"
+                            aria-describedby="Moo"
+                            className={classes.modal}
+                            open={openDelete}
+                            onClose={handleCloseDelete}
+                            closeAfterTransition
+                            BackdropComponent={Backdrop}
+                            BackdropProps={{
+                              timeout: 500,
+                            }}
+                          >
+                            <Fade in={openDelete}>
+                              <div className={classes.paper}>
+                                <h2 id="transition-modal-title">Are you sure you would like to delete this Service?</h2>
+                                <Form data-message={service.id} onSubmit={deleteSubmitHandler}>
+
+                                  <Button variant="contained" color="secondary" type="submit">
+                                    Confirm
+      </Button>
+                                  <Button onClick={handleCloseDelete} variant="contained" color="primary" type="button">
+                                    Cancel
+      </Button>
+                                </Form>
+                              </div>
+                            </Fade>
+                          </Modal>
+                        </div>
+                        :
+
+
+                        <button onClick={() => setReceiver(service)}>
+                          <Link to={{ pathname: '/newmessage' }}>Send Message</Link>
+                        </button>
+
+
+                      }
+
+
                     </CardActionArea>
                   </Card>
                 </GridItem>

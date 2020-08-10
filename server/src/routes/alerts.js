@@ -48,5 +48,26 @@ module.exports = db => {
     });
   });
 
+
+  router.delete("/delete", (request, response) => {
+    console.log("REQUEST", request.body.user_id, request.body.alert_id)
+    values = [
+      request.body.user_id,
+      request.body.alert_id
+    ]
+    db.query(
+      `
+      DELETE FROM alerts
+      WHERE user_id = $1
+      AND id = $2;
+    `,
+      values
+    ).then(({ rows: alerts }) => {
+      response.json(alerts);
+    });
+  });
+
+
+
   return router;
 };
