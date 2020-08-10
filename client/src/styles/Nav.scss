@@ -20,7 +20,6 @@
 
   .show {
     z-index: 1;
-
   }
 }
 
@@ -36,18 +35,24 @@
   }
 }
 
+.middle-nav {
+  margin-left: 16%;
+
+  img {
+    height: 100%;
+  }
+}
+
 .right-side-nav {
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
 
-.middle-nav {
-  padding-left: 55px;
-
-  img {
-    height: 100%;
-  }
+.fa-map {
+  font-size: 24px;
+  padding-right: 15px;
+  padding-top: 6px;
 }
 
 .user-dropdown-toggle-show {
@@ -79,6 +84,6 @@
   color: white;
 
   &:hover {
-    color: $chatGrey;
+    color: $gold;
   }
 }
