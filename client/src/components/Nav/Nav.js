@@ -4,7 +4,6 @@ import { Link, NavLink } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import axios from "axios";
-import Button from "react-bootstrap/Button";
 
 function Nav(props) {
 
@@ -13,6 +12,11 @@ function Nav(props) {
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen(prevState => !prevState);
   const toggleUserDropdown = () => setUserDropdownOpen(prevState => !prevState);
+  const [messageNotification, setMessageNotification] = useState(true);
+
+  const removeNotification = () => {
+    setMessageNotification(false);
+  };
 
   const logout = () => {
     axios.post("/users/logout").then((response) => {
@@ -49,9 +53,6 @@ function Nav(props) {
               <NavLink to="/alerts">
                 <DropdownItem>Alerts</DropdownItem>
               </NavLink>
-              <NavLink to="/map">
-                <DropdownItem>Map</DropdownItem>
-              </NavLink>
             </DropdownMenu>
           </Dropdown>
         </div>
@@ -68,9 +69,22 @@ function Nav(props) {
           </Link>
         ) : (
             <div class="right-side-nav">
-              <Link className="link-style" to="/Messages">
-                <i class="fa fa-comment-o fa-2x" aria-hidden="true"></i>
+              <Link className="link-style" to="/Map">
+                <i class="fa fa-map"></i>
               </Link>
+              <div className="message-icon">
+                {messageNotification === true ? (
+                  <div class="message-icon-text">
+                    <i class="fa fa-exclamation"></i>
+                  </div>
+                ) : (
+                    <div class="no-message-icon-text">
+                    </div>
+                  )}
+                <Link className="link-style" to="/Messages">
+                  <i class="fa fa-comment-o fa-2x" aria-hidden="true" onClick={removeNotification}></i>
+                </Link>
+              </div>
               <div className="user-info-nav">
                 <img src={props.user.profile_photo} alt="profile-picture" />
                 <h3>{props.user.first_name} {props.user.last_name}</h3>
