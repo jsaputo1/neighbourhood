@@ -8,4 +8,15 @@
   height: 100%;
 }
 
+.change-neighbourhood-link {
+  h2 {
+   color: #1c658a;
+    font-size: 16px;
+    padding: 10px 0 20px 0;
 
+    &:hover {
+      color: $darkBlue;
+    }
+
+  }
+}
