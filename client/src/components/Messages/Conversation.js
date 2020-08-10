@@ -53,7 +53,7 @@ function Conversation(props) {
       {props.children}
       <Form className="message-input" onSubmit={onSubmitHandler}>
         <Form.Group controlId="message">
-          <Form.Control type="message" placeholder="Enter message" className="autosize" />
+          <Form.Control type="message" placeholder="Enter message" className="autosize" autoFocus />
         </Form.Group>
         <button>Send</button>
       </Form>
