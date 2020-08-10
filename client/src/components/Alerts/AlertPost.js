@@ -22,7 +22,7 @@ import {
 } from "@material-ui/core";
 import { Form } from "react-bootstrap";
 
-function ServicePost(props) {
+function AlertPost(props) {
     const setReceiver = function (data) {
         props.setReceiver(data);
     };
@@ -48,7 +48,7 @@ function ServicePost(props) {
                             </div>
                             <div className="ml-2">
                                 <div className="h5 m-0">
-                                    {props.user_first_name} {props.user_last_name} {props.requestOrOffer}
+                                    {props.user_first_name} {props.user_last_name}
                                 </div>
                                 <div className="h7 text-muted">
                                     {" " + moment(props.time_created).fromNow()}
@@ -63,7 +63,7 @@ function ServicePost(props) {
 
                             <div>
                                 <Button onClick={props.handleOpenDelete}>
-                                    DELETE Service
+                                    DELETE Alert
 </Button>
                                 <Modal
                                     aria-labelledby="Moo"
@@ -79,7 +79,7 @@ function ServicePost(props) {
                                 >
                                     <Fade in={props.openDelete}>
                                         <div className={props.paperClass}>
-                                            <h2 id="transition-modal-title">Are you sure you would like to delete this Service?</h2>
+                                            <h2 id="transition-modal-title">Are you sure you would like to delete this Alert?</h2>
                                             <Form data-message={props.id} onSubmit={props.deleteSubmitHandler}>
 
                                                 <Button variant="contained" color="secondary" type="submit">
@@ -145,4 +145,4 @@ function ServicePost(props) {
     );
 }
 
-export default ServicePost;
+export default AlertPost;
