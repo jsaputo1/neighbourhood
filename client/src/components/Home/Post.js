@@ -29,7 +29,7 @@ function Post(props) {
               </div>
               <div className="ml-2">
                 <div className="h5 m-0">
-                  {props.user_first_name} {props.user_last_name}
+                  {props.user_first_name} {props.user_last_name} LIKE A BAWS
                 </div>
                 <div className="h7 text-muted">
                   {" " + moment(props.time_created).fromNow()}

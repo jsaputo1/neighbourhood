@@ -10,10 +10,12 @@ import { Button, Avatar, Card, CardActionArea, CardHeader, CardContent, CardMedi
 import { Form } from "react-bootstrap";
 
 
+
 // core components 
 import GridContainer from "../Material-kit-components/GridContainer.js";
 import GridItem from "../Material-kit-components/GridItem.js";
 import Parallax from "../Material-kit-components/Parallax.js";
+import Box from "../Home/Box";
 
 // import styles from "./Material-kit-components/landingPage.js";
 import "../../styles.scss";
@@ -79,8 +81,9 @@ function Account(props) {
   });
 
   const populateChecked = function () {
+    console.log("SUBSCRIPTIONS", props.subscriptions)
     const buttonsToCheck = props.subscriptions.filter((sub) => sub.user_id === props.user.id).map((sub) => sub.category_id)
-
+    console.log("BUTTONS TO CHECK", buttonsToCheck)
     const generateCheckedState = function () {
       const obj = { ...checked }
       for (const sub of buttonsToCheck) {
@@ -164,24 +167,26 @@ function Account(props) {
     const generateAxiosCalls = function () {
       console.log("NEWSIES", newSubscriptions)
       return Promise.all(newSubscriptions.map((categoryId) => {
-        console.log(subscriptionData.user_id, categoryId)
+        console.log("IN PROMISE", subscriptionData.user_id, categoryId)
         return axios.post("/subscriptions", { user_id: subscriptionData.user_id, category_id: categoryId })
       }
       ));
     };
+    // SET TIMEOUT MIGHT FIX?! LIKE TWILIO!?
     await axios.post("/subscriptions/delete", { user_id: subscriptionData.user_id })
       .then(generateAxiosCalls())
-      .catch((err) => console.error("query error", err.stack))
-      // .then(axios.post("/users/notifcation-settings", { alert_types: subscriptionData.alert_types, user_id: subscriptionData.user_id }))
-      .then((response) => {
-        console.log("REPOND", response)
-      })
-      .then(props.updateSubscriptions())
+      .then(setTimeout(() => props.updateSubscriptions()), 2000)
       .then(handleClose())
+      .catch((err) => console.error("query error", err.stack))
+    // .then(axios.post("/users/notifcation-settings", { alert_types: subscriptionData.alert_types, user_id: subscriptionData.user_id }))
+    // .then((response) => {
+    //   console.log("REPOND", response)
+    // })
     // CAUSING PROXY ERRORS which either results in multiple subscriptions for the current user disappearing, or just ID 1 (Emergencies) being unsubscribed-from.
     // RETURNING REDIRECT BELOW MAKES THIS WORK AS INTENDED, AT THE COST OF CAUSING A RERENDER.
-    return (
-      <Redirect to="/account" />)
+    // return (
+    //   <Redirect to="/account" />
+    // )
   };
 
   if (editRedirect) {
@@ -194,6 +199,7 @@ function Account(props) {
     <div>
       <Parallax image={require(`../../assets/img/apartment1.jpg`)}>
         <div className={classes.container}>
+          <Box user={props.user} />
           <Card className={classes.root}>
             <CardActionArea>
               <Avatar alt={`${props.user.first_name} ${props.user.last_name}`} src={props.user.profile_photo} className={classes.large} />

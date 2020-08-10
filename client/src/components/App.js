@@ -31,6 +31,7 @@ function App() {
     const data = await axios.get("http://localhost:8001/categories");
     setCategories(data.data);
     const mata = await axios.get("http://localhost:8001/subscriptions");
+    console.log("FETCH CATEGORIES IN APP", mata.data)
     setSubscriptions(mata.data);
   };
 
