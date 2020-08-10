@@ -29,6 +29,7 @@ module.exports = db => {
       .catch((err) => console.error("query error", err.stack));
   })
 
+
   router.post("/", (request, response) => {
     const creation = [
       request.body.user_id,
