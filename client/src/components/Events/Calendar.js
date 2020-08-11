@@ -120,9 +120,9 @@ export default function Calendar(props) {
         }}
         eventDisplay="block"
         eventClick={handleOpen}
-        // backgroundColor="#fccf03"
-        // borderColor="#fccf03"
-        // eventColor="#fccf03"
+        backgroundColor="#add3e0"
+        borderColor="#add3e0"
+        eventColor="#6fb1c7"
       />
       <div>
         <Modal
