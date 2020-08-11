@@ -351,12 +351,12 @@ function Services(props) {
                                   >
                                     <label>
                                       <Radio value={false} />
-                                      Request
+                                      <span> Request</span>
                                     </label>
 
                                     <label className="offer">
                                       <Radio value={true} />
-                                      Offer
+                                      <span> Offer</span>
                                     </label>
                                   </RadioGroup>
                                 </Form.Group>
