@@ -280,7 +280,6 @@ function Services(props) {
             {/* <div className={classes.container}> */}
             <Card className={classes.root}>
               {/* <CardActionArea> */}
-              <p>{state.search}</p>
               <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel
                   htmlFor="outlined-age-native-simple"
