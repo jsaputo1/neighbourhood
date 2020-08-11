@@ -108,8 +108,6 @@ function ServicePost(props) {
                             </Modal>
                         </div>
                         :
-
-
                         <Link className="message-icon" to={{ pathname: "/newmessage" }}>
                             <i
                                 class="fa fa-comment-o fa-2x"
@@ -117,20 +115,10 @@ function ServicePost(props) {
                                 onClick={() => setReceiver(receiverObject)}
                             ></i>
                         </Link>
-
-
                     }
-
-
                 </div>
             </div>
             <div className="card-body">
-                <div className="text-muted h7 mb-2">
-                    {" "}
-                    <i className="fa fa-clock-o fa-2x"></i>
-                    {}
-                    {" " + moment(props.event_date).calendar()}
-                </div>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item">
                         <h5 className="card-title">{props.post_title}</h5>

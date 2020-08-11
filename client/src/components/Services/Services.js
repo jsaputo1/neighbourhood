@@ -452,6 +452,7 @@ function Services(props) {
 
               <div className="all-postings">
 
+                <div id="services-alerts-title" className="box"><h1>Services I'M UGLY AND UNSTYLED</h1></div>
 
                 {filterByCategory(services, state.search, categories).map(
                   (service) => (

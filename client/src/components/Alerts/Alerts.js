@@ -401,6 +401,7 @@ function Alerts(props) {
               {/* </Card> */}
               <div className="all-postings">
 
+                <div id="services-alerts-title" className="box"><h1>Alerts I'M UGLY AND UNSTYLED</h1></div>
 
                 {filterByCategory(alerts, state.search, categories).map(
                   (alert) => (
