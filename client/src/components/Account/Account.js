@@ -329,49 +329,60 @@ function Account(props) {
                           </h2>
 
                     <Form onSubmit={onSubmitHandler}>
-                      <div>
-                        <h6><b>Alerts</b></h6>
-                        {filterCategories("Alerts").map((category) => (
-                          <Form.Check inline
-                            name={category.id}
-                            onClick={handleClick}
-                            key={category.id}
-                            value={category.id}
-                            label={category.name}
-                            checked={checked[category.id]}
-                            type="checkbox"
-                            id={category.id} />
-                        ))}
-                      </div>
-                      <div>
-                        <h6><b>Events</b></h6>
-                        {filterCategories("Events").map((category) => (
-                          <Form.Check inline
-                            name={category.id}
-                            onClick={handleClick}
-                            key={category.id}
-                            value={category.id}
-                            label={category.name}
-                            checked={checked[category.id]}
-                            type="checkbox"
-                            id={category.id} />
-                        ))}
-                      </div>
-                      <div>
-                        <h6><b>Services</b></h6>
-                        {filterCategories("Services").map((category) => (
-                          <Form.Check inline
-                            name={category.id}
-                            onClick={handleClick}
-                            key={category.id}
-                            value={category.id}
-                            label={category.name}
-                            checked={checked[category.id]}
-                            type="checkbox"
-                            id={category.id} />
-                        ))}
-                      </div>
 
+
+                      <GridContainer container spacing={6} id="account-subscriptions-grid">
+                        <div className="account-subscriptions-checkboxes">
+                          <GridItem item xs={6}><h6><b>Alerts</b></h6>
+                            {filterCategories("Alerts").map((category) => (
+
+                              <Form.Check inline
+                                name={category.id}
+                                onClick={handleClick}
+                                key={category.id}
+                                value={category.id}
+                                label={category.name}
+                                checked={checked[category.id]}
+                                type="checkbox"
+                                id={category.id} />
+
+                            ))}
+                          </GridItem>
+                        </div>
+                        <div className="account-subscriptions-checkboxes">
+                          <GridItem item xs={6}><h6><b>Events</b></h6>
+                            {filterCategories("Events").map((category) => (
+
+                              <Form.Check inline
+                                name={category.id}
+                                onClick={handleClick}
+                                key={category.id}
+                                value={category.id}
+                                label={category.name}
+                                checked={checked[category.id]}
+                                type="checkbox"
+                                id={category.id} />
+                            ))}
+
+                          </GridItem>
+                        </div>
+                        <div className="account-subscriptions-checkboxes">
+                          <GridItem item xs={6}><h6><b>Services</b></h6>
+                            {filterCategories("Services").map((category) => (
+
+                              <Form.Check inline
+                                name={category.id}
+                                onClick={handleClick}
+                                key={category.id}
+                                value={category.id}
+                                label={category.name}
+                                checked={checked[category.id]}
+                                type="checkbox"
+                                id={category.id} />
+                            ))}
+                          </GridItem>
+                        </div>
+                      </GridContainer>
                       {/* <p>Change Alert Type</p> */}
 
                       {/* <FormGroup controlId="serviceCategory">
