@@ -129,7 +129,7 @@ function Map(props) {
           lng: props.user.coordinates.y,
         }}
         icon={{
-          url: "/you_are_here.png",
+          url: "/images/map-icons/you_are_here.png",
           scaledSize: new window.google.maps.Size(40, 40),
         }}
       />
@@ -146,7 +146,7 @@ function Map(props) {
               setSelectedPin(service);
             }}
             icon={{
-              url: "/service.svg",
+              url: "/images/map-icons/service.svg",
               scaledSize: new window.google.maps.Size(30, 30),
             }}
           />
@@ -163,7 +163,7 @@ function Map(props) {
               setSelectedPin(event);
             }}
             icon={{
-              url: "/event.svg",
+              url: "/images/map-icons/event.svg",
               scaledSize: new window.google.maps.Size(30, 30),
             }}
           />
@@ -180,7 +180,7 @@ function Map(props) {
               setSelectedPin(user);
             }}
             icon={{
-              url: "/neighbour.svg",
+              url: "/images/map-icons/neighbour.svg",
               scaledSize: new window.google.maps.Size(30, 30),
             }}
           />
@@ -197,7 +197,7 @@ function Map(props) {
               setSelectedPin(alert);
             }}
             icon={{
-              url: "/alert.svg",
+              url: "/images/map-icons/alert.svg",
               scaledSize: new window.google.maps.Size(30, 30),
             }}
           />
