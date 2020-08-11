@@ -6,8 +6,9 @@ import { Redirect, Link } from "react-router-dom";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import { Button, Avatar, Card, CardActionArea, CardHeader, CardContent, CardMedia, Typography, FormControl, InputLabel, Select, Modal, Backdrop, Fade, FormGroup } from "@material-ui/core";
+import { Button, Avatar, Card, CardActionArea, Grid, CardHeader, CardContent, CardMedia, Typography, FormControl, InputLabel, Select, Modal, Backdrop, Fade, FormGroup } from "@material-ui/core";
 import { Form } from "react-bootstrap";
+import Paper from '@material-ui/core/Paper';
 
 
 
@@ -323,19 +324,50 @@ function Account(props) {
                 }}
               >
                 <Fade in={open}>
-                  <div className={classes.paper}>
-                    <h2 id="transition-modal-title">
-                      Manage Subscriptions
+                  <div id="account-subscriptions-subscriptions" className={classes.paper}>
+
+
+                    {/* <Grid container spacing={3}>
+                      <Grid item xs={12}>
+                        <Paper className={classes.paper}>xs=12</Paper>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Paper className={classes.paper}>xs=6</Paper>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Paper className={classes.paper}>xs=6</Paper>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Paper className={classes.paper}>xs=3</Paper>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Paper className={classes.paper}>xs=3</Paper>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Paper className={classes.paper}>xs=3</Paper>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Paper className={classes.paper}>xs=3</Paper>
+                      </Grid>
+                    </Grid> */}
+
+
+
+
+                    <Grid container spacing={3}>
+
+                      <Form id="account-subscriptions-form" onSubmit={onSubmitHandler}>
+                        <Grid item xs={12}>
+                          <h2 id="account-subscription-title">
+                            Manage Subscriptions
                           </h2>
+                        </Grid>
 
-                    <Form onSubmit={onSubmitHandler}>
 
-
-                      <GridContainer container spacing={6} id="account-subscriptions-grid">
-                        <div className="account-subscriptions-checkboxes">
-                          <GridItem item xs={6}><h6><b>Alerts</b></h6>
+                        <Grid item xs={12}>
+                          <h5 className="account-subscriptions-category"><b>Alerts</b></h5>
+                          <div className="account-map-wrapper">
                             {filterCategories("Alerts").map((category) => (
-
                               <Form.Check inline
                                 name={category.id}
                                 onClick={handleClick}
@@ -345,12 +377,12 @@ function Account(props) {
                                 checked={checked[category.id]}
                                 type="checkbox"
                                 id={category.id} />
-
                             ))}
-                          </GridItem>
-                        </div>
-                        <div className="account-subscriptions-checkboxes">
-                          <GridItem item xs={6}><h6><b>Events</b></h6>
+                          </div>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <h5 className="account-subscriptions-category"><b>Events</b></h5>
+                          <div className="account-map-wrapper">
                             {filterCategories("Events").map((category) => (
 
                               <Form.Check inline
@@ -362,12 +394,14 @@ function Account(props) {
                                 checked={checked[category.id]}
                                 type="checkbox"
                                 id={category.id} />
-                            ))}
 
-                          </GridItem>
-                        </div>
-                        <div className="account-subscriptions-checkboxes">
-                          <GridItem item xs={6}><h6><b>Services</b></h6>
+                            ))}
+                          </div>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                          <h5 className="account-subscriptions-category"><b>Services</b></h5>
+                          <div className="account-map-wrapper">
                             {filterCategories("Services").map((category) => (
 
                               <Form.Check inline
@@ -380,12 +414,13 @@ function Account(props) {
                                 type="checkbox"
                                 id={category.id} />
                             ))}
-                          </GridItem>
-                        </div>
-                      </GridContainer>
-                      {/* <p>Change Alert Type</p> */}
+                          </div>
+                        </Grid>
 
-                      {/* <FormGroup controlId="serviceCategory">
+
+                        {/* <p>Change Alert Type</p> */}
+
+                        {/* <FormGroup controlId="serviceCategory">
                         <Form.Label>Select Alert Type</Form.Label>
                         <Form.Control
                           as="select"
@@ -399,27 +434,28 @@ function Account(props) {
                           ))
                         </Form.Control>
                       </FormGroup> */}
-
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                      >
-                        Post
+                        <div id="account-subscriptions-buttons">
+                          < Button
+                            variant="contained"
+                            color="primary"
+                            type="submit"
+                          >
+                            Post
                             </Button>
 
 
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        type="button"
-                        onClick={handleCloseCancel}
-                      >
-                        Cancel
+                          <Button
+                            id="account-subscription-cancel-button"
+                            variant="contained"
+                            color="primary"
+                            type="button"
+                            onClick={handleCloseCancel}
+                          >
+                            Cancel
                             </Button>
-
-                    </Form>
-
+                        </div>
+                      </Form>
+                    </Grid>
                   </div>
                 </Fade>
               </Modal>

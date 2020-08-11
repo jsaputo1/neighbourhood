@@ -238,170 +238,173 @@ function Alerts(props) {
             {/* <Parallax image={require("../../assets/img/blizzard.jpg")}> */}
             <div id="services-alerts-spreader" className={classes.container}>
               {/* <Card id="services-alerts_card" className={classes.root}> */}
-              <div className="box" id="services-alerts-card">
-                {/* <CardActionArea> */}
+
+              {/* <CardActionArea> */}
+              <div className="all-postings">
+                <div id="services-alerts-title" className="box">
+                  <div id="services-alerts-header" className="card-header">
+                    <h1><u><b>Alerts</b></u></h1>
+                  </div>
+                  <div id="services-alerts-title-buttons">
 
 
-                <div>
-                  {props.user ? (
-                    <div>
-                      <Button
-                        size="large"
-                        id="services-alerts-new-button"
-                        color="primary"
-                        type="button"
-                        variant="contained"
-                        onClick={handleOpen}
+                    <FormControl id="services-alerts-filter-dropdown" variant="filled" className={classes.formControl}>
+                      <InputLabel
+                        htmlFor="outlined-age-native-simple"
+                        id="z-index-zero"
                       >
-                        Post New Alert
-                      </Button>
-                      <Modal
-                        aria-labelledby="transition-modal-title"
-                        aria-describedby="transition-modal-description"
-                        className={classes.modal}
-                        open={open}
-                        onClose={handleClose}
-                        closeAfterTransition
-                        BackdropComponent={Backdrop}
-                        BackdropProps={{
-                          timeout: 500,
+                        Filter By Category
+                  </InputLabel>
+                      <Select
+                        native
+                        value={state.search}
+                        onChange={handleChange}
+                        label="search"
+                        rows="50"
+                        inputProps={{
+                          name: "search",
+                          id: "outlined-age-native-simple",
                         }}
                       >
-                        <Fade in={open}>
-                          <div>
-                            <Form
-                              onSubmit={onSubmitHandler}
-                              className="form-contenant"
-                            >
-                              <div className="event-form">
-                                <div className="first-section">
-                                  <h2 id="transition-modal-title">
-                                    Post New Alert
+                        <option aria-label="None" value=""> </option>
+                        {categories.map((category) => (
+                          <option key={category.id} value={category.name}>
+                            {category.name}
+                          </option>
+                        ))}
+                      </Select>
+                    </FormControl>
+
+
+                    <div>
+                      {props.user ? (
+                        <div>
+                          <Button
+                            size="large"
+                            id="services-alerts-new-button"
+                            color="primary"
+                            type="button"
+                            variant="contained"
+                            onClick={handleOpen}
+                          >
+                            Post New Alert
+                      </Button>
+                          <Modal
+                            aria-labelledby="transition-modal-title"
+                            aria-describedby="transition-modal-description"
+                            className={classes.modal}
+                            open={open}
+                            onClose={handleClose}
+                            closeAfterTransition
+                            BackdropComponent={Backdrop}
+                            BackdropProps={{
+                              timeout: 500,
+                            }}
+                          >
+                            <Fade in={open}>
+                              <div>
+                                <Form
+                                  onSubmit={onSubmitHandler}
+                                  className="form-contenant"
+                                >
+                                  <div className="event-form">
+                                    <div className="first-section">
+                                      <h2 id="transition-modal-title">
+                                        Post New Alert
                                   </h2>
-                                  <Form.Group controlId="alertTitle">
-                                    <Form.Label>Alert Title</Form.Label>
-                                    <Form.Control
-                                      type="title"
-                                      placeholder="Title"
-                                    />
-                                  </Form.Group>
+                                      <Form.Group controlId="alertTitle">
+                                        <Form.Label>Alert Title</Form.Label>
+                                        <Form.Control
+                                          type="title"
+                                          placeholder="Title"
+                                        />
+                                      </Form.Group>
 
-                                  <FormGroup controlId="serviceCategory">
-                                    <Form.Label>Select Category</Form.Label>
-                                    <Form.Control
-                                      as="select"
-                                      value={state.selectedCategory}
-                                      onChange={categoryChange}
-                                    >
-                                      <option></option>
-                                      {categories.map((category) => (
-                                        <option
-                                          key={category.id}
-                                          value={category.id}
+                                      <FormGroup controlId="serviceCategory">
+                                        <Form.Label>Select Category</Form.Label>
+                                        <Form.Control
+                                          as="select"
+                                          value={state.selectedCategory}
+                                          onChange={categoryChange}
                                         >
-                                          {category.name}
-                                        </option>
-                                      ))}
-                                    </Form.Control>
-                                  </FormGroup>
+                                          <option></option>
+                                          {categories.map((category) => (
+                                            <option
+                                              key={category.id}
+                                              value={category.id}
+                                            >
+                                              {category.name}
+                                            </option>
+                                          ))}
+                                        </Form.Control>
+                                      </FormGroup>
 
-                                  <Form.Group controlId="alertDescription">
-                                    <Form.Label>Description</Form.Label>
-                                    <Form.Control
-                                      type="description"
-                                      placeholder="Description"
-                                      as="textarea"
-                                      rows="3"
-                                    />
-                                  </Form.Group>
+                                      <Form.Group controlId="alertDescription">
+                                        <Form.Label>Description</Form.Label>
+                                        <Form.Control
+                                          type="description"
+                                          placeholder="Description"
+                                          as="textarea"
+                                          rows="3"
+                                        />
+                                      </Form.Group>
 
-                                  <Form.Group controlId="alertPhoto">
-                                    <Form.Label>Photo URL</Form.Label>
-                                    <Form.Control
-                                      type="url"
-                                      placeholder="URL"
-                                    />
-                                  </Form.Group>
-                                </div>
-                                <div className="second-section">
-                                  <Form.Group
-                                    controlId="streetNumber"
-                                    className="address"
+                                      <Form.Group controlId="alertPhoto">
+                                        <Form.Label>Photo URL</Form.Label>
+                                        <Form.Control
+                                          type="url"
+                                          placeholder="URL"
+                                        />
+                                      </Form.Group>
+                                    </div>
+                                    <div className="second-section">
+                                      <Form.Group
+                                        controlId="streetNumber"
+                                        className="address"
+                                      >
+                                        <Form.Label>Address</Form.Label>
+                                        <Form.Control
+                                          type="streetNumber"
+                                          placeholder="Street number"
+                                        />
+                                      </Form.Group>
+
+                                      <Form.Group controlId="streetName">
+                                        <Form.Control
+                                          type="streetName"
+                                          placeholder="Street name"
+                                        />
+                                      </Form.Group>
+
+                                      <Form.Group controlId="city">
+                                        <Form.Control
+                                          type="city"
+                                          placeholder="City"
+                                        />
+                                      </Form.Group>
+                                    </div>
+                                  </div>
+                                  <Button
+                                    variant="contained"
+                                    color="primary"
+                                    type="submit"
                                   >
-                                    <Form.Label>Address</Form.Label>
-                                    <Form.Control
-                                      type="streetNumber"
-                                      placeholder="Street number"
-                                    />
-                                  </Form.Group>
-
-                                  <Form.Group controlId="streetName">
-                                    <Form.Control
-                                      type="streetName"
-                                      placeholder="Street name"
-                                    />
-                                  </Form.Group>
-
-                                  <Form.Group controlId="city">
-                                    <Form.Control
-                                      type="city"
-                                      placeholder="City"
-                                    />
-                                  </Form.Group>
-                                </div>
-                              </div>
-                              <Button
-                                variant="contained"
-                                color="primary"
-                                type="submit"
-                              >
-                                Post
+                                    Post
                               </Button>
-                            </Form>
-                          </div>
-                        </Fade>
-                      </Modal>
+                                </Form>
+                              </div>
+                            </Fade>
+                          </Modal>
+                        </div>
+                      ) : (
+                          <div></div>
+                        )}
                     </div>
-                  ) : (
-                      <div></div>
-                    )}
+
+                    {/* </CardActionArea> */}
+                  </div>
+                  {/* </Card> */}
                 </div>
-
-
-                <FormControl variant="outlined" className={classes.formControl}>
-                  <InputLabel
-                    htmlFor="outlined-age-native-simple"
-                    id="z-index-zero"
-                  >
-                    Filter By Category
-                  </InputLabel>
-                  <Select
-                    native
-                    value={state.search}
-                    onChange={handleChange}
-                    label="search"
-                    rows="50"
-                    inputProps={{
-                      name: "search",
-                      id: "outlined-age-native-simple",
-                    }}
-                  >
-                    <option aria-label="None" value="" />
-                    {categories.map((category) => (
-                      <option key={category.id} value={category.name}>
-                        {category.name}
-                      </option>
-                    ))}
-                  </Select>
-                </FormControl>
-
-
-                {/* </CardActionArea> */}
-              </div>
-              {/* </Card> */}
-              <div className="all-postings">
-
-                <div id="services-alerts-title" className="box"><h1>Alerts I'M UGLY AND UNSTYLED</h1></div>
 
                 {filterByCategory(alerts, state.search, categories).map(
                   (alert) => (

@@ -13,19 +13,25 @@
 .all-postings {
     margin-top: -2rem;
     max-width: 100%;
-    margin-right: -8%;
   }
 
+  #services-alerts-title {
+    margin-top: 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
-#services-alerts-card {
+#services-alerts-title-buttons {
   display: flex;
-  flex-direction: column;
-  position: fixed;
-  margin-right: 75%;
-  top: 8rem;
-  width: 300px;
+  justify-content: space-between;
+  align-items: center;
 }
 
+#services-alerts-header {
+  display: flex;
+  justify-content: center;
+}
 
 #services-alerts-spreader {
 display: flex;
@@ -34,12 +40,11 @@ align-items: flex-start;
   }
 
 #services-alerts-new-button {
-  margin-top: .5rem;
-  margin-left: .6rem;
+  height: 3.6rem;
+  width: 12rem;
 }
 
-
-#services-alerts-title {
-  display: flex;
-  justify-content: center;
+#services-alerts-filter-dropdown {
+  height: 3.6rem;
+  width: 14rem;
 }
