@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-module.exports = db => {
+module.exports = (db) => {
   router.get("/", (request, response) => {
     db.query(
       `
@@ -17,17 +17,18 @@ module.exports = db => {
   router.post("/", (request, response) => {
     const values = [
       request.body.user_id,
-      request.body.neighbourhood_id,
       request.body.category_id,
+      request.body.neighbourhood_id,
       request.body.service_offer,
       request.body.title,
+      request.body.coordinates,
       request.body.description,
-      request.body.service_photo
+      request.body.service_photo,
     ];
     db.query(
       `
-        INSERT INTO services (user_id, neighbourhood_id, category_id, service_offer, title, description, service_photo)
-        VALUES ($1, $2, $3, $4, $5, $6, $7);
+        INSERT INTO services (user_id, category_id, neighbourhood_id, service_offer, title, coordinates, description, service_photo )
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
           `,
       values
     )
@@ -39,11 +40,11 @@ module.exports = db => {
         JOIN users
         ON services.user_id = users.id;
       `
-        )
+        );
       })
       .then((data) => {
         // response.status(200).end();
-        response.json(data.rows)
+        response.json(data.rows);
         // console.log(
         //   "Service registered successfully with the following values",
         //   data.rows
@@ -51,13 +52,9 @@ module.exports = db => {
       });
   });
 
-
   router.delete("/delete", (request, response) => {
-    console.log("REQUEST", request.body.user_id, request.body.service_id)
-    values = [
-      request.body.user_id,
-      request.body.service_id
-    ]
+    console.log("REQUEST", request.body.user_id, request.body.service_id);
+    values = [request.body.user_id, request.body.service_id];
     db.query(
       `
       DELETE FROM services
@@ -69,9 +66,6 @@ module.exports = db => {
       response.json(services);
     });
   });
-
-
-
 
   return router;
 };

@@ -4,7 +4,6 @@ import axios from "axios";
 import ServicePost from "./ServicePost";
 import { Link } from "react-router-dom";
 
-
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -38,7 +37,6 @@ import "../../styles.scss";
 import filterByCategory from "../Helpers/filterByCategory";
 import filterByNeighbourhood from "../Helpers/filterByNeighbourhood";
 // ""../Hooks/useApplicationData"
-
 
 //for Material UI
 const useStyles = makeStyles((theme) => ({
@@ -83,10 +81,8 @@ moment().format();
 function Services(props) {
   const classes = useStyles();
 
-  console.log("HELOA SOJUFHADSOFASNFA", props)
-  console.log("HELLO MOM", props.receiver, props.receiverData)
-
-
+  console.log("HELOA SOJUFHADSOFASNFA", props);
+  console.log("HELLO MOM", props.receiver, props.receiverData);
 
   const [services, setServices] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -98,30 +94,31 @@ function Services(props) {
     selectedCategory: "",
   });
 
-
   const fetchServices = async () => {
-    const services = await axios.get('http://localhost:8001/services');
-    setServices(filterByNeighbourhood(services.data, props.user.neighbourhood_id));
+    const services = await axios.get("http://localhost:8001/services");
+    setServices(
+      filterByNeighbourhood(services.data, props.user.neighbourhood_id)
+    );
   };
 
   const fetchFilteredCategories = async (filter) => {
-    const data = await axios.get('http://localhost:8001/categories');
-    const filtered = data.data.filter(category => category.category_type === filter);
+    const data = await axios.get("http://localhost:8001/categories");
+    const filtered = data.data.filter(
+      (category) => category.category_type === filter
+    );
     setCategories(filtered);
-
-  }
-  const filterAndSetCategories = (filter) => {
-    const filtered = props.categories.filter(category => category.category_type === filter)
-    setCategories(filtered)
   };
-
+  const filterAndSetCategories = (filter) => {
+    const filtered = props.categories.filter(
+      (category) => category.category_type === filter
+    );
+    setCategories(filtered);
+  };
 
   useEffect(() => {
     fetchServices();
     filterAndSetCategories("Services");
   }, []);
-
-
 
   //////////////////// REFACTOR THESE TOGETHER IF YOU CAN
   function radioChange(value) {
@@ -132,7 +129,7 @@ function Services(props) {
   }
 
   function categoryChange(e) {
-    console.log(e.target.value)
+    console.log(e.target.value);
     setState({
       ...state,
       selectedCategory: e.target.value,
@@ -148,7 +145,6 @@ function Services(props) {
   };
   ////////////////////////////
 
-
   // these functions handle the Modal
   const handleOpen = () => {
     setOpen(true);
@@ -157,13 +153,12 @@ function Services(props) {
     setOpen(false);
   };
 
-
   const handleOpenDelete = () => {
-    setOpenDelete(true)
+    setOpenDelete(true);
   };
 
   const handleCloseDelete = () => {
-    setOpenDelete(false)
+    setOpenDelete(false);
   };
 
   const requestOrOffer = function (bool) {
@@ -186,18 +181,27 @@ function Services(props) {
     );
   };
 
-
   const fetchFilteredSubscriptions = async (postCategory_id) => {
-    const data = await axios.get('http://localhost:8001/subscriptions');
-    const filtered = data.data.filter(subscription => subscription.category_id === parseInt(postCategory_id));
-    const subscriber_ids = filtered.map(entry => entry = entry.user_id);
-    const phoneData = await axios.get('http://localhost:8001/users/phone-numbers');
-    const phoneFiltered = phoneData.data.filter(user => subscriber_ids.includes(user.id) && user.neighbourhood_id === props.user.neighbourhood_id).map(entry => `+${entry.phone_number}`);
+    const data = await axios.get("http://localhost:8001/subscriptions");
+    const filtered = data.data.filter(
+      (subscription) => subscription.category_id === parseInt(postCategory_id)
+    );
+    const subscriber_ids = filtered.map((entry) => (entry = entry.user_id));
+    const phoneData = await axios.get(
+      "http://localhost:8001/users/phone-numbers"
+    );
+    const phoneFiltered = phoneData.data
+      .filter(
+        (user) =>
+          subscriber_ids.includes(user.id) &&
+          user.neighbourhood_id === props.user.neighbourhood_id
+      )
+      .map((entry) => `+${entry.phone_number}`);
     return phoneFiltered;
   };
 
   const sendSubscriptionSMS = async function (postCategory_id) {
-    let categoryName = '';
+    let categoryName = "";
     for (const category of categories) {
       if (category.id === parseInt(postCategory_id)) {
         categoryName = category.name;
@@ -207,53 +211,61 @@ function Services(props) {
     axios.post("/twilio", { phoneNumbers, categoryName });
   };
 
+  const registerService = function (registrationData) {
+    console.log(registrationData);
+    axios.post("/services", registrationData).then((response) => {
+      setServices(
+        filterByNeighbourhood(response.data, props.user.neighbourhood_id)
+      );
+    });
+  };
 
   const onSubmitHandler = function (event) {
     event.preventDefault();
-    registerService({
-      user_id: props.user.id,
-      neighbourhood_id: props.user.neighbourhood_id,
-      title: event.target.elements["serviceTitle"].value,
-      category_id: state.selectedCategory,
-      service_offer: state.serviceOffer,
-      description: event.target.elements["serviceDescription"].value,
-      service_photo: event.target.elements["servicePhoto"].value,
-    });
-    sendSubscriptionSMS(state.selectedCategory);
-    handleClose();
-  };
-
-  const registerService = function (registrationData) {
-    console.log(registrationData);
-    axios.post("/services", registrationData)
+    const streetNumber = event.target.elements["streetNumber"].value;
+    const streetName = event.target.elements["streetName"].value;
+    const city = event.target.elements["city"].value;
+    const title = event.target.elements["serviceTitle"].value;
+    const description = event.target.elements["serviceDescription"].value;
+    const service_photo = event.target.elements["servicePhoto"].value;
+    //Gets the coordinates for the address entered by the user and save info to database
+    axios
+      .get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${streetNumber}+${streetName}+${city}+CA&key=${process.env.REACT_APP_GEOCODING_KEY}`
+      )
       .then((response) => {
-        setServices(filterByNeighbourhood(response.data, props.user.neighbourhood_id));
+        const coordinates = response.data.results[0].geometry.location;
+        const formattedCoordinates = `(${coordinates.lat}, ${coordinates.lng})`;
+        registerService({
+          user_id: props.user.id,
+          category_id: state.selectedCategory,
+          neighbourhood_id: props.user.neighbourhood_id,
+          service_offer: state.serviceOffer,
+          title: title,
+          coordinates: formattedCoordinates,
+          description: description,
+          service_photo: service_photo,
+        });
+        sendSubscriptionSMS(state.selectedCategory);
+        handleClose();
       });
   };
 
-
-
-
-
-
   const deleteSubmitHandler = function (event) {
     event.preventDefault();
-    const serviceID = parseInt(event.target.dataset.message)
+    const serviceID = parseInt(event.target.dataset.message);
     deleteService({
       user_id: props.user.id,
-      service_id: serviceID
+      service_id: serviceID,
     });
     handleCloseDelete();
   };
 
   const deleteService = function (registrationData) {
-    axios.delete("/services/delete", { data: registrationData })
-      .then(() => {
-        fetchServices()
-      })
+    axios.delete("/services/delete", { data: registrationData }).then(() => {
+      fetchServices();
+    });
   };
-
-
 
   const setReceiver = function (data) {
     props.receiverData(data);
@@ -264,14 +276,16 @@ function Services(props) {
       <div className="container-fluid gedf-wrapper">
         <div class="row" className="postingRow">
           <div className="col-md-6 gedf-main">
-
             {/* <Parallax image={require("../../assets/img/carpentry.jpeg")}> */}
             {/* <div className={classes.container}> */}
             <Card className={classes.root}>
               {/* <CardActionArea> */}
               <p>{state.search}</p>
               <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel htmlFor="outlined-age-native-simple" id="z-index-zero">
+                <InputLabel
+                  htmlFor="outlined-age-native-simple"
+                  id="z-index-zero"
+                >
                   Filter By Category
                 </InputLabel>
                 <Select
@@ -296,7 +310,7 @@ function Services(props) {
               {props.user ? (
                 <div>
                   <div>
-                    <Button color='primary' type="button" onClick={handleOpen}>
+                    <Button color="primary" type="button" onClick={handleOpen}>
                       Post New Service Listing
                     </Button>
                     <Modal
@@ -312,64 +326,102 @@ function Services(props) {
                       }}
                     >
                       <Fade in={open}>
-                        <div className={classes.paper}>
-                          <h2 id="transition-modal-title">
-                            Post New Service Listing
-                          </h2>
-                          <Form onSubmit={onSubmitHandler}>
-                            <Form.Group controlId="serviceTitle">
-                              <Form.Label>Service Title</Form.Label>
-                              <Form.Control type="title" placeholder="Title" />
-                            </Form.Group>
+                        <div>
+                          <Form
+                            onSubmit={onSubmitHandler}
+                            className="form-contenant"
+                          >
+                            <div className="event-form">
+                              <div className="first-section">
+                                <h2 id="transition-modal-title">
+                                  Post New Service
+                                </h2>
+                                <Form.Group controlId="serviceTitle">
+                                  <Form.Label>Service Title</Form.Label>
+                                  <Form.Control
+                                    type="title"
+                                    placeholder="Title"
+                                  />
+                                </Form.Group>
+                                <Form.Group controlId="serviceRequestOrOffer">
+                                  <RadioGroup
+                                    name="requestOrOffer"
+                                    selectedValue={state.serviceOffer}
+                                    onChange={radioChange}
+                                  >
+                                    <label>
+                                      <Radio value={false} />
+                                      Request
+                                    </label>
 
-                            <Form.Group controlId="serviceRequestOrOffer">
-                              <RadioGroup
-                                name="requestOrOffer"
-                                selectedValue={state.serviceOffer}
-                                onChange={radioChange}
-                              >
-                                <label>
-                                  <Radio value={false} />
-                                  Request
-                                </label>
-                                <label>
-                                  <Radio value={true} />
-                                  Offer
-                                </label>
-                              </RadioGroup>
-                            </Form.Group>
+                                    <label className="offer">
+                                      <Radio value={true} />
+                                      Offer
+                                    </label>
+                                  </RadioGroup>
+                                </Form.Group>
 
-                            <FormGroup controlId="serviceCategory">
-                              <Form.Label>Select Category</Form.Label>
-                              <Form.Control
-                                as="select"
-                                value={state.selectedCategory}
-                                onChange={categoryChange}
-                              >
-                                <option></option>
-                                {categories.map((category) => (
-                                  <option key={category.id} value={category.id}>
-                                    {category.name}
-                                  </option>
-                                ))}
-                              </Form.Control>
-                            </FormGroup>
+                                <FormGroup controlId="serviceCategory">
+                                  <Form.Label>Select Category</Form.Label>
+                                  <Form.Control
+                                    as="select"
+                                    value={state.selectedCategory}
+                                    onChange={categoryChange}
+                                  >
+                                    <option></option>
+                                    {categories.map((category) => (
+                                      <option
+                                        key={category.id}
+                                        value={category.id}
+                                      >
+                                        {category.name}
+                                      </option>
+                                    ))}
+                                  </Form.Control>
+                                </FormGroup>
 
-                            <Form.Group controlId="serviceDescription">
-                              <Form.Label>Description</Form.Label>
-                              <Form.Control
-                                type="description"
-                                placeholder="Description"
-                                as="textarea"
-                                rows="3"
-                              />
-                            </Form.Group>
+                                <Form.Group controlId="serviceDescription">
+                                  <Form.Label>Description</Form.Label>
+                                  <Form.Control
+                                    type="description"
+                                    placeholder="Description"
+                                    as="textarea"
+                                    rows="3"
+                                  />
+                                </Form.Group>
+                              </div>
+                              <div className="second-section">
+                                <Form.Group
+                                  controlId="servicePhoto"
+                                  className="address"
+                                >
+                                  <Form.Label>Photo URL</Form.Label>
+                                  <Form.Control type="url" placeholder="URL" />
+                                </Form.Group>
 
-                            <Form.Group controlId="servicePhoto">
-                              <Form.Label>Photo URL</Form.Label>
-                              <Form.Control type="url" placeholder="URL" />
-                            </Form.Group>
+                                <Form.Group controlId="streetNumber">
+                                  <Form.Label>Address</Form.Label>
+                                  <Form.Control
+                                    type="streetNumber"
+                                    placeholder="Street number"
+                                  />
+                                </Form.Group>
 
+                                <Form.Group controlId="streetName">
+                                  <Form.Control
+                                    type="streetName"
+                                    placeholder="Street name"
+                                  />
+                                </Form.Group>
+
+                                <Form.Group controlId="city">
+                                  <Form.Control
+                                    type="city"
+                                    placeholder="City"
+                                  />
+                                </Form.Group>
+                              </div>
+                            </div>
                             <Button
                               variant="contained"
                               color="primary"
@@ -384,22 +436,16 @@ function Services(props) {
                   </div>
                 </div>
               ) : (
-                  <div></div>
-                )}
+                <div></div>
+              )}
               {/* </CardActionArea> */}
             </Card>
 
             <h1>...</h1>
 
-
-
             <div className="all-postings">
               {filterByCategory(services, state.search, categories).map(
                 (service) => (
-
-
-
-
                   <ServicePost
                     key={service.id}
                     id={service.id}
@@ -413,26 +459,20 @@ function Services(props) {
                     requestOrOffer={requestOrOffer(service.service_offer)}
                     user_id={service.user_id}
                     current_user_id={props.user.id}
-
                     handleOpenDelete={handleOpenDelete}
                     handleCloseDelete={handleCloseDelete}
                     openDelete={openDelete}
                     deleteSubmitHandler={deleteSubmitHandler}
-
                     modalClass={classes.modal}
                     paperClass={classes.paper}
-
                     receiver={props.receiver}
                     setReceiver={props.receiverData}
                   />
-
                 )
-              )
-              }
+              )}
 
               {/* </div> */}
               {/* </Parallax> */}
-
             </div>
           </div>
         </div>
@@ -443,10 +483,8 @@ function Services(props) {
 
 export default Services;
 
-
-
-
-{/* <div key={service.id}>
+{
+  /* <div key={service.id}>
                         <CardMedia
                           className={classes.media}
                           image={service.service_photo}
@@ -489,18 +527,11 @@ export default Services;
                             {requestOrOffer(service.service_offer)}
                           </Typography>
                         </CardContent>
-                      </div> */}
+                      </div> */
+}
 
-
-
-
-
-
-
-
-
-
-{/* {props.user.id === service.user_id ?
+{
+  /* {props.user.id === service.user_id ?
 
                   <div>
                     <Button onClick={handleOpenDelete}>
@@ -542,4 +573,5 @@ export default Services;
                   </button>
 
 
-                } */}
+                } */
+}
