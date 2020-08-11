@@ -1,14 +1,31 @@
 import React, { useState, useEffect } from "react";
-import moment from 'moment';
+import moment from "moment";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import "../../styles.scss";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import { Button, Avatar, Card, CardActionArea, CardHeader, CardContent, CardMedia, Typography, FormControl, InputLabel, Select, Modal, Backdrop, Fade, FormGroup } from "@material-ui/core";
+import {
+  Button,
+  Avatar,
+  Card,
+  CardActionArea,
+  CardHeader,
+  CardContent,
+  CardMedia,
+  Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  Modal,
+  Backdrop,
+  Fade,
+  FormGroup,
+} from "@material-ui/core";
 import { Form } from "react-bootstrap";
 
-// core components 
+// core components
 import GridContainer from "../Material-kit-components/GridContainer.js";
 import GridItem from "../Material-kit-components/GridItem.js";
 import Parallax from "../Material-kit-components/Parallax.js";
@@ -25,8 +42,8 @@ import AlertsCarousel from "../Home/AlertsCarousel.js";
 //for Material UI
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    '& > *': {
+    display: "flex",
+    "& > *": {
       margin: theme.spacing(1),
     },
   },
@@ -48,13 +65,13 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
@@ -69,20 +86,19 @@ function Alerts(props) {
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [state, setState] = useState({
-    search: '',
-    selectedCategory: ''
+    search: "",
+    selectedCategory: "",
   });
 
-
   const fetchAlerts = async () => {
-    const alerts = await axios.get('http://localhost:8001/alerts');
+    const alerts = await axios.get("http://localhost:8001/alerts");
     setAlerts(filterByNeighbourhood(alerts.data, props.user.neighbourhood_id));
   };
 
-
-
   const filterAndSetCategories = (filter) => {
-    const filtered = props.categories.filter(category => category.category_type === filter);
+    const filtered = props.categories.filter(
+      (category) => category.category_type === filter
+    );
     setCategories(filtered);
   };
 
@@ -103,12 +119,11 @@ function Alerts(props) {
   function categoryChange(e) {
     setState({
       ...state,
-      selectedCategory: e.target.value
+      selectedCategory: e.target.value,
     });
   }
 
   /////////////////////////
-
 
   //these functions handle the Modal
   const handleOpen = () => {
@@ -119,24 +134,34 @@ function Alerts(props) {
   };
 
   const handleOpenDelete = () => {
-    setOpenDelete(true)
-  }
+    setOpenDelete(true);
+  };
 
   const handleCloseDelete = () => {
-    setOpenDelete(false)
-  }
+    setOpenDelete(false);
+  };
 
   const fetchFilteredSubscriptions = async (postCategory_id) => {
-    const data = await axios.get('http://localhost:8001/subscriptions');
-    const filtered = data.data.filter(subscription => subscription.category_id === parseInt(postCategory_id));
-    const subscriber_ids = filtered.map(entry => entry = entry.user_id);
-    const phoneData = await axios.get('http://localhost:8001/users/phone-numbers');
-    const phoneFiltered = phoneData.data.filter(user => subscriber_ids.includes(user.id) && user.neighbourhood_id === props.user.neighbourhood_id).map(entry => `+${entry.phone_number}`);
+    const data = await axios.get("http://localhost:8001/subscriptions");
+    const filtered = data.data.filter(
+      (subscription) => subscription.category_id === parseInt(postCategory_id)
+    );
+    const subscriber_ids = filtered.map((entry) => (entry = entry.user_id));
+    const phoneData = await axios.get(
+      "http://localhost:8001/users/phone-numbers"
+    );
+    const phoneFiltered = phoneData.data
+      .filter(
+        (user) =>
+          subscriber_ids.includes(user.id) &&
+          user.neighbourhood_id === props.user.neighbourhood_id
+      )
+      .map((entry) => `+${entry.phone_number}`);
     return phoneFiltered;
   };
 
   const sendSubscriptionSMS = async function (postCategory_id) {
-    let categoryName = '';
+    let categoryName = "";
     for (const category of categories) {
       if (category.id === parseInt(postCategory_id)) {
         categoryName = category.name;
@@ -146,52 +171,60 @@ function Alerts(props) {
     axios.post("/twilio", { phoneNumbers, categoryName });
   };
 
-  const onSubmitHandler = function (event) {
-    event.preventDefault();
-    registerAlert({
-      user_id: props.user.id,
-      neighbourhood_id: props.user.neighbourhood_id,
-      category_id: state.selectedCategory,
-      title: event.target.elements['alertTitle'].value,
-      description: event.target.elements['alertDescription'].value,
-      alert_photo: event.target.elements['alertPhoto'].value,
+  const registerAlert = function (registrationData) {
+    console.log("REEGISTAERW", registrationData);
+    axios.post("/alerts", registrationData).then((response) => {
+      setAlerts(
+        filterByNeighbourhood(response.data, props.user.neighbourhood_id)
+      );
     });
-    sendSubscriptionSMS(state.selectedCategory);
-    handleClose();
   };
 
-  const registerAlert = function (registrationData) {
-    console.log('REEGISTAERW', registrationData);
-    axios.post("/alerts", registrationData)
+  const onSubmitHandler = function (event) {
+    event.preventDefault();
+    const streetNumber = event.target.elements["streetNumber"].value;
+    const streetName = event.target.elements["streetName"].value;
+    const city = event.target.elements["city"].value;
+    const title = event.target.elements["alertTitle"].value;
+    const description = event.target.elements["alertDescription"].value;
+    const alert_photo = event.target.elements["alertPhoto"].value;
+    //Gets the coordinates for the address entered by the user and save info to database
+    axios
+      .get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${streetNumber}+${streetName}+${city}+CA&key=${process.env.REACT_APP_GEOCODING_KEY}`
+      )
       .then((response) => {
-        setAlerts(filterByNeighbourhood(response.data, props.user.neighbourhood_id));
+        const coordinates = response.data.results[0].geometry.location;
+        const formattedCoordinates = `(${coordinates.lat}, ${coordinates.lng})`;
+        registerAlert({
+          user_id: props.user.id,
+          category_id: state.selectedCategory,
+          neighbourhood_id: props.user.neighbourhood_id,
+          title: title,
+          coordinates: formattedCoordinates,
+          description: description,
+          alert_photo: alert_photo,
+        });
+        sendSubscriptionSMS(state.selectedCategory);
+        handleClose();
       });
   };
 
-
-
-
-
-
   const deleteSubmitHandler = function (event) {
     event.preventDefault();
-    const alertID = parseInt(event.target.dataset.message)
+    const alertID = parseInt(event.target.dataset.message);
     deleteAlert({
       user_id: props.user.id,
-      alert_id: alertID
+      alert_id: alertID,
     });
     handleCloseDelete();
   };
 
   const deleteAlert = function (registrationData) {
-    axios.delete("/alerts/delete", { data: registrationData })
-      .then(() => {
-        fetchAlerts()
-      })
+    axios.delete("/alerts/delete", { data: registrationData }).then(() => {
+      fetchAlerts();
+    });
   };
-
-
-
 
   const setReceiver = function (data) {
     props.receiverData(data);
@@ -202,15 +235,17 @@ function Alerts(props) {
       <div className="container-fluid gedf-wrapper">
         <div className="row" className="postingRow">
           <div className="col-md-6 gedf-main">
-
             {/* <Parallax image={require("../../assets/img/blizzard.jpg")}> */}
             <div className={classes.container}>
               <Card className={classes.root}>
                 {/* <CardActionArea> */}
                 <FormControl variant="outlined" className={classes.formControl}>
-                  <InputLabel htmlFor="outlined-age-native-simple" id="z-index-zero">
+                  <InputLabel
+                    htmlFor="outlined-age-native-simple"
+                    id="z-index-zero"
+                  >
                     Filter By Category
-                    </InputLabel>
+                  </InputLabel>
                   <Select
                     native
                     value={state.search}
@@ -218,24 +253,29 @@ function Alerts(props) {
                     label="search"
                     rows="50"
                     inputProps={{
-                      name: 'search',
-                      id: 'outlined-age-native-simple',
+                      name: "search",
+                      id: "outlined-age-native-simple",
                     }}
                   >
                     <option aria-label="None" value="" />
-                    {categories.map(category => (
-                      <option key={category.id} value={category.name}>{category.name}</option>
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.name}>
+                        {category.name}
+                      </option>
                     ))}
                   </Select>
                 </FormControl>
 
                 {props.user ? (
                   <div>
-
                     <div>
-                      <Button color='primary' type="button" onClick={handleOpen}>
+                      <Button
+                        color="primary"
+                        type="button"
+                        onClick={handleOpen}
+                      >
                         Post New Alert
-                    </Button>
+                      </Button>
                       <Modal
                         aria-labelledby="transition-modal-title"
                         aria-describedby="transition-modal-description"
@@ -249,84 +289,135 @@ function Alerts(props) {
                         }}
                       >
                         <Fade in={open}>
-                          <div className={classes.paper}>
-                            <h2 id="transition-modal-title">Post New Alert</h2>
-                            <Form onSubmit={onSubmitHandler}>
+                          <div>
+                            <Form
+                              onSubmit={onSubmitHandler}
+                              className="form-contenant"
+                            >
+                              <div className="event-form">
+                                <div className="first-section">
+                                  <h2 id="transition-modal-title">
+                                    Post New Alert
+                                  </h2>
+                                  <Form.Group controlId="alertTitle">
+                                    <Form.Label>Alert Title</Form.Label>
+                                    <Form.Control
+                                      type="title"
+                                      placeholder="Title"
+                                    />
+                                  </Form.Group>
 
-                              <Form.Group controlId="alertTitle">
-                                <Form.Label>Service Title</Form.Label>
-                                <Form.Control type="title" placeholder="Title" />
-                              </Form.Group>
+                                  <FormGroup controlId="serviceCategory">
+                                    <Form.Label>Select Category</Form.Label>
+                                    <Form.Control
+                                      as="select"
+                                      value={state.selectedCategory}
+                                      onChange={categoryChange}
+                                    >
+                                      <option></option>
+                                      {categories.map((category) => (
+                                        <option
+                                          key={category.id}
+                                          value={category.id}
+                                        >
+                                          {category.name}
+                                        </option>
+                                      ))}
+                                    </Form.Control>
+                                  </FormGroup>
 
-                              <FormGroup controlId="serviceCategory">
-                                <Form.Label>Select Category</Form.Label>
-                                <Form.Control
-                                  as="select"
-                                  value={state.selectedCategory}
-                                  onChange={categoryChange}
-                                >
-                                  <option></option>
-                                  {categories.map(category => (
-                                    <option key={category.id} value={category.id}>{category.name}</option>
-                                  ))}
-                                </Form.Control>
-                              </FormGroup>
+                                  <Form.Group controlId="alertDescription">
+                                    <Form.Label>Description</Form.Label>
+                                    <Form.Control
+                                      type="description"
+                                      placeholder="Description"
+                                      as="textarea"
+                                      rows="3"
+                                    />
+                                  </Form.Group>
 
-                              <Form.Group controlId="alertDescription">
-                                <Form.Label>Description</Form.Label>
-                                <Form.Control type="description" placeholder="Description" as="textarea" rows="3" />
-                              </Form.Group>
+                                  <Form.Group controlId="alertPhoto">
+                                    <Form.Label>Photo URL</Form.Label>
+                                    <Form.Control
+                                      type="url"
+                                      placeholder="URL"
+                                    />
+                                  </Form.Group>
+                                </div>
+                                <div className="second-section">
+                                  <Form.Group
+                                    controlId="streetNumber"
+                                    className="address"
+                                  >
+                                    <Form.Label>Address</Form.Label>
+                                    <Form.Control
+                                      type="streetNumber"
+                                      placeholder="Street number"
+                                    />
+                                  </Form.Group>
 
-                              <Form.Group controlId="alertPhoto">
-                                <Form.Label>Photo URL</Form.Label>
-                                <Form.Control type="url" placeholder="URL" />
-                              </Form.Group>
+                                  <Form.Group controlId="streetName">
+                                    <Form.Control
+                                      type="streetName"
+                                      placeholder="Street name"
+                                    />
+                                  </Form.Group>
 
-                              <Button variant="contained" color="primary" type="submit">
+                                  <Form.Group controlId="city">
+                                    <Form.Control
+                                      type="city"
+                                      placeholder="City"
+                                    />
+                                  </Form.Group>
+                                </div>
+                              </div>
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                type="submit"
+                              >
                                 Post
-                            </Button>
+                              </Button>
                             </Form>
                           </div>
                         </Fade>
                       </Modal>
                     </div>
                   </div>
-                ) : <div></div>}
+                ) : (
+                  <div></div>
+                )}
 
                 {/* </CardActionArea> */}
               </Card>
 
               <h1>...</h1>
               <div className="all-postings">
-                {filterByCategory(alerts, state.search, categories).map(alert => (
-
-                  <AlertPost
-                    key={alert.id}
-                    id={alert.id}
-                    user_photo={alert.profile_photo}
-                    user_first_name={alert.first_name}
-                    user_last_name={alert.last_name}
-                    time_created={alert.time_created}
-                    post_photo={alert.alert_photo}
-                    post_description={alert.description}
-                    post_title={alert.title}
-                    user_id={alert.user_id}
-                    current_user_id={props.user.id}
-
-                    handleOpenDelete={handleOpenDelete}
-                    handleCloseDelete={handleCloseDelete}
-                    openDelete={openDelete}
-                    deleteSubmitHandler={deleteSubmitHandler}
-
-                    modalClass={classes.modal}
-                    paperClass={classes.paper}
-
-                    receiver={props.receiver}
-                    setReceiver={props.receiverData}
-                  />
-
-                ))}
-
+                {filterByCategory(alerts, state.search, categories).map(
+                  (alert) => (
+                    <AlertPost
+                      key={alert.id}
+                      id={alert.id}
+                      user_photo={alert.profile_photo}
+                      user_first_name={alert.first_name}
+                      user_last_name={alert.last_name}
+                      time_created={alert.time_created}
+                      post_photo={alert.alert_photo}
+                      post_description={alert.description}
+                      post_title={alert.title}
+                      user_id={alert.user_id}
+                      current_user_id={props.user.id}
+                      handleOpenDelete={handleOpenDelete}
+                      handleCloseDelete={handleCloseDelete}
+                      openDelete={openDelete}
+                      deleteSubmitHandler={deleteSubmitHandler}
+                      modalClass={classes.modal}
+                      paperClass={classes.paper}
+                      receiver={props.receiver}
+                      setReceiver={props.receiverData}
+                    />
+                  )
+                )}
               </div>
               {/* </Parallax> */}
             </div>
@@ -335,13 +426,12 @@ function Alerts(props) {
       </div>
     </div>
   );
-};
+}
 
 export default Alerts;
 
-
-
-{/* <GridItem xs={12} sm={6} md={3}>
+{
+  /* <GridItem xs={12} sm={6} md={3}>
               <Card className={classes.root}>
                 <CardActionArea>
                   <div key={alert.id}>
@@ -415,4 +505,5 @@ export default Alerts;
                   }
                 </CardActionArea>
               </Card>
-            </GridItem> */}
+            </GridItem> */
+}
