@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import "../../styles.scss";
 
 function Box(props) {
   const [neighbourhood, setneighbourhood] = useState([]);
@@ -33,11 +34,11 @@ function Box(props) {
   }, []);
 
   return (
-    <div className="col-md-3">
-      <div className="card box">
+    <div className="col-md-3 ">
+      <div className="card box box-left">
         <div className="card-body">
           <div className="h5">
-            {props.user.first_name} {props.user.last_name}
+            Welcome {props.user.first_name} {props.user.last_name}
           </div>
         </div>
         <ul className="list-group list-group-flush">
