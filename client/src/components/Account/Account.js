@@ -229,28 +229,33 @@ function Account(props) {
         {/* <div className="container-fluid gedf-wrapper"> */}
         <div id="account-spreader" className={classes.containerLogin}>
           {/* <Box user={props.user} /> */}
-          <div className="col-md-4">
+          <div id="account-center-column" className="col-md-4">
             <div className="card box">
 
-              <div className="card-header">
+              <div id="account-user-info-header" className="card-header">
+
                 <div className="account-header-spreader">
-                  <Avatar alt={`${props.user.first_name} ${props.user.last_name}`} src={props.user.profile_photo} className={classes.large} />
-                  <div id="account-header-contact-info">
-                    <b>Phone Number:</b><span className="text-muted">{props.user.phone_number}</span>
-                    <br></br>
-                    <b>Email:</b> <span className="text-muted">{props.user.email}</span>
+
+                  <img
+                    className="rounded-circle"
+                    width="100"
+                    src={props.user.profile_photo}
+                    alt={`${props.user.first_name} ${props.user.last_name}`}
+                  ></img>
+                  <div className="account-user-name">
+                    <div className="h5"><u>{props.user.first_name} {props.user.last_name}</u></div>
                   </div>
                 </div>
 
-                <div className="account-header-spreader">
+                <div className="account-header-spreader-2">
 
+                  <div id="account-header-contact-info">
+                    <div><b>phone number: </b><span className="text-muted">{props.user.phone_number}</span></div>
+                    <div><b>email:</b> <span className="text-muted">{props.user.email}</span></div>
+                  </div>
 
-                  {props.user.first_name}
-                  <br></br>
-                  {props.user.last_name}
-
-                  <div>
-                    <Button size="small" className="account-buttons" onClick={() => setEditRedirect(true)} variant="contained" color="primary" type="button">
+                  <div id="account-button-group">
+                    <Button id="account-edit" size="small" className="account-buttons" onClick={() => setEditRedirect(true)} variant="contained" color="primary" type="button">
                       Edit Account
                         </Button>
                     <br></br>
@@ -262,22 +267,26 @@ function Account(props) {
               </div>
 
               <div className="card-body">
-                <div className="h6">
-
+                <div id="account-bio" className="h6">
                   {props.user.bio}
                 </div>
               </div>
 
-
               <ul className="list-group list-group-flush">
-                <li className="list-group-item">
-                  <div className="h6 text-muted">Your neighbourhood</div>
-                  <div className="h5">{neighbourhood.name}</div>
+                <li id="account-neighbourhood" className="list-group-item">
+                  <div id="account-single-neighbourhood">
+                    <div className="h6 text-muted">Your neighbourhood</div>
+                    <div className="h5">{neighbourhood.name}</div>
+                  </div>
+                  <div id="account-single-neighbours">
+                    <div className="h6 text-muted">Total Neighbours</div>
+                    <div className="h5">{nbOfNeighbours}</div>
+                  </div>
                 </li>
-                <li className="list-group-item">
+                {/* <li className="list-group-item">
                   <div className="h6 text-muted">Neighbours</div>
-                  <div className="h5">{nbOfNeighbours}</div>
-                </li>
+                  <div className="h6">{nbOfNeighbours}</div>
+                </li> */}
                 <li className="list-group-item">
                   <Link to="/map">
                     <img
