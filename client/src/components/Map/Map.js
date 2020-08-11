@@ -250,7 +250,7 @@ function Map(props) {
             post_description={selectedPin.bio}
             member_since={selectedPin.time_created}
             receiver={props.receiver}
-            receiverData={props.setReceiver}
+            setReceiver={props.setReceiver}
             user={props.user}
           />
         </InfoWindow>
