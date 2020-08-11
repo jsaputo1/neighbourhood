@@ -2,6 +2,8 @@ import React from "react";
 import "../../styles.scss";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import DeleteIcon from '@material-ui/icons/Delete';
+import { makeStyles } from '@material-ui/core/styles';
 
 import {
     Button,
@@ -22,7 +24,15 @@ import {
 } from "@material-ui/core";
 import { Form } from "react-bootstrap";
 
+const useStyles = makeStyles((theme) => ({
+    button: {
+        margin: theme.spacing(1),
+    },
+}));
+
 function ServicePost(props) {
+    const classes = useStyles();
+
     const setReceiver = function (data) {
         props.setReceiver(data);
     };
@@ -61,7 +71,12 @@ function ServicePost(props) {
                     {props.current_user_id === props.user_id ?
 
                         <div>
-                            <Button onClick={props.handleOpenDelete}>
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                className={classes.button}
+                                startIcon={<DeleteIcon />}
+                                onClick={props.handleOpenDelete}>
                                 DELETE Service
 </Button>
                             <Modal

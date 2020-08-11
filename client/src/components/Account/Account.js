@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import moment from 'moment';
 import axios from "axios";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 
 // @material-ui/core components
@@ -67,10 +67,38 @@ function Account(props) {
   const [neighbourhood, setNeighbourhood] = useState([]);
   const [editRedirect, setEditRedirect] = useState((false));
   const [open, setOpen] = useState(false);
+
   // const [state, setState] = React.useState({
   //   selectedAlert_Type: props.user.alert_types,
   // });
 
+  const [nbOfNeighbours, setnbOfNeighbours] = useState(0);
+  //Grab the neighbourhood id from the props
+  const userNeighbourhoodId = props.user.neighbourhood_id;
+  //get the neighbourhood object
+  const findNeighbourhood = (id) => {
+    axios.get("/neighbourhood").then((response) => {
+      const neighbourhoods = response.data;
+      const userNeighbourhood = neighbourhoods.find(
+        (neighbourhood) => neighbourhood.id === id
+      );
+      setNeighbourhood(userNeighbourhood);
+    });
+  };
+  const findNumberofNeighbours = (id) => {
+    axios.get("/users/profile-info").then((response) => {
+      const users = response.data;
+      const usersinNeighbourhood = users.filter(
+        (user) => user.neighbourhood_id === id
+      );
+      setnbOfNeighbours(usersinNeighbourhood.length);
+    });
+  };
+
+  useEffect(() => {
+    findNeighbourhood(userNeighbourhoodId);
+    findNumberofNeighbours(userNeighbourhoodId);
+  }, []);
 
   const [checked, setChecked] = useState({
     1: false, 2: false, 3: false, 4: false, 5: false,
@@ -195,26 +223,74 @@ function Account(props) {
   }
 
   return (
-
     <div>
-      <Parallax image={require(`../../assets/img/apartment1.jpg`)}>
-        <div className={classes.container}>
-          <Box user={props.user} />
-          <Card className={classes.root}>
-            <CardActionArea>
-              <Avatar alt={`${props.user.first_name} ${props.user.last_name}`} src={props.user.profile_photo} className={classes.large} />
-              <p>{props.user.first_name}</p>
-              <p>{props.user.last_name}</p>
-              <p>{props.user.phone_number}</p>
-              <p>{props.user.email}</p>
-              <p>{neighbourhood.name}</p>
-              <Button type="button" variant="contained" color="primary" onClick={handleOpen}>
-                Manage Alerts and Subsciptions
-                    </Button>
+      {/* <Parallax image={require(`../../assets/img/apartment1.jpg`)}> */}
+      <div id="account-wrapper">
+        {/* <div className="container-fluid gedf-wrapper"> */}
+        <div id="account-spreader" className={classes.containerLogin}>
+          {/* <Box user={props.user} /> */}
+          <div className="col-md-4">
+            <div className="card box">
 
-              <Button onClick={() => setEditRedirect(true)} variant="contained" color="primary" type="button">
-                Edit User Information
+              <div className="card-header">
+                <div className="account-header-spreader">
+                  <Avatar alt={`${props.user.first_name} ${props.user.last_name}`} src={props.user.profile_photo} className={classes.large} />
+                  <div id="account-header-contact-info">
+                    <b>Phone Number:</b><span className="text-muted">{props.user.phone_number}</span>
+                    <br></br>
+                    <b>Email:</b> <span className="text-muted">{props.user.email}</span>
+                  </div>
+                </div>
+
+                <div className="account-header-spreader">
+
+
+                  {props.user.first_name}
+                  <br></br>
+                  {props.user.last_name}
+
+                  <div>
+                    <Button size="small" className="account-buttons" onClick={() => setEditRedirect(true)} variant="contained" color="primary" type="button">
+                      Edit Account
                         </Button>
+                    <br></br>
+                    <Button size="small" className="account-buttons" type="button" variant="contained" color="primary" onClick={handleOpen}>
+                      Subscriptions
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="card-body">
+                <div className="h6">
+
+                  {props.user.bio}
+                </div>
+              </div>
+
+
+              <ul className="list-group list-group-flush">
+                <li className="list-group-item">
+                  <div className="h6 text-muted">Your neighbourhood</div>
+                  <div className="h5">{neighbourhood.name}</div>
+                </li>
+                <li className="list-group-item">
+                  <div className="h6 text-muted">Neighbours</div>
+                  <div className="h5">{nbOfNeighbours}</div>
+                </li>
+                <li className="list-group-item">
+                  <Link to="/map">
+                    <img
+                      width="100%"
+                      src={neighbourhood.neighbourhood_photo}
+                      alt=""
+                      class="card-img-bottom"
+                    ></img>
+                  </Link>
+                </li>
+              </ul>
+
+
               <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
@@ -306,12 +382,14 @@ function Account(props) {
                   </div>
                 </Fade>
               </Modal>
-            </CardActionArea>
-          </Card>
-        </div>
-      </Parallax>
-    </div>
 
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* </div > */}
+      {/* </Parallax> */}
+    </div>
   );
 }
 
