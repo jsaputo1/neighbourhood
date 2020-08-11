@@ -164,20 +164,10 @@ function Services(props) {
   const requestOrOffer = function (bool) {
     if (bool)
       return (
-        <span>
-          <i>
-            "This is an OFFER. We can change this to an icon or colour change
-            during styling"
-          </i>
-        </span>
+        <b>OFFER</b>
       );
     return (
-      <span>
-        <i>
-          "This is a REQUEST. We can change this to an icon or colour change
-          during styling."
-        </i>
-      </span>
+      <b>REQUEST</b>
     );
   };
 
