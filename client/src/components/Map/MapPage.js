@@ -42,6 +42,8 @@ function MapPage(props) {
           AlertsSwitch={state.Alerts}
           receiver={props.receiver}
           setReceiver={props.receiverData}
+          eventSelected={props.eventSelected}
+          setEvent={props.setEvent}
         />
       </div>
     </div>

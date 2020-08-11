@@ -13,8 +13,14 @@
 
 .message-icon {
   color: black;
+  padding-left: 20px;
 }
 .message-icon:hover {
   color: grey;
   text-decoration: none;
+}
+
+.post-icons {
+  display: flex;
+  flex-direction: row;
 }

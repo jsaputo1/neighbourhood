@@ -43,15 +43,41 @@ export default function Calendar(props) {
         let formattedEvent = Object.assign({}, event);
         formattedEvent.start = `${event.event_start.slice(0, 10)}T${
           event.event_time
-          }`;
-        // if (formattedEvent.category_id === 15) {
-        //   formattedEvent.color = "#d139d4";
-        // }
+        }`;
+        switch (formattedEvent.category_id) {
+          case 12:
+            formattedEvent.color = "#6fb1c7";
+            break;
+          case 13:
+            formattedEvent.color = "#ebba34";
+            break;
+          case 14:
+            formattedEvent.color = "#9bc76f";
+            break;
+          case 15:
+            formattedEvent.color = "#d18080";
+            break;
+          case 16:
+            formattedEvent.color = "#b68bc4";
+            break;
+          case 18:
+            formattedEvent.color = "#c79893";
+            break;
+          case 19:
+            formattedEvent.color = "#c793b7";
+            break;
+          case 20:
+            formattedEvent.color = "#93c7ac";
+            break;
+          case 21:
+            formattedEvent.color = "#c7b993";
+            break;
+        }
 
         return formattedEvent;
       });
 
-      console.log("FORMATEDD EVENTSASDASD A", formatedEvents)
+      console.log("FORMATEDD EVENTSASDASD A", formatedEvents);
 
       setEvents(formatedEvents);
     });
@@ -122,9 +148,9 @@ export default function Calendar(props) {
         }}
         eventDisplay="block"
         eventClick={handleOpen}
-        backgroundColor="#add3e0"
-        borderColor="#add3e0"
-        eventColor="#6fb1c7"
+        // backgroundColor="#add3e0"
+        // borderColor="#add3e0"
+        // eventColor="#6fb1c7"
       />
       <div>
         <Modal
@@ -160,26 +186,26 @@ export default function Calendar(props) {
                     user_id={selectedEvent.user_id}
                   />
                 ) : (
-                    <PopupCardUserEvent
-                      user_photo={selectedEventUser.profile_photo}
-                      user_first_name={selectedEventUser.first_name}
-                      user_last_name={selectedEventUser.last_name}
-                      time_created={selectedEvent.time_created}
-                      post_photo={selectedEvent.event_photo}
-                      post_description={selectedEvent.description}
-                      post_title={selectedEvent.title}
-                      event_time={selectedEvent.event_time}
-                      event_start={selectedEvent.event_start}
-                      receiver={props.receiver}
-                      setReceiver={props.setReceiver}
-                      user_id={selectedEvent.user_id}
-                      event_id={selectedEvent.id}
-                      handleClose={handleClose}
-                      reloadEvents={getFiltredEventsForNeighbourhood}
-                      events={events}
-                      setEvents={setEvents}
-                    />
-                  ))}
+                  <PopupCardUserEvent
+                    user_photo={selectedEventUser.profile_photo}
+                    user_first_name={selectedEventUser.first_name}
+                    user_last_name={selectedEventUser.last_name}
+                    time_created={selectedEvent.time_created}
+                    post_photo={selectedEvent.event_photo}
+                    post_description={selectedEvent.description}
+                    post_title={selectedEvent.title}
+                    event_time={selectedEvent.event_time}
+                    event_start={selectedEvent.event_start}
+                    receiver={props.receiver}
+                    setReceiver={props.setReceiver}
+                    user_id={selectedEvent.user_id}
+                    event_id={selectedEvent.id}
+                    handleClose={handleClose}
+                    reloadEvents={getFiltredEventsForNeighbourhood}
+                    events={events}
+                    setEvents={setEvents}
+                  />
+                ))}
             </div>
           </Fade>
         </Modal>

@@ -47,6 +47,7 @@ function Main(props) {
                 user_first_name={event.first_name}
                 user_last_name={event.last_name}
                 time_created={event.time_created}
+                coordinates={event.coordinates}
                 post_photo={event.event_photo}
                 post_description={event.description}
                 post_title={event.title}
@@ -58,6 +59,8 @@ function Main(props) {
                 receiver={props.receiver}
                 setReceiver={props.setReceiver}
                 user_id={event.user_id}
+                eventSelected={props.eventSelected}
+                setEvent={props.setEvent}
               />
             )
         )}
