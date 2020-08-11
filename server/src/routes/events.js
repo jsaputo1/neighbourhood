@@ -67,7 +67,8 @@ module.exports = (db) => {
       DELETE FROM events
       WHERE user_id = $1
       AND title = $2
-      AND time_created = $3;
+      AND time_created = $3
+      RETURNING *;
     `,
       values
     ).then(({ rows: events }) => {

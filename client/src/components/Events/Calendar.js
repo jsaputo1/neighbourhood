@@ -43,13 +43,15 @@ export default function Calendar(props) {
         let formattedEvent = Object.assign({}, event);
         formattedEvent.start = `${event.event_start.slice(0, 10)}T${
           event.event_time
-        }`;
+          }`;
         // if (formattedEvent.category_id === 15) {
         //   formattedEvent.color = "#d139d4";
         // }
 
         return formattedEvent;
       });
+
+      console.log("FORMATEDD EVENTSASDASD A", formatedEvents)
 
       setEvents(formatedEvents);
     });
@@ -158,24 +160,26 @@ export default function Calendar(props) {
                     user_id={selectedEvent.user_id}
                   />
                 ) : (
-                  <PopupCardUserEvent
-                    user_photo={selectedEventUser.profile_photo}
-                    user_first_name={selectedEventUser.first_name}
-                    user_last_name={selectedEventUser.last_name}
-                    time_created={selectedEvent.time_created}
-                    post_photo={selectedEvent.event_photo}
-                    post_description={selectedEvent.description}
-                    post_title={selectedEvent.title}
-                    event_time={selectedEvent.event_time}
-                    event_start={selectedEvent.event_start}
-                    receiver={props.receiver}
-                    setReceiver={props.setReceiver}
-                    user_id={selectedEvent.user_id}
-                    event_id={selectedEvent.id}
-                    handleClose={handleClose}
-                    reloadEvents={getFiltredEventsForNeighbourhood}
-                  />
-                ))}
+                    <PopupCardUserEvent
+                      user_photo={selectedEventUser.profile_photo}
+                      user_first_name={selectedEventUser.first_name}
+                      user_last_name={selectedEventUser.last_name}
+                      time_created={selectedEvent.time_created}
+                      post_photo={selectedEvent.event_photo}
+                      post_description={selectedEvent.description}
+                      post_title={selectedEvent.title}
+                      event_time={selectedEvent.event_time}
+                      event_start={selectedEvent.event_start}
+                      receiver={props.receiver}
+                      setReceiver={props.setReceiver}
+                      user_id={selectedEvent.user_id}
+                      event_id={selectedEvent.id}
+                      handleClose={handleClose}
+                      reloadEvents={getFiltredEventsForNeighbourhood}
+                      events={events}
+                      setEvents={setEvents}
+                    />
+                  ))}
             </div>
           </Fade>
         </Modal>

@@ -236,42 +236,21 @@ function Alerts(props) {
         <div className="row" className="postingRow">
           <div className="col-md-6 gedf-main">
             {/* <Parallax image={require("../../assets/img/blizzard.jpg")}> */}
-            <div className={classes.container}>
-              <Card className={classes.root}>
+            <div id="services-alerts-spreader" className={classes.container}>
+              {/* <Card id="services-alerts_card" className={classes.root}> */}
+              <div className="box" id="services-alerts-card">
                 {/* <CardActionArea> */}
-                <FormControl variant="outlined" className={classes.formControl}>
-                  <InputLabel
-                    htmlFor="outlined-age-native-simple"
-                    id="z-index-zero"
-                  >
-                    Filter By Category
-                  </InputLabel>
-                  <Select
-                    native
-                    value={state.search}
-                    onChange={handleChange}
-                    label="search"
-                    rows="50"
-                    inputProps={{
-                      name: "search",
-                      id: "outlined-age-native-simple",
-                    }}
-                  >
-                    <option aria-label="None" value="" />
-                    {categories.map((category) => (
-                      <option key={category.id} value={category.name}>
-                        {category.name}
-                      </option>
-                    ))}
-                  </Select>
-                </FormControl>
 
-                {props.user ? (
-                  <div>
+
+                <div>
+                  {props.user ? (
                     <div>
                       <Button
+                        size="large"
+                        id="services-alerts-new-button"
                         color="primary"
                         type="button"
+                        variant="contained"
                         onClick={handleOpen}
                       >
                         Post New Alert
@@ -383,16 +362,46 @@ function Alerts(props) {
                         </Fade>
                       </Modal>
                     </div>
-                  </div>
-                ) : (
-                  <div></div>
-                )}
+                  ) : (
+                      <div></div>
+                    )}
+                </div>
+
+
+                <FormControl variant="outlined" className={classes.formControl}>
+                  <InputLabel
+                    htmlFor="outlined-age-native-simple"
+                    id="z-index-zero"
+                  >
+                    Filter By Category
+                  </InputLabel>
+                  <Select
+                    native
+                    value={state.search}
+                    onChange={handleChange}
+                    label="search"
+                    rows="50"
+                    inputProps={{
+                      name: "search",
+                      id: "outlined-age-native-simple",
+                    }}
+                  >
+                    <option aria-label="None" value="" />
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.name}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </Select>
+                </FormControl>
+
 
                 {/* </CardActionArea> */}
-              </Card>
-
-              <h1>...</h1>
+              </div>
+              {/* </Card> */}
               <div className="all-postings">
+
+
                 {filterByCategory(alerts, state.search, categories).map(
                   (alert) => (
                     <AlertPost
@@ -435,13 +444,13 @@ export default Alerts;
               <Card className={classes.root}>
                 <CardActionArea>
                   <div key={alert.id}>
-
+ 
                     <CardMedia
                       className={classes.media}
                       image={alert.alert_photo}
                       title={alert.title}
                     />
-
+ 
                     <CardHeader
                       avatar={
                         <Avatar alt={`${alert.first_name} ${alert.last_name}`} src={alert.profile_photo} className={classes.large} />
@@ -449,7 +458,7 @@ export default Alerts;
                       title={`${alert.first_name} ${alert.last_name}`}
                       subheader={`Posted ${moment(alert.time_created).fromNow()}`}
                     />
-
+ 
                     <CardContent>
                       <Typography variant="body2" color="textPrimary" component="h3">
                         {alert.title}
@@ -458,12 +467,12 @@ export default Alerts;
                         {alert.description}
                       </Typography>
                     </CardContent>
-
+ 
                   </div>
-
-
+ 
+ 
                   {props.user.id === alert.user_id ?
-
+ 
                     <div>
                       <Button onClick={handleOpenDelete}>
                         DELETE ALERT
@@ -484,7 +493,7 @@ export default Alerts;
                           <div className={classes.paper}>
                             <h2 id="transition-modal-title">Are you sure you would like to delete this Alert?</h2>
                             <Form data-message={alert.id} onSubmit={deleteSubmitHandler}>
-
+ 
                               <Button variant="contained" color="secondary" type="submit">
                                 Confirm
                             </Button>
@@ -497,11 +506,11 @@ export default Alerts;
                       </Modal>
                     </div>
                     :
-
+ 
                     <Button onClick={() => setReceiver(alert)}>
                       <Link to={{ pathname: '/newmessage' }}>Send Message</Link>
                     </Button>
-
+ 
                   }
                 </CardActionArea>
               </Card>
