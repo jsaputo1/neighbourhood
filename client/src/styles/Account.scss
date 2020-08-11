@@ -1,9 +1,6 @@
-// #account-wrapper {
-//     display: flex;
-//     justify-content: center;
-  
-
-// }
+#account-wrapper {
+    margin-top: -1rem;
+}
 
 #account-spreader {
     display: flex;
@@ -11,17 +8,77 @@
     align-items: center;
 }
 
-.account-buttons{
-    width: 8rem;
+.account-header-spreader {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    word-wrap: normal;
 }
 
-.account-header-spreader {
+.account-header-spreader-2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#account-user-info-header {
     display: flex;
     justify-content: space-between;
 
 }
 
-// #account-header-contact-info {
-//     display: flex;
-//     justify-content: right;
+// #account-button-group {
+//      margin-right: .8rem;
+//      margin-top: -2.6rem;
 // }
+
+.account-buttons{
+    width: 16rem;
+}
+
+.account-user-name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#account-header-contact-info {
+    margin-left: auto;
+}
+
+#account-center-column {
+    min-width: 33rem;
+}
+
+#account-edit {
+    margin-bottom: .9rem;
+}
+
+
+#account-bio {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#account-neighbourhood {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    margin-bottom: auto;
+
+    #account-single-neighbourhood {
+        width: 12rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #account-single-neighbours {
+        width: 12rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+   
+}
