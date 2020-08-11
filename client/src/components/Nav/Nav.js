@@ -56,6 +56,35 @@ function Nav(props) {
             </DropdownMenu>
           </Dropdown>
         </div>
+        <div className="menu-dropdown-mobile">
+          <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+            <DropdownToggle>
+              <i class="fa fa-bars"></i>
+            </DropdownToggle>
+            <DropdownMenu>
+              <NavLink to="/home">
+                <DropdownItem>Home</DropdownItem>
+              </NavLink>
+              <NavLink to="/events">
+                <DropdownItem>Events</DropdownItem>
+              </NavLink>
+              <NavLink to="/services">
+                <DropdownItem>Services</DropdownItem>
+              </NavLink>
+              <NavLink to="/alerts">
+                <DropdownItem>Alerts</DropdownItem>
+              </NavLink>
+              <NavLink to="/map">
+                <DropdownItem>Map</DropdownItem>
+              </NavLink>
+              <NavLink to="/account">
+                <DropdownItem>Profile</DropdownItem>
+              </NavLink>
+              <DropdownItem><span onClick={logout}>Logout</span></DropdownItem>
+            </DropdownMenu>
+
+          </Dropdown>
+        </div>
       </div>
       <div className="middle-nav">
         <NavLink to="/home">
