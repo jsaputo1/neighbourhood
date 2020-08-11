@@ -113,10 +113,15 @@ export default function Calendar(props) {
           right: "today prev,next",
         }}
         events={events}
+        // eventTimeFormat={{
+        //   hour: "numeric",
+        //   minute: "2-digit",
+        //   meridiem: "short",
+        // }}
         eventTimeFormat={{
-          hour: "numeric",
+          hour: "2-digit",
           minute: "2-digit",
-          meridiem: "short",
+          hour12: false,
         }}
         eventDisplay="block"
         eventClick={handleOpen}

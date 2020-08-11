@@ -169,7 +169,12 @@ function Events(props) {
     return date;
   };
   const formatTime = (x) => {
+    // let Y = new Date(x);
+    // let time = JSON.stringify(Y);
+    // time = time.slice(12, 20);
+
     let [hour, minute, second] = x.toLocaleTimeString().slice(0, 7).split(":");
+    // console.log(`${hour}:${minute}:${second}0`);
     return `${hour}:${minute}:${second}0`;
   };
 
