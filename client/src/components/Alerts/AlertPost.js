@@ -2,19 +2,10 @@ import React from "react";
 import "../../styles.scss";
 import moment from "moment";
 import { Link } from "react-router-dom";
-
+import DeleteIcon from '@material-ui/icons/Delete';
+import { makeStyles } from '@material-ui/core/styles';
 import {
     Button,
-    Avatar,
-    Card,
-    CardActionArea,
-    CardHeader,
-    CardContent,
-    CardMedia,
-    Typography,
-    FormControl,
-    InputLabel,
-    Select,
     Modal,
     Backdrop,
     Fade,
@@ -22,7 +13,15 @@ import {
 } from "@material-ui/core";
 import { Form } from "react-bootstrap";
 
+const useStyles = makeStyles((theme) => ({
+    button: {
+        margin: theme.spacing(1),
+    },
+}));
+
 function AlertPost(props) {
+    const classes = useStyles();
+
     const setReceiver = function (data) {
         props.setReceiver(data);
     };
@@ -55,13 +54,15 @@ function AlertPost(props) {
                         </div>
                     </div>
 
-
-
-
                     {props.current_user_id === props.user_id ?
 
                         <div>
-                            <Button onClick={props.handleOpenDelete}>
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                onClick={props.handleOpenDelete}
+                                className={classes.button}
+                                startIcon={<DeleteIcon />}>
                                 DELETE Alert
 </Button>
                             <Modal
