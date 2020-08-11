@@ -22,7 +22,7 @@ import useApplicationData from "../hooks/useApplicationData";
 
 function App() {
   //Gets the state from useApplicationData.js
-  const { state, setUser, setReceiver } = useApplicationData();
+  const { state, setUser, setReceiver, setEvent } = useApplicationData();
   const [categories, setCategories] = useState([]);
   const [subscriptions, setSubscriptions] = useState([]);
 
@@ -55,6 +55,8 @@ function App() {
             user={state.user}
             receiver={state.receiver}
             receiverData={setReceiver}
+            eventSelected={state.event}
+            setEvent={setEvent}
           ></Home>
         </Route>
         <Route path="/events" exact>
@@ -87,8 +89,10 @@ function App() {
         <Route path="/map" exact>
           <MapPage
             user={state.user}
+            eventSelected={state.event}
             receiver={state.receiver}
             receiverData={setReceiver}
+            setEvent={setEvent}
           ></MapPage>
         </Route>
         <Route path="/messages" exact>
@@ -107,7 +111,10 @@ function App() {
           ></Account>
         </Route>
         <Route path="/editUserInformation" exact>
-          <EditUserInformation user={state.user} editUser={setUser}></EditUserInformation>
+          <EditUserInformation
+            user={state.user}
+            editUser={setUser}
+          ></EditUserInformation>
         </Route>
       </Switch>
     </div>

@@ -13,7 +13,31 @@ function Post(props) {
     last_name: props.user_last_name,
     user_id: props.user_id,
   };
-  console.log(props.user.id);
+
+  const setEvent = function (data) {
+    props.setEvent(data);
+  };
+
+  const eventObject = {
+    user: props.user,
+    user_photo: props.user_photo,
+    user_first_name: props.user_first_name,
+    user_last_name: props.user_last_name,
+    time_created: props.time_created,
+    coordinates: props.coordinates,
+    event_photo: props.post_photo,
+    description: props.post_description,
+    title: props.post_title,
+    event_time: props.event_time,
+    event_start: props.event_start,
+    event_date: props.event_date,
+    receiver: props.receiver,
+    setReceiver: props.setReceiver,
+    user_id: props.user_id,
+  };
+
+  // console.log(props.user.id);
+  console.log("eventselected", props.eventSelected);
   return (
     <div className="box">
       <div className="card gedf-card">
@@ -37,15 +61,24 @@ function Post(props) {
                 </div>
               </div>
             </div>
-            {props.user.id !== props.user_id && (
-              <Link className="message-icon" to={{ pathname: "/newmessage" }}>
+            <div className="post-icons">
+              <Link className="message-icon fa-2x" to={{ pathname: "/map" }}>
                 <i
-                  class="fa fa-comment-o fa-2x"
+                  class="fa fa-map-marker"
                   aria-hidden="true"
-                  onClick={() => setReceiver(receiverObject)}
+                  onClick={() => setEvent(eventObject)}
                 ></i>
               </Link>
-            )}
+              {props.user.id !== props.user_id && (
+                <Link className="message-icon" to={{ pathname: "/newmessage" }}>
+                  <i
+                    class="fa fa-comment-o fa-2x"
+                    aria-hidden="true"
+                    onClick={() => setReceiver(receiverObject)}
+                  ></i>
+                </Link>
+              )}
+            </div>
           </div>
         </div>
         <div className="card-body">

@@ -5,10 +5,12 @@ export default function useApplicationData() {
   const [state, setState] = useState({
     user: {},
     receiver: {},
+    event: {},
   });
   //Function to update the state of the user
   const setUser = (user) => setState({ ...state, user });
   const setReceiver = (receiver) => setState({ ...state, receiver });
+  const setEvent = (event) => setState({ ...state, event });
 
   //Gets the user information from localstorage each time there is a refresh and set the state at first load)
   useEffect(() => {
@@ -34,5 +36,6 @@ export default function useApplicationData() {
     state,
     setUser,
     setReceiver,
+    setEvent,
   };
 }

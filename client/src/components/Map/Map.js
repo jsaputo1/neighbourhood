@@ -75,7 +75,7 @@ function Map(props) {
       const servicesInNeighbourhood = services.filter(
         (service) => service.neighbourhood_id === id
       );
-      console.log(servicesInNeighbourhood);
+      // console.log(servicesInNeighbourhood);
       setServices(servicesInNeighbourhood);
     });
   };
@@ -147,7 +147,7 @@ function Map(props) {
             }}
             icon={{
               url: "/images/map-icons/service.svg",
-              scaledSize: new window.google.maps.Size(30, 30),
+              scaledSize: new window.google.maps.Size(25, 25),
             }}
           />
         ))}
@@ -164,10 +164,26 @@ function Map(props) {
             }}
             icon={{
               url: "/images/map-icons/event.svg",
-              scaledSize: new window.google.maps.Size(30, 30),
+              scaledSize: new window.google.maps.Size(25, 25),
             }}
           />
         ))}
+      {props.eventSelected.coordinates && (
+        <Marker
+          key={props.eventSelected.id}
+          position={{
+            lat: props.eventSelected.coordinates.x,
+            lng: props.eventSelected.coordinates.y,
+          }}
+          onClick={() => {
+            setSelectedPin(props.eventSelected);
+          }}
+          icon={{
+            url: "/images/map-icons/event.svg",
+            scaledSize: new window.google.maps.Size(25, 25),
+          }}
+        />
+      )}
       {props.NeighboursSwitch &&
         users.map((user) => (
           <Marker
@@ -181,7 +197,7 @@ function Map(props) {
             }}
             icon={{
               url: "/images/map-icons/neighbour.svg",
-              scaledSize: new window.google.maps.Size(30, 30),
+              scaledSize: new window.google.maps.Size(25, 25),
             }}
           />
         ))}
@@ -198,7 +214,7 @@ function Map(props) {
             }}
             icon={{
               url: "/images/map-icons/alert.svg",
-              scaledSize: new window.google.maps.Size(30, 30),
+              scaledSize: new window.google.maps.Size(25, 25),
             }}
           />
         ))}

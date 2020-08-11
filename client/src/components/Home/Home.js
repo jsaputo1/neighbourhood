@@ -13,6 +13,8 @@ function Home(props) {
             user={props.user}
             receiver={props.receiver}
             setReceiver={props.receiverData}
+            eventSelected={props.eventSelected}
+            setEvent={props.setEvent}
           />
 
           {/* <div class="col-md-3">
