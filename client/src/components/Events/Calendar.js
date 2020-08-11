@@ -176,6 +176,8 @@ export default function Calendar(props) {
                       event_id={selectedEvent.id}
                       handleClose={handleClose}
                       reloadEvents={getFiltredEventsForNeighbourhood}
+                      events={events}
+                      setEvents={setEvents}
                     />
                   ))}
             </div>

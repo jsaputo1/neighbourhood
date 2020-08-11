@@ -58,11 +58,10 @@ export default function PopupCardAlert(props) {
   };
 
   const deleteEvent = async function (registrationData) {
-    console.log("REGISTRATION DATA", registrationData);
     await axios.delete("/events/delete", { data: registrationData })
       .then((response) => {
-        console.log("THIS IS SETTING EVENTS", response);
-        // props.reloadEvents();
+        const x = props.events.filter((event) => event.id !== response.data[0].id)
+        props.setEvents(x);
       });
   };
 
