@@ -260,176 +260,190 @@ function Services(props) {
   };
 
   return (
-    <div id="wrapper">
+    <div>
       <div className="container-fluid gedf-wrapper">
         <div class="row" className="postingRow">
           <div className="col-md-6 gedf-main">
 
             {/* <Parallax image={require("../../assets/img/carpentry.jpeg")}> */}
-            {/* <div className={classes.container}> */}
-            <Card className={classes.root}>
-              {/* <CardActionArea> */}
-              <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel htmlFor="outlined-age-native-simple" id="z-index-zero">
-                  Filter By Category
-                </InputLabel>
-                <Select
-                  native
-                  value={state.search}
-                  onChange={handleChange}
-                  label="search"
-                  inputProps={{
-                    name: "search",
-                    id: "outlined-age-native-simple",
-                  }}
-                >
-                  <option aria-label="None" value="" />
-                  {categories.map((category) => (
-                    <option key={category.id} value={category.name}>
-                      {category.name}
-                    </option>
-                  ))}
-                </Select>
-              </FormControl>
+            <div id="services-alerts-spreader" className={classes.container}>
+              {/* <Card id="services-alerts_card" className={classes.root}> */}
+              <div className="box" id="services-alerts-card">
+                {/* <CardActionArea> */}
 
-              {props.user ? (
                 <div>
-                  <div>
-                    <Button color='primary' type="button" onClick={handleOpen}>
-                      Post New Service Listing
+                  {props.user ? (
+                    <div>
+                      <Button
+                        size="large"
+                        id="services-alerts-new-button"
+                        variant="contained"
+                        color='primary'
+                        type="button"
+                        onClick={handleOpen}>
+                        Post New Service Listing
                     </Button>
-                    <Modal
-                      aria-labelledby="transition-modal-title"
-                      aria-describedby="transition-modal-description"
-                      className={classes.modal}
-                      open={open}
-                      onClose={handleClose}
-                      closeAfterTransition
-                      BackdropComponent={Backdrop}
-                      BackdropProps={{
-                        timeout: 500,
-                      }}
-                    >
-                      <Fade in={open}>
-                        <div className={classes.paper}>
-                          <h2 id="transition-modal-title">
-                            Post New Service Listing
+                      <Modal
+                        aria-labelledby="transition-modal-title"
+                        aria-describedby="transition-modal-description"
+                        className={classes.modal}
+                        open={open}
+                        onClose={handleClose}
+                        closeAfterTransition
+                        BackdropComponent={Backdrop}
+                        BackdropProps={{
+                          timeout: 500,
+                        }}
+                      >
+                        <Fade in={open}>
+                          <div className={classes.paper}>
+                            <h2 id="transition-modal-title">
+                              Post New Service Listing
                           </h2>
-                          <Form onSubmit={onSubmitHandler}>
-                            <Form.Group controlId="serviceTitle">
-                              <Form.Label>Service Title</Form.Label>
-                              <Form.Control type="title" placeholder="Title" />
-                            </Form.Group>
+                            <Form onSubmit={onSubmitHandler}>
+                              <Form.Group controlId="serviceTitle">
+                                <Form.Label>Service Title</Form.Label>
+                                <Form.Control type="title" placeholder="Title" />
+                              </Form.Group>
 
-                            <Form.Group controlId="serviceRequestOrOffer">
-                              <RadioGroup
-                                name="requestOrOffer"
-                                selectedValue={state.serviceOffer}
-                                onChange={radioChange}
-                              >
-                                <label>
-                                  <Radio value={false} />
+                              <Form.Group controlId="serviceRequestOrOffer">
+                                <RadioGroup
+                                  name="requestOrOffer"
+                                  selectedValue={state.serviceOffer}
+                                  onChange={radioChange}
+                                >
+                                  <label>
+                                    <Radio value={false} />
                                   Request
                                 </label>
-                                <label>
-                                  <Radio value={true} />
+                                  <label>
+                                    <Radio value={true} />
                                   Offer
                                 </label>
-                              </RadioGroup>
-                            </Form.Group>
+                                </RadioGroup>
+                              </Form.Group>
 
-                            <FormGroup controlId="serviceCategory">
-                              <Form.Label>Select Category</Form.Label>
-                              <Form.Control
-                                as="select"
-                                value={state.selectedCategory}
-                                onChange={categoryChange}
+                              <FormGroup controlId="serviceCategory">
+                                <Form.Label>Select Category</Form.Label>
+                                <Form.Control
+                                  as="select"
+                                  value={state.selectedCategory}
+                                  onChange={categoryChange}
+                                >
+                                  <option></option>
+                                  {categories.map((category) => (
+                                    <option key={category.id} value={category.id}>
+                                      {category.name}
+                                    </option>
+                                  ))}
+                                </Form.Control>
+                              </FormGroup>
+
+                              <Form.Group controlId="serviceDescription">
+                                <Form.Label>Description</Form.Label>
+                                <Form.Control
+                                  type="description"
+                                  placeholder="Description"
+                                  as="textarea"
+                                  rows="3"
+                                />
+                              </Form.Group>
+
+                              <Form.Group controlId="servicePhoto">
+                                <Form.Label>Photo URL</Form.Label>
+                                <Form.Control type="url" placeholder="URL" />
+                              </Form.Group>
+
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                type="submit"
                               >
-                                <option></option>
-                                {categories.map((category) => (
-                                  <option key={category.id} value={category.id}>
-                                    {category.name}
-                                  </option>
-                                ))}
-                              </Form.Control>
-                            </FormGroup>
-
-                            <Form.Group controlId="serviceDescription">
-                              <Form.Label>Description</Form.Label>
-                              <Form.Control
-                                type="description"
-                                placeholder="Description"
-                                as="textarea"
-                                rows="3"
-                              />
-                            </Form.Group>
-
-                            <Form.Group controlId="servicePhoto">
-                              <Form.Label>Photo URL</Form.Label>
-                              <Form.Control type="url" placeholder="URL" />
-                            </Form.Group>
-
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              type="submit"
-                            >
-                              Post
+                                Post
                             </Button>
-                          </Form>
-                        </div>
-                      </Fade>
-                    </Modal>
-                  </div>
+                            </Form>
+                          </div>
+                        </Fade>
+                      </Modal>
+                    </div>
+                  ) : (
+                      <div></div>
+                    )}
                 </div>
-              ) : (
-                  <div></div>
-                )}
-              {/* </CardActionArea> */}
-            </Card>
-
-            <h1>...</h1>
 
 
+                <FormControl variant="outlined" className={classes.formControl}>
+                  <InputLabel htmlFor="outlined-age-native-simple" id="z-index-zero">
+                    Filter By Category
+                </InputLabel>
+                  <Select
+                    native
+                    value={state.search}
+                    onChange={handleChange}
+                    label="search"
+                    inputProps={{
+                      name: "search",
+                      id: "outlined-age-native-simple",
+                    }}
+                  >
+                    <option aria-label="None" value="" />
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.name}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </Select>
+                </FormControl>
 
-            <div className="all-postings">
-              {filterByCategory(services, state.search, categories).map(
-                (service) => (
+
+
+                {/* </CardActionArea> */}
+              </div>
+              {/* </Card> */}
+
+              <div className="all-postings">
+
+
+                {filterByCategory(services, state.search, categories).map(
+                  (service) => (
 
 
 
 
-                  <ServicePost
-                    key={service.id}
-                    id={service.id}
-                    user_photo={service.profile_photo}
-                    user_first_name={service.first_name}
-                    user_last_name={service.last_name}
-                    time_created={service.time_created}
-                    post_photo={service.service_photo}
-                    post_description={service.description}
-                    post_title={service.title}
-                    requestOrOffer={requestOrOffer(service.service_offer)}
-                    user_id={service.user_id}
-                    current_user_id={props.user.id}
+                    <ServicePost
+                      key={service.id}
+                      id={service.id}
+                      user_photo={service.profile_photo}
+                      user_first_name={service.first_name}
+                      user_last_name={service.last_name}
+                      time_created={service.time_created}
+                      post_photo={service.service_photo}
+                      post_description={service.description}
+                      post_title={service.title}
+                      requestOrOffer={requestOrOffer(service.service_offer)}
+                      user_id={service.user_id}
+                      current_user_id={props.user.id}
 
-                    handleOpenDelete={handleOpenDelete}
-                    handleCloseDelete={handleCloseDelete}
-                    openDelete={openDelete}
-                    deleteSubmitHandler={deleteSubmitHandler}
+                      handleOpenDelete={handleOpenDelete}
+                      handleCloseDelete={handleCloseDelete}
+                      openDelete={openDelete}
+                      deleteSubmitHandler={deleteSubmitHandler}
 
-                    modalClass={classes.modal}
-                    paperClass={classes.paper}
+                      modalClass={classes.modal}
+                      paperClass={classes.paper}
 
-                    receiver={props.receiver}
-                    setReceiver={props.receiverData}
-                  />
+                      receiver={props.receiver}
+                      setReceiver={props.receiverData}
+                    />
 
+                  )
                 )
-              )
-              }
+                }
 
-              {/* </div> */}
+              </div>
+
+
+
               {/* </Parallax> */}
 
             </div>

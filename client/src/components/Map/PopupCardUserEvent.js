@@ -57,12 +57,13 @@ export default function PopupCardAlert(props) {
     props.handleClose();
   };
 
-  const deleteEvent = function (registrationData) {
+  const deleteEvent = async function (registrationData) {
     console.log("REGISTRATION DATA", registrationData);
-    axios.delete("/events/delete", { data: registrationData }).then(() => {
-      console.log("THIS IS SETTING EVENTS");
-      // props.reloadEvents();
-    });
+    await axios.delete("/events/delete", { data: registrationData })
+      .then((response) => {
+        console.log("THIS IS SETTING EVENTS", response);
+        // props.reloadEvents();
+      });
   };
 
   return (
@@ -110,7 +111,7 @@ export default function PopupCardAlert(props) {
             <button type="submit" className="btn btn-danger">
               CONFIRM
             </button>
-            <Button variant="contained" color="primary" type="button">
+            <Button onClick={props.handleClose} variant="contained" color="primary" type="button">
               Cancel
             </Button>
           </div>
