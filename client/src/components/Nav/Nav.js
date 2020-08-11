@@ -123,7 +123,7 @@ function Nav(props) {
                   <DropdownToggle>
                     <i class="fa fa-chevron-down"></i>
                   </DropdownToggle>
-                  <DropdownMenu>
+                  <DropdownMenu right>
                     <DropdownItem header>
                       <figure className="user-dropdown-figure">
                         <img src={props.user.profile_photo} alt="profile-picture" />
