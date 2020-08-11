@@ -18,7 +18,7 @@ export default function AlertCard(props) {
       <div className="card gedf-card">
         <div className="alert-title">
           <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i>
-          <h4>{props.title}</h4>
+          <h5>{props.title}</h5>
         </div>
         <div className="alert-card">
           <div className="alert-header">
