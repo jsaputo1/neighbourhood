@@ -15,6 +15,7 @@
     padding-top: 10px;
     padding-left: 10px;
     background-color: #fce5a4;
+    height: 60px;
     h5 {
       padding-left: 10px;
       padding-top: 5px;
@@ -41,14 +42,15 @@
       width: 90%;
       margin: auto;
       .card-text {
-        height: 110px;
+        font-size: 1em;
+        min-height: 130px;
       }
     }
     li {
       background-color: #fce5a4;
     }
     .post-photo {
-      max-height: 150px;
+      max-height: 120px;
       margin-top: -10px;
     }
   }
