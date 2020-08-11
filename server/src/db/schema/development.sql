@@ -9,7 +9,7 @@ INSERT INTO users(neighbourhood_id, email, password, coordinates, first_name, la
 VALUES
 (2, 'graham.mothersill@gmail.com', crypt('password', gen_salt('bf')), '(45.542915, -73.634951)', 'Graham', 'Mothersill', '17802464666', 'https://i.imgur.com/3tVgsra.jpg', 'Graham is one of the people who made this web-app.'),
 
-(1, 'jsaputo1@gmail.com', crypt('password', gen_salt('bf')), '(43.657603, -79.411882)', 'John', 'Saputo', '16472441907', 'https://i.imgur.com/FK8V841.jpg', 'John is one of the people who made this web-app.'),
+(1, 'jsaputo1@gmail.com', crypt('password', gen_salt('bf')), '(43.657603, -79.411882)', 'John', 'Saputo', '16472441907', '/images/users/john.jpg', 'John is one of the people who made this web-app.'),
 
 (3, 'samantha.gadet@gmail.com', crypt('password', gen_salt('bf')), '(45.539652, -73.629813)', 'Sam', 'Gadet', '15146233583', 'https://i.imgur.com/3tVgsra.jpg', 'Sam is one of the people who made this web-app.'),
 
@@ -17,7 +17,7 @@ VALUES
 
 (3, 'p.lacroix@gmail.com', crypt('password', gen_salt('bf')), '(45.541441, -73.635646)', 'Pauline', 'Lacroix', '15146233583', 'https://i.imgur.com/3tVgsra.jpg', 'Bonjour tout le monde! heureuse de faire partie de ce quartier! tellement de belles personnes y vivent!'),
 
-(1, 'brigette.presley@gmail.com', crypt('password', gen_salt('bf')), '(43.655573, -79.415224)', 'Brigette', 'Presley', '14161234567', '/images/users/w1.jpeg', 'New to the neighbourhood, looking to find some cool events'),
+(1, 'brigette.presley@gmail.com', crypt('password', gen_salt('bf')), '(43.655573, -79.415224)', 'Brigette', 'Presley', '14161234567', '/images/users/w1.png', 'New to the neighbourhood, looking to find some cool events'),
 
 (1, 'tiffany.caruso@gmail.com', crypt('password', gen_salt('bf')), '(43.655573, -79.415224)', 'Tiffany', 'Caruso', '14161234567', '/images/users/w2.jpg', 'New to the neighbourhood, looking to find some cool events'),
 
