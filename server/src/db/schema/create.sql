@@ -32,7 +32,7 @@ CREATE TABLE users (
   neighbourhood_id INTEGER REFERENCES neighbourhoods(id) ON DELETE CASCADE,
   email VARCHAR(55) NOT NULL,
   password TEXT NOT NULL,
-  time_created TIMESTAMPTZ NOT NULL DEFAULT now(),
+  time_created TIMESTAMPTZ DEFAULT now(),
   coordinates POINT,
   first_name VARCHAR(55) NOT NULL,
   last_name VARCHAR(55) NOT NULL,

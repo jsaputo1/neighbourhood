@@ -5,13 +5,49 @@ VALUES
 ('Jarry', '2020-07-02 10:43:55-14', '(45.539390, -73.631162)', '(45.535136, -73.645706)', '(45.531201, -73.621651)', '(45.539525, -73.61369)', '(45.546319, -73.637601)','Jarry.png'),
 ('Villeray', '2020-07-02 10:43:55-14', '(45.547282, -73.620562)', '(45.539519, -73.613735)', '(45.547926, -73.607114)', '(45.554242, -73.621700)', '(45.546441, -73.637868)', 'Villeray.png');
 
-INSERT INTO users(neighbourhood_id, email, password, time_created, coordinates, first_name, last_name, phone_number, profile_photo, last_logout, bio)
+INSERT INTO users(neighbourhood_id, email, password, coordinates, first_name, last_name, phone_number, profile_photo, bio)
 VALUES
-(2, 'graham.mothersill@gmail.com', crypt('password', gen_salt('bf')), '2020-07-02 19:10:34-07', '(45.542915, -73.634951)', 'Graham', 'Mothersill', '17802464666', 'https://i.imgur.com/3tVgsra.jpg', '2020-08-02 10:43:55-14', 'Graham is one of the people who made this web-app.'),
-(1, 'jsaputo1@gmail.com', crypt('password', gen_salt('bf')), '2020-07-04 12:10:34-07', '(43.657603, -79.411882)', 'John', 'Saputo', '16472441907', 'https://i.imgur.com/FK8V841.jpg', '2020-08-02 10:43:55-14', 'John is one of the people who made this web-app.'),
-(3, 'samantha.gadet@gmail.com', crypt('password', gen_salt('bf')), '2020-07-03 14:10:31-07', '(45.539652, -73.629813)', 'Sam', 'Gadet', '15146233583', 'https://i.imgur.com/3tVgsra.jpg', '2020-08-02 10:43:55-14', 'Sam is one of the people who made this web-app.'),
-(2, 'corben.kushneryk@hotmail.com', crypt('password', gen_salt('bf')), '2020-07-03 14:10:31-07', '(45.542915, -73.634951)', 'Corben', 'Kushneryk', '17809189819', 'https://i.imgur.com/FK8V841.jpg', '2020-08-02 10:43:55-14', 'Corben did not make this app, but his phone was hijacked for testing-purposes'),
-(3, 'p.lacroix@gmail.com', crypt('password', gen_salt('bf')), '2020-05-03 14:10:31-07', '(45.541441, -73.635646)', 'Pauline', 'Lacroix', '15146233583', 'https://i.imgur.com/3tVgsra.jpg', '2020-08-02 10:43:55-14', 'Bonjour tout le monde! heureuse de faire partie de ce quartier! tellement de belles personnes y vivent!');
+(2, 'graham.mothersill@gmail.com', crypt('password', gen_salt('bf')), '(45.542915, -73.634951)', 'Graham', 'Mothersill', '17802464666', 'https://i.imgur.com/3tVgsra.jpg', 'Graham is one of the people who made this web-app.'),
+
+(1, 'jsaputo1@gmail.com', crypt('password', gen_salt('bf')), '(43.657603, -79.411882)', 'John', 'Saputo', '16472441907', 'https://i.imgur.com/FK8V841.jpg', 'John is one of the people who made this web-app.'),
+
+(3, 'samantha.gadet@gmail.com', crypt('password', gen_salt('bf')), '(45.539652, -73.629813)', 'Sam', 'Gadet', '15146233583', 'https://i.imgur.com/3tVgsra.jpg', 'Sam is one of the people who made this web-app.'),
+
+(2, 'corben.kushneryk@hotmail.com', crypt('password', gen_salt('bf')), '(45.542915, -73.634951)', 'Corben', 'Kushneryk', '17809189819', 'https://i.imgur.com/FK8V841.jpg', 'Corben did not make this app, but his phone was hijacked for testing-purposes'),
+
+(3, 'p.lacroix@gmail.com', crypt('password', gen_salt('bf')), '(45.541441, -73.635646)', 'Pauline', 'Lacroix', '15146233583', 'https://i.imgur.com/3tVgsra.jpg', 'Bonjour tout le monde! heureuse de faire partie de ce quartier! tellement de belles personnes y vivent!'),
+
+(1, 'brigette.presley@gmail.com', crypt('password', gen_salt('bf')), '(43.655573, -79.415224)', 'Brigette', 'Presley', '14161234567', '/images/users/w1.jpeg', 'New to the neighbourhood, looking to find some cool events'),
+
+(1, 'tiffany.caruso@gmail.com', crypt('password', gen_salt('bf')), '(43.655573, -79.415224)', 'Tiffany', 'Caruso', '14161234567', '/images/users/w2.jpg', 'New to the neighbourhood, looking to find some cool events'),
+
+(1, 'joseph.martin@gmail.com', crypt('password', gen_salt('bf')), '(43.655573, -79.415224)', 'Joseph', 'Martin', '14161234567', '/images/users/m1.png', 'New to the neighbourhood, looking to find some cool events'),
+
+(1, 'stephanie.nimmo@gmail.com', crypt('password', gen_salt('bf')), '(43.655573, -79.415224)', 'Stephanie', 'Nimmo', '14161234567', '/images/users/w3.jpg', 'New to the neighbourhood, looking to find some cool events'),
+
+(2, 'tyler.johnson@gmail.com', crypt('password', gen_salt('bf')), '(43.646315, -79.408272)', 'tyler', 'Johnson', '14161234567', '/images/users/m2.png', 'New to the neighbourhood, looking to find some cool events'),
+
+(2, 'richard.dupont@gmail.com', crypt('password', gen_salt('bf')), '(43.646315, -79.408272)', 'Richard', 'Dupont', '14161234567', '/images/users/m3.png', 'New to the neighbourhood, looking to find some cool events'),
+
+(2, 'rosie.cruz@gmail.com', crypt('password', gen_salt('bf')), '(43.646315, -79.408272)', 'Rosie', 'Cruz', '14161234567', '/images/users/w4.jpg', 'New to the neighbourhood, looking to find some cool events'),
+
+(2, 'julia.york@gmail.com', crypt('password', gen_salt('bf')), '(43.646315, -79.408272)', 'Julia', 'York', '14161234567', '/images/users/w5.jpg', 'New to the neighbourhood, looking to find some cool events'),
+
+(3, 'james.petit@gmail.com', crypt('password', gen_salt('bf')), '(45.539390, -73.631162)', 'James', 'Petit', '15141234567', '/images/users/m4.png', 'New to the neighbourhood, looking to find some cool events'),
+
+(3, 'alex.girard@gmail.com', crypt('password', gen_salt('bf')), '(45.539390, -73.631162)', 'Alex', 'Girard', '15141234567', '/images/users/m5.png', 'New to the neighbourhood, looking to find some cool events'),
+
+(3, 'kara.garner@gmail.com', crypt('password', gen_salt('bf')), '(45.539390, -73.631162)', 'Kara', 'Garner', '15141234567', '/images/users/w6.jpg', 'New to the neighbourhood, looking to find some cool events'),
+
+(3, 'ella.lamb@gmail.com', crypt('password', gen_salt('bf')), '(45.539390, -73.631162)', 'Ella', 'Lamb', '15141234567', '/images/users/w7.jpg', 'New to the neighbourhood, looking to find some cool events'),
+
+(4, 'ethan.moreau@gmail.com', crypt('password', gen_salt('bf')), '(45.539390, -73.631162)', 'Ethan', 'Moreau', '15141234567', '/images/users/m6.png', 'New to the neighbourhood, looking to find some cool events'),
+
+(4, 'zachary.lopez@gmail.com', crypt('password', gen_salt('bf')), '(45.539390, -73.631162)', 'Zachary', 'Lopez', '15141234567', '/images/users/m7.png', 'New to the neighbourhood, looking to find some cool events'),
+
+(4, 'mia.goodman@gmail.com', crypt('password', gen_salt('bf')), '(45.539390, -73.631162)', 'Mia', 'Goodman', '15141234567', '/images/users/w8.jpg', 'New to the neighbourhood, looking to find some cool events'),
+
+(4, 'sara.costa@gmail.com', crypt('password', gen_salt('bf')), '(45.539390, -73.631162)', 'Sara', 'Costa', '15141234567', '/images/users/w9.png', 'New to the neighbourhood, looking to find some cool events');
 
 INSERT INTO categories(name, category_type)
 VALUES
@@ -44,21 +80,21 @@ INSERT INTO events(user_id, category_id, neighbourhood_id, title, coordinates, t
 VALUES
 (1, 18, 2, 'Party for no reason!!!', '(43.658017, -79.414930)', '2020-08-03 15:40:34-07', 'We are going to party because we are neighbours and we like each other!!! byob', '2020-08-15', '17:00:00', 'https://i.imgur.com/T2WwVfS.png'),
 (3, 15, 3, 'Crafting Night at Sams!', '(45.54098, -73.625174)', '2020-08-03 14:40:34-07', 'Bring whatever crafting projects you are working on, or just bring random materials and make something up :D I will have snacks for everyone.', '2020-08-15',  '17:00:00', 'https://i.imgur.com/FK8V841.jpg'),
-(2, 12, 3, 'Garage Sale, mostly furniture', '(45.537536, -73.619220)', '2020-08-03 16:40:34-07', 'I got a new couch and also some other stuff. Gotta make room. Everything is in good condition.', '2020-08-16', '13:00:00', 'https://i.imgur.com/okB9WKC.jpg'),
-(2, 21, 3, 'Cinema en plein air: Back to the future!', '(45.538950, -73.626219)', '2020-08-03 16:40:34-07', 'Nous installons un ecran géant dans notre cour arrière, et allons visionner le film Retour vers le futur, vintage!. Places limitées à 30, écrivez-moi pour réserver la votre!', '2020-08-22', '19:00:00', 'https://i.imgur.com/okB9WKC.jpg');
+(16, 12, 3, 'Garage Sale, mostly furniture', '(45.537536, -73.619220)', '2020-08-03 16:40:34-07', 'I got a new couch and also some other stuff. Gotta make room. Everything is in good condition.', '2020-08-16', '13:00:00', 'https://i.imgur.com/okB9WKC.jpg'),
+(15, 21, 3, 'Cinema en plein air: Back to the future!', '(45.538950, -73.626219)', '2020-08-03 16:40:34-07', 'Nous installons un ecran géant dans notre cour arrière, et allons visionner le film Retour vers le futur, vintage!. Places limitées à 30, écrivez-moi pour réserver la votre!', '2020-08-22', '19:00:00', 'https://i.imgur.com/okB9WKC.jpg');
 
 INSERT INTO alerts(user_id, category_id,  neighbourhood_id, title, coordinates, time_created, description, alert_photo)
 VALUES
 (1, 1, 2, 'I just saw a man trying to break into my car', '(43.652495, -79.412900)', '2020-08-03 15:40:34-07', 'Everyone keep an eye out and check your valuables in your cars tonight. He ran away when I opened my back door. He was tall, skinny, white, and he was wearing a navy sweater, jeans, and a black toque.', 'https://i.imgur.com/Nmx0Qxo.png'),
-(2, 1, 3, 'LOST DOG - Chocolate Lab named Paul', '(45.542615, -73.636909)', '2020-08-01 19:40:34-07', 'My dog, Paul, whom many of you may know, escaped this morning and we still cannot find him. Please message me on here if you see or find him!', 'https://i.imgur.com/iHq8K8Z.jpg'),
-(3, 2, 3, 'HUGE NEW POTHOLE', '(45.538166, -73.635435)', '2020-08-01 08:40:34-07', 'I drove into a nice big, new pothole here this morning. BE CAREFUL! IT IS REALLY BIG. I think it damaged my car...', 'https://i.imgur.com/3tVgsra.jpg');
+(17, 1, 3, 'LOST DOG - Chocolate Lab named Paul', '(45.542615, -73.636909)', '2020-08-01 19:40:34-07', 'My dog, Paul, whom many of you may know, escaped this morning and we still cannot find him. Please message me on here if you see or find him!', 'https://i.imgur.com/iHq8K8Z.jpg'),
+(14, 2, 3, 'HUGE NEW POTHOLE', '(45.538166, -73.635435)', '2020-08-01 08:40:34-07', 'I drove into a nice big, new pothole here this morning. BE CAREFUL! IT IS REALLY BIG. I think it damaged my car...', 'https://i.imgur.com/3tVgsra.jpg');
 
 
 INSERT INTO services(user_id, category_id, neighbourhood_id, service_offer, title, coordinates, time_created, description, service_photo )
 VALUES
 (1, 4, 2, false, 'Need help weeding my lawn', '(45.539441, -73.621180)', '2020-08-03 15:46:34-07', 'Hey everyone! I need to weed my lawn, but my sciatica is really acting up an I need some help. It should take around 2-3 hours, and I will pay $50', 'https://i.imgur.com/iHq8K8Z.jpg'),
-(2, 7, 1, true, 'Offering tutoring in HTML, CSS, and Javascript', '(43.656917, -79.422268)', '2020-08-01 18:46:34-07', 'I just completed an amazing Web Development Bootcamp with Lighthouse Labs. If any students are struggling with any coding curriculum, I am here to help! I charge $25/hour... for now.', 'https://i.imgur.com/okB9WKC.jpg'),
-(3, 5, 3, false, 'Leaky Kitchen Faucet', '(45.539593, -73.636783)', '2020-08-01 15:46:34-07', 'Does anybody know how to fix a leaky faucet? I do not want to call a plumber just for this...', 'https://i.imgur.com/LpaY82x.png');
+(8, 7, 1, true, 'Offering tutoring in HTML, CSS, and Javascript', '(43.656917, -79.422268)', '2020-08-01 18:46:34-07', 'I just completed an amazing Web Development Bootcamp with Lighthouse Labs. If any students are struggling with any coding curriculum, I am here to help! I charge $25/hour... for now.', 'https://i.imgur.com/okB9WKC.jpg'),
+(15, 5, 3, false, 'Leaky Kitchen Faucet', '(45.539593, -73.636783)', '2020-08-01 15:46:34-07', 'Does anybody know how to fix a leaky faucet? I do not want to call a plumber just for this...', 'https://i.imgur.com/LpaY82x.png');
 
 
 INSERT INTO subscriptions(user_id, category_id)
