@@ -43,11 +43,10 @@ const useStyles = makeStyles((theme) => ({
 export default function PopupCard(props) {
   const classes = useStyles();
 
+  console.log("popupcard props:", props);
   const setReceiver = function (data) {
     props.setReceiver(data);
   };
-
-  console.log("Props on popup card:", props);
 
   const receiverObject = {
     first_name: props.user_first_name,
@@ -55,9 +54,31 @@ export default function PopupCard(props) {
     user_id: props.user_id,
   };
 
+  const setEvent = function (data) {
+    props.setEvent(data);
+  };
+
+  const eventObject = {
+    user: props.user,
+    user_photo: props.user_photo,
+    user_first_name: props.user_first_name,
+    user_last_name: props.user_last_name,
+    time_created: props.time_created,
+    coordinates: props.coordinates,
+    event_photo: props.post_photo,
+    description: props.post_description,
+    title: props.post_title,
+    event_time: props.event_time,
+    event_start: props.event_start,
+    event_date: props.event_date,
+    receiver: props.receiver,
+    setReceiver: props.setReceiver,
+    user_id: props.user_id,
+  };
+
   return (
     <Card className={classes.root}>
-      {props.time_created && props.user.id !== props.user_id && (
+      {props.time_created && props.user.id !== props.user_id && !props.isOnMap && (
         <CardHeader
           avatar={
             <Avatar
@@ -68,13 +89,47 @@ export default function PopupCard(props) {
             />
           }
           action={
-            <Link className="message-icon" to={{ pathname: "/newmessage" }}>
-              <i
-                class="fa fa-comment-o fa-2x"
-                aria-hidden="true"
-                onClick={() => setReceiver(receiverObject)}
-              ></i>
-            </Link>
+            <div>
+              <Link className="message-icon fa-2x" to={{ pathname: "/map" }}>
+                <i
+                  class="fa fa-map-marker"
+                  aria-hidden="true"
+                  onClick={() => setEvent(eventObject)}
+                ></i>
+              </Link>
+              <Link className="message-icon" to={{ pathname: "/newmessage" }}>
+                <i
+                  class="fa fa-comment-o fa-2x"
+                  aria-hidden="true"
+                  onClick={() => setReceiver(receiverObject)}
+                ></i>
+              </Link>
+            </div>
+          }
+          title={`${props.user_first_name} ${props.user_last_name}`}
+          subheader={`Posted ${moment(props.time_created).fromNow()}`}
+        />
+      )}
+      {props.time_created && props.user.id !== props.user_id && props.isOnMap && (
+        <CardHeader
+          avatar={
+            <Avatar
+              aria-label="recipe"
+              alt=""
+              src={props.user_photo}
+              className={classes.large}
+            />
+          }
+          action={
+            <div>
+              <Link className="message-icon" to={{ pathname: "/newmessage" }}>
+                <i
+                  class="fa fa-comment-o fa-2x"
+                  aria-hidden="true"
+                  onClick={() => setReceiver(receiverObject)}
+                ></i>
+              </Link>
+            </div>
           }
           title={`${props.user_first_name} ${props.user_last_name}`}
           subheader={`Posted ${moment(props.time_created).fromNow()}`}

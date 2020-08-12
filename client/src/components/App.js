@@ -66,6 +66,8 @@ function App() {
             receiverData={setReceiver}
             subscriptions={subscriptions}
             categories={categories}
+            eventSelected={state.event}
+            setEvent={setEvent}
           ></Events>
         </Route>
         <Route path="/services" exact>
@@ -89,9 +91,9 @@ function App() {
         <Route path="/map" exact>
           <MapPage
             user={state.user}
-            eventSelected={state.event}
             receiver={state.receiver}
             receiverData={setReceiver}
+            eventSelected={state.event}
             setEvent={setEvent}
           ></MapPage>
         </Route>

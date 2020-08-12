@@ -6,6 +6,7 @@ import mapStyles from "./mapStyles";
 import Boundaries from "./Boundaries";
 
 function Map(props) {
+  console.log("map props:", props);
   //All the states are managed here
   const [neighbourhoodCoordinates, setneighbourhoodCoordinates] = useState({
     lat: 4.538901,
@@ -245,7 +246,10 @@ function Map(props) {
             event_start={selectedPin.event_start}
             receiver={props.receiver}
             setReceiver={props.setReceiver}
+            eventSelected={props.eventSelected}
+            setEvent={props.setEvent}
             user_id={selectedPin.user_id}
+            isOnMap={true}
           />
         </InfoWindow>
       )}
@@ -268,6 +272,9 @@ function Map(props) {
             receiver={props.receiver}
             setReceiver={props.setReceiver}
             user={props.user}
+            eventSelected={props.eventSelected}
+            setEvent={props.setEvent}
+            isOnMap={true}
           />
         </InfoWindow>
       )}

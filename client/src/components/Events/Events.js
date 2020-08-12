@@ -343,6 +343,8 @@ function Events(props) {
           handleOpen={handleOpen}
           receiver={props.receiver}
           setReceiver={props.receiverData}
+          eventSelected={props.eventSelected}
+          setEvent={props.setEvent}
         />
       </div>
     </div>
