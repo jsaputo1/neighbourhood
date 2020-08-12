@@ -23,7 +23,7 @@ module.exports = (db) => {
       request.body.title,
       request.body.coordinates,
       request.body.description,
-      request.body.alert_photo,
+      request.body.alert_photo ? request.body.alert_photo : 'https://i.imgur.com/j6IJGS2.png'
     ];
     db.query(
       `

@@ -23,7 +23,7 @@ CREATE TABLE neighbourhoods (
  SE POINT NOT NULL,
  NE POINT NOT NULL,
  NW POINT NOT NULL,
- neighbourhood_photo VARCHAR(255)
+ neighbourhood_photo VARCHAR(255) DEFAULT 'https://i.imgur.com/j6IJGS2.png'
  
 );
 
@@ -37,7 +37,7 @@ CREATE TABLE users (
   first_name VARCHAR(55) NOT NULL,
   last_name VARCHAR(55) NOT NULL,
   phone_number VARCHAR(11),
-  profile_photo VARCHAR(255),
+  profile_photo VARCHAR(255) DEFAULT 'https://i.imgur.com/j6IJGS2.png',
   last_logout TIMESTAMPTZ,
   bio TEXT
 );
@@ -60,7 +60,7 @@ CREATE TABLE events (
  description TEXT NOT NULL,
  event_start DATE,
  event_time TIME,
- event_photo VARCHAR(255)
+ event_photo VARCHAR(255) DEFAULT 'https://i.imgur.com/j6IJGS2.png'
 );
 
 -- do all alerts have locations/coordinates?
@@ -73,7 +73,7 @@ CREATE TABLE alerts (
  coordinates POINT,
  time_created TIMESTAMPTZ NOT NULL DEFAULT now(),
  description TEXT NOT NULL,
- alert_photo VARCHAR(255)
+ alert_photo VARCHAR(255) DEFAULT 'https://i.imgur.com/j6IJGS2.png'
 );
 
 -- location??? all of them??
@@ -87,7 +87,7 @@ CREATE TABLE services (
  coordinates POINT,
  time_created TIMESTAMPTZ NOT NULL DEFAULT now(),
  description TEXT NOT NULL,
- service_photo VARCHAR(255)
+ service_photo VARCHAR(255) DEFAULT 'https://i.imgur.com/j6IJGS2.png'
   
 );
 

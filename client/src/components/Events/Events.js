@@ -291,8 +291,8 @@ function Events(props) {
                   </Form.Group>
 
                   <Form.Group controlId="eventPhoto">
-                    <Form.Label>Photo URL</Form.Label>
-                    <Form.Control type="url" placeholder="URL" />
+                    <Form.Label>Photo (URL or blank)</Form.Label>
+                    <Form.Control type="url" />
                   </Form.Group>
                 </div>
                 <div className="second-section">

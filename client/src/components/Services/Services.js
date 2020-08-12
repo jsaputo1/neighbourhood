@@ -398,8 +398,8 @@ function Services(props) {
                                         controlId="servicePhoto"
                                         className="address"
                                       >
-                                        <Form.Label>Photo URL</Form.Label>
-                                        <Form.Control type="url" placeholder="URL" />
+                                        <Form.Label>Photo (URL or blank)</Form.Label>
+                                        <Form.Control type="url" />
                                       </Form.Group>
 
                                       <Form.Group controlId="streetNumber">
