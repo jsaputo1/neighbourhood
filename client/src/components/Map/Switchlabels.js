@@ -12,7 +12,7 @@ export default function SwitchLabels(props) {
             checked={props.Neighbours}
             onChange={props.handleChange}
             name="Neighbours"
-            color="primary"
+            color="#ebcc34"
           />
         }
         label="Neighbours"
