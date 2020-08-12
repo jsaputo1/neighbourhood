@@ -166,11 +166,11 @@ VALUES
 
 --Neighbourhood 1 Services
 
-(5, 7, 1, true, 'Offering tutoring in Math', '(43.65903, -79.41303)', '2020-08-08 18:46:34-07', 'I am a student in mechanical engineering, offering tutoring in Math for kids age 8-12, my rate is 25$/h, message me!', '/images/services/private-tutoring.jpg'),
+(5, 9, 1, true, 'Offering tutoring in Math', '(43.65903, -79.41303)', '2020-08-08 18:46:34-07', 'I am a student in mechanical engineering, offering tutoring in Math for kids age 8-12, my rate is 25$/h, message me!', '/images/services/private-tutoring.jpg'),
 
-(8, 4, 1, false, 'Need help weeding my lawn', '(43.65878, -79.42172)', '2020-08-10 15:46:34-07', 'Hey everyone! I need to weed my lawn, but my sciatica is really acting up an I need some help. It should take around 2-3 hours, and I will pay $50', '/images/services/yardwork.jpg'),
+(8, 5, 1, false, 'Need help weeding my lawn', '(43.65878, -79.42172)', '2020-08-10 15:46:34-07', 'Hey everyone! I need to weed my lawn, but my sciatica is really acting up an I need some help. It should take around 2-3 hours, and I will pay $50', '/images/services/yardwork.jpg'),
 
-(10, 5, 1, false, 'Leaky Kitchen Faucet', '(43.65768, -79.41084)', '2020-08-11 15:46:34-07', 'Does anybody know how to fix a leaky faucet? I do not want to call a plumber just for this...', '/images/services/Pumbing.jpg'),
+(10, 8, 1, false, 'Leaky Kitchen Faucet', '(43.65768, -79.41084)', '2020-08-11 15:46:34-07', 'Does anybody know how to fix a leaky faucet? I do not want to call a plumber just for this...', '/images/services/Pumbing.jpg'),
 
 --Neighbourhood 2 Services
 
