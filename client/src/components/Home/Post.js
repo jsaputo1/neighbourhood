@@ -93,7 +93,11 @@ function Post(props) {
               <h5 className="card-title">{props.post_title}</h5>
             </li>
             <li className="list-group-item">
-              <img className="post-photo" src={props.post_photo} alt=""></img>
+              <img
+                className="eventpost-photo"
+                src={props.post_photo}
+                alt=""
+              ></img>
             </li>
             <li className="list-group-item">
               <p className="card-text">{props.post_description}</p>

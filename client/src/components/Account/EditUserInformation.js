@@ -69,8 +69,8 @@ function EditUserInformation(props) {
                         </Form.Group>
 
                         <Form.Group controlId="formBasicProfilePhoto">
-                            <Form.Label>Profile Photo (URL)</Form.Label>
-                            <Form.Control defaultValue={props.user.profile_photo} type="url" placeholder="Provide URL" />
+                            <Form.Label>Profile Photo (URL or blank)</Form.Label>
+                            <Form.Control defaultValue={props.user.profile_photo === 'https://i.imgur.com/j6IJGS2.png' ? '' : props.user.profile_photo} type="url" />
                         </Form.Group>
 
                         <Form.Group controlId="formBasicBio">
@@ -79,7 +79,7 @@ function EditUserInformation(props) {
                         </Form.Group>
 
                         <Link className="change-neighbourhood-link" to="/selectNeighbourhood">
-                                <h2>Change Neighbourhood</h2>
+                            <h2>Change Neighbourhood</h2>
                         </Link>
 
                         <div className="edit-form-buttons">

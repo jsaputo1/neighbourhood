@@ -24,8 +24,9 @@ module.exports = (db) => {
       request.body.title,
       request.body.coordinates,
       request.body.description,
-      request.body.service_photo,
+      request.body.service_photo ? request.body.service_photo : 'https://i.imgur.com/j6IJGS2.png'
     ];
+
     db.query(
       `
         INSERT INTO services (user_id, category_id, neighbourhood_id, service_offer, title, coordinates, description, service_photo )
@@ -39,7 +40,8 @@ module.exports = (db) => {
         SELECT services.*, users.first_name, users.last_name, users.profile_photo
         FROM services
         JOIN users
-        ON services.user_id = users.id;
+        ON services.user_id = users.id
+        ORDER BY services.time_created DESC;
       `
         );
       })

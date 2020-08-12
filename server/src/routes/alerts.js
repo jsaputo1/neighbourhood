@@ -23,7 +23,7 @@ module.exports = (db) => {
       request.body.title,
       request.body.coordinates,
       request.body.description,
-      request.body.alert_photo,
+      request.body.alert_photo ? request.body.alert_photo : 'https://i.imgur.com/j6IJGS2.png'
     ];
     db.query(
       `
@@ -38,7 +38,8 @@ module.exports = (db) => {
         SELECT alerts.*, users.first_name, users.last_name, users.profile_photo
         FROM alerts
         JOIN users
-        ON alerts.user_id = users.id;
+        ON alerts.user_id = users.id
+        ORDER BY alerts.time_created DESC;
       `
         );
       })

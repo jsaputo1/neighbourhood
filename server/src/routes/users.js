@@ -91,7 +91,7 @@ module.exports = (db) => {
       request.body.email,
       request.body.lastName,
       request.body.phone_number,
-      request.body.profile_photo,
+      request.body.profile_photo ? request.body.profile_photo : 'https://i.imgur.com/j6IJGS2.png',
       request.body.bio,
       request.body.id
     ];

@@ -25,7 +25,7 @@ module.exports = (db) => {
       request.body.description,
       request.body.event_start,
       request.body.event_time,
-      request.body.event_photo,
+      request.body.event_photo ? request.body.event_photo : 'https://i.imgur.com/j6IJGS2.png'
     ];
     db.query(
       `
