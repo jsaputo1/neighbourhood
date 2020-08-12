@@ -69,7 +69,7 @@ VALUES
 ('Childcare', 'Services'),
 ('Yardwork', 'Services'),
 ('Elder care', 'Services'),
-('Renovation, Plumbing, etc...', 'Services'),
+('Carpentry & Trades', 'Services'),
 ('Professional Services', 'Services'),
 ('Lessons & Tutoring', 'Services'),
 ('Pet sitting', 'Services'),

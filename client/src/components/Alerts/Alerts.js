@@ -261,7 +261,6 @@ function Alerts(props) {
                         value={state.search}
                         onChange={handleChange}
                         label="search"
-                        rows="50"
                         inputProps={{
                           name: "search",
                           id: "outlined-age-native-simple",

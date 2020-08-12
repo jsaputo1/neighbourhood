@@ -39,7 +39,7 @@ CREATE TABLE users (
   phone_number VARCHAR(11),
   profile_photo VARCHAR(255) DEFAULT 'https://i.imgur.com/j6IJGS2.png',
   last_logout TIMESTAMPTZ,
-  bio TEXT
+  bio TEXT DEFAULT 'I have yet to write a bio :)'
 );
 
 CREATE TABLE categories (

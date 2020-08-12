@@ -327,29 +327,6 @@ function Account(props) {
                   <div id="account-subscriptions-subscriptions" className={classes.paper}>
 
 
-                    {/* <Grid container spacing={3}>
-                      <Grid item xs={12}>
-                        <Paper className={classes.paper}>xs=12</Paper>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <Paper className={classes.paper}>xs=6</Paper>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <Paper className={classes.paper}>xs=6</Paper>
-                      </Grid>
-                      <Grid item xs={4}>
-                        <Paper className={classes.paper}>xs=3</Paper>
-                      </Grid>
-                      <Grid item xs={4}>
-                        <Paper className={classes.paper}>xs=3</Paper>
-                      </Grid>
-                      <Grid item xs={4}>
-                        <Paper className={classes.paper}>xs=3</Paper>
-                      </Grid>
-                      <Grid item xs={4}>
-                        <Paper className={classes.paper}>xs=3</Paper>
-                      </Grid>
-                    </Grid> */}
 
 
 
@@ -361,6 +338,7 @@ function Account(props) {
                           <h2 id="account-subscription-title">
                             Manage Subscriptions
                           </h2>
+                          <p id="account-SMS-note"><small><i>To receive subscription-notifications, please ensure that your account is registered with a SMS-enabled phone number.</i></small></p>
                         </Grid>
 
 
@@ -442,7 +420,6 @@ function Account(props) {
                           >
                             Post
                             </Button>
-
 
                           <Button
                             id="account-subscription-cancel-button"
