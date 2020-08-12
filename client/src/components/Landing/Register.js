@@ -35,16 +35,35 @@ function Register(props) {
   }, []);
 
   const onSubmitHandler = function (event) {
+    const address = event.target.elements["address"].value;
+    const city = event.target.elements["city"].value;
+    const firstName = event.target.elements['formBasicFirstname'].value;
+    const lastName = event.target.elements['formBasicLastname'].value;
+    const email = event.target.elements['formBasicEmail'].value;
+    const password = event.target.elements['formBasicPassword'].value;
+    const url = event.target.elements['formBasicProfileURL'].value;
+    const bio = event.target.elements['formBasicBio'].value;
+    const phoneNumber = event.target.elements['formBasicPhoneNumber'].value;
+
     event.preventDefault();
-    registerUser({
-      firstName: event.target.elements['formBasicFirstname'].value,
-      lastName: event.target.elements['formBasicLastname'].value,
-      email: event.target.elements['formBasicEmail'].value,
-      password: event.target.elements['formBasicPassword'].value,
-      coordinates,
-      url: event.target.elements['formBasicProfileURL'].value,
-      bio: event.target.elements['formBasicBio'].value,
-    });
+    axios
+      .get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}+${city}+CA&key=${process.env.REACT_APP_GEOCODING_KEY}`
+      )
+      .then((response) => {
+        const coordinates = response.data.results[0].geometry.location;
+        const formattedCoordinates = `(${coordinates.lat}, ${coordinates.lng})`;
+        registerUser({
+          firstName,
+          lastName,
+          email,
+          password,
+          coordinates: formattedCoordinates,
+          url,
+          bio,
+          phoneNumber
+        });
+      });
   };
 
   const registerUser = function (registrationData) {
@@ -69,7 +88,7 @@ function Register(props) {
     <div>
       <Parallax filter image={require("../../assets/img/neighbours.jpg")}>
         <div className={classes.containerLogin}>
-          <Form onSubmit={onSubmitHandler}>
+          <Form onSubmit={onSubmitHandler} className="registration-form">
             <Form.Group controlId="formBasicFirstname">
               <Form.Label>First Name</Form.Label>
               <Form.Control type="firstname" placeholder="First name" />
@@ -77,6 +96,17 @@ function Register(props) {
             <Form.Group controlId="formBasicLastname">
               <Form.Label>Last Name</Form.Label>
               <Form.Control type="lastname" placeholder="Last name" />
+            </Form.Group>
+            <Form.Group controlId="address">
+              <Form.Label>Address</Form.Label>
+              <Form.Control type="streetName" placeholder="Street number and name" />
+            </Form.Group>
+            <Form.Group controlId="city">
+              <Form.Control type="city" placeholder="City" />
+            </Form.Group>
+            <Form.Group controlId="formBasicPhoneNumber">
+              <Form.Label>Phone Number</Form.Label>
+              <Form.Control placeholder="Enter Phone Number" />
             </Form.Group>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
