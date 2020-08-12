@@ -47,14 +47,12 @@ module.exports = (db) => {
         // response.status(200).end();
         response.json(data.rows);
         console.log(
-          "Alert registered successfully with the following values",
-          data.rows
+          "Alert registered successfully"
         );
       });
   });
 
   router.delete("/delete", (request, response) => {
-    console.log("REQUEST", request.body.user_id, request.body.alert_id);
     values = [request.body.user_id, request.body.alert_id];
     db.query(
       `

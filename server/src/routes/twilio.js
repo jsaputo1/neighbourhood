@@ -9,7 +9,8 @@ module.exports = db => {
         res.header('Content-Type', 'application/json');
         const numbers = req.body.phoneNumbers
         const categoryName = req.body.categoryName
-        console.log("NUMBERS", numbers)
+        const title = req.body.title
+        console.log("NUMBERS", numbers, title)
 
         let x = 500
 
@@ -21,7 +22,7 @@ module.exports = db => {
                         .create({
                             from: process.env.TWILIO_MESSAGING_SERVICE_SID,
                             to: number,
-                            body: `CupOSugah: A new posting was made in ${categoryName}`
+                            body: `CupOSugah: ${title} was was posted in ${categoryName}`
                             // body: req.body.body
                             // to: +17802464666,
                         })

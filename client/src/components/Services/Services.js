@@ -178,7 +178,7 @@ function Services(props) {
     return phoneFiltered;
   };
 
-  const sendSubscriptionSMS = async function (postCategory_id) {
+  const sendSubscriptionSMS = async function (postCategory_id, title) {
     let categoryName = "";
     for (const category of categories) {
       if (category.id === parseInt(postCategory_id)) {
@@ -186,7 +186,7 @@ function Services(props) {
       }
     }
     const phoneNumbers = await fetchFilteredSubscriptions(postCategory_id);
-    axios.post("/twilio", { phoneNumbers, categoryName });
+    axios.post("/twilio", { phoneNumbers, categoryName, title });
   };
 
   const registerService = function (registrationData) {
@@ -223,7 +223,7 @@ function Services(props) {
           description: description,
           service_photo: service_photo,
         });
-        sendSubscriptionSMS(state.selectedCategory);
+        sendSubscriptionSMS(state.selectedCategory, title);
         handleClose();
       });
   };
