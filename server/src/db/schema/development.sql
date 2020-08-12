@@ -10,7 +10,7 @@ VALUES
 
 -- Developer Accounts
 
-(2, 'graham.mothersill@gmail.com', crypt('password', gen_salt('bf')), '(45.542915, -73.634951)', 'Graham', 'Mothersill', '17802464666', 'https://i.imgur.com/3tVgsra.jpg', 'Graham is one of the people who made this web-app.'),
+(1, 'graham.mothersill@gmail.com', crypt('password', gen_salt('bf')), '(45.542915, -73.634951)', 'Graham', 'Mothersill', '17802464666', 'https://i.imgur.com/3tVgsra.jpg', 'Graham is one of the people who made this web-app.'),
 
 (1, 'jsaputo1@gmail.com', crypt('password', gen_salt('bf')), '(43.657603, -79.411882)', 'John', 'Saputo', '16472441907', '/images/users/john.jpg', 'John is one of the people who made this web-app.'),
 
@@ -78,9 +78,9 @@ VALUES
 
 INSERT INTO categories(name, category_type)
 VALUES
-('Emergencies', 'Alerts'),
+('Lost Animals', 'Alerts'),
 ('Notices', 'Alerts'),
-('Lost animals', 'Alerts'),
+('Emergencies', 'Alerts'),
 
 ('Childcare', 'Services'),
 ('Yardwork', 'Services'),
@@ -178,25 +178,22 @@ VALUES
 INSERT INTO subscriptions(user_id, category_id)
 VALUES
 (1, 1),
-(2, 1),
-(3, 1),
-
-(1, 4),
-(2, 4),
-(3, 4),
-
-(1, 12),
-(2, 12),
-(3, 12),
-
 (1, 2),
-(4, 2),
+(1, 3),
+(1, 18),
 
-(1, 5),
-(4, 5),
 
-(1, 13),
-(4, 13);
+(2, 2,
+(2, 3),
+(2, 18),
+
+(3, 2),
+(3, 3),
+(3, 18),
+
+
+(4, 1);
+
 
 INSERT INTO conversations(user_one, user_two)
 VALUES
