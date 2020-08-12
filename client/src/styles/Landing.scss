@@ -1,6 +1,21 @@
-.button-container {
+.main-container {
   display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: auto;
+  margin-top: -400px;
+  .button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
 }
-.button {
-  margin-right: 20px;
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited {
+  background-color: #1c658a !important;
+  border-color: #1c658a !important;
+  margin-left: 60px !important;
+  margin-right: 60px !important;
 }
