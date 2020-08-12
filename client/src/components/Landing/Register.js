@@ -35,8 +35,7 @@ function Register(props) {
   }, []);
 
   const onSubmitHandler = function (event) {
-    const streetNumber = event.target.elements["streetNumber"].value;
-    const streetName = event.target.elements["streetName"].value;
+    const address = event.target.elements["address"].value;
     const city = event.target.elements["city"].value;
     const firstName = event.target.elements['formBasicFirstname'].value;
     const lastName = event.target.elements['formBasicLastname'].value;
@@ -49,7 +48,7 @@ function Register(props) {
     event.preventDefault();
     axios
       .get(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${streetNumber}+${streetName}+${city}+CA&key=${process.env.REACT_APP_GEOCODING_KEY}`
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}+${city}+CA&key=${process.env.REACT_APP_GEOCODING_KEY}`
       )
       .then((response) => {
         const coordinates = response.data.results[0].geometry.location;
@@ -89,7 +88,7 @@ function Register(props) {
     <div>
       <Parallax filter image={require("../../assets/img/neighbours.jpg")}>
         <div className={classes.containerLogin}>
-          <Form onSubmit={onSubmitHandler}>
+          <Form onSubmit={onSubmitHandler} className="registration-form">
             <Form.Group controlId="formBasicFirstname">
               <Form.Label>First Name</Form.Label>
               <Form.Control type="firstname" placeholder="First name" />
@@ -98,12 +97,9 @@ function Register(props) {
               <Form.Label>Last Name</Form.Label>
               <Form.Control type="lastname" placeholder="Last name" />
             </Form.Group>
-            <Form.Group controlId="streetNumber">
+            <Form.Group controlId="address">
               <Form.Label>Address</Form.Label>
-              <Form.Control type="streetNumber" placeholder="Street number" />
-            </Form.Group>
-            <Form.Group controlId="streetName">
-              <Form.Control type="streetName" placeholder="Street name" />
+              <Form.Control type="streetName" placeholder="Street number and name" />
             </Form.Group>
             <Form.Group controlId="city">
               <Form.Control type="city" placeholder="City" />
