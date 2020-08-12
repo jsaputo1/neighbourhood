@@ -143,6 +143,11 @@ VALUES
 
 --Neighbourhood 1 Alerts
 
+(4, 3, 1, 'LOST CAT - Black cat named Gerard', '(43.65732, -79.41678)', '2020-08-11 19:40:34-07', 'My cat, Gerard, whom many of you may know, escaped yesyterday and we still cannot find him. Please message me on here if you see or find him!', '/images/alerts/lost-cat-2.jpg'),
+
+(6, 2, 1, 'Stolen packages', '(43.6541, -79.40807)', '2020-08-10 08:40:34-07', 'My amazon package that was supposed to be delivered yesterday on my porch disappeared. Watch out, there might be some thiefs around!', '/images/alerts/package-stolen.jpg'),
+
+(7, 2, 1, 'Police ticketing bikes', '(43.654646, -79.421457)', '2020-08-11 08:40:34-07', 'I got a ticket on my bike yesterday at the corner of College St and Roxton Rd, because I missed reflectors on my wheels! Be careful, they might stay here for a couple of days...', '/images/alerts/police-ticket-bikes.jpg'),
 
 --Neighbourhood 2 Alerts
 
@@ -161,7 +166,11 @@ VALUES
 
 --Neighbourhood 1 Services
 
-(8, 7, 1, true, 'Offering tutoring in HTML, CSS, and Javascript', '(43.656917, -79.422268)', '2020-08-01 18:46:34-07', 'I just completed an amazing Web Development Bootcamp with Lighthouse Labs. If any students are struggling with any coding curriculum, I am here to help! I charge $25/hour... for now.', 'https://i.imgur.com/okB9WKC.jpg'),
+(5, 7, 1, true, 'Offering tutoring in Math', '(43.65903, -79.41303)', '2020-08-08 18:46:34-07', 'I am a student in mechanical engineering, offering tutoring in Math for kids age 8-12, my rate is 25$/h, message me!', '/images/services/private-tutoring.jpg'),
+
+(8, 4, 1, false, 'Need help weeding my lawn', '(43.65878, -79.42172)', '2020-08-10 15:46:34-07', 'Hey everyone! I need to weed my lawn, but my sciatica is really acting up an I need some help. It should take around 2-3 hours, and I will pay $50', '/images/services/yardwork.jpg'),
+
+(10, 5, 1, false, 'Leaky Kitchen Faucet', '(43.65768, -79.41084)', '2020-08-11 15:46:34-07', 'Does anybody know how to fix a leaky faucet? I do not want to call a plumber just for this...', '/images/services/Pumbing.jpg'),
 
 --Neighbourhood 2 Services
 

@@ -56,7 +56,11 @@ export default function AlertCard(props) {
           <div className="card-body">
             <ul className="list-group list-group-flush">
               <li className="list-group-item">
-                <img className="post-photo" src={props.photo} alt=""></img>
+                <img
+                  className="caroussel-post-photo "
+                  src={props.photo}
+                  alt=""
+                ></img>
               </li>
               <li className="list-group-item">
                 <p className="card-text">{props.description}</p>
