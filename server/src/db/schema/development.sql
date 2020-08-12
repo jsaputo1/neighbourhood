@@ -204,9 +204,7 @@ VALUES
 (3, 2),
 (3, 3),
 (3, 12),
-(3, 18),
-
-(4, 1);
+(3, 18);
 
 
 INSERT INTO conversations(user_one, user_two)
