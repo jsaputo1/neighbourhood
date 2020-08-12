@@ -7,20 +7,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import {
     Button,
-    Avatar,
-    Card,
-    CardActionArea,
-    CardHeader,
-    CardContent,
-    CardMedia,
-    Typography,
-    FormControl,
-    InputLabel,
-    Select,
     Modal,
     Backdrop,
     Fade,
-    FormGroup,
 } from "@material-ui/core";
 import { Form } from "react-bootstrap";
 
@@ -112,7 +101,7 @@ function ServicePost(props) {
                                 :
                                 <Link id="SA-post-message" className="message-icon" to={{ pathname: "/newmessage" }}>
                                     <i
-                                        class="fa fa-comment-o fa-2x"
+                                        className="fa fa-comment-o fa-2x"
                                         aria-hidden="true"
                                         onClick={() => setReceiver(receiverObject)}
                                     ></i>

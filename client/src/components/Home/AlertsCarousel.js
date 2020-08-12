@@ -19,7 +19,6 @@ function AlertsCarousel(props) {
         const alertsInNeighbourhood = alerts.filter(
           (alert) => alert.neighbourhood_id === id
         );
-        // console.log(alertsInNeighbourhood);
         setAlerts(alertsInNeighbourhood);
         return true;
       })

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
@@ -6,7 +6,6 @@ import { Button } from "@material-ui/core";
 import { Form } from "react-bootstrap";
 import styles from "../Material-kit-components/landingPage.js";
 import Parallax from "../Material-kit-components/Parallax.js";
-import { Link } from "react-router-dom";
 import "../../styles.scss";
 
 const useStyles = makeStyles(styles);
@@ -46,7 +45,7 @@ function EditUserInformation(props) {
 
   return (
     <div>
-      <Parallax className="edit-user-information-container">
+      <Parallax className="edit-user-information-container" image={require("../../assets/img/apartment2.jpg")} >
         <div className={classes.containerLogin}>
           <Form onSubmit={onSubmitHandler} className="card box">
             <Form.Group controlId="formBasicFirstname">

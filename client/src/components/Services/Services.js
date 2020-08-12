@@ -81,9 +81,6 @@ moment().format();
 function Services(props) {
   const classes = useStyles();
 
-  console.log("HELOA SOJUFHADSOFASNFA", props);
-  console.log("HELLO MOM", props.receiver, props.receiverData);
-
   const [services, setServices] = useState([]);
   const [categories, setCategories] = useState([]);
   const [open, setOpen] = useState(false);
@@ -129,7 +126,6 @@ function Services(props) {
   }
 
   function categoryChange(e) {
-    console.log(e.target.value);
     setState({
       ...state,
       selectedCategory: e.target.value,
@@ -263,7 +259,7 @@ function Services(props) {
   return (
     <div>
       <div className="container-fluid gedf-wrapper">
-        <div class="row" className="postingRow">
+        <div className="row" className="postingRow">
           <div className="col-md-6 gedf-main">
             {/* <Parallax image={require("../../assets/img/carpentry.jpeg")}> */}
             <div id="services-alerts-spreader" className={classes.container}>
@@ -518,96 +514,3 @@ function Services(props) {
 }
 
 export default Services;
-
-{
-  /* <div key={service.id}>
-                        <CardMedia
-                          className={classes.media}
-                          image={service.service_photo}
-                          title={service.title}
-                        />
- 
-                        <CardHeader
-                          avatar={
-                            <Avatar
-                              alt={`${service.first_name} ${service.last_name}`}
-                              src={service.profile_photo}
-                              className={classes.large}
-                            />
-                          }
-                          title={`${service.first_name} ${service.last_name}`}
-                          subheader={`Posted ${moment(
-                            service.time_created
-                          ).fromNow()}`}
-                        />
-                        <CardContent>
-                          <Typography
-                            variant="body2"
-                            color="textPrimary"
-                            component="h3"
-                          >
-                            {service.title}
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            component="p"
-                          >
-                            {service.description}
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            component="p"
-                          >
-                            {requestOrOffer(service.service_offer)}
-                          </Typography>
-                        </CardContent>
-                      </div> */
-}
-
-{
-  /* {props.user.id === service.user_id ?
- 
-                  <div>
-                    <Button onClick={handleOpenDelete}>
-                      DELETE Service
-  </Button>
-                    <Modal
-                      aria-labelledby="Moo"
-                      aria-describedby="Moo"
-                      className={classes.modal}
-                      open={openDelete}
-                      onClose={handleCloseDelete}
-                      closeAfterTransition
-                      BackdropComponent={Backdrop}
-                      BackdropProps={{
-                        timeout: 500,
-                      }}
-                    >
-                      <Fade in={openDelete}>
-                        <div className={classes.paper}>
-                          <h2 id="transition-modal-title">Are you sure you would like to delete this Service?</h2>
-                          <Form data-message={service.id} onSubmit={deleteSubmitHandler}>
- 
-                            <Button variant="contained" color="secondary" type="submit">
-                              Confirm
-      </Button>
-                            <Button onClick={handleCloseDelete} variant="contained" color="primary" type="button">
-                              Cancel
-      </Button>
-                          </Form>
-                        </div>
-                      </Fade>
-                    </Modal>
-                  </div>
-                  :
- 
- 
-                  <button onClick={() => setReceiver(service)}>
-                    <Link to={{ pathname: '/newmessage' }}>Send Message</Link>
-                  </button>
- 
- 
-                } */
-}

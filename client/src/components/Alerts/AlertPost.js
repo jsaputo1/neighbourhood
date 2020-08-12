@@ -101,18 +101,18 @@ function AlertPost(props) {
                   </Modal>
                 </div>
               ) : (
-                <Link
-                  id="SA-post-message"
-                  className="message-icon"
-                  to={{ pathname: "/newmessage" }}
-                >
-                  <i
-                    class="fa fa-comment-o fa-2x"
-                    aria-hidden="true"
-                    onClick={() => setReceiver(receiverObject)}
-                  ></i>
-                </Link>
-              )}
+                  <Link
+                    id="SA-post-message"
+                    className="message-icon"
+                    to={{ pathname: "/newmessage" }}
+                  >
+                    <i
+                      className="fa fa-comment-o fa-2x"
+                      aria-hidden="true"
+                      onClick={() => setReceiver(receiverObject)}
+                    ></i>
+                  </Link>
+                )}
             </div>
           </div>
         </div>

@@ -326,11 +326,6 @@ function Account(props) {
                 <Fade in={open}>
                   <div id="account-subscriptions-subscriptions" className={classes.paper}>
 
-
-
-
-
-
                     <Grid container spacing={3}>
 
                       <Form id="account-subscriptions-form" onSubmit={onSubmitHandler}>
