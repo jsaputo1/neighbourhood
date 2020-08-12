@@ -56,15 +56,15 @@ VALUES
 
 --Neighbourhood 3 Users
 
-(3, 'p.lacroix@gmail.com', crypt('password', gen_salt('bf')), '(45.541441, -73.635646)', 'Pauline', 'Lacroix', '15146233583', 'https://i.imgur.com/3tVgsra.jpg', 'Bonjour tout le monde! heureuse de faire partie de ce quartier! tellement de belles personnes y vivent!'),
+(3, 'p.lacroix@gmail.com', crypt('password', gen_salt('bf')), '(45.54239, -73.62577)', 'Pauline', 'Lacroix', '15146233583', '/images/users/w5.jpg', 'Bonjour tout le monde! heureuse de faire partie de ce quartier! tellement de belles personnes y vivent!'),
 
-(3, 'james.petit@gmail.com', crypt('password', gen_salt('bf')), '(45.539390, -73.631162)', 'James', 'Petit', '15141234567', '/images/users/m4.png', 'New to the neighbourhood, looking to find some cool events'),
+(3, 'james.petit@gmail.com', crypt('password', gen_salt('bf')), '(45.53979, -73.62693)', 'James', 'Petit', '15141234567', '/images/users/m6.png', 'New to the neighbourhood, looking to find some cool events'),
 
-(3, 'alex.girard@gmail.com', crypt('password', gen_salt('bf')), '(45.539390, -73.631162)', 'Alex', 'Girard', '15141234567', '/images/users/m5.png', 'New to the neighbourhood, looking to find some cool events'),
+(3, 'alex.girard@gmail.com', crypt('password', gen_salt('bf')), '(45.53856, -73.62259)', 'Alex', 'Girard', '15141234567', '/images/users/m7.png', 'New to the neighbourhood, looking to find some cool events'),
 
-(3, 'kara.garner@gmail.com', crypt('password', gen_salt('bf')), '(45.539390, -73.631162)', 'Kara', 'Garner', '15141234567', '/images/users/w6.jpg', 'New to the neighbourhood, looking to find some cool events'),
+(3, 'kara.garner@gmail.com', crypt('password', gen_salt('bf')), '(45.53588, -73.64042)', 'Kara', 'Garner', '15141234567', '/images/users/w6.jpg', 'New to the neighbourhood, looking to find some cool events'),
 
-(3, 'ella.lamb@gmail.com', crypt('password', gen_salt('bf')), '(45.539390, -73.631162)', 'Ella', 'Lamb', '15141234567', '/images/users/w7.jpg', 'New to the neighbourhood, looking to find some cool events'),
+(3, 'ella.lamb@gmail.com', crypt('password', gen_salt('bf')), '(45.53409, -73.62345)', 'Ella', 'Lamb', '15141234567', '/images/users/w7.jpg', 'New to the neighbourhood, looking to find some cool events'),
 
 --Neighbourhood 4 Users
 
@@ -130,11 +130,11 @@ VALUES
 
 --Neighbourhood 3 Events
 
-(3, 15, 3, 'Crafting Night at Sams!', '(45.54098, -73.625174)', '2020-08-03 14:40:34-07', 'Bring whatever crafting projects you are working on, or just bring random materials and make something up :D I will have snacks for everyone.', '2020-08-15',  '17:00:00', 'https://i.imgur.com/FK8V841.jpg'),
+(3, 19, 3, 'Tournoi de tennis', '(45.533355, -73.627170)', '2020-08-01 14:40:34-07', 'Nous sommes de joueuses qui recherchons deux autres joueurs pour organiser des parties de doubles. Nous avons un niveau intermédiaire, pas besoin d être professionnel!', '2020-08-15',  '17:00:00', '/images/events/sports-tennis.jpg'),
 
-(16, 12, 3, 'Garage Sale, mostly furniture', '(45.537536, -73.619220)', '2020-08-03 16:40:34-07', 'I got a new couch and also some other stuff. Gotta make room. Everything is in good condition.', '2020-08-16', '13:00:00', 'https://i.imgur.com/okB9WKC.jpg'),
+(21, 12, 3, 'Vente de garage', '(45.54239, -73.62577)', '2020-08-07 16:40:34-07', 'Je déménage dans 2 semaines et je dois me débarrasser de beaucoup de choses, il y aurait des vêtements et des meubles, venez voir!', '2020-08-16', '11:00:00', '/images/events/Garage-Sale-2.jpg'),
 
-(15, 21, 3, 'Cinema en plein air: Back to the future!', '(45.538950, -73.626219)', '2020-08-03 16:40:34-07', 'Nous installons un ecran géant dans notre cour arrière, et allons visionner le film Retour vers le futur, vintage!. Places limitées à 30, écrivez-moi pour réserver la votre!', '2020-08-22', '19:00:00', 'https://i.imgur.com/okB9WKC.jpg');
+(24, 13, 3, 'Fundraising', '(45.53588, -73.64042)', '2020-08-05 16:40:34-07', 'We are organising a fundraising to get supplies to support those on COVID-19 s front lines', '2020-08-22', '16:00:00', '/images/events/fundraising-1.jpg');
 
 --Neighbourhood 4 Events
 
@@ -155,9 +155,9 @@ VALUES
 
 --Neighbourhood 3 Alerts
 
-(17, 1, 3, 'LOST DOG - Chocolate Lab named Paul', '(45.542615, -73.636909)', '2020-08-01 19:40:34-07', 'My dog, Paul, whom many of you may know, escaped this morning and we still cannot find him. Please message me on here if you see or find him!', 'https://i.imgur.com/iHq8K8Z.jpg'),
+(25, 3, 3, 'CHAT PERDU - Persan blanc nommé Casper', '(45.53409, -73.62345)', '2020-08-01 19:40:34-07', 'Mon chat s est échappé hier matin et malheureusement impossible de le retrouver, écrivez moi si vous le croisez!', '/images/alerts/lost-cat.jpg'),
 
-(14, 2, 3, 'HUGE NEW POTHOLE', '(45.538166, -73.635435)', '2020-08-01 08:40:34-07', 'I drove into a nice big, new pothole here this morning. BE CAREFUL! IT IS REALLY BIG. I think it damaged my car...', 'https://i.imgur.com/3tVgsra.jpg');
+(26, 2, 3, 'HUGE NEW POTHOLE', '(45.542313, -73.638457)', '2020-08-04 08:40:34-07', 'I drove into a nice big, new pothole here this morning. BE CAREFUL! IT IS REALLY BIG. I think it damaged my car...', '/images/alerts/pothole.jpg');
 
 --Neighbourhood 4 Alerts
 
@@ -166,11 +166,11 @@ VALUES
 
 --Neighbourhood 1 Services
 
-(5, 7, 1, true, 'Offering tutoring in Math', '(43.65903, -79.41303)', '2020-08-08 18:46:34-07', 'I am a student in mechanical engineering, offering tutoring in Math for kids age 8-12, my rate is 25$/h, message me!', '/images/services/private-tutoring.jpg'),
+(5, 9, 1, true, 'Offering tutoring in Math', '(43.65903, -79.41303)', '2020-08-08 18:46:34-07', 'I am a student in mechanical engineering, offering tutoring in Math for kids age 8-12, my rate is 25$/h, message me!', '/images/services/private-tutoring.jpg'),
 
-(8, 4, 1, false, 'Need help weeding my lawn', '(43.65878, -79.42172)', '2020-08-10 15:46:34-07', 'Hey everyone! I need to weed my lawn, but my sciatica is really acting up an I need some help. It should take around 2-3 hours, and I will pay $50', '/images/services/yardwork.jpg'),
+(8, 5, 1, false, 'Need help weeding my lawn', '(43.65878, -79.42172)', '2020-08-10 15:46:34-07', 'Hey everyone! I need to weed my lawn, but my sciatica is really acting up an I need some help. It should take around 2-3 hours, and I will pay $50', '/images/services/yardwork.jpg'),
 
-(10, 5, 1, false, 'Leaky Kitchen Faucet', '(43.65768, -79.41084)', '2020-08-11 15:46:34-07', 'Does anybody know how to fix a leaky faucet? I do not want to call a plumber just for this...', '/images/services/Pumbing.jpg'),
+(10, 8, 1, false, 'Leaky Kitchen Faucet', '(43.65768, -79.41084)', '2020-08-11 15:46:34-07', 'Does anybody know how to fix a leaky faucet? I do not want to call a plumber just for this...', '/images/services/Pumbing.jpg'),
 
 --Neighbourhood 2 Services
 
@@ -178,8 +178,11 @@ VALUES
 
 --Neighbourhood 3 Services
 
+(25, 9, 3, true, 'Lessons de piano', '(45.53409, -73.62345)', '2020-08-01 15:46:34-07', 'Je suis étudiant en musique et j offre des lessons de piano, je charge 20$/h, envoyez moi un message!', '/images/services/piano-lesson.jpg'),
 
-(15, 5, 3, false, 'Leaky Kitchen Faucet', '(45.539593, -73.636783)', '2020-08-01 15:46:34-07', 'Does anybody know how to fix a leaky faucet? I do not want to call a plumber just for this...', 'https://i.imgur.com/LpaY82x.png');
+(27, 8, 3, true, 'Réparations de tous types', '(45.53939, -73.631162)', '2020-08-01 15:46:34-07', 'Si vous avez un problème électrique ou de plomberie, je peux vous aidez, je suis retraité du domaine de la construction et je connais bien mon affaire, envoyez-moi un message!', '/images/services/handyman.png'),
+
+(28, 6, 3, false, 'Aide pour personne agée', '(43.65125, -79.41975)', '2020-08-01 15:46:34-07', 'Je cherche quelqu un qui pourrait tenir compagnie à ma grand mère un dimanche par mois, cela peut-être payé 15$/h. Ecrivez moi si cela vous intéresse.', '/images/services/Eldercare.jpg');
 
 --Neighbourhood 4 Services
 
