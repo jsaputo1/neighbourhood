@@ -43,7 +43,7 @@ export default function Calendar(props) {
         let formattedEvent = Object.assign({}, event);
         formattedEvent.start = `${event.event_start.slice(0, 10)}T${
           event.event_time
-        }`;
+          }`;
         switch (formattedEvent.category_id) {
           case 12:
             formattedEvent.color = "#6fb1c7";
@@ -118,6 +118,9 @@ export default function Calendar(props) {
     setOpen(false);
   };
 
+  console.log("I AM DE IONE DE ONE DE ONE", events)
+
+
   return (
     <div>
       <FullCalendar
@@ -148,9 +151,9 @@ export default function Calendar(props) {
         }}
         eventDisplay="block"
         eventClick={handleOpen}
-        // backgroundColor="#add3e0"
-        // borderColor="#add3e0"
-        // eventColor="#6fb1c7"
+      // backgroundColor="#add3e0"
+      // borderColor="#add3e0"
+      // eventColor="#6fb1c7"
       />
       <div>
         <Modal
@@ -186,26 +189,26 @@ export default function Calendar(props) {
                     user_id={selectedEvent.user_id}
                   />
                 ) : (
-                  <PopupCardUserEvent
-                    user_photo={selectedEventUser.profile_photo}
-                    user_first_name={selectedEventUser.first_name}
-                    user_last_name={selectedEventUser.last_name}
-                    time_created={selectedEvent.time_created}
-                    post_photo={selectedEvent.event_photo}
-                    post_description={selectedEvent.description}
-                    post_title={selectedEvent.title}
-                    event_time={selectedEvent.event_time}
-                    event_start={selectedEvent.event_start}
-                    receiver={props.receiver}
-                    setReceiver={props.setReceiver}
-                    user_id={selectedEvent.user_id}
-                    event_id={selectedEvent.id}
-                    handleClose={handleClose}
-                    reloadEvents={getFiltredEventsForNeighbourhood}
-                    events={events}
-                    setEvents={setEvents}
-                  />
-                ))}
+                    <PopupCardUserEvent
+                      user_photo={selectedEventUser.profile_photo}
+                      user_first_name={selectedEventUser.first_name}
+                      user_last_name={selectedEventUser.last_name}
+                      time_created={selectedEvent.time_created}
+                      post_photo={selectedEvent.event_photo}
+                      post_description={selectedEvent.description}
+                      post_title={selectedEvent.title}
+                      event_time={selectedEvent.event_time}
+                      event_start={selectedEvent.event_start}
+                      receiver={props.receiver}
+                      setReceiver={props.setReceiver}
+                      user_id={selectedEvent.user_id}
+                      event_id={selectedEvent.id}
+                      handleClose={handleClose}
+                      reloadEvents={getFiltredEventsForNeighbourhood}
+                      events={events}
+                      setEvents={setEvents}
+                    />
+                  ))}
             </div>
           </Fade>
         </Modal>
