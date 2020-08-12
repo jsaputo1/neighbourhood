@@ -18,11 +18,6 @@ import {
 import { Form } from "react-bootstrap";
 import { Radio, RadioGroup } from "react-radio-group";
 
-// core components
-import GridContainer from "../Material-kit-components/GridContainer.js";
-import GridItem from "../Material-kit-components/GridItem.js";
-import Parallax from "../Material-kit-components/Parallax.js";
-
 // import styles from "./Material-kit-components/landingPage.js";
 import "../../styles.scss";
 

@@ -32,7 +32,6 @@ import DateFnsUtils from "@date-io/date-fns";
 
 // import styles from "./Material-kit-components/landingPage.js";
 import "../../styles.scss";
-import { formatDate } from "@fullcalendar/react";
 
 import filterByNeighbourhood from "../Helpers/filterByNeighbourhood";
 
