@@ -202,7 +202,6 @@ function Services(props) {
   };
 
   const registerService = function (registrationData) {
-    console.log(registrationData);
     axios.post("/services", registrationData).then((response) => {
       setServices(
         filterByNeighbourhood(response.data, props.user.neighbourhood_id)
@@ -448,40 +447,61 @@ function Services(props) {
 
                 </div>
 
-                {filterByCategory(services, state.search, categories).map(
-                  (service) => (
+                {filterByCategory(services, state.search, categories)[0] ?
+
+
+                  filterByCategory(services, state.search, categories).map(
+                    (service) => (
 
 
 
 
-                    <ServicePost
-                      key={service.id}
-                      id={service.id}
-                      user_photo={service.profile_photo}
-                      user_first_name={service.first_name}
-                      user_last_name={service.last_name}
-                      time_created={service.time_created}
-                      post_photo={service.service_photo}
-                      post_description={service.description}
-                      post_title={service.title}
-                      requestOrOffer={requestOrOffer(service.service_offer)}
-                      user_id={service.user_id}
-                      current_user_id={props.user.id}
+                      <ServicePost
+                        key={service.id}
+                        id={service.id}
+                        user_photo={service.profile_photo}
+                        user_first_name={service.first_name}
+                        user_last_name={service.last_name}
+                        time_created={service.time_created}
+                        post_photo={service.service_photo}
+                        post_description={service.description}
+                        post_title={service.title}
+                        requestOrOffer={requestOrOffer(service.service_offer)}
+                        user_id={service.user_id}
+                        current_user_id={props.user.id}
 
-                      handleOpenDelete={handleOpenDelete}
-                      handleCloseDelete={handleCloseDelete}
-                      openDelete={openDelete}
-                      deleteSubmitHandler={deleteSubmitHandler}
+                        handleOpenDelete={handleOpenDelete}
+                        handleCloseDelete={handleCloseDelete}
+                        openDelete={openDelete}
+                        deleteSubmitHandler={deleteSubmitHandler}
 
-                      modalClass={classes.modal}
-                      paperClass={classes.paper}
+                        modalClass={classes.modal}
+                        paperClass={classes.paper}
 
-                      receiver={props.receiver}
-                      setReceiver={props.receiverData}
-                    />
+                        receiver={props.receiver}
+                        setReceiver={props.receiverData}
+                      />
 
+                    )
                   )
-                )
+                  :
+                  <div className="box">
+                    <div className="card">
+                      <div className="card-header">
+                        <div className="d-flex justify-content-between align-items-center">
+                          <div id="SA-no-posts">
+                          </div>
+                        </div>
+                      </div>
+                      <div className="card-body">
+                        <ul className="list-group list-group-flush">
+                          <li id="SA-post-title" className="list-group-item">
+                            <h3 className="card-title">No {state.search} Postings at this time</h3>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                 }
 
               </div>
@@ -506,7 +526,7 @@ export default Services;
                           image={service.service_photo}
                           title={service.title}
                         />
-
+ 
                         <CardHeader
                           avatar={
                             <Avatar
@@ -548,7 +568,7 @@ export default Services;
 
 {
   /* {props.user.id === service.user_id ?
-
+ 
                   <div>
                     <Button onClick={handleOpenDelete}>
                       DELETE Service
@@ -569,7 +589,7 @@ export default Services;
                         <div className={classes.paper}>
                           <h2 id="transition-modal-title">Are you sure you would like to delete this Service?</h2>
                           <Form data-message={service.id} onSubmit={deleteSubmitHandler}>
-
+ 
                             <Button variant="contained" color="secondary" type="submit">
                               Confirm
       </Button>
@@ -582,12 +602,12 @@ export default Services;
                     </Modal>
                   </div>
                   :
-
-
+ 
+ 
                   <button onClick={() => setReceiver(service)}>
                     <Link to={{ pathname: '/newmessage' }}>Send Message</Link>
                   </button>
-
-
+ 
+ 
                 } */
 }

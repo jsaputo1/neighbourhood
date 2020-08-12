@@ -160,6 +160,8 @@ function Alerts(props) {
     return phoneFiltered;
   };
 
+  console.log("ALERTS", alerts)
+
   const sendSubscriptionSMS = async function (postCategory_id) {
     let categoryName = "";
     for (const category of categories) {
@@ -172,7 +174,6 @@ function Alerts(props) {
   };
 
   const registerAlert = function (registrationData) {
-    console.log("REEGISTAERW", registrationData);
     axios.post("/alerts", registrationData).then((response) => {
       setAlerts(
         filterByNeighbourhood(response.data, props.user.neighbourhood_id)
@@ -406,31 +407,51 @@ function Alerts(props) {
                   {/* </Card> */}
                 </div>
 
-                {filterByCategory(alerts, state.search, categories).map(
-                  (alert) => (
-                    <AlertPost
-                      key={alert.id}
-                      id={alert.id}
-                      user_photo={alert.profile_photo}
-                      user_first_name={alert.first_name}
-                      user_last_name={alert.last_name}
-                      time_created={alert.time_created}
-                      post_photo={alert.alert_photo}
-                      post_description={alert.description}
-                      post_title={alert.title}
-                      user_id={alert.user_id}
-                      current_user_id={props.user.id}
-                      handleOpenDelete={handleOpenDelete}
-                      handleCloseDelete={handleCloseDelete}
-                      openDelete={openDelete}
-                      deleteSubmitHandler={deleteSubmitHandler}
-                      modalClass={classes.modal}
-                      paperClass={classes.paper}
-                      receiver={props.receiver}
-                      setReceiver={props.receiverData}
-                    />
+                {filterByCategory(alerts, state.search, categories)[0] ?
+
+                  filterByCategory(alerts, state.search, categories).map(
+                    (alert) => (
+                      <AlertPost
+                        key={alert.id}
+                        id={alert.id}
+                        user_photo={alert.profile_photo}
+                        user_first_name={alert.first_name}
+                        user_last_name={alert.last_name}
+                        time_created={alert.time_created}
+                        post_photo={alert.alert_photo}
+                        post_description={alert.description}
+                        post_title={alert.title}
+                        user_id={alert.user_id}
+                        current_user_id={props.user.id}
+                        handleOpenDelete={handleOpenDelete}
+                        handleCloseDelete={handleCloseDelete}
+                        openDelete={openDelete}
+                        deleteSubmitHandler={deleteSubmitHandler}
+                        modalClass={classes.modal}
+                        paperClass={classes.paper}
+                        receiver={props.receiver}
+                        setReceiver={props.receiverData}
+                      />
+                    )
                   )
-                )}
+                  :
+                  <div className="box">
+                    <div className="card">
+                      <div className="card-header">
+                        <div className="d-flex justify-content-between align-items-center">
+                          <div id="SA-no-posts">
+                          </div>
+                        </div>
+                      </div>
+                      <div className="card-body">
+                        <ul className="list-group list-group-flush">
+                          <li id="SA-post-title" className="list-group-item">
+                            <h3 className="card-title">No {state.search} Postings at this time</h3>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>}
               </div>
               {/* </Parallax> */}
             </div>

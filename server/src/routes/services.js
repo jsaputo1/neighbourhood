@@ -39,7 +39,8 @@ module.exports = (db) => {
         SELECT services.*, users.first_name, users.last_name, users.profile_photo
         FROM services
         JOIN users
-        ON services.user_id = users.id;
+        ON services.user_id = users.id
+        ORDER BY services.time_created DESC;
       `
         );
       })
