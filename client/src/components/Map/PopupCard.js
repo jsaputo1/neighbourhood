@@ -43,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
 export default function PopupCard(props) {
   const classes = useStyles();
 
-  console.log("popupcard props:", props);
   const setReceiver = function (data) {
     props.setReceiver(data);
   };

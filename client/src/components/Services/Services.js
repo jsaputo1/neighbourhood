@@ -2,19 +2,11 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import axios from "axios";
 import ServicePost from "./ServicePost";
-import { Link } from "react-router-dom";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
-  Avatar,
-  Card,
-  CardActionArea,
-  CardHeader,
-  CardContent,
-  CardMedia,
-  Typography,
   FormControl,
   InputLabel,
   Select,

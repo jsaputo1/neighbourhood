@@ -175,7 +175,6 @@ function Events(props) {
 
   //Post request to save the event in the database
   const registerEvent = function (registrationData) {
-    console.log("REEGISTAERW", registrationData);
     axios.post("/events", registrationData).then((response) => {
       setEvents(
         filterByNeighbourhood(response.data, props.user.neighbourhood_id)

@@ -7,7 +7,6 @@ import moment from "moment";
 
 function NewMessage(props) {
 
-  console.log("New Message Props", props);
 
   const [conversations, setConversations] = useState([]);
   const [messages, setMessages] = useState([]);
