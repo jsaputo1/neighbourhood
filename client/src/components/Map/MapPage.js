@@ -19,7 +19,6 @@ function MapPage(props) {
   };
 
   const WrappedMap = withScriptjs(withGoogleMap(Map));
-  console.log("Props before wrapped map:", props);
   return (
     <div>
       <Switchlabels

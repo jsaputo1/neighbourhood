@@ -160,8 +160,6 @@ function Alerts(props) {
     return phoneFiltered;
   };
 
-  console.log("ALERTS", alerts)
-
   const sendSubscriptionSMS = async function (postCategory_id) {
     let categoryName = "";
     for (const category of categories) {

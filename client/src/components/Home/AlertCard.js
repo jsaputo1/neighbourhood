@@ -7,7 +7,6 @@ export default function AlertCard(props) {
   const setReceiver = function (data) {
     props.setReceiver(data);
   };
-  console.log(props);
   const receiverObject = {
     first_name: props.user_first_name,
     last_name: props.user_last_name,

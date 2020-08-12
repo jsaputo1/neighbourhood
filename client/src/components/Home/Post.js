@@ -36,8 +36,6 @@ function Post(props) {
     user_id: props.user_id,
   };
 
-  // console.log(props.user.id);
-  console.log("eventselected", props.eventSelected);
   return (
     <div className="box">
       <div className="card gedf-card">

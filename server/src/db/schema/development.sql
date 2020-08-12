@@ -78,9 +78,9 @@ VALUES
 
 INSERT INTO categories(name, category_type)
 VALUES
-('Emergencies', 'Alerts'),
+('Lost Animals', 'Alerts'),
 ('Notices', 'Alerts'),
-('Lost animals', 'Alerts'),
+('Emergencies', 'Alerts'),
 
 ('Childcare', 'Services'),
 ('Yardwork', 'Services'),
@@ -190,25 +190,24 @@ VALUES
 INSERT INTO subscriptions(user_id, category_id)
 VALUES
 (1, 1),
-(2, 1),
-(3, 1),
-
-(1, 4),
-(2, 4),
-(3, 4),
-
-(1, 12),
-(2, 12),
-(3, 12),
-
 (1, 2),
-(4, 2),
+(1, 3),
+(1, 12),
+(1, 18),
 
-(1, 5),
-(4, 5),
 
-(1, 13),
-(4, 13);
+(2, 2),
+(2, 3),
+(2, 12),
+(2, 18),
+
+(3, 2),
+(3, 3),
+(3, 12),
+(3, 18),
+
+(4, 1);
+
 
 INSERT INTO conversations(user_one, user_two)
 VALUES

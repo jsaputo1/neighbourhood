@@ -38,7 +38,7 @@ function Nav(props) {
         <div className="menu-dropdown">
           <Dropdown isOpen={dropdownOpen} toggle={toggle}>
             <DropdownToggle>
-              Menu <i class="fa fa-chevron-down"></i>
+              Menu <i className="fa fa-chevron-down"></i>
             </DropdownToggle>
             <DropdownMenu>
               <NavLink to="/home">
@@ -59,7 +59,7 @@ function Nav(props) {
         <div className="menu-dropdown-mobile">
           <Dropdown isOpen={dropdownOpen} toggle={toggle}>
             <DropdownToggle>
-              <i class="fa fa-bars"></i>
+              <i className="fa fa-bars"></i>
             </DropdownToggle>
             <DropdownMenu>
               <NavLink to="/home">
@@ -91,42 +91,42 @@ function Nav(props) {
           <img src="https://i.imgur.com/EGdzKq0.png" alt="banner-logo" />
         </NavLink>
       </div>
-      <div class="right-side-nav">
+      <div className="right-side-nav">
         {props.user === undefined ? (
           <Link className="link-style" to="/Login">
             Login
           </Link>
         ) : (
-            <div class="right-side-nav">
+            <div className="right-side-nav">
               <Link className="link-style" to="/Map">
-                <i class="fa fa-map"></i>
+                <i className="fa fa-map"></i>
               </Link>
               <div className="message-icon">
                 {messageNotification === true ? (
-                  <div class="message-icon-text">
-                    <i class="fa fa-exclamation"></i>
+                  <div className="message-icon-text">
+                    <i className="fa fa-exclamation"></i>
                   </div>
                 ) : (
-                    <div class="no-message-icon-text">
+                    <div className="no-message-icon-text">
                     </div>
                   )}
                 <Link className="link-style" to="/Messages">
-                  <i class="fa fa-comment-o fa-2x" aria-hidden="true" onClick={removeNotification}></i>
+                  <i className="fa fa-comment-o fa-2x" aria-hidden="true" onClick={removeNotification}></i>
                 </Link>
               </div>
               <div className="user-info-nav">
-                <img src={props.user.profile_photo} alt="profile-picture" />
+                <img src={props.user.profile_photo} alt="profile" />
                 <h3>{props.user.first_name} {props.user.last_name}</h3>
               </div>
               <div className="user-dropdown">
                 <Dropdown isOpen={userDropdownOpen} toggle={toggleUserDropdown} className="user-dropdown-toggle-show">
                   <DropdownToggle>
-                    <i class="fa fa-chevron-down"></i>
+                    <i className="fa fa-chevron-down"></i>
                   </DropdownToggle>
                   <DropdownMenu right>
                     <DropdownItem header>
                       <figure className="user-dropdown-figure">
-                        <img src={props.user.profile_photo} alt="profile-picture" />
+                        <img src={props.user.profile_photo} alt="profile" />
                         {props.user.first_name} {props.user.last_name}
                       </figure>
                       <DropdownItem divider />

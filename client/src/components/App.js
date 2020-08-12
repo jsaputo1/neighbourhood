@@ -27,11 +27,9 @@ function App() {
   const [subscriptions, setSubscriptions] = useState([]);
 
   const fetchCategoriesAndSubscriptions = async () => {
-    console.log("call");
     const data = await axios.get("http://localhost:8001/categories");
     setCategories(data.data);
     const mata = await axios.get("http://localhost:8001/subscriptions");
-    console.log("FETCH CATEGORIES IN APP", mata.data);
     setSubscriptions(mata.data);
   };
 
@@ -112,12 +110,6 @@ function App() {
             user={state.user}
           ></Account>
         </Route>
-        <Route path="/editUserInformation" exact>
-          <EditUserInformation
-            user={state.user}
-            editUser={setUser}
-          ></EditUserInformation>
-        </Route>
       </Switch>
     </div>
   );
@@ -137,6 +129,12 @@ function App() {
             user={state.user}
             register={setUser}
           ></SelectNeighbourhood>
+        </Route>
+        <Route path="/editUserInformation" exact>
+          <EditUserInformation
+            user={state.user}
+            editUser={setUser}
+          ></EditUserInformation>
         </Route>
         {/* These are the paths were we will see the navbar */}
         <Route component={Website} />

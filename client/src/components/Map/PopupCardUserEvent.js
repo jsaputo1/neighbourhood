@@ -44,11 +44,9 @@ const useStyles = makeStyles((theme) => ({
 export default function PopupCardAlert(props) {
   const classes = useStyles();
 
-  console.log("Props on popup card:", props);
 
   const deleteSubmitHandler = function (event) {
     event.preventDefault();
-    console.log("PROPS", props);
     deleteEvent({
       user_id: props.user_id,
       title: props.post_title,
@@ -59,7 +57,6 @@ export default function PopupCardAlert(props) {
   const deleteEvent = async function (registrationData) {
     await axios.delete("/events/delete", { data: registrationData })
       .then((response) => {
-        console.log("LOVERS GAJSAJDASDASDASD", response.data)
         const x = props.events.filter((event) => event.id !== response.data[0].id)
         props.setEvents(x);
       });

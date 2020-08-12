@@ -175,7 +175,6 @@ function Events(props) {
 
   //Post request to save the event in the database
   const registerEvent = function (registrationData) {
-    console.log("REEGISTAERW", registrationData);
     axios.post("/events", registrationData).then((response) => {
       setEvents(
         filterByNeighbourhood(response.data, props.user.neighbourhood_id)
@@ -218,7 +217,7 @@ function Events(props) {
   return (
     <div className="main">
       <div className="menu">
-        <FormControl variant="filled" className={classes.formControl}>
+        <FormControl id="event-filter-by-category" variant="filled" className={classes.formControl}>
           <InputLabel htmlFor="outlined-age-native-simple" id="z-index-zero">
             Filter By Category
           </InputLabel>

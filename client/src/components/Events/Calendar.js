@@ -43,7 +43,7 @@ export default function Calendar(props) {
         let formattedEvent = Object.assign({}, event);
         formattedEvent.start = `${event.event_start.slice(0, 10)}T${
           event.event_time
-        }`;
+          }`;
         switch (formattedEvent.category_id) {
           case 12:
             formattedEvent.color = "#6fb1c7";
@@ -77,8 +77,6 @@ export default function Calendar(props) {
         return formattedEvent;
       });
 
-      console.log("FORMATEDD EVENTSASDASD A", formatedEvents);
-
       setEvents(formatedEvents);
     });
   };
@@ -103,7 +101,6 @@ export default function Calendar(props) {
   }, [selectedEvent]);
 
   const handleOpen = (info) => {
-    console.log("HANDLE OPEN INFO", info.event.extendedProps);
     const title = info.event.title;
     const event_info = info.event.extendedProps;
     const event = {
@@ -118,108 +115,109 @@ export default function Calendar(props) {
     setOpen(false);
   };
 
-  // console.log("I AM DE IONE DE ONE DE ONE", events)
 
   return (
-    <div>
-      <FullCalendar
-        plugins={[dayGridPlugin]}
-        initialView="dayGridMonth"
-        height="70vh"
-        themeSystem="standard"
-        customButtons={{
-          myCustomButton: {
-            text: "Add Event",
-            click: function () {
-              {
-                props.handleOpen();
-              }
+    <div className="box">
+      <div className="card" id="calendar-wrapper">
+        <FullCalendar
+          plugins={[dayGridPlugin]}
+          initialView="dayGridMonth"
+          height="70vh"
+          themeSystem="standard"
+          customButtons={{
+            myCustomButton: {
+              text: "Add Event",
+              click: function () {
+                {
+                  props.handleOpen();
+                }
+              },
             },
-          },
-        }}
-        headerToolbar={{
-          left: "myCustomButton",
-          center: "title",
-          right: "today prev,next",
-        }}
-        events={events}
-        eventTimeFormat={{
-          hour: "numeric",
-          minute: "2-digit",
-          meridiem: "short",
-        }}
-        eventDisplay="block"
-        eventClick={handleOpen}
+          }}
+          headerToolbar={{
+            left: "myCustomButton",
+            center: "title",
+            right: "today prev,next",
+          }}
+          events={events}
+          eventTimeFormat={{
+            hour: "numeric",
+            minute: "2-digit",
+            meridiem: "short",
+          }}
+          eventDisplay="block"
+          eventClick={handleOpen}
         // backgroundColor="#add3e0"
         // borderColor="#add3e0"
         // eventColor="#6fb1c7"
-      />
-      <div>
-        <Modal
-          aria-labelledby="transition-modal-title"
-          aria-describedby="transition-modal-description"
-          className={classes.modal}
-          open={open}
-          onClose={handleClose}
-          closeAfterTransition
-          BackdropComponent={Backdrop}
-          BackdropProps={{
-            timeout: 500,
-          }}
-        >
-          <Fade in={open}>
-            <div>
-              {selectedEvent &&
-                selectedEventUser &&
-                (props.user.id !== selectedEvent.user_id ? (
-                  <PopupCard
-                    user={props.user}
-                    user_photo={selectedEventUser.profile_photo}
-                    user_first_name={selectedEventUser.first_name}
-                    user_last_name={selectedEventUser.last_name}
-                    time_created={selectedEvent.time_created}
-                    coordinates={selectedEvent.coordinates}
-                    post_photo={selectedEvent.event_photo}
-                    post_description={selectedEvent.description}
-                    post_title={selectedEvent.title}
-                    event_time={selectedEvent.event_time}
-                    event_start={selectedEvent.event_start}
-                    event_date={`${selectedEvent.event_start.slice(0, 10)}T${
-                      selectedEvent.event_time
-                    }.000Z`}
-                    receiver={props.receiver}
-                    setReceiver={props.setReceiver}
-                    user_id={selectedEvent.user_id}
-                    eventSelected={props.eventSelected}
-                    setEvent={props.setEvent}
-                    isOnMap={false}
-                  />
-                ) : (
-                  <PopupCardUserEvent
-                    user_photo={selectedEventUser.profile_photo}
-                    user_first_name={selectedEventUser.first_name}
-                    user_last_name={selectedEventUser.last_name}
-                    time_created={selectedEvent.time_created}
-                    post_photo={selectedEvent.event_photo}
-                    post_description={selectedEvent.description}
-                    post_title={selectedEvent.title}
-                    event_time={selectedEvent.event_time}
-                    event_start={selectedEvent.event_start}
-                    receiver={props.receiver}
-                    setReceiver={props.setReceiver}
-                    user_id={selectedEvent.user_id}
-                    event_id={selectedEvent.id}
-                    handleClose={handleClose}
-                    reloadEvents={getFiltredEventsForNeighbourhood}
-                    events={events}
-                    setEvents={setEvents}
-                    eventSelected={props.eventSelected}
-                    setEvent={props.setEvent}
-                  />
-                ))}
-            </div>
-          </Fade>
-        </Modal>
+        />
+        <div>
+          <Modal
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            className={classes.modal}
+            open={open}
+            onClose={handleClose}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+          >
+            <Fade in={open}>
+              <div>
+                {selectedEvent &&
+                  selectedEventUser &&
+                  (props.user.id !== selectedEvent.user_id ? (
+                    <PopupCard
+                      user={props.user}
+                      user_photo={selectedEventUser.profile_photo}
+                      user_first_name={selectedEventUser.first_name}
+                      user_last_name={selectedEventUser.last_name}
+                      time_created={selectedEvent.time_created}
+                      coordinates={selectedEvent.coordinates}
+                      post_photo={selectedEvent.event_photo}
+                      post_description={selectedEvent.description}
+                      post_title={selectedEvent.title}
+                      event_time={selectedEvent.event_time}
+                      event_start={selectedEvent.event_start}
+                      event_date={`${selectedEvent.event_start.slice(0, 10)}T${
+                        selectedEvent.event_time
+                        }.000Z`}
+                      receiver={props.receiver}
+                      setReceiver={props.setReceiver}
+                      user_id={selectedEvent.user_id}
+                      eventSelected={props.eventSelected}
+                      setEvent={props.setEvent}
+                      isOnMap={false}
+                    />
+                  ) : (
+                      <PopupCardUserEvent
+                        user_photo={selectedEventUser.profile_photo}
+                        user_first_name={selectedEventUser.first_name}
+                        user_last_name={selectedEventUser.last_name}
+                        time_created={selectedEvent.time_created}
+                        post_photo={selectedEvent.event_photo}
+                        post_description={selectedEvent.description}
+                        post_title={selectedEvent.title}
+                        event_time={selectedEvent.event_time}
+                        event_start={selectedEvent.event_start}
+                        receiver={props.receiver}
+                        setReceiver={props.setReceiver}
+                        user_id={selectedEvent.user_id}
+                        event_id={selectedEvent.id}
+                        handleClose={handleClose}
+                        reloadEvents={getFiltredEventsForNeighbourhood}
+                        events={events}
+                        setEvents={setEvents}
+                        eventSelected={props.eventSelected}
+                        setEvent={props.setEvent}
+                      />
+                    ))}
+              </div>
+            </Fade>
+          </Modal>
+        </div>
       </div>
     </div>
   );

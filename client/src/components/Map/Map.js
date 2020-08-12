@@ -6,7 +6,6 @@ import mapStyles from "./mapStyles";
 import Boundaries from "./Boundaries";
 
 function Map(props) {
-  console.log("map props:", props);
   //All the states are managed here
   const [neighbourhoodCoordinates, setneighbourhoodCoordinates] = useState({
     lat: 4.538901,
@@ -55,7 +54,6 @@ function Map(props) {
       const usersInNeighbourhood = users.filter(
         (user) => user.neighbourhood_id === id && user.id !== props.user.id
       );
-      // console.log(usersInNeighbourhood);
       setUsers(usersInNeighbourhood);
     });
   };
@@ -76,7 +74,6 @@ function Map(props) {
       const servicesInNeighbourhood = services.filter(
         (service) => service.neighbourhood_id === id
       );
-      // console.log(servicesInNeighbourhood);
       setServices(servicesInNeighbourhood);
     });
   };
@@ -87,7 +84,6 @@ function Map(props) {
       const alertsInNeighbourhood = alerts.filter(
         (alert) => alert.neighbourhood_id === id
       );
-      // console.log(alertsInNeighbourhood);
       setAlerts(alertsInNeighbourhood);
     });
   };
@@ -96,7 +92,6 @@ function Map(props) {
     axios.get("/users/profile-info").then((response) => {
       const users = response.data;
       const userForSelectedPin = users.find((user) => user.id === id);
-      console.log(userForSelectedPin);
       setSelectedPinUser(userForSelectedPin);
     });
   };
