@@ -20,9 +20,10 @@ module.exports = (db) => {
       request.body.email,
       request.body.lastName,
       request.body.password,
-      `(${request.body.coordinates.latitude}, ${request.body.coordinates.longitude})`,
+      request.body.coordinates,
       request.body.url ? request.body.url : 'https://i.imgur.com/j6IJGS2.png',
-      request.body.bio
+      request.body.bio,
+      request.body.phoneNumber
     ];
 
     findUserByEmail(request.body.email)
@@ -32,8 +33,8 @@ module.exports = (db) => {
         } else {
           db.query(
             `
-        INSERT INTO users (first_name, email, last_name, password, coordinates, profile_photo, bio)
-        VALUES ($1, $2, $3, crypt($4, gen_salt('bf')), $5, $6, $7)
+        INSERT INTO users (first_name, email, last_name, password, coordinates, profile_photo, bio, phone_number)
+        VALUES ($1, $2, $3, crypt($4, gen_salt('bf')), $5, $6, $7, $8)
         RETURNING *;
           `,
             values
@@ -41,7 +42,7 @@ module.exports = (db) => {
             .then((data) => {
               const userObj = data.rows[0];
               request.session["user_id"] = userObj.id;
-              console.log("user cookie is:", request.session["user_id"]);
+              // console.log("user cookie is:", request.session["user_id"]);
               response.status(200).json(userObj);
               // console.log("User registered successfully with the following values", userObj);
             });
