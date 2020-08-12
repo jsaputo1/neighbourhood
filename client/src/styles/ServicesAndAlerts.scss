@@ -13,7 +13,11 @@
 .all-postings {
     margin-top: -2rem;
     max-width: 100%;
-  }
+
+    .card-body {
+      background-color: white !important;
+    }
+}
 
   #services-alerts-title {
     margin-top: 6rem;
@@ -26,11 +30,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: white !important;
 }
 
 #services-alerts-header {
   display: flex;
   justify-content: center;
+  background-color: white;
 }
 
 #services-alerts-spreader {

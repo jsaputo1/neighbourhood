@@ -217,7 +217,7 @@ function Events(props) {
   return (
     <div className="main">
       <div className="menu">
-        <FormControl variant="filled" className={classes.formControl}>
+        <FormControl id="event-filter-by-category" variant="filled" className={classes.formControl}>
           <InputLabel htmlFor="outlined-age-native-simple" id="z-index-zero">
             Filter By Category
           </InputLabel>
