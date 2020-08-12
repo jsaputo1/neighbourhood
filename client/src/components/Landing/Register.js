@@ -41,7 +41,9 @@ function Register(props) {
       lastName: event.target.elements['formBasicLastname'].value,
       email: event.target.elements['formBasicEmail'].value,
       password: event.target.elements['formBasicPassword'].value,
-      coordinates
+      coordinates,
+      url: event.target.elements['formBasicProfileURL'].value,
+      bio: event.target.elements['formBasicBio'].value,
     });
   };
 
@@ -83,6 +85,19 @@ function Register(props) {
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="Password" />
+            </Form.Group>
+            <Form.Group controlId="formBasicProfileURL">
+              <Form.Label>Photo (URL or blank)</Form.Label>
+              <Form.Control type="url" />
+            </Form.Group>
+            <Form.Group controlId="formBasicBio">
+              <Form.Label>Write a Bio</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows="3"
+                type="textarea"
+                placeholder="Write something about yourself"
+              />
             </Form.Group>
             <Button variant="contained" color="primary" type="submit">
               Register

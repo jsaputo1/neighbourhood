@@ -20,7 +20,9 @@ module.exports = (db) => {
       request.body.email,
       request.body.lastName,
       request.body.password,
-      `(${request.body.coordinates.latitude}, ${request.body.coordinates.longitude})`
+      `(${request.body.coordinates.latitude}, ${request.body.coordinates.longitude})`,
+      request.body.url,
+      request.body.bio
     ];
 
     findUserByEmail(request.body.email)
@@ -30,8 +32,8 @@ module.exports = (db) => {
         } else {
           db.query(
             `
-        INSERT INTO users (first_name, email, last_name, password, coordinates)
-        VALUES ($1, $2, $3, crypt($4, gen_salt('bf')), $5)
+        INSERT INTO users (first_name, email, last_name, password, coordinates, profile_photo, bio)
+        VALUES ($1, $2, $3, crypt($4, gen_salt('bf')), $5, $6, $7)
         RETURNING *;
           `,
             values
