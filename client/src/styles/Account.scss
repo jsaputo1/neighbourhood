@@ -100,12 +100,10 @@ flex-wrap: wrap;
 .account-subscriptions-category{
 margin-top: .2rem;
 margin-bottom: -.1px;
-text-decoration: underline;
 }
 
 
 #account-subscription-title {
-    text-decoration: underline;
     margin-bottom: 1rem;
 }
 
@@ -117,4 +115,13 @@ margin-top: 1.5rem;
 
 #account-subscription-cancel-button{
     margin-left: 2rem;
+}
+
+#account-SMS-note {
+    display: flex;
+    justify-content: center;
+margin-top: -1rem;
+line-height: 1rem;
+font-size: 1rem;
+color :#5f5f64;
 }

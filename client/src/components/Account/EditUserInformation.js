@@ -78,9 +78,15 @@ function EditUserInformation(props) {
                             <Form.Control defaultValue={props.user.bio} as="textarea" rows="3" type="textarea" placeholder="Write something about yourself" />
                         </Form.Group>
 
+<<<<<<< HEAD
                         <Link className="change-neighbourhood-link" to="/selectNeighbourhood">
                             <h2>Change Neighbourhood</h2>
                         </Link>
+=======
+                        <Button variant="outlined" color="primary" href="/selectNeighbourhood">
+                            Change Neighbourhood
+                            </Button>
+>>>>>>> 34157da15bab4aa40c77092ec18dd8f469c903f6
 
                         <div className="edit-form-buttons">
                             <Button variant="contained" color="primary" type="submit">

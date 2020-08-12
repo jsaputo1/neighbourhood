@@ -2,6 +2,11 @@
   box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   margin-top: 3rem;
   margin-bottom: 3rem;
+
+}
+
+.box:hover {
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .box:hover {
@@ -11,6 +16,10 @@
 .eventpost-photo {
   width: 100%;
   height: 300px;
+
+.post-photo {
+  width: 30%;
+  height: 30%;
   object-fit: cover;
   border-radius: 10px;
 }
@@ -30,6 +39,7 @@
   align-items: center;
 }
 
+<<<<<<< HEAD
 .event-date {
   display: flex;
   align-items: center;
@@ -55,6 +65,28 @@
     margin-left: 7.3rem;
     margin-bottom: 0.8rem;
   }
+=======
+
+#SA-post-message-or-new {
+margin-left: auto;
+margin-right: -4.5rem;
+width: 15rem;
+}
+
+#service-post-delete-button {
+  margin-left: -.75rem;
+  width: 11.5rem;
+margin-right: 12rem;
+}
+
+#SA-post-message {
+
+  i {
+    margin-left: 7.3rem;
+    margin-bottom: .8rem;
+  }
+  
+>>>>>>> 34157da15bab4aa40c77092ec18dd8f469c903f6
 }
 
 #SA-post-title {
@@ -63,13 +95,23 @@
 }
 
 .service-offer-request {
+<<<<<<< HEAD
   margin-top: -0.2rem;
   font-size: 12px;
   margin-left: 0.1rem;
+=======
+  margin-top: -.2rem;
+font-size: 12px;
+margin-left: .1rem;
+>>>>>>> 34157da15bab4aa40c77092ec18dd8f469c903f6
 }
 
 #SA-no-posts {
   margin-right: 1rem;
   margin-left: -1rem;
   width: 43rem;
+<<<<<<< HEAD
 }
+=======
+  }
+>>>>>>> 34157da15bab4aa40c77092ec18dd8f469c903f6
