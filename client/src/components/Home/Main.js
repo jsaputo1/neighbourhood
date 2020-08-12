@@ -28,17 +28,16 @@ function Main(props) {
   }, []);
   return (
     <div className="col-md-6 gedf-main">
-      {/* <div className="carousel-container">
-        <AlertsCarousel
-          user={props.user}
-          receiver={props.receiver}
-          setReceiver={props.setReceiver}
-        />
-      </div> */}
       <div className="upcoming-events">
-        <div>
-          <h2>Upcoming Events in your neighbourhood</h2>
+        <div className="card gedf-card box">
+          <div className="card-header">
+            <div className="d-flex align-items-center">
+              <h2>Upcoming Events in your neighbourhood</h2>
+            </div>
+          </div>
         </div>
+
+        <div></div>
         {events.map(
           (event) =>
             new Date(event.event_start) >= new Date() && (

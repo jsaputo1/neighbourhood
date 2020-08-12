@@ -25,3 +25,11 @@
   flex-direction: row;
   align-items: center;
 }
+
+.event-date {
+  display: flex;
+  align-items: center;
+  i {
+    padding-right: 10px;
+  }
+}

@@ -82,7 +82,7 @@ function Post(props) {
           </div>
         </div>
         <div className="card-body">
-          <div className="text-muted h7 mb-2">
+          <div className="text-muted h7 mb-2 event-date">
             {" "}
             <i className="fa fa-clock-o fa-2x"></i>
             {}

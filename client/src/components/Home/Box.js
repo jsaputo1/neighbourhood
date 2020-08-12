@@ -38,7 +38,7 @@ function Box(props) {
       <div className="card box box-left">
         <div className="card-body">
           <div className="h5">
-            Welcome {props.user.first_name} {props.user.last_name}
+            Welcome {props.user.first_name} {props.user.last_name}!
           </div>
         </div>
         <ul className="list-group list-group-flush">
