@@ -107,6 +107,22 @@ INSERT INTO events(user_id, category_id, neighbourhood_id, title, coordinates, t
 VALUES
 
 --Neighbourhood 1 Events
+(2, 18, 1, 'Film screening: back to the future!!!', '(43.657603, -79.411882)', '2020-08-04 15:40:34-07', 'Come join us to watch Back to the future. We have installed a giant screen in our backyard. Places limited to 15, write me a message to book your spot!', '2020-08-21', '20:00:00', '/images/events/party-film-screening.jpg'),
+
+(4, 15, 1, 'Macrame workshop!', '(43.65125, -79.41975)', '2020-08-02 14:40:34-07', 'Come and join me for a macrame workshop. I just ask for a 5$ participation for the material and you will come back home with a nice plant holder! I will have snacks for everyone.', '2020-08-16',  '14:00:00', '/images/events/crafts-macrame.jpg'),
+
+(5, 12, 1, 'Garage Sale, mostly furniture', '(43.65903, -79.41303)', '2020-08-01 16:40:34-07', 'I got a new couch and also some other stuff. Gotta make room. Everything is in good condition.', '2020-08-15', '12:00:00', '/images/events/Garage-Sale-1.jpg'),
+
+(6, 19, 1, 'Basketball', '(43.65125, -79.41975)', '2020-08-09 16:40:34-07', 'We need some more people to play basketball on saturdays. We are beginners, so no worries, everybody is accepted!', '2020-08-15', '16:00:00', '/images/events/sports-basketball.jpg'),
+
+(8, 14, 1, 'Music jams on fridays!', '(43.65878, -79.42172)', '2020-08-07 16:40:34-07', 'We are looking for a guitarist for our band, we are very rock 90s, just leave me a message if you want to join us!', '2020-08-14', '19:00:00', '/images/events/music-jam-2.jpg'),
+
+(9, 16, 1, 'Kids party with pinata', '(43.65277, -79.41584)', '2020-08-01 16:40:34-07', 'It is Mathias 10th birthday, and for the occasion we are bying his first pinata. kids and their parents are invited to jave fun with us! Lots of candies!', '2020-08-23', '13:00:00', '/images/events/kids-pinata.jpg'),
+
+(10, 20, 1, 'Chest for seniors', '(43.65768, -79.41084)', '2020-08-03 16:40:34-07', 'We are organising chest games for seniors one sunday a month at the Saint Gregoire church, but anyone can join, we don t discriminate on age. ;)', '2020-08-30', '13:00:00', '/images/events/games-chest-senior.jpg'),
+
+(11, 15, 1, 'Painting nights', '(43.65322, -79.41035)', '2020-08-05 16:40:34-07', 'I am learning aquarelle, and would love to have some company to learn from each other. Leave me a message!;)', '2020-08-26', '17:00:00', '/images/events/crafts-painting.jpg'),
+
 
 --Neighbourhood 2 Events
 
@@ -126,6 +142,7 @@ INSERT INTO alerts(user_id, category_id,  neighbourhood_id, title, coordinates, 
 VALUES
 
 --Neighbourhood 1 Alerts
+
 
 --Neighbourhood 2 Alerts
 
