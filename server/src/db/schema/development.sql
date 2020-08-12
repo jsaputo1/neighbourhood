@@ -14,17 +14,33 @@ VALUES
 
 (1, 'jsaputo1@gmail.com', crypt('password', gen_salt('bf')), '(43.657603, -79.411882)', 'John', 'Saputo', '16472441907', '/images/users/john.jpg', 'John is one of the people who made this web-app.'),
 
-(3, 'samantha.gadet@gmail.com', crypt('password', gen_salt('bf')), '(45.539652, -73.629813)', 'Sam', 'Gadet', '15146233583', 'https://i.imgur.com/3tVgsra.jpg', 'Sam is one of the people who made this web-app.'),
+(3, 'samantha.gadet@gmail.com', crypt('password', gen_salt('bf')), '(45.539652, -73.629813)', 'Sam', 'Gadet', '15146233583', '/images/users/Sam.JPG', 'Sam is one of the people who made this web-app.'),
 
 -- Neighbourhood 1 Users 
 
-(1, 'brigette.presley@gmail.com', crypt('password', gen_salt('bf')), '(43.655573, -79.415224)', 'Brigette', 'Presley', '14161234567', '/images/users/w1.png', 'New to the neighbourhood, looking to find some cool events'),
+(1, 'brigette.presley@gmail.com', crypt('password', gen_salt('bf')), '(43.65125, -79.41975)', 'Brigette', 'Presley', '14161234567', '/images/users/w1.png', 'New to the neighbourhood, looking to find some cool events'),
 
-(1, 'tiffany.caruso@gmail.com', crypt('password', gen_salt('bf')), '(43.655573, -79.415224)', 'Tiffany', 'Caruso', '14161234567', '/images/users/w2.jpg', 'New to the neighbourhood, looking to find some cool events'),
+(1, 'tiffany.caruso@gmail.com', crypt('password', gen_salt('bf')), '(43.65903, -79.41303)', 'Tiffany', 'Caruso', '14161234567', '/images/users/w2.jpg', 'New to the neighbourhood, looking to find some cool events'),
 
-(1, 'joseph.martin@gmail.com', crypt('password', gen_salt('bf')), '(43.655573, -79.415224)', 'Joseph', 'Martin', '14161234567', '/images/users/m1.png', 'New to the neighbourhood, looking to find some cool events'),
+(1, 'joseph.martin@gmail.com', crypt('password', gen_salt('bf')), '(43.6541, -79.40807)', 'Joseph', 'Martin', '14161234567', '/images/users/m1.png', 'New to the neighbourhood, looking to find some cool events'),
 
 (1, 'stephanie.nimmo@gmail.com', crypt('password', gen_salt('bf')), '(43.655573, -79.415224)', 'Stephanie', 'Nimmo', '14161234567', '/images/users/w3.jpg', 'New to the neighbourhood, looking to find some cool events'),
+
+(1, 'ethan.moreau@gmail.com', crypt('password', gen_salt('bf')), '(43.65878, -79.42172)', 'Ethan', 'Moreau', '15141234567', '/images/users/m6.png', 'New to the neighbourhood, looking to find some cool events'),
+
+(1, 'zachary.lopez@gmail.com', crypt('password', gen_salt('bf')), '(43.65277, -79.41584)', 'Zachary', 'Lopez', '15141234567', '/images/users/m7.png', 'New to the neighbourhood, looking to find some cool events'),
+
+(1, 'mia.goodman@gmail.com', crypt('password', gen_salt('bf')), '(43.65768, -79.41084)', 'Mia', 'Goodman', '15141234567', '/images/users/w8.jpg', 'New to the neighbourhood, looking to find some cool events'),
+
+(1, 'kara.garner@gmail.com', crypt('password', gen_salt('bf')), '(43.65322, -79.41035)', 'Kara', 'Garner', '15141234567', '/images/users/w6.jpg', 'New to the neighbourhood, looking to find some cool events'),
+
+(1, 'ella.lamb@gmail.com', crypt('password', gen_salt('bf')), '(43.65732, -79.4167)', 'Ella', 'Lamb', '15141234567', '/images/users/w7.jpg', 'New to the neighbourhood, looking to find some cool events'),
+
+(1, 'rosie.cruz@gmail.com', crypt('password', gen_salt('bf')), '(43.65528, -79.42037)', 'Rosie', 'Cruz', '14161234567', '/images/users/w4.jpg', 'New to the neighbourhood, looking to find some cool events'),
+
+(1, 'tyler.johnson@gmail.com', crypt('password', gen_salt('bf')), '(43.65257, -79.41342)', 'tyler', 'Johnson', '14161234567', '/images/users/m2.png', 'New to the neighbourhood, looking to find some cool events'),
+
+(1, 'corben.kushneryk@hotmail.com', crypt('password', gen_salt('bf')), '(43.65522, -79.41749)', 'Corben', 'Kushneryk', '17809189819', 'https://i.imgur.com/FK8V841.jpg', 'Corben did not make this app, but his phone was hijacked for testing-purposes'),
 
 -- Neighbourhood 2 Users
 
@@ -56,7 +72,7 @@ VALUES
 
 (4, 'zachary.lopez@gmail.com', crypt('password', gen_salt('bf')), '(45.539390, -73.631162)', 'Zachary', 'Lopez', '15141234567', '/images/users/m7.png', 'New to the neighbourhood, looking to find some cool events'),
 
-(4, 'mia.goodman@gmail.com', crypt('password', gen_salt('bf')), '(45.539390, -73.631162)', 'Mia', 'Goodman', '15141234567', '/images/users/w8.jpg', 'New to the neighbourhood, looking to find some cool events'),
+(4, 'mia.goodman@gmail.com', crypt('password', gen_salt('bf')), '(43.65125, -79.41975)', 'Mia', 'Goodman', '15141234567', '/images/users/w8.jpg', 'New to the neighbourhood, looking to find some cool events'),
 
 (4, 'sara.costa@gmail.com', crypt('password', gen_salt('bf')), '(45.539390, -73.631162)', 'Sara', 'Costa', '15141234567', '/images/users/w9.png', 'New to the neighbourhood, looking to find some cool events');
 
