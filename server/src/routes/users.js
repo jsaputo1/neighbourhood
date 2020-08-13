@@ -21,7 +21,7 @@ module.exports = (db) => {
       request.body.lastName,
       request.body.password,
       request.body.coordinates,
-      request.body.url ? request.body.url : 'https://i.imgur.com/j6IJGS2.png',
+      request.body.url ? request.body.url : 'https://i.imgur.com/H9g7VHP.png',
       request.body.bio,
       request.body.phoneNumber
     ];
