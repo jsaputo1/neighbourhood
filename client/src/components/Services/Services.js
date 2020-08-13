@@ -258,7 +258,7 @@ function Services(props) {
 
                 <div id="services-alerts-title" className="box">
                   <div id="services-alerts-header" className="card-header">
-                    <h1><u><b>Services</b></u></h1>
+                    <h1>Services</h1>
                   </div>
                   <div id="services-alerts-title-buttons">
 

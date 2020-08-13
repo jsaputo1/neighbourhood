@@ -1,9 +1,3 @@
-// #wrapper {
-//     background-image: url(../assets/img/carpentry.jpeg);
-//     background-repeat: no-repeat;
-//   background-attachment: fixed;
-//   background-size: cover;
-// }
 
 .postingRow {
     display: flex;
@@ -20,7 +14,7 @@
 }
 
   #services-alerts-title {
-    margin-top: 6rem;
+    margin-top: 4.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -33,10 +27,16 @@
   background-color: white !important;
 }
 
+
 #services-alerts-header {
   display: flex;
   justify-content: center;
-  background-color: white;
+  background-color: white !important;
+  font-family: $titleFont;
+
+  h1 {
+  font-size: 3.5rem !important;
+  }
 }
 
 #services-alerts-spreader {

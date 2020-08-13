@@ -10,6 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 //That is our own styling sheet
 import "./styles.scss";
 
+
 ReactDOM.render(
   // <React.StrictMode>
   <ThemeProvider theme={theme}>

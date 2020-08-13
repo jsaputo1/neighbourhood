@@ -228,7 +228,7 @@ function Alerts(props) {
               <div className="all-postings">
                 <div id="services-alerts-title" className="box">
                   <div id="services-alerts-header" className="card-header">
-                    <h1><u><b>Alerts</b></u></h1>
+                    <h1>Alerts</h1>
                   </div>
                   <div id="services-alerts-title-buttons">
 
