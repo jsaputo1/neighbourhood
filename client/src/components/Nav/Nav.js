@@ -88,7 +88,7 @@ function Nav(props) {
       </div>
       <div className="middle-nav">
         <NavLink to="/home">
-          <img src="https://i.imgur.com/EGdzKq0.png" alt="banner-logo" />
+          <img src="/images/banner-black.png" alt="banner-logo" />
         </NavLink>
       </div>
       <div className="right-side-nav">
