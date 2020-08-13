@@ -127,7 +127,7 @@ function AlertPost(props) {
 
 
               ) : (
-                  <div>
+                  <div className="message-modal-prompt">
                     <Modal
                       open={openMessages}
                       aria-labelledby="simple-modal-title"

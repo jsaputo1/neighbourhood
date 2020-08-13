@@ -99,7 +99,7 @@ export default function PopupCard(props) {
             />
           }
           action={
-            <div>
+            <div className="message-modal-prompt">
               <Modal
                 open={openMessages}
                 aria-labelledby="simple-modal-title"
@@ -135,7 +135,7 @@ export default function PopupCard(props) {
             />
           }
           action={
-            <div>
+            <div className="message-modal-prompt">
               <Modal
                 open={openMessages}
                 aria-labelledby="simple-modal-title"

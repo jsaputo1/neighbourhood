@@ -52,7 +52,7 @@ export default function AlertCard(props) {
               </div>
 
               {props.user.id !== props.user_id && (
-                <div>
+                <div className="message-modal-prompt">
                   <Modal
                     open={openMessages}
                     aria-labelledby="simple-modal-title"

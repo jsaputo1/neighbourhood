@@ -109,7 +109,7 @@ function ServicePost(props) {
                                     </Modal>
                                 </div>
                                 :
-                                <div>
+                                <div className="message-modal-prompt">
                                     <Modal
                                         open={openMessages}
                                         aria-labelledby="simple-modal-title"
