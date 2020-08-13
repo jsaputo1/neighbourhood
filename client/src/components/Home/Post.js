@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles.scss";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import { Modal, Backdrop } from "@material-ui/core";
+import NewMessage from "../Messages/NewMessage";
 
 function Post(props) {
+  const [openMessages, setOpenMessages] = useState(false);
+  const handleOpenMessages = () => {
+    setOpenMessages(true);
+  };
+
+  const handleCloseMessages = () => {
+    setOpenMessages(false);
+  };
   const setReceiver = function (data) {
     props.setReceiver(data);
   };
@@ -68,13 +78,26 @@ function Post(props) {
                 ></i>
               </Link>
               {props.user.id !== props.user_id && (
-                <Link className="message-icon" to={{ pathname: "/newmessage" }}>
+                <div>
+                  <Modal
+                    open={openMessages}
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    onClose={handleCloseMessages}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                      timeout: 500,
+                    }}
+                  >
+                    <NewMessage receiver={receiverObject} user={props.user} handleCloseMessages={handleCloseMessages}></NewMessage>
+                  </Modal>
                   <i
-                    class="fa fa-comment-o fa-2x"
+                    className="fa fa-comment-o fa-2x"
                     aria-hidden="true"
-                    onClick={() => setReceiver(receiverObject)}
+                    onClick={handleOpenMessages}
                   ></i>
-                </Link>
+                </div>
               )}
             </div>
           </div>
