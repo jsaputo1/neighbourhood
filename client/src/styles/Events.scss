@@ -5,9 +5,12 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  top: 4vh;
+  top: 2vh;
 }
 
+.fc {
+  padding: 20px;
+}
 .menu {
   position: absolute;
   top: -2vh;
@@ -15,15 +18,15 @@
 }
 .calender {
   width: 90vw;
-  height: 70vh;
+  height: 90vh;
   margin: auto;
 }
 
 .fc-col-header-cell-cushion {
-  color: black;
+  color: #2c3e50;
 }
 .fc-daygrid-day-number {
-  color: black;
+  color: #2c3e50;
 }
 
 .form-contenant {
@@ -68,8 +71,7 @@
   }
 }
 
-
 #event-filter-by-category {
-  margin-top: 4.2rem;
+  margin-top: 4.8rem;
   z-index: 1;
 }
