@@ -31,11 +31,12 @@
   color: $offWhiteBackground;
   text-shadow: 0 0 10px black;
   letter-spacing: 3px;
-  position: relative; 
+  position: absolute; 
+  top: 35%;
 
   
     h2 {
-      position: absolute;
+      // position: absolute;
      
     }
   
