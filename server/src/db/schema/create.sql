@@ -37,7 +37,7 @@ CREATE TABLE users (
   first_name VARCHAR(55) NOT NULL,
   last_name VARCHAR(55) NOT NULL,
   phone_number VARCHAR(11),
-  profile_photo VARCHAR(255) DEFAULT 'https://i.imgur.com/j6IJGS2.png',
+  profile_photo VARCHAR(255) DEFAULT 'https://i.imgur.com/H9g7VHP.png',
   last_logout TIMESTAMPTZ,
   bio TEXT DEFAULT 'I have yet to write a bio :)'
 );
