@@ -15,6 +15,10 @@ const theme = createMuiTheme({
       dark: "#ba000d",
       contrastText: "#000",
     },
+    toggle: {
+      thumbOnColor: "yellow",
+      trackOnColor: "green",
+    },
   },
 });
 

@@ -6,17 +6,9 @@ import { Redirect, Link } from "react-router-dom";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import { Button, Avatar, Card, CardActionArea, Grid, CardHeader, CardContent, CardMedia, Typography, FormControl, InputLabel, Select, Modal, Backdrop, Fade, FormGroup } from "@material-ui/core";
+import { Button, Grid, Modal, Backdrop, Fade, } from "@material-ui/core";
 import { Form } from "react-bootstrap";
-import Paper from '@material-ui/core/Paper';
 
-
-
-// core components 
-import GridContainer from "../Material-kit-components/GridContainer.js";
-import GridItem from "../Material-kit-components/GridItem.js";
-import Parallax from "../Material-kit-components/Parallax.js";
-import Box from "../Home/Box";
 
 // import styles from "./Material-kit-components/landingPage.js";
 import "../../styles.scss";

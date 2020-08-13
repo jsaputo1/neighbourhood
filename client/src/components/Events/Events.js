@@ -32,7 +32,6 @@ import DateFnsUtils from "@date-io/date-fns";
 
 // import styles from "./Material-kit-components/landingPage.js";
 import "../../styles.scss";
-import { formatDate } from "@fullcalendar/react";
 
 import filterByNeighbourhood from "../Helpers/filterByNeighbourhood";
 
@@ -149,7 +148,7 @@ function Events(props) {
     return phoneFiltered;
   };
 
-  const sendSubscriptionSMS = async function (postCategory_id) {
+  const sendSubscriptionSMS = async function (postCategory_id, title) {
     let categoryName = "";
     for (const category of categories) {
       if (category.id === parseInt(postCategory_id)) {
@@ -157,7 +156,7 @@ function Events(props) {
       }
     }
     const phoneNumbers = await fetchFilteredSubscriptions(postCategory_id);
-    axios.post("/twilio", { phoneNumbers, categoryName });
+    axios.post("/twilio", { phoneNumbers, categoryName, title });
   };
   //Functions to format the date coming from the imput fields in the form
   const formatDate = (x) => {
@@ -209,7 +208,7 @@ function Events(props) {
           event_start: formatDate(state.selectedDate),
           event_time: formatTime(state.selectedDate),
         });
-        sendSubscriptionSMS(state.selectedCategory);
+        sendSubscriptionSMS(state.selectedCategory, title);
         handleClose();
       });
   };

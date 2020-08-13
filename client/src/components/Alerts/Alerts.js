@@ -1,20 +1,12 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import "../../styles.scss";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
-  Avatar,
-  Card,
-  CardActionArea,
-  CardHeader,
-  CardContent,
-  CardMedia,
-  Typography,
   FormControl,
   InputLabel,
   Select,
@@ -25,11 +17,6 @@ import {
 } from "@material-ui/core";
 import { Form } from "react-bootstrap";
 
-// core components
-import GridContainer from "../Material-kit-components/GridContainer.js";
-import GridItem from "../Material-kit-components/GridItem.js";
-import Parallax from "../Material-kit-components/Parallax.js";
-
 import AlertPost from "./AlertPost";
 
 // import styles from "./Material-kit-components/landingPage.js";
@@ -37,7 +24,6 @@ import "../../styles.scss";
 
 import filterByCategory from "../Helpers/filterByCategory";
 import filterByNeighbourhood from "../Helpers/filterByNeighbourhood";
-import AlertsCarousel from "../Home/AlertsCarousel.js";
 
 //for Material UI
 const useStyles = makeStyles((theme) => ({
@@ -160,7 +146,7 @@ function Alerts(props) {
     return phoneFiltered;
   };
 
-  const sendSubscriptionSMS = async function (postCategory_id) {
+  const sendSubscriptionSMS = async function (postCategory_id, title) {
     let categoryName = "";
     for (const category of categories) {
       if (category.id === parseInt(postCategory_id)) {
@@ -168,7 +154,7 @@ function Alerts(props) {
       }
     }
     const phoneNumbers = await fetchFilteredSubscriptions(postCategory_id);
-    axios.post("/twilio", { phoneNumbers, categoryName });
+    axios.post("/twilio", { phoneNumbers, categoryName, title });
   };
 
   const registerAlert = function (registrationData) {
@@ -204,7 +190,7 @@ function Alerts(props) {
           description: description,
           alert_photo: alert_photo,
         });
-        sendSubscriptionSMS(state.selectedCategory);
+        sendSubscriptionSMS(state.selectedCategory, title);
         handleClose();
       });
   };

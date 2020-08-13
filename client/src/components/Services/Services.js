@@ -18,11 +18,6 @@ import {
 import { Form } from "react-bootstrap";
 import { Radio, RadioGroup } from "react-radio-group";
 
-// core components
-import GridContainer from "../Material-kit-components/GridContainer.js";
-import GridItem from "../Material-kit-components/GridItem.js";
-import Parallax from "../Material-kit-components/Parallax.js";
-
 // import styles from "./Material-kit-components/landingPage.js";
 import "../../styles.scss";
 
@@ -178,7 +173,7 @@ function Services(props) {
     return phoneFiltered;
   };
 
-  const sendSubscriptionSMS = async function (postCategory_id) {
+  const sendSubscriptionSMS = async function (postCategory_id, title) {
     let categoryName = "";
     for (const category of categories) {
       if (category.id === parseInt(postCategory_id)) {
@@ -186,7 +181,7 @@ function Services(props) {
       }
     }
     const phoneNumbers = await fetchFilteredSubscriptions(postCategory_id);
-    axios.post("/twilio", { phoneNumbers, categoryName });
+    axios.post("/twilio", { phoneNumbers, categoryName, title });
   };
 
   const registerService = function (registrationData) {
@@ -223,7 +218,7 @@ function Services(props) {
           description: description,
           service_photo: service_photo,
         });
-        sendSubscriptionSMS(state.selectedCategory);
+        sendSubscriptionSMS(state.selectedCategory, title);
         handleClose();
       });
   };
