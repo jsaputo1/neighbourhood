@@ -4,6 +4,20 @@ import { Form } from "react-bootstrap";
 import axios from 'axios';
 
 function Conversation(props) {
+
+
+  const [openMessages, setOpenMessages] = useState(false);
+  const handleOpenMessages = () => {
+    setOpenMessages(true);
+  };
+
+  const handleCloseMessages = () => {
+    setOpenMessages(false);
+  };
+
+
+
+
   const onSubmitHandler = function (event) {
     event.preventDefault();
     const message = event.target.elements['message'].value;
@@ -44,6 +58,11 @@ function Conversation(props) {
 
   return <div className="conversation">
     <figure>
+      <div className="close-conversation-window">
+        <button onClick={() => props.handleCloseMessages} >
+          Close
+        </button>
+      </div>
       <div class="user-information">
         {getUserPhoto(props.receiver_id)}<img src={userPhoto} alt="profile picture" />
         <h2 className="conversation-header">{getUserInfo(props.receiver_id)} {userFirstName} </h2>

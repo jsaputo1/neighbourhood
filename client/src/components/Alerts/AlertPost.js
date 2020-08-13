@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles.scss";
 import moment from "moment";
 import { Link } from "react-router-dom";
@@ -6,6 +6,12 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Modal, Backdrop, Fade, FormGroup } from "@material-ui/core";
 import { Form } from "react-bootstrap";
+import NewMessage from "../Messages/NewMessage";
+
+import useApplicationData from "../../hooks/useApplicationData";
+import { computeSegDraggable } from "@fullcalendar/react";
+
+
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -13,8 +19,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 function AlertPost(props) {
+
+  const { state } = useApplicationData();
+
+  console.log("State.User", state.user);
+
+  console.log("Alert Post Props", props);
   const classes = useStyles();
+
+  const [openMessages, setOpenMessages] = useState(false);
+  const handleOpenMessages = () => {
+    setOpenMessages(true);
+  };
+
+  const handleCloseMessages = () => {
+    setOpenMessages(false);
+  };
 
   const setReceiver = function (data) {
     props.setReceiver(data);
@@ -100,18 +123,30 @@ function AlertPost(props) {
                     </Fade>
                   </Modal>
                 </div>
+                //Messages Modal
+
+
               ) : (
-                  <Link
-                    id="SA-post-message"
-                    className="message-icon"
-                    to={{ pathname: "/newmessage" }}
-                  >
+                  <div>
+                    <Modal
+                      open={openMessages}
+                      aria-labelledby="simple-modal-title"
+                      aria-describedby="simple-modal-description"
+                      onClose={handleCloseMessages}
+                      closeAfterTransition
+                      BackdropComponent={Backdrop}
+                      BackdropProps={{
+                        timeout: 500,
+                      }}
+                    >
+                      <NewMessage receiver={receiverObject} user={props.user} handleCloseMessages={handleCloseMessages}></NewMessage>
+                    </Modal>
                     <i
                       className="fa fa-comment-o fa-2x"
                       aria-hidden="true"
-                      onClick={() => setReceiver(receiverObject)}
+                      onClick={handleOpenMessages}
                     ></i>
-                  </Link>
+                  </div>
                 )}
             </div>
           </div>
@@ -130,8 +165,11 @@ function AlertPost(props) {
           </li>
         </ul>
       </div>
-    </div>
+    </div >
   );
 }
 
 export default AlertPost;
+
+
+

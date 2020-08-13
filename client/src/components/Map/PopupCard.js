@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -8,7 +8,8 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import moment from "moment";
 import { Link } from "react-router-dom";
-
+import { Modal, Backdrop } from "@material-ui/core";
+import NewMessage from "../Messages/NewMessage";
 import "../../styles.scss";
 
 const useStyles = makeStyles((theme) => ({
@@ -41,7 +42,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PopupCard(props) {
+
   const classes = useStyles();
+
+  const [openMessages, setOpenMessages] = useState(false);
+  const handleOpenMessages = () => {
+    setOpenMessages(true);
+  };
+
+  const handleCloseMessages = () => {
+    setOpenMessages(false);
+  };
 
   const setReceiver = function (data) {
     props.setReceiver(data);
@@ -89,20 +100,24 @@ export default function PopupCard(props) {
           }
           action={
             <div>
-              <Link className="message-icon fa-2x" to={{ pathname: "/map" }}>
-                <i
-                  class="fa fa-map-marker"
-                  aria-hidden="true"
-                  onClick={() => setEvent(eventObject)}
-                ></i>
-              </Link>
-              <Link className="message-icon" to={{ pathname: "/newmessage" }}>
-                <i
-                  class="fa fa-comment-o fa-2x"
-                  aria-hidden="true"
-                  onClick={() => setReceiver(receiverObject)}
-                ></i>
-              </Link>
+              <Modal
+                open={openMessages}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                onClose={handleCloseMessages}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+              >
+                <NewMessage receiver={receiverObject} user={props.user} handleCloseMessages={handleCloseMessages}></NewMessage>
+              </Modal>
+              <i
+                className="fa fa-comment-o fa-2x"
+                aria-hidden="true"
+                onClick={handleOpenMessages}
+              ></i>
             </div>
           }
           title={`${props.user_first_name} ${props.user_last_name}`}
@@ -121,13 +136,24 @@ export default function PopupCard(props) {
           }
           action={
             <div>
-              <Link className="message-icon" to={{ pathname: "/newmessage" }}>
-                <i
-                  class="fa fa-comment-o fa-2x"
-                  aria-hidden="true"
-                  onClick={() => setReceiver(receiverObject)}
-                ></i>
-              </Link>
+              <Modal
+                open={openMessages}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                onClose={handleCloseMessages}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+              >
+                <NewMessage receiver={receiverObject} user={props.user} handleCloseMessages={handleCloseMessages}></NewMessage>
+              </Modal>
+              <i
+                className="fa fa-comment-o fa-2x"
+                aria-hidden="true"
+                onClick={handleOpenMessages}
+              ></i>
             </div>
           }
           title={`${props.user_first_name} ${props.user_last_name}`}

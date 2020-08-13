@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Calendar(props) {
+  console.log("Calendar props", props)
   const classes = useStyles();
   //Grab the neighbourhood id from the props
   const userNeighbourhoodId = props.user.neighbourhood_id;
@@ -212,6 +213,7 @@ export default function Calendar(props) {
                       setEvents={setEvents}
                       eventSelected={props.eventSelected}
                       setEvent={props.setEvent}
+                      user={props.user}
                     />
                   ))}
               </div>

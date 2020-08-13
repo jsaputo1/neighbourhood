@@ -5,6 +5,20 @@ import moment from 'moment';
 import "../../styles.scss";
 
 function Messages(props) {
+
+  const [openMessages, setOpenMessages] = useState(false);
+  const handleOpenMessages = () => {
+    setOpenMessages(true);
+  };
+
+  const handleCloseMessages = () => {
+    setOpenMessages(false);
+  };
+
+
+
+
+
   const [conversations, setConversations] = useState([]);
   const [messages, setMessages] = useState([]);
 

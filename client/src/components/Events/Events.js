@@ -18,7 +18,7 @@ import {
 } from "@material-ui/core";
 // React Bootstrap
 import { Form } from "react-bootstrap";
-//@material-ui-pickers for date and time
+
 import {
   DatePicker,
   TimePicker,

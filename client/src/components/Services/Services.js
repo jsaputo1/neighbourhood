@@ -3,7 +3,6 @@ import moment from "moment";
 import axios from "axios";
 import ServicePost from "./ServicePost";
 
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
@@ -18,12 +17,10 @@ import {
 import { Form } from "react-bootstrap";
 import { Radio, RadioGroup } from "react-radio-group";
 
-// import styles from "./Material-kit-components/landingPage.js";
 import "../../styles.scss";
 
 import filterByCategory from "../Helpers/filterByCategory";
 import filterByNeighbourhood from "../Helpers/filterByNeighbourhood";
-// ""../Hooks/useApplicationData"
 
 //for Material UI
 const useStyles = makeStyles((theme) => ({
@@ -463,6 +460,7 @@ function Services(props) {
 
                         receiver={props.receiver}
                         setReceiver={props.receiverData}
+                        user={props.user}
                       />
 
                     )

@@ -7,9 +7,21 @@ import moment from "moment";
 
 function NewMessage(props) {
 
+  console.log("new message props", props);
+
 
   const [conversations, setConversations] = useState([]);
   const [messages, setMessages] = useState([]);
+
+  const [openMessages, setOpenMessages] = useState(false);
+  const handleOpenMessages = () => {
+    setOpenMessages(true);
+  };
+
+  const handleCloseMessages = () => {
+    setOpenMessages(false);
+  };
+
 
   useEffect(() => {
     axios.get(`/messages/conversation?receiver_id=${props.receiver.user_id}`)
@@ -40,6 +52,7 @@ function NewMessage(props) {
         conversation_id={conversationID}
         receiver_id={props.receiver.user_id}
         conversations={setMessages}
+        handleCloseMessages={handleCloseMessages}
       >
         {messagesJSX}
       </Conversation>);

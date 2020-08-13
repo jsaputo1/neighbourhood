@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import axios from "axios";
 import "../../styles.scss";
-
-// @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
@@ -16,12 +14,8 @@ import {
   FormGroup,
 } from "@material-ui/core";
 import { Form } from "react-bootstrap";
-
 import AlertPost from "./AlertPost";
-
-// import styles from "./Material-kit-components/landingPage.js";
 import "../../styles.scss";
-
 import filterByCategory from "../Helpers/filterByCategory";
 import filterByNeighbourhood from "../Helpers/filterByNeighbourhood";
 
@@ -66,6 +60,8 @@ const useStyles = makeStyles((theme) => ({
 moment().format();
 
 function Alerts(props) {
+  console.log("Alerts props", props)
+
   const classes = useStyles();
   const [alerts, setAlerts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -413,6 +409,7 @@ function Alerts(props) {
                         paperClass={classes.paper}
                         receiver={props.receiver}
                         setReceiver={props.receiverData}
+                        user={props.user}
                       />
                     )
                   )

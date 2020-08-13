@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles.scss";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core/styles';
+import NewMessage from "../Messages/NewMessage";
 
 import {
     Button,
@@ -21,6 +22,16 @@ const useStyles = makeStyles((theme) => ({
 
 function ServicePost(props) {
     const classes = useStyles();
+
+    const [openMessages, setOpenMessages] = useState(false);
+    const handleOpenMessages = () => {
+        setOpenMessages(true);
+    };
+
+    const handleCloseMessages = () => {
+        setOpenMessages(false);
+    };
+
 
     const setReceiver = function (data) {
         props.setReceiver(data);
@@ -69,7 +80,7 @@ function ServicePost(props) {
                                         startIcon={<DeleteIcon />}
                                         onClick={props.handleOpenDelete}>
                                         DELETE Service
-</Button>
+                                    </Button>
                                     <Modal
                                         aria-labelledby="Moo"
                                         aria-describedby="Moo"
@@ -86,26 +97,38 @@ function ServicePost(props) {
                                             <div className={props.paperClass}>
                                                 <h2 id="transition-modal-title">Are you sure you would like to delete this Service?</h2>
                                                 <Form data-message={props.id} onSubmit={props.deleteSubmitHandler}>
-
                                                     <Button variant="contained" color="secondary" type="submit">
                                                         Confirm
-</Button>
+                                                    </Button>
                                                     <Button onClick={props.handleCloseDelete} variant="contained" color="primary" type="button">
                                                         Cancel
-</Button>
+                                                    </Button>
                                                 </Form>
                                             </div>
                                         </Fade>
                                     </Modal>
                                 </div>
                                 :
-                                <Link id="SA-post-message" className="message-icon" to={{ pathname: "/newmessage" }}>
+                                <div>
+                                    <Modal
+                                        open={openMessages}
+                                        aria-labelledby="simple-modal-title"
+                                        aria-describedby="simple-modal-description"
+                                        onClose={handleCloseMessages}
+                                        closeAfterTransition
+                                        BackdropComponent={Backdrop}
+                                        BackdropProps={{
+                                            timeout: 500,
+                                        }}
+                                    >
+                                        <NewMessage receiver={receiverObject} user={props.user} handleCloseMessages={handleCloseMessages}></NewMessage>
+                                    </Modal>
                                     <i
                                         className="fa fa-comment-o fa-2x"
                                         aria-hidden="true"
-                                        onClick={() => setReceiver(receiverObject)}
+                                        onClick={handleOpenMessages}
                                     ></i>
-                                </Link>
+                                </div>
                             }
 
                         </div>
