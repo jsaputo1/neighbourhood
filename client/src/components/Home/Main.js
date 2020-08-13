@@ -29,7 +29,7 @@ function Main(props) {
         <div className="card gedf-card box">
           <div className="card-header">
             <div className="d-flex align-items-center">
-              <h2>Upcoming Events in your neighbourhood</h2>
+              <h2 id="home-header">Upcoming Events in your Neighbourhood</h2>
             </div>
           </div>
         </div>

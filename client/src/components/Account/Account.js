@@ -246,7 +246,7 @@ function Account(props) {
                     alt={`${props.user.first_name} ${props.user.last_name}`}
                   ></img>
                   <div className="account-user-name">
-                    <div className="h5"><u>{props.user.first_name} {props.user.last_name}</u></div>
+                    <div className="h5">{props.user.first_name} {props.user.last_name}</div>
                   </div>
                 </div>
 
@@ -330,7 +330,7 @@ function Account(props) {
 
 
                         <Grid item xs={12}>
-                          <h5 className="account-subscriptions-category"><b>Alerts</b></h5>
+                          <h5 className="account-subscriptions-category">Alerts</h5>
                           <div className="account-map-wrapper">
                             {filterCategories("Alerts").map((category) => (
                               <Form.Check inline
@@ -346,7 +346,7 @@ function Account(props) {
                           </div>
                         </Grid>
                         <Grid item xs={12}>
-                          <h5 className="account-subscriptions-category"><b>Events</b></h5>
+                          <h5 className="account-subscriptions-category">Events</h5>
                           <div className="account-map-wrapper">
                             {filterCategories("Events").map((category) => (
 
@@ -365,7 +365,7 @@ function Account(props) {
                         </Grid>
 
                         <Grid item xs={12}>
-                          <h5 className="account-subscriptions-category"><b>Services</b></h5>
+                          <h5 className="account-subscriptions-category">Services</h5>
                           <div className="account-map-wrapper">
                             {filterCategories("Services").map((category) => (
 
