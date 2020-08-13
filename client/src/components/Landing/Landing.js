@@ -10,9 +10,6 @@ function Landing(props) {
           <img src="/images/banner-dark-blue.png" alt="CupOSugah"></img>
         </div>
         <h2 className="landing-title">Your neighbourhood social network!</h2>
-        <div className="mobile-landing-image">
-          <img src="/logo.png"></img>
-        </div>
         <div className="button-container">
           <Button variant="contained" color="primary" href="/login">
             LOGIN
