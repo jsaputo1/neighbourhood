@@ -10,11 +10,11 @@ VALUES
 
 -- Developer Accounts
 
-(1, 'graham.mothersill@gmail.com', crypt('password', gen_salt('bf')), '(45.542915, -73.634951)', 'Graham', 'Mothersill', '17802464666', 'https://i.imgur.com/3tVgsra.jpg', 'Graham is one of the people who made this web-app.'),
+(1, 'graham.mothersill@gmail.com', crypt('password', gen_salt('bf')), '(45.542915, -73.634951)', 'Graham', 'Mothersill', '1234567890', 'https://i.imgur.com/3tVgsra.jpg', 'Graham is one of the people who made this web-app.'),
 
-(1, 'jsaputo1@gmail.com', crypt('password', gen_salt('bf')), '(43.657603, -79.411882)', 'John', 'Saputo', '16472441907', '/images/users/john.jpg', 'John is one of the people who made this web-app.'),
+(1, 'jsaputo1@gmail.com', crypt('password', gen_salt('bf')), '(43.657603, -79.411882)', 'John', 'Saputo', '1234567890', '/images/users/john.jpg', 'John is one of the people who made this web-app.'),
 
-(3, 'samantha.gadet@gmail.com', crypt('password', gen_salt('bf')), '(45.539652, -73.629813)', 'Sam', 'Gadet', '15146233583', '/images/users/Sam.JPG', 'Sam is one of the people who made this web-app.'),
+(3, 'samantha.gadet@gmail.com', crypt('password', gen_salt('bf')), '(45.539652, -73.629813)', 'Sam', 'Gadet', '1234567890', '/images/users/Sam.JPG', 'Sam is one of the people who made this web-app.'),
 
 -- Neighbourhood 1 Users 
 
