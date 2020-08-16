@@ -24,7 +24,6 @@ const accountRoutes = require("./routes/account");
 
 module.exports = function application(
   ENV
-  // actions = { updateAppointment: () => { } }
 ) {
   app.use(cors());
   app.use(helmet());
@@ -57,7 +56,7 @@ module.exports = function application(
   app.get("/api/debug/reset", (request, response) => {
     Promise.all([
       read(path.resolve(__dirname, `db/schema/create.sql`)),
-      read(path.resolve(__dirname, `db/schema/development.sql`)),
+      read(path.resolve(__dirname, `db/seeds/seeds.sql`)),
       read(path.resolve(__dirname, `db/schema/${ENV}.sql`)),
     ])
       .then(([create, seed]) => {
