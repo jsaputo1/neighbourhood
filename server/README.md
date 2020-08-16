@@ -1,5 +1,3 @@
-# Interview Scheduler API
-
 ## Setup
 
 Install dependencies with `npm install`.
