@@ -23,3 +23,13 @@ React, React Router, Sass, PostgreSQL, Node, Express
 ## Installation Instructions
 
 The server and client are located in their own separate folders, each with their own package.json folder. The server needs to run concurrently with the React app. Please see the readme files in each folder for instructions on how to run. 
+
+Please note that there are currently only 2 neighbourhoods in the database (2 in Toronto, 2 in Montreal). So when you register an account you will be prompted for either Toronto or Montreal neighbourhoods only, depending on your location. 
+
+## Future Developments 
+
+The app is currently not complete. Future developments will include - 
+
+- The ability for users to create their own neighbourhoods based on Google Maps pins they set. 
+- Messages to open up in a modal instead of a new page
+- Users able to filter messages by user instead of all messages showing on their message page
