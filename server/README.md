@@ -18,6 +18,10 @@ PGPASSWORD=development
 PGPORT=5432
 ```
 
+## Twilio notifications
+
+The app uses Twilio for SMS notifications. Input your Twilio API credentiasl in the .env.development file
+
 ## Seeding
 
 Run a the development server with `npm start` in the Host environment.
